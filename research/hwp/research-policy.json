@@ -1,0 +1,38 @@
+{
+  "protocol": "hwp-0",
+  "policy_status": "research_only",
+  "date": "2026-09-15",
+  "certification_results": [
+    "HUMAN-WRITTEN",
+    "NOT PROVABLE"
+  ],
+  "approved_certification_profiles": [],
+  "default_result": "NOT PROVABLE",
+  "negative_result_implies_ai_written": false,
+  "ai_informed_human_composition_is_permitted": true,
+  "self_signed_profile_approval_is_sufficient": false,
+  "signature_validity_is_human_authorship": false,
+  "timestamp_is_human_authorship": false,
+  "zk_execution_is_input_authenticity": false,
+  "whole_document_average_can_override_unproven_range": false,
+  "raw_writing_history_publication_required": false,
+  "claimed_trained_detectors": 0,
+  "claimed_human_validation_sessions": 0,
+  "claimed_zk_proofs": 0,
+  "claimed_tested_capture_paths": 0,
+  "scope_modes_proposed": [
+    "entire_text",
+    "author_contribution"
+  ],
+  "required_future_approval_evidence": [
+    "precise_scope_and_assistance_policy",
+    "admissible_capture_profile_and_security_evaluation",
+    "deterministic_replay_and_lineage_implementation",
+    "pinned_feature_model_segmentation_and_calibration_artifacts",
+    "independent_stratum_specific_and_adversarial_evaluation",
+    "validated_execution_evidence_and_binding_checks",
+    "interoperable_verifiers_and_security_review",
+    "externally_selected_trust_policy"
+  ],
+  "warning": "This research metadata is not an approval authority, a signed policy release, a production schema, or a human-writing certificate."
+}

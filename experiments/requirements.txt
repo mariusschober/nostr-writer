@@ -1,0 +1,2 @@
+# Exact dependency version used for the published synthetic checks.
+cryptography==46.0.4
