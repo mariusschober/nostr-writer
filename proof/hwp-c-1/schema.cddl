@@ -1,0 +1,57 @@
+; HWP-C/1. Additional semantic constraints are normative in SPECIFICATION.md.
+; Canonical encoding and signature/key subgroup validation are not expressible in CDDL.
+version = "hwp-c/1"
+ref = { "sha256": bytes .size 32, "size": uint }
+key = { 1: 1, 3: -19, -1: 6, -2: bytes .size 32 }
+protected = { 1: -19, 3: "application/cbor", 4: bytes .size 32 }
+sign1 = #6.18([bytes .cbor protected, {}, bytes, bytes .size 64])
+bundle = { "v": version, "type": "bundle", "root": ref,
+           "objects": [* [bytes .size 32, bytes]] }
+proof = { "v": version, "type": "proof", "statement": ref,
+          "appraisals": [1*64 ref], "author": ref / null }
+release = { "v": version, "type": "release", "algorithm": text,
+            "claim": "fresh-composition" / "wording-origin",
+            "artifacts": artifacts, "capture_profiles": [1*64 ref] }
+artifacts = { "algorithm_spec": ref, "program": ref, "model": ref,
+              "decision_policy": ref, "evidence_adapter": ref,
+              "output_contract": ref }
+start = { "v": version, "type": "capture-start", "session": bytes .size 32,
+          "profile": ref, "adapter": ref, "nonce": bytes .size 32,
+          "subject": ref / null }
+participation = { "v": version, "type": "participation", "start": ref }
+end = { "v": version, "type": "capture-end", "start": ref,
+        "count": uint, "root": bytes .size 32, "complete": true,
+        "participation": ref / null }
+statement = { "v": version, "type": "statement", "document": ref,
+              "media_type": "text/plain" / "text/markdown", "scope": ref,
+              "release": ref, "captures": [1*64 ref], "target_capture": ref, "lineage": bytes .size 32,
+              "mode": "attested-v1" / "disclosed-v1", "author": ref / null,
+              "nonce": bytes .size 32 }
+scope = { "v": version, "type": "scope", "document": ref,
+          "kind": "whole-document" / "selected-ranges", "ranges": [1*10000 range] }
+range = { "start": uint, "end": uint, "origin": origin }
+origin = ["observed", [1*64 ref]] / ["inherited", ref, uint, uint] / ["excluded", text]
+appraisal = { "v": version, "type": "appraisal", "statement": ref,
+              "result": "HUMAN-WRITTEN" }
+author = { "v": version, "type": "author-endorsement", "statement": ref,
+           "identity": ref / null }
+identity = { "v": version, "type": "identity-binding", "subject": ref,
+             "namespace": text, "identifier": text }
+policy = { "v": version, "type": "verification-policy", "label": text,
+           "releases": [1* ref], "capture_authorities": [1*64 grant],
+           "evaluators": [1*64 ref], "quorum": uint,
+           "modes": [1*2 ("attested-v1" / "disclosed-v1")],
+           "require_author": bool, "identity_authorities": [*64 ref],
+           "denied": [* bytes .size 32], "status_as_of": uint / null }
+grant = { "profile": ref, "keys": [1*64 ref] }
+opening = { "index": uint, "salt": bytes .size 32, "event": bytes }
+computed = { "document": ref, "scope": ref, "lineage": bytes .size 32,
+             "release": ref, "captures": [1*64 ref], "target_capture": ref,
+             "result": "HUMAN-WRITTEN" }
+archive-inventory = { "v": version, "type": "archive-inventory",
+                      "sha512_objects": [* [bytes .size 64, bytes]],
+                      "bundle_sha512": bytes .size 64,
+                      "policy_sha512": bytes .size 64 }
+
+disclosure = { "logs": [* { "capture": ref, "openings": [* opening] }],
+               "lineage_salts": [* { "statement": ref, "salt": bytes .size 32 }] }
