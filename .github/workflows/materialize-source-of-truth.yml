@@ -1,5 +1,6 @@
 name: Materialize reconciled source of truth
 
+# Manual Git-data trigger after fixing the archive identity check.
 on:
   push:
     branches: [main]
