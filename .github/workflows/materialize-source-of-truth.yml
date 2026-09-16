@@ -1,0 +1,59 @@
+name: Materialize reconciled source of truth
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - artifacts/source-of-truth/astra-history-2026-09-16.tar.xz
+      - .github/workflows/materialize-source-of-truth.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify archive identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '4897634b27d11cbe251ca627cc256ce9d54a32e3646f3f21d5eac2bd08ea671d  artifacts/source-of-truth/astra-history-2026-09-16.tar.xz' | sha256sum -c -
+      - name: Materialize all reconciled generated files
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -xJf artifacts/source-of-truth/astra-history-2026-09-16.tar.xz -C .
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('.')
+          manifest=json.loads((root/'SOURCE-OF-TRUTH-MANIFEST.json').read_text())
+          bad=[]
+          for item in manifest['files']:
+              p=root/item['path']
+              if not p.is_file(): bad.append((item['path'],'missing')); continue
+              b=p.read_bytes(); h=hashlib.sha256(b).hexdigest()
+              if len(b)!=item['bytes'] or h!=item['sha256']:
+                  bad.append((item['path'],f"expected {item['sha256']} got {h}"))
+          if bad:
+              raise SystemExit('manifest mismatch:\n'+'\n'.join(map(str,bad[:20])))
+          print(f"verified {len(manifest['files'])} files")
+          PY
+          python3 tools/check_preparation.py
+      - name: Commit expanded source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'nostr-writer source-of-truth bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md RECONCILIATION.md SOURCE-OF-TRUTH-MANIFEST.json algorithm proof protocol product mac tools history
+          if git diff --cached --quiet; then
+            echo 'No materialization changes.'
+            exit 0
+          fi
+          git commit -m 'Materialize reconciled HWP and Mac MVP source tree'
+          git push origin HEAD:main
