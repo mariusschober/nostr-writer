@@ -1,6 +1,5 @@
 name: Materialize reconciled source of truth
 
-# Manual Git-data trigger after fixing the archive identity check.
 on:
   push:
     branches: [main]
@@ -18,18 +17,36 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Verify archive identity
+
+      - name: Verify recovery archive
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git hash-object artifacts/source-of-truth/astra-history-2026-09-16.tar.xz)" = "59fb1ca4229943d8fe2e2a435eb7109b83958323"
-          test "$(wc -c < artifacts/source-of-truth/astra-history-2026-09-16.tar.xz | tr -d ' ')" = "15009"
-          sha256sum artifacts/source-of-truth/astra-history-2026-09-16.tar.xz | sed 's#  artifacts/source-of-truth/#  #' > artifacts/source-of-truth/SHA256SUMS
-      - name: Materialize all reconciled generated files
+          test "$(git hash-object artifacts/source-of-truth/astra-history-2026-09-16.tar.xz)" = "34f40cd98f9a8249f0e98ee903bdeb419f743c9e"
+          test "$(wc -c < artifacts/source-of-truth/astra-history-2026-09-16.tar.xz | tr -d ' ')" = "298576"
+          echo '7b2d159bed88b75ded0aa8ff14fcd3e789ef10f92e1e9ee1763db0a276e86a0  artifacts/source-of-truth/astra-history-2026-09-16.tar.xz' | sha256sum -c -
+
+      - name: Expand reconciled source tree
         shell: bash
         run: |
           set -euo pipefail
           tar -xJf artifacts/source-of-truth/astra-history-2026-09-16.tar.xz -C .
+
+      - name: Regenerate frozen deterministic v0 vector
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv .venv-hwp-materialize
+          .venv-hwp-materialize/bin/python -m pip install --disable-pip-version-check -r protocol/v0/requirements.txt
+          .venv-hwp-materialize/bin/python protocol/v0/tools/generate_vectors.py protocol/v0/vectors/interchange.json
+          test "$(wc -c < protocol/v0/vectors/interchange.json | tr -d ' ')" = "16161774"
+          echo '356a1cea43b4e961176cf52855fa4c2f4808e9d37d59a4c781c3967532b96bbe  protocol/v0/vectors/interchange.json' | sha256sum -c -
+          rm -rf .venv-hwp-materialize
+
+      - name: Verify source-of-truth manifest and preparation
+        shell: bash
+        run: |
+          set -euo pipefail
           python3 - <<'PY'
           import hashlib, json
           from pathlib import Path
@@ -38,27 +55,32 @@ jobs:
           bad=[]
           for item in manifest['files']:
               p=root/item['path']
-              if not p.is_file(): bad.append((item['path'],'missing')); continue
-              b=p.read_bytes(); h=hashlib.sha256(b).hexdigest()
-              if len(b)!=item['bytes'] or h!=item['sha256']:
-                  bad.append((item['path'],f"expected {item['sha256']} got {h}"))
+              if not p.is_file():
+                  bad.append((item['path'],'missing'))
+                  continue
+              raw=p.read_bytes()
+              got=hashlib.sha256(raw).hexdigest()
+              if len(raw)!=item['bytes'] or got!=item['sha256']:
+                  bad.append((item['path'],f"expected {item['bytes']} / {item['sha256']} got {len(raw)} / {got}"))
           if bad:
-              raise SystemExit('manifest mismatch:\n'+'\n'.join(map(str,bad[:20])))
-          print(f"verified {len(manifest['files'])} files")
+              raise SystemExit('manifest mismatch:\n'+'\n'.join(map(str,bad[:40])))
+          print(f"verified {len(manifest['files'])} reconciled files")
           PY
           python3 tools/check_preparation.py
-      - name: Commit expanded source tree
+          python3 tools/bootstrap_protocol.py
+
+      - name: Commit complete direct source tree
         shell: bash
         run: |
           set -euo pipefail
           rm -f artifacts/reconcile-delta/probe.bin artifacts/reconcile-delta/test.txt
           git config user.name 'nostr-writer source-of-truth bot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add AGENTS.md RECONCILIATION.md SOURCE-OF-TRUTH-MANIFEST.json algorithm proof protocol product mac tools history artifacts/source-of-truth/SHA256SUMS
+          git add README.md AGENTS.md RECONCILIATION.md SOURCE-OF-TRUTH-MANIFEST.json algorithm proof protocol product mac tools history artifacts/source-of-truth/SHA256SUMS
           git add -A artifacts/reconcile-delta
           if git diff --cached --quiet; then
             echo 'No materialization changes.'
             exit 0
           fi
-          git commit -m 'Materialize reconciled HWP and Mac MVP source tree'
+          git commit -m 'Materialize complete HWP and Nostr Writer source of truth'
           git push origin HEAD:main
