@@ -1,6 +1,5 @@
 name: Materialize reconciled source of truth
 
-# Reconciliation trigger: 2026-09-16
 on:
   push:
     branches: [main]
@@ -22,7 +21,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo '4897634b27d11cbe251ca627cc256ce9d54a32e3646f3f21d5eac2bd08ea671d  artifacts/source-of-truth/astra-history-2026-09-16.tar.xz' | sha256sum -c -
+          test "$(git hash-object artifacts/source-of-truth/astra-history-2026-09-16.tar.xz)" = "59fb1ca4229943d8fe2e2a435eb7109b83958323"
+          test "$(wc -c < artifacts/source-of-truth/astra-history-2026-09-16.tar.xz | tr -d ' ')" = "15009"
+          sha256sum artifacts/source-of-truth/astra-history-2026-09-16.tar.xz | sed 's#  artifacts/source-of-truth/#  #' > artifacts/source-of-truth/SHA256SUMS
       - name: Materialize all reconciled generated files
         shell: bash
         run: |
@@ -49,9 +50,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          rm -f artifacts/reconcile-delta/probe.bin artifacts/reconcile-delta/test.txt
           git config user.name 'nostr-writer source-of-truth bot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add AGENTS.md RECONCILIATION.md SOURCE-OF-TRUTH-MANIFEST.json algorithm proof protocol product mac tools history
+          git add AGENTS.md RECONCILIATION.md SOURCE-OF-TRUTH-MANIFEST.json algorithm proof protocol product mac tools history artifacts/source-of-truth/SHA256SUMS
+          git add -A artifacts/reconcile-delta
           if git diff --cached --quiet; then
             echo 'No materialization changes.'
             exit 0
