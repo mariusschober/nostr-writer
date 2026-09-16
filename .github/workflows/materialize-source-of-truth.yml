@@ -1,5 +1,6 @@
 name: Materialize reconciled source of truth
 
+# Reconciliation trigger: 2026-09-16
 on:
   push:
     branches: [main]
