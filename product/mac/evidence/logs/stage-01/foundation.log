@@ -1,0 +1,312 @@
+Test Suite 'All tests' started at 2026-09-17 18:54:35.352.
+Test Suite 'WriterFoundationPackageTests.xctest' started at 2026-09-17 18:54:35.353.
+Test Suite 'CoordinateConversionTests' started at 2026-09-17 18:54:35.353.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testASCIIConversionIsIdentity]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testASCIIConversionIsIdentity]' passed (0.001 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testByteRangeSplittingAMultibyteScalarIsRejected]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testByteRangeSplittingAMultibyteScalarIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testCJKAndRTLTextConvertExactly]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testCJKAndRTLTextConvertExactly]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testCombiningMarksAreScalarBoundariesNotGraphemeBoundaries]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testCombiningMarksAreScalarBoundariesNotGraphemeBoundaries]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testConversionCoveringEntireDocumentMatchesReportedLengths]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testConversionCoveringEntireDocumentMatchesReportedLengths]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testEveryScalarBoundaryRoundTripsInBothDirections]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testEveryScalarBoundaryRoundTripsInBothDirections]' passed (0.001 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testMultibyteScalarBoundaries]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testMultibyteScalarBoundaries]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testNativeRangeRejectsLengthOverflow]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testNativeRangeRejectsLengthOverflow]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testNativeRangeSplittingASurrogatePairIsRejected]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testNativeRangeSplittingASurrogatePairIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testOutOfBoundsIsReportedWithTheLimit]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testOutOfBoundsIsReportedWithTheLimit]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testRangeAccessors]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testRangeAccessors]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testRangeConstructionRejectsMalformedIntervals]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testRangeConstructionRejectsMalformedIntervals]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testSplitSurrogateInsideASCIIContextIsRejected]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testSplitSurrogateInsideASCIIContextIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testTypedErrorsCarryUserSafeDescriptions]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testTypedErrorsCarryUserSafeDescriptions]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testZWJGraphemeSplitsOnlyAtScalarBoundaries]' started.
+Test Case '-[WriterFoundationTests.CoordinateConversionTests testZWJGraphemeSplitsOnlyAtScalarBoundaries]' passed (0.000 seconds).
+Test Suite 'CoordinateConversionTests' passed at 2026-09-17 18:54:35.357.
+	 Executed 15 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'FocusStateTests' started at 2026-09-17 18:54:35.357.
+Test Case '-[WriterFoundationTests.FocusStateTests testAddTenMinutesIsRejectedForWordSessions]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testAddTenMinutesIsRejectedForWordSessions]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testAddTenMinutesPersistsAFreshIntentAndWaitsForItsAcknowledgement]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testAddTenMinutesPersistsAFreshIntentAndWaitsForItsAcknowledgement]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testAWakeTickAfterASuspendedTickDoesNotCountTheGap]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testAWakeTickAfterASuspendedTickDoesNotCountTheGap]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testBackwardClockInterruptsWithoutCreditingOrRollingBack]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testBackwardClockInterruptsWithoutCreditingOrRollingBack]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testBeginRejectedWhileASessionIsRunning]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testBeginRejectedWhileASessionIsRunning]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testCancellingAnExitFromAPausedSessionDoesNotRestoreProtection]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testCancellingAnExitFromAPausedSessionDoesNotRestoreProtection]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testClipboardPoliciesGateExternalTextAndCopyCutSeparately]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testClipboardPoliciesGateExternalTextAndCopyCutSeparately]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testContinueWritingNeverCompletesAgain]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testContinueWritingNeverCompletesAgain]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testEndedSessionAllowsEveryCommand]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testEndedSessionAllowsEveryCommand]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testExitCountdownElapsesToEndedEarly]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testExitCountdownElapsesToEndedEarly]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testExtremeWordCountsDoNotOverflow]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testExtremeWordCountsDoNotOverflow]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testIntentAcknowledgementStartsSoundOnlyWhenEnabled]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testIntentAcknowledgementStartsSoundOnlyWhenEnabled]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptedAfterAcknowledgementResumesAndReappliesProtection]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptedAfterAcknowledgementResumesAndReappliesProtection]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptedBeforeAcknowledgementResumesToPreparing]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptedBeforeAcknowledgementResumesToPreparing]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptionDuringEmergencyExitReleasesProtectionAndNeverRelocks]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptionDuringEmergencyExitReleasesProtectionAndNeverRelocks]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptionResetsTheTimeAnchor]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptionResetsTheTimeAnchor]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptionRestoresFullPresentationAndReleasesShields]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testInterruptionRestoresFullPresentationAndReleasesShields]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testInvalidClockBreaksContinuityAndFreshGoalRejectsReusedIdentity]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testInvalidClockBreaksContinuityAndFreshGoalRejectsReusedIdentity]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testLockedBeginValidatesGoalsPreflightAndBaseline]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testLockedBeginValidatesGoalsPreflightAndBaseline]' passed (0.001 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testLockedExitRequiresTheDeliberateCountdownAndCanBeCancelled]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testLockedExitRequiresTheDeliberateCountdownAndCanBeCancelled]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testLockedSessionsDenyEscapesButNeverSaveUndoNavigationOrExit]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testLockedSessionsDenyEscapesButNeverSaveUndoNavigationOrExit]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testNegativeWordInputsAreRejected]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testNegativeWordInputsAreRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testNonFiniteClockReadingIsRejected]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testNonFiniteClockReadingIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testNormalModeIsPresentationOnlyAndExitsImmediately]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testNormalModeIsPresentationOnlyAndExitsImmediately]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testNormalModeRejectsAGoal]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testNormalModeRejectsAGoal]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testOnlyContinuousForegroundTimeIsCredited]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testOnlyContinuousForegroundTimeIsCredited]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testPostCompletionActionsAreRejectedBeforeCompletion]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testPostCompletionActionsAreRejectedBeforeCompletion]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testPreparingExitIsImmediateWithNoCountdown]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testPreparingExitIsImmediateWithNoCountdown]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testRecoveringAnIdleReducerDoesNothing]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testRecoveringAnIdleReducerDoesNothing]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testSessionIsNotActiveUntilTheIntentIsAcknowledged]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testSessionIsNotActiveUntilTheIntentIsAcknowledged]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testStaleLockRecoveryEndsTheSessionAndNeverRelocks]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testStaleLockRecoveryEndsTheSessionAndNeverRelocks]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testTimerGoalCompletesReleasesTheLockAndNeverRelocks]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testTimerGoalCompletesReleasesTheLockAndNeverRelocks]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testUnlockedExitIsImmediate]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testUnlockedExitIsImmediate]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testWordGoalAlwaysBlocksExternalTextRegardlessOfClipboardPolicy]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testWordGoalAlwaysBlocksExternalTextRegardlessOfClipboardPolicy]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testWordGoalCompletesAtTarget]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testWordGoalCompletesAtTarget]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testWordProgressIsClampedAndRelativeToTheFixedBaseline]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testWordProgressIsClampedAndRelativeToTheFixedBaseline]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.FocusStateTests testWordProgressIsIgnoredForTimerAndNormalSessions]' started.
+Test Case '-[WriterFoundationTests.FocusStateTests testWordProgressIsIgnoredForTimerAndNormalSessions]' passed (0.000 seconds).
+Test Suite 'FocusStateTests' passed at 2026-09-17 18:54:35.365.
+	 Executed 37 tests, with 0 failures (0 unexpected) in 0.005 (0.007) seconds
+Test Suite 'MutationTests' started at 2026-09-17 18:54:35.365.
+Test Case '-[WriterFoundationTests.MutationTests testInvalidReplacementAndExhaustedRevisionFailWithoutMutation]' started.
+Test Case '-[WriterFoundationTests.MutationTests testInvalidReplacementAndExhaustedRevisionFailWithoutMutation]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.MutationTests testMutationRejectsStaleRevisionAndPreservesExactDeletedBytes]' started.
+Test Case '-[WriterFoundationTests.MutationTests testMutationRejectsStaleRevisionAndPreservesExactDeletedBytes]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.MutationTests testSlicedDataUsesDocumentRelativeByteOffsets]' started.
+Test Case '-[WriterFoundationTests.MutationTests testSlicedDataUsesDocumentRelativeByteOffsets]' passed (0.000 seconds).
+Test Suite 'MutationTests' passed at 2026-09-17 18:54:35.365.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'NIP44LengthTests' started at 2026-09-17 18:54:35.365.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testApplicationPlaintextCapIsSeparateFromWireCap]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testApplicationPlaintextCapIsSeparateFromWireCap]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testBase64CharacterCountReportsOverflowInsteadOfTrapping]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testBase64CharacterCountReportsOverflowInsteadOfTrapping]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testBase64CharacterCounts]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testBase64CharacterCounts]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testCapsAreDistinctConstants]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testCapsAreDistinctConstants]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testContractBoundaryArithmeticFor65537]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testContractBoundaryArithmeticFor65537]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testEmptyAndAboveTheoreticalMaximumAreRejected]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testEmptyAndAboveTheoreticalMaximumAreRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testErrorDescriptionsAreUserSafe]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testErrorDescriptionsAreUserSafe]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testExtendedPrefixBelowThresholdIsRejected]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testExtendedPrefixBelowThresholdIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLargerPlaintextStaysUnderTheWireCap]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLargerPlaintextStaysUnderTheWireCap]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixDecodingIgnoresTrailingPayloadBytes]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixDecodingIgnoresTrailingPayloadBytes]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixDecodingRejectsMalformedInput]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixDecodingRejectsMalformedInput]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixEncodingBoundaries]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixEncodingBoundaries]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixRoundTripsPlaintextLength]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testLengthPrefixRoundTripsPlaintextLength]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testMetadataIsVersionNonceMac]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testMetadataIsVersionNonceMac]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testPrefixSelectionUsesPlaintextLengthNotPaddedLength]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testPrefixSelectionUsesPlaintextLengthNotPaddedLength]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testPublishedPaddingBoundaries]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testPublishedPaddingBoundaries]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testSpecPayloadRangeEndpoints]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testSpecPayloadRangeEndpoints]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.NIP44LengthTests testTheoreticalMaximumPlaintextIsAcceptedAndPadsToTwoPow32]' started.
+Test Case '-[WriterFoundationTests.NIP44LengthTests testTheoreticalMaximumPlaintextIsAcceptedAndPadsToTwoPow32]' passed (0.000 seconds).
+Test Suite 'NIP44LengthTests' passed at 2026-09-17 18:54:35.369.
+	 Executed 18 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'ProofPresentationTests' started at 2026-09-17 18:54:35.369.
+Test Case '-[WriterFoundationTests.ProofPresentationTests testConditionalProjectionRequiresCurrentIdentityExactBytesAndIndependentPolicy]' started.
+Test Case '-[WriterFoundationTests.ProofPresentationTests testConditionalProjectionRequiresCurrentIdentityExactBytesAndIndependentPolicy]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ProofPresentationTests testConformanceAndNegativeResultsNeverProjectHuman]' started.
+Test Case '-[WriterFoundationTests.ProofPresentationTests testConformanceAndNegativeResultsNeverProjectHuman]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ProofPresentationTests testEmptyProductionApprovalSetNeverEnablesProof]' started.
+Test Case '-[WriterFoundationTests.ProofPresentationTests testEmptyProductionApprovalSetNeverEnablesProof]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ProofPresentationTests testNegativeResultCannotBePackagedAsVerifiedArtifact]' started.
+Test Case '-[WriterFoundationTests.ProofPresentationTests testNegativeResultCannotBePackagedAsVerifiedArtifact]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ProofPresentationTests testScopeRemainsExplicitAndScalarAligned]' started.
+Test Case '-[WriterFoundationTests.ProofPresentationTests testScopeRemainsExplicitAndScalarAligned]' passed (0.000 seconds).
+Test Suite 'ProofPresentationTests' passed at 2026-09-17 18:54:35.370.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'RelayHostAdversarialTests' started at 2026-09-17 18:54:35.370.
+Test Case '-[WriterFoundationTests.RelayHostAdversarialTests testMalformedIPv6AndAmbiguousIPv4AreRejectedBeforeNetworkUse]' started.
+Test Case '-[WriterFoundationTests.RelayHostAdversarialTests testMalformedIPv6AndAmbiguousIPv4AreRejectedBeforeNetworkUse]' passed (0.000 seconds).
+Test Suite 'RelayHostAdversarialTests' passed at 2026-09-17 18:54:35.371.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'RelayURLTests' started at 2026-09-17 18:54:35.371.
+Test Case '-[WriterFoundationTests.RelayURLTests testAsURLRoundTripsTheCanonicalForm]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testAsURLRoundTripsTheCanonicalForm]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testBareQueryMarkIsPreservedAndDistinct]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testBareQueryMarkIsPreservedAndDistinct]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testBasicNormalization]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testBasicNormalization]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testDefaultPortsAreDroppedAndNonDefaultPortsKept]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testDefaultPortsAreDroppedAndNonDefaultPortsKept]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testDistinctRelaysStayDistinct]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testDistinctRelaysStayDistinct]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testEquivalentFormsCollapseToOneIdentity]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testEquivalentFormsCollapseToOneIdentity]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testErrorDescriptionsAreUserSafe]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testErrorDescriptionsAreUserSafe]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testIPv6HostsAreBracketedAndClassified]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testIPv6HostsAreBracketedAndClassified]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testLoopbackWebSocketRequiresDeveloperConfiguration]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testLoopbackWebSocketRequiresDeveloperConfiguration]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testNonLoopbackLookalikesAreRejected]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testNonLoopbackLookalikesAreRejected]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testPathAndQueryArePreservedExactly]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testPathAndQueryArePreservedExactly]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testPercentEscapeCaseIsPreservedAndDistinct]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testPercentEscapeCaseIsPreservedAndDistinct]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsBadHosts]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsBadHosts]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsBadPorts]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsBadPorts]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsControlAndEncodingRequiredCharacters]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsControlAndEncodingRequiredCharacters]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsEmptyAndWhitespaceInput]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsEmptyAndWhitespaceInput]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsFragments]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsFragments]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsInsecureRemoteWebSocket]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsInsecureRemoteWebSocket]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsInvalidPercentEscapesAtAbsoluteOffsets]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsInvalidPercentEscapesAtAbsoluteOffsets]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsMissingAndUnsupportedSchemes]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsMissingAndUnsupportedSchemes]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsUserinfo]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRejectsUserinfo]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testRootPathSemantics]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testRootPathSemantics]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.RelayURLTests testSchemeAndHostCaseAreNormalized]' started.
+Test Case '-[WriterFoundationTests.RelayURLTests testSchemeAndHostCaseAreNormalized]' passed (0.000 seconds).
+Test Suite 'RelayURLTests' passed at 2026-09-17 18:54:35.376.
+	 Executed 23 tests, with 0 failures (0 unexpected) in 0.004 (0.005) seconds
+Test Suite 'ReplaceableOrderingTests' started at 2026-09-17 18:54:35.376.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testAddressRejectsDTagForNonAddressableKinds]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testAddressRejectsDTagForNonAddressableKinds]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testAddressRejectsNonReplaceableKindsAndBadPubkeys]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testAddressRejectsNonReplaceableKindsAndBadPubkeys]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testAddressRequiresDTagForAddressableKinds]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testAddressRequiresDTagForAddressableKinds]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testByteOrderMatchesLexicalHexOrder]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testByteOrderMatchesLexicalHexOrder]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testDistinctDTagsAreDistinctAddresses]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testDistinctDTagsAreDistinctAddresses]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testEqualTimestampsUseLowestEventID]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testEqualTimestampsUseLowestEventID]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testErrorDescriptionsAreUserSafe]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testErrorDescriptionsAreUserSafe]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testEventIDValidation]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testEventIDValidation]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testExpiredEventsAreSkipped]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testExpiredEventsAreSkipped]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testHighestCreatedAtWins]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testHighestCreatedAtWins]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testIdenticalEventIDNeverReplaces]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testIdenticalEventIDNeverReplaces]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testReplaceableKindClassification]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testReplaceableKindClassification]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testResolveGroupsByAddress]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testResolveGroupsByAddress]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testSupersedesThrowsOnAddressMismatch]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testSupersedesThrowsOnAddressMismatch]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testTimestampDominatesEventIDTieBreak]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testTimestampDominatesEventIDTieBreak]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testWinnerIgnoresEventsFromOtherAddresses]' started.
+Test Case '-[WriterFoundationTests.ReplaceableOrderingTests testWinnerIgnoresEventsFromOtherAddresses]' passed (0.000 seconds).
+Test Suite 'ReplaceableOrderingTests' passed at 2026-09-17 18:54:35.380.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'SourceSnapshotTests' started at 2026-09-17 18:54:35.380.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testCanonicallyEquivalentSpellingsStayDistinct]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testCanonicallyEquivalentSpellingsStayDistinct]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testDigestIsSHA256OfExactBytesNotOfDecodedString]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testDigestIsSHA256OfExactBytesNotOfDecodedString]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testEmptySourceIsValidAndDigestsToSHA256OfEmptyInput]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testEmptySourceIsValidAndDigestsToSHA256OfEmptyInput]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testFreshDocumentIdentifiersAreDistinct]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testFreshDocumentIdentifiersAreDistinct]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testInvalidUTF8IsRejectedAtExactOffset]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testInvalidUTF8IsRejectedAtExactOffset]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testLineEndingsAreNotNormalised]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testLineEndingsAreNotNormalised]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testNoncharactersAreAcceptedUnchanged]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testNoncharactersAreAcceptedUnchanged]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testRevisionAndDocumentIdentityAreNotContentIdentity]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testRevisionAndDocumentIdentityAreNotContentIdentity]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testRevisionOrderingAndOverflow]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testRevisionOrderingAndOverflow]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testSourceBytesArePreservedExactly]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testSourceBytesArePreservedExactly]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testValidatorAcceptsEveryScalarItDecodes]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testValidatorAcceptsEveryScalarItDecodes]' passed (0.000 seconds).
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testValidatorAgreesWithStandardDecoderOnEveryOneAndTwoByteSequence]' started.
+Test Case '-[WriterFoundationTests.SourceSnapshotTests testValidatorAgreesWithStandardDecoderOnEveryOneAndTwoByteSequence]' passed (0.190 seconds).
+Test Suite 'SourceSnapshotTests' passed at 2026-09-17 18:54:35.571.
+	 Executed 12 tests, with 0 failures (0 unexpected) in 0.191 (0.192) seconds
+Test Suite 'WriterFoundationPackageTests.xctest' passed at 2026-09-17 18:54:35.571.
+	 Executed 130 tests, with 0 failures (0 unexpected) in 0.211 (0.218) seconds
+Test Suite 'All tests' passed at 2026-09-17 18:54:35.571.
+	 Executed 130 tests, with 0 failures (0 unexpected) in 0.211 (0.219) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[1/5] Write swift-version--58304C5D6DBC2206.txt
+[3/13] Compiling WriterFoundation ServiceContracts.swift
+[4/13] Compiling WriterFoundation SourceSnapshot.swift
+[5/13] Compiling WriterFoundation ProofPresentation.swift
+[6/13] Compiling WriterFoundation Identifiers.swift
+[7/13] Compiling WriterFoundation FocusState.swift
+[8/13] Emitting module WriterFoundation
+[9/13] Compiling WriterFoundation Coordinates.swift
+[10/13] Compiling WriterFoundation NetworkContracts.swift
+[10/13] Write Objects.LinkFileList
+[11/13] Linking hwp-verify
+[12/13] Applying hwp-verify

@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "scope": "Ordinary ad-hoc local build; not Developer ID or notarization",
+  "app": "/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app",
+  "binary_sha256": "067cf844989bf154f91667d4655572cc2608e4b1cdf8170eda1efc38ab5f9aed",
+  "architectures": [
+    "x86_64",
+    "arm64"
+  ],
+  "entitlements": {
+    "com.apple.security.app-sandbox": true,
+    "com.apple.security.files.user-selected.read-write": true,
+    "com.apple.security.get-task-allow": true,
+    "com.apple.security.network.client": true
+  },
+  "minimum_os_versions": [
+    "14.0",
+    "14.0"
+  ],
+  "load_commands": "/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter (architecture x86_64):\nLoad command 12\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 14.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter (architecture arm64):\nLoad command 12\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 14.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n",
+  "signature": "Executable=/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter\nIdentifier=com.mariusschober.nostrwriter.development\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=28202 flags=0x10002(adhoc,runtime) hashes=870+7 location=embedded\nHash type=sha256 size=32\nCandidateCDHash sha256=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc91\nCandidateCDHashFull sha256=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc9196c126be730c28ba6aaabe0e\nHash choices=sha256\nCMSDigest=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc9196c126be730c28ba6aaabe0e\nCMSDigestType=2\nCDHash=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc91\nSignature=adhoc\nInfo.plist entries=23\nTeamIdentifier=not set\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=22\nInternal requirements count=0 size=12\n",
+  "strict_signature_verification": "PASS"
+}

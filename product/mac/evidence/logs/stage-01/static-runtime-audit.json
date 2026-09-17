@@ -1,0 +1,14 @@
+{
+  "scope": "Static audit of app and local package runtime sources. Does not prove runtime network silence or inspect OS service traffic.",
+  "patterns": [
+    "URLSession",
+    "NWConnection",
+    "Process(",
+    "posix_spawn",
+    "Telemetry",
+    "Analytics"
+  ],
+  "files_inspected": 20,
+  "matches": [],
+  "status": "PASS"
+}

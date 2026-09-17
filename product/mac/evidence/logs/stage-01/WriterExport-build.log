@@ -1,0 +1,135 @@
+Fetching https://github.com/swiftlang/swift-markdown.git from cache
+Fetched https://github.com/swiftlang/swift-markdown.git from cache (1.49s)
+Fetching https://github.com/weichsel/ZIPFoundation.git from cache
+Fetched https://github.com/weichsel/ZIPFoundation.git from cache (1.01s)
+Fetching https://github.com/swiftlang/swift-cmark.git from cache
+Fetched https://github.com/swiftlang/swift-cmark.git from cache (1.43s)
+Creating working copy for https://github.com/weichsel/ZIPFoundation.git
+Working copy of https://github.com/weichsel/ZIPFoundation.git resolved at 22787ffb59de99e5dc1fbfe80b19c97a904ad48d
+Creating working copy for https://github.com/swiftlang/swift-markdown.git
+Working copy of https://github.com/swiftlang/swift-markdown.git resolved at 7d9a5ce307528578dfa777d505496bd5f544ad94
+Creating working copy for https://github.com/swiftlang/swift-cmark.git
+Working copy of https://github.com/swiftlang/swift-cmark.git resolved at 924936d0427cb25a61169739a7660230bffa6ea6
+Building for debugging...
+[0/41] Write swift-version--58304C5D6DBC2206.txt
+[1/41] Compiling cmark-gfm houdini_html_e.c
+[2/41] Compiling cmark-gfm cmark_ctype.c
+[3/41] Compiling cmark-gfm map.c
+[4/41] Compiling cmark-gfm footnotes.c
+[5/41] Compiling cmark-gfm-extensions tasklist.c
+[6/41] Compiling cmark-gfm houdini_html_u.c
+[7/41] Compiling cmark-gfm-extensions tagfilter.c
+[8/41] Compiling cmark-gfm-extensions strikethrough.c
+[9/41] Compiling cmark-gfm-extensions table.c
+[10/41] Compiling cmark-gfm-extensions ext_scanners.c
+[11/41] Compiling cmark-gfm-extensions core-extensions.c
+[12/41] Compiling cmark-gfm inlines.c
+[13/41] Compiling cmark-gfm commonmark.c
+[14/41] Compiling cmark-gfm houdini_href_e.c
+[15/41] Compiling cmark-gfm xml.c
+[16/41] Compiling cmark-gfm syntax_extension.c
+[17/41] Compiling cmark-gfm plugin.c
+[18/41] Compiling cmark-gfm references.c
+[19/41] Compiling cmark-gfm registry.c
+[20/41] Compiling cmark-gfm render.c
+[21/41] Compiling cmark-gfm html.c
+[22/41] Compiling cmark-gfm utf8.c
+[23/41] Compiling cmark-gfm plaintext.c
+[24/41] Compiling cmark-gfm linked_list.c
+[25/41] Compiling cmark-gfm node.c
+[26/41] Copying PrivacyInfo.xcprivacy
+[27/41] Write sources
+[30/41] Compiling cmark-gfm iterator.c
+[31/41] Compiling cmark-gfm man.c
+[32/41] Write sources
+[33/41] Compiling cmark-gfm latex.c
+[34/41] Compiling cmark-gfm cmark.c
+[35/41] Compiling cmark-gfm buffer.c
+[36/41] Compiling cmark-gfm arena.c
+[37/41] Compiling cmark-gfm scanners.c
+[38/41] Compiling CAtomic CAtomic.c
+[39/41] Compiling cmark-gfm blocks.c
+[40/70] Compiling cmark-gfm-extensions autolink.c
+[42/134] Emitting module Markdown
+[43/141] Compiling Markdown InlineAttributes.swift
+[44/141] Compiling Markdown Link.swift
+[45/141] Compiling Markdown Strikethrough.swift
+[46/141] Compiling Markdown Strong.swift
+[47/141] Compiling Markdown CustomInline.swift
+[48/141] Compiling Markdown InlineCode.swift
+[49/141] Compiling Markdown InlineHTML.swift
+[50/141] Compiling Markdown CodeBlock.swift
+[51/141] Compiling Markdown HTMLBlock.swift
+[52/141] Compiling Markdown Heading.swift
+[53/141] Compiling Markdown ThematicBreak.swift
+[54/141] Compiling Markdown Table.swift
+[55/141] Compiling Markdown TableBody.swift
+[56/141] Compiling Markdown TableCell.swift
+[57/141] Compiling Markdown BlockContainer.swift
+[58/141] Compiling Markdown BlockMarkup.swift
+[59/141] Compiling Markdown InlineContainer.swift
+[60/141] Compiling Markdown InlineMarkup.swift
+[61/141] Compiling Markdown ListItemContainer.swift
+[62/141] Compiling Markdown AtomicCounter.swift
+[63/141] Compiling Markdown CharacterExtensions.swift
+[64/141] Compiling Markdown TableCellContainer.swift
+[65/141] Compiling Markdown TableHead.swift
+[66/141] Compiling Markdown TableRow.swift
+[67/141] Compiling Markdown Replacement.swift
+[68/141] Compiling Markdown SourceLocation.swift
+[69/141] Compiling Markdown Emphasis.swift
+[70/141] Compiling Markdown Image.swift
+[79/143] Emitting module ZIPFoundation
+[80/143] Compiling Markdown PlainTextConvertibleMarkup.swift
+[81/143] Compiling Markdown RawMarkup.swift
+[82/143] Compiling Markdown BlockDirective.swift
+[83/143] Compiling Markdown BlockQuote.swift
+[84/143] Compiling Markdown CustomBlock.swift
+[85/143] Compiling Markdown DoxygenAbstract.swift
+[86/143] Compiling Markdown DoxygenDiscussion.swift
+[87/143] Compiling Markdown OrderedList.swift
+[88/143] Compiling Markdown UnorderedList.swift
+[89/143] Compiling Markdown DoxygenNote.swift
+[90/143] Compiling Markdown DoxygenParameter.swift
+[91/143] Compiling Markdown DoxygenReturns.swift
+[92/143] Compiling Markdown ListItem.swift
+[99/143] Compiling WriterFoundation NetworkContracts.swift
+[100/143] Compiling Markdown CollectionExtensions.swift
+[101/143] Compiling Markdown StringExtensions.swift
+[102/143] Compiling Markdown MarkupVisitor.swift
+[103/143] Compiling Markdown MarkupWalker.swift
+[104/143] Compiling Markdown HTMLFormatter.swift
+[105/143] Compiling Markdown MarkupFormatter.swift
+[106/143] Compiling Markdown MarkupTreeDumper.swift
+[107/143] Emitting module WriterFoundation
+[108/143] Compiling WriterFoundation Identifiers.swift
+[109/143] Compiling WriterFoundation Module.swift
+[110/143] Compiling WriterFoundation SourceSnapshot.swift
+[111/143] Compiling WriterFoundation ProofPresentation.swift
+[112/143] Compiling WriterFoundation Coordinates.swift
+[113/143] Compiling WriterFoundation ServiceContracts.swift
+[114/143] Compiling ZIPFoundation URL+ZIP.swift
+[115/143] Compiling ZIPFoundation resource_bundle_accessor.swift
+[116/143] Compiling Markdown LazySplitLines.swift
+[117/143] Compiling Markdown ParseOptions.swift
+[118/143] Compiling Markdown RangeAdjuster.swift
+[119/143] Compiling Markdown RangerTracker.swift
+[120/143] Compiling Markdown MarkupRewriter.swift
+[121/143] Compiling Markdown BasicBlockContainer.swift
+[122/143] Compiling Markdown BasicInlineContainer.swift
+[123/143] Compiling Markdown LineBreak.swift
+[124/143] Compiling Markdown SoftBreak.swift
+[125/143] Compiling Markdown SymbolLink.swift
+[126/143] Compiling Markdown Text.swift
+[127/143] Compiling Markdown Aside.swift
+[128/143] Compiling Markdown BlockDirectiveParser.swift
+[129/143] Compiling Markdown CommonMarkConverter.swift
+[138/143] Compiling Markdown DirectiveArgument.swift
+[139/143] Compiling Markdown Document.swift
+[140/143] Compiling Markdown LiteralMarkup.swift
+[141/143] Compiling Markdown Markup.swift
+[142/143] Compiling Markdown MarkupChildren.swift
+[143/143] Compiling Markdown MarkupData.swift
+[144/145] Compiling WriterExport Module.swift
+[145/145] Emitting module WriterExport
+Build complete! (13.71s)

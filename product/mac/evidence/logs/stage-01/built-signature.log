@@ -1,0 +1,18 @@
+Executable=/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter
+Executable=/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter
+Identifier=com.mariusschober.nostrwriter.development
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=28202 flags=0x10002(adhoc,runtime) hashes=870+7 location=embedded
+Hash type=sha256 size=32
+CandidateCDHash sha256=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc91
+CandidateCDHashFull sha256=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc9196c126be730c28ba6aaabe0e
+Hash choices=sha256
+CMSDigest=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc9196c126be730c28ba6aaabe0e
+CMSDigestType=2
+CDHash=2d2f7c9fa3b805f49bde30a1efcfa3358f33cc91
+Signature=adhoc
+Info.plist entries=23
+TeamIdentifier=not set
+Runtime Version=26.5.0
+Sealed Resources version=2 rules=13 files=22
+Internal requirements count=0 size=12

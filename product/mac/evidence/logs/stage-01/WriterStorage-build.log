@@ -1,0 +1,14 @@
+Building for debugging...
+[0/3] Write sources
+[2/3] Write swift-version--58304C5D6DBC2206.txt
+[4/11] Compiling WriterFoundation SourceSnapshot.swift
+[5/11] Compiling WriterFoundation ServiceContracts.swift
+[6/11] Compiling WriterFoundation Coordinates.swift
+[7/11] Compiling WriterFoundation ProofPresentation.swift
+[8/11] Compiling WriterFoundation NetworkContracts.swift
+[9/11] Emitting module WriterFoundation
+[10/11] Compiling WriterFoundation Module.swift
+[11/11] Compiling WriterFoundation Identifiers.swift
+[12/13] Emitting module WriterStorage
+[13/13] Compiling WriterStorage Module.swift
+Build complete! (4.27s)

@@ -1,0 +1,48 @@
+Fetching https://github.com/attaswift/BigInt.git from cache
+Fetched https://github.com/attaswift/BigInt.git from cache (1.89s)
+Creating working copy for https://github.com/attaswift/BigInt.git
+Working copy of https://github.com/attaswift/BigInt.git resolved at e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe
+Building for debugging...
+[0/9] Write sources
+[2/9] Write hwp-verify-entitlement.plist
+[2/9] Write sources
+[5/9] Write swift-version--58304C5D6DBC2206.txt
+[7/38] Compiling BigInt Integer Conversion.swift
+[8/38] Compiling BigInt Multiplication.swift
+[9/40] Compiling BigInt Prime Test.swift
+[10/40] Compiling BigInt Random.swift
+[11/40] Compiling BigInt Strideable.swift
+[12/40] Compiling BigInt String Conversion.swift
+[13/40] Compiling BigInt Shifts.swift
+[14/40] Compiling BigInt Square Root.swift
+[15/40] Compiling BigInt Subtraction.swift
+[16/40] Compiling BigInt Words and Bits.swift
+[17/40] Compiling BigInt Exponentiation.swift
+[18/40] Compiling BigInt Floating Point Conversion.swift
+[19/40] Compiling BigInt GCD.swift
+[20/40] Compiling BigInt Hashable.swift
+[21/40] Emitting module BigInt
+[22/40] Compiling BigInt Addition.swift
+[23/40] Compiling BigInt BigInt.swift
+[24/40] Compiling BigInt BigUInt.swift
+[25/40] Compiling BigInt Bitwise Ops.swift
+[26/40] Compiling BigInt Codable.swift
+[27/40] Compiling BigInt Comparable.swift
+[28/40] Compiling BigInt Data Conversion.swift
+[29/40] Compiling BigInt Division.swift
+[30/40] Compiling WriterFoundation Coordinates.swift
+[31/40] Compiling WriterFoundation ProofPresentation.swift
+[32/40] Emitting module WriterFoundation
+[33/40] Compiling WriterFoundation Identifiers.swift
+[34/40] Compiling WriterFoundation SourceSnapshot.swift
+[35/40] Compiling WriterFoundation ServiceContracts.swift
+[36/40] Compiling WriterFoundation NetworkContracts.swift
+[37/40] Compiling WriterFoundation Module.swift
+[38/42] Compiling WriterHWP Module.swift
+[39/42] Emitting module WriterHWP
+[40/44] Compiling HWPVerifyCLI main.swift
+[41/44] Emitting module HWPVerifyCLI
+[41/44] Write Objects.LinkFileList
+[42/44] Linking hwp-verify
+[43/44] Applying hwp-verify
+Build complete! (9.12s)

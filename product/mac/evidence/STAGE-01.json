@@ -1,0 +1,97 @@
+{
+  "stage": "01",
+  "accepted": false,
+  "status": "BLOCKED",
+  "input_commit": "3fdab5b1f8d75720c3025e8604f947e2307c31e2",
+  "source_commit": "5024c1cb9924db8980e55d26ce0dbd33fdf366b9",
+  "source_state": "Committed candidate; stage acceptance blocked on native observations and hosted CI",
+  "historical_evidence_used_as_current_pass": false,
+  "criteria": [
+    {
+      "id": "M01",
+      "status": "PASS",
+      "reason": "178 frozen protocol tests and the independent Node checker passed; all 69 frozen files match.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01/protocol.json",
+        "product/mac/evidence/logs/stage-01/protocol-tests.log",
+        "product/mac/evidence/logs/stage-01/preparation.log"
+      ]
+    },
+    {
+      "id": "M02",
+      "status": "PASS",
+      "reason": "Native strict Swift 6/macOS 14 app compiled for arm64 and x86_64. Only Apple-silicon current-OS runtime exercised.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01/build.log",
+        "product/mac/evidence/logs/stage-01/ordinary-app-inspection.json",
+        "product/mac/evidence/logs/stage-01/environment.json"
+      ]
+    },
+    {
+      "id": "M03",
+      "status": "BLOCKED",
+      "reason": "Recording consent and account-free scratch editing observed in an earlier native run; clean candidate UI and runtime network checks await unlocked Mac. Static source audit is not network evidence.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01/native-ui.log",
+        "product/mac/evidence/logs/stage-01/static-runtime-audit.json"
+      ]
+    },
+    {
+      "id": "M04",
+      "status": "PASS",
+      "reason": "Ordinary universal app has sandbox and hardened runtime; only selected-file, outgoing network and Debug debugging entitlement. XCTest instrumentation is isolated from ordinary build.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01/ordinary-app-inspection.json",
+        "product/mac/evidence/logs/stage-01/built-entitlements.plist",
+        "product/mac/evidence/logs/stage-01/built-signature.log"
+      ]
+    },
+    {
+      "id": "M05",
+      "status": "BLOCKED",
+      "reason": "All package scaffolds compile and exact dependency/license inventory checks pass. Hosted macOS CI has not run: source has not been pushed to the actual remote destination.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01/dependencies.log",
+        "product/mac/evidence/logs/stage-01/WriterStorage-build.log",
+        "product/mac/evidence/logs/stage-01/WriterExport-build.log",
+        "product/mac/evidence/logs/stage-01/WriterNostr-build.log",
+        "product/mac/evidence/logs/stage-01/native-cli.json"
+      ]
+    },
+    {
+      "id": "M06",
+      "status": "BLOCKED",
+      "reason": "130 Foundation tests and four native unit tests pass. Native keyboard/VoiceOver/final screenshots are blocked by the locked Mac.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01/package-and-native-tests.log",
+        "product/mac/evidence/logs/stage-01/foundation.log",
+        "product/mac/evidence/logs/stage-01/native-ui.log"
+      ]
+    }
+  ],
+  "next_stage": "Not accepted; prerequisites remain open. Independent later work may proceed only with that limitation explicit.",
+  "checks": {
+    "frozen_tests": {
+      "passed": 178,
+      "failed": 0
+    },
+    "foundation_tests": {
+      "passed": 130,
+      "failed": 0
+    },
+    "native_unit_tests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "recovery_tooling_tests": {
+      "passed": 6,
+      "failed": 0
+    },
+    "universal_build": "PASS",
+    "ordinary_app_entitlement_inspection": "PASS",
+    "native_ui_tests": "BLOCKED: Mac locked",
+    "hosted_ci": "NOT MEASURED: no authorized push",
+    "macos14_runtime": "NOT MEASURED",
+    "intel_runtime": "NOT MEASURED"
+  }
+}

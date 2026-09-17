@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "scope": "Interface only; verification explicitly unsupported until Stage 04",
+  "runs": [
+    {
+      "args": [
+        "--help"
+      ],
+      "exit": 0,
+      "stdout": "Usage: hwp-verify --source <source.md> --proof <proof.hwp> --policy <policy> --mode V|R\nNative verification is unavailable until Stage 04. No proof is accepted by this shell.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--version"
+      ],
+      "exit": 0,
+      "stdout": "hwp-verify 0.1.0 (Stage 01 interface only)\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--source",
+        "synthetic.md",
+        "--proof",
+        "synthetic.hwp",
+        "--policy",
+        "synthetic.policy",
+        "--mode",
+        "V"
+      ],
+      "exit": 69,
+      "stdout": "",
+      "stderr": "UNSUPPORTED: native HWP verification is not implemented (Stage 04).\n"
+    }
+  ]
+}

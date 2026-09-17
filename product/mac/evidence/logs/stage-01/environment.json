@@ -1,0 +1,25 @@
+{
+  "os": {
+    "exit_code": 0,
+    "output": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83"
+  },
+  "xcode": {
+    "exit_code": 0,
+    "output": "Xcode 26.6\nBuild version 17F113"
+  },
+  "swift": {
+    "exit_code": 0,
+    "output": "Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)\nTarget: arm64-apple-macosx26.0"
+  },
+  "architectures": {
+    "exit_code": 0,
+    "output": "arm64"
+  },
+  "hardware": {
+    "model": "MacBookPro18,1",
+    "processor": "Apple M1 Pro",
+    "cores": 10,
+    "memory_gb": 16
+  },
+  "baseline_commit": "3fdab5b1f8d75720c3025e8604f947e2307c31e2"
+}

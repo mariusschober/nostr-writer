@@ -1,0 +1,145 @@
+Fetching https://github.com/21-DOT-DEV/swift-secp256k1.git from cache
+Fetched https://github.com/21-DOT-DEV/swift-secp256k1.git from cache (0.97s)
+Fetching https://github.com/krzyzanowskim/CryptoSwift.git from cache
+Fetched https://github.com/krzyzanowskim/CryptoSwift.git from cache (0.78s)
+Creating working copy for https://github.com/21-DOT-DEV/swift-secp256k1.git
+Working copy of https://github.com/21-DOT-DEV/swift-secp256k1.git resolved at e70a10e036a55fffea31568f0af92d69b6d449cd
+Creating working copy for https://github.com/krzyzanowskim/CryptoSwift.git
+Working copy of https://github.com/krzyzanowskim/CryptoSwift.git resolved at e45a26384239e028ec87fbcc788f513b67e10d8f
+[1/1] Compiling plugin SharedSourcesPlugin
+Building for debugging...
+[1/11] Write sources
+[2/11] Copying PrivacyInfo.xcprivacy
+[2/11] Write sources
+[6/11] Write swift-version--58304C5D6DBC2206.txt
+[7/39] Compiling Utility.c
+[8/51] Compiling precomputed_ecmult_gen.c
+[9/123] Compiling secp256k1.c
+[10/123] Compiling precomputed_ecmult.c
+[12/182] Emitting module P256K
+[13/188] Compiling P256K DH.swift
+[14/188] Compiling P256K Digest.swift
+[15/188] Compiling P256K ECDH.swift
+[16/188] Compiling P256K ECDSA+PrivateKey.swift
+[17/188] Compiling P256K ECDSA+PublicKey.swift
+[18/188] Compiling P256K ECDSA+Signature.swift
+[19/188] Compiling P256K ECDSA+Tweak.swift
+[20/188] Compiling P256K ASN1Null.swift
+[21/188] Compiling P256K ASN1OctetString.swift
+[22/188] Compiling P256K ASN1Strings.swift
+[23/188] Compiling P256K ArraySliceBigint.swift
+[24/188] Compiling P256K Combine.swift
+[25/188] Compiling P256K Context.swift
+[26/188] Compiling P256K CryptoKitErrors.swift
+[27/188] Compiling WriterFoundation SourceSnapshot.swift
+[28/188] Compiling P256K ECDSA+XonlyKey.swift
+[29/188] Compiling P256K ECDSA.swift
+[30/188] Compiling P256K ECDSASignature.swift
+[31/188] Compiling P256K EdDSA.swift
+[32/188] Compiling P256K Errors.swift
+[33/188] Compiling P256K GeneralizedTime.swift
+[34/188] Compiling P256K HashDigest.swift
+[35/188] Compiling P256K Schnorr+Nonces.swift
+[36/188] Compiling P256K Schnorr+PrivateKey.swift
+[37/188] Compiling P256K Schnorr+PublicKey.swift
+[38/188] Compiling P256K Schnorr+Signature.swift
+[39/188] Compiling P256K Schnorr+Tweak.swift
+[40/188] Compiling P256K Schnorr+XonlyKey.swift
+[41/188] Compiling P256K RNG_boring.swift
+[42/188] Compiling P256K Recovery+Signature.swift
+[43/188] Compiling P256K Recovery.swift
+[44/188] Compiling P256K SEC1PrivateKey.swift
+[45/188] Compiling P256K SHA256.swift
+[46/188] Compiling P256K SafeCompare.swift
+[54/188] Compiling P256K MuSig+Aggregate.swift
+[55/188] Compiling P256K MuSig+Nonces.swift
+[56/188] Compiling P256K MuSig+Signing.swift
+[57/188] Compiling P256K MuSig+Tweak.swift
+[63/199] Compiling P256K Placeholder.swift
+[64/199] Compiling P256K ASN1.swift
+[65/199] Compiling P256K ASN1Any.swift
+[66/199] Compiling P256K ASN1BitString.swift
+[67/199] Compiling P256K ASN1Boolean.swift
+[68/199] Compiling P256K ASN1Identifier.swift
+[69/199] Compiling P256K ASN1Integer.swift
+[70/199] Compiling WriterFoundation ServiceContracts.swift
+[71/199] Compiling WriterFoundation ProofPresentation.swift
+[72/199] Emitting module WriterFoundation
+[73/199] Compiling WriterFoundation Identifiers.swift
+[74/199] Compiling WriterFoundation Module.swift
+[75/199] Compiling WriterFoundation NetworkContracts.swift
+[76/199] Compiling WriterFoundation Coordinates.swift
+[77/199] Compiling P256K UInt256+Modular.swift
+[78/199] Compiling P256K UInt256+Representation.swift
+[79/199] Compiling P256K UInt256.swift
+[80/199] Compiling P256K Utility.swift
+[81/199] Compiling P256K XonlyKeyImplementation.swift
+[82/199] Compiling P256K Zeroization.swift
+[87/199] Compiling P256K MuSig.swift
+[88/199] Compiling P256K ObjectIdentifier.swift
+[89/199] Compiling P256K P256K.swift
+[90/199] Compiling P256K PEMDocument.swift
+[91/199] Compiling P256K PKCS8PrivateKey.swift
+[92/199] Compiling P256K PrettyBytes.swift
+[93/199] Compiling P256K PrivateKeyImplementation.swift
+[94/199] Compiling P256K PublicKeyImplementation.swift
+[95/199] Compiling P256K Schnorr.swift
+[96/199] Compiling P256K SecureBytes.swift
+[97/199] Compiling P256K Signature.swift
+[98/199] Compiling P256K SubjectPublicKeyInfo.swift
+[99/199] Compiling P256K UInt256+Arithmetic.swift
+[100/199] Compiling P256K UInt256+FixedWidthInteger.swift
+[107/199] Compiling CryptoSwift Scrypt.swift
+[108/199] Compiling CryptoSwift SecureBytes.swift
+[109/199] Compiling CryptoSwift Signature.swift
+[110/199] Compiling CryptoSwift StreamDecryptor.swift
+[111/199] Compiling CryptoSwift StreamEncryptor.swift
+[112/199] Compiling CryptoSwift Codable.swift
+[113/199] Compiling CryptoSwift Comparable.swift
+[114/199] Compiling CryptoSwift DataConversion.swift
+[115/199] Compiling CryptoSwift Division.swift
+[116/199] Compiling CryptoSwift Exponentiation.swift
+[117/199] Compiling CryptoSwift FloatingPointConversion.swift
+[118/199] Compiling CryptoSwift GCD.swift
+[119/199] Compiling CryptoSwift Hashable.swift
+[120/199] Compiling CryptoSwift IntegerConversion.swift
+[121/199] Compiling CryptoSwift Multiplication.swift
+[122/199] Compiling CryptoSwift PrimeTest.swift
+[123/199] Compiling CryptoSwift Random.swift
+[131/199] Compiling CryptoSwift String+FoundationExtension.swift
+[132/199] Compiling CryptoSwift Utils+Foundation.swift
+[133/199] Compiling CryptoSwift XChaCha20+Foundation.swift
+[134/199] Compiling CryptoSwift Generics.swift
+[135/199] Compiling CryptoSwift HKDF.swift
+[136/199] Compiling CryptoSwift HMAC.swift
+[137/199] Compiling CryptoSwift ISO10126Padding.swift
+[138/199] Compiling CryptoSwift ISO78164Padding.swift
+[139/199] Compiling CryptoSwift Int+Extension.swift
+[140/199] Compiling CryptoSwift MD5.swift
+[141/199] Compiling CryptoSwift NoPadding.swift
+[142/199] Compiling CryptoSwift Shifts.swift
+[143/199] Compiling CryptoSwift SquareRoot.swift
+[144/199] Compiling CryptoSwift Strideable.swift
+[145/199] Compiling CryptoSwift StringConversion.swift
+[146/199] Compiling CryptoSwift Subtraction.swift
+[147/199] Compiling CryptoSwift WordsAndBits.swift
+[148/199] Compiling CryptoSwift ChaCha20.swift
+[149/199] Compiling CryptoSwift Checksum.swift
+[150/199] Compiling CryptoSwift Cipher.swift
+[151/199] Compiling CryptoSwift Collection+Extension.swift
+[152/199] Compiling CryptoSwift CompactMap.swift
+[153/199] Emitting module CryptoSwift
+[189/199] Compiling CryptoSwift String+Extension.swift
+[190/199] Compiling CryptoSwift UInt128.swift
+[191/199] Compiling CryptoSwift UInt16+Extension.swift
+[192/199] Compiling CryptoSwift UInt32+Extension.swift
+[193/199] Compiling CryptoSwift UInt64+Extension.swift
+[194/199] Compiling CryptoSwift UInt8+Extension.swift
+[195/199] Compiling CryptoSwift Updatable.swift
+[196/199] Compiling CryptoSwift Utils.swift
+[197/199] Compiling CryptoSwift XChaCha20.swift
+[198/199] Compiling CryptoSwift ZeroPadding.swift
+[199/199] Compiling CryptoSwift resource_bundle_accessor.swift
+[200/201] Emitting module WriterNostr
+[201/201] Compiling WriterNostr Module.swift
+Build complete! (11.73s)
