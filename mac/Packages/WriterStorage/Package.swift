@@ -7,7 +7,14 @@ let package = Package(
         .package(path: "../WriterFoundation")
     ],
     targets: [
-        .target(name: "WriterStorage", dependencies: ["WriterFoundation"])
+        // Narrow system-library shim so the core can use the platform SQLite
+        // library directly. No third-party dependency is introduced.
+        .systemLibrary(name: "CSQLite", path: "Sources/CSQLite"),
+        .target(name: "WriterStorage", dependencies: ["WriterFoundation", "CSQLite"]),
+        .testTarget(
+            name: "WriterStorageTests",
+            dependencies: ["WriterStorage", "WriterFoundation", "CSQLite"]
+        )
     ],
     swiftLanguageModes: [.v6]
 )

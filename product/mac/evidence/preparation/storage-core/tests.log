@@ -1,0 +1,146 @@
+Building for debugging...
+[0/8] /private/tmp/nostr-writer-preparation/mac/Packages/WriterStorage/.build/arm64-apple-macosx/debug/WriterStoragePackageTests.derived/runner.swift
+[1/8] Write sources
+[5/8] Write swift-version--58304C5D6DBC2206.txt
+[7/16] Compiling WriterFoundation ProofPresentation.swift
+[8/16] Compiling WriterFoundation NetworkContracts.swift
+[9/16] Compiling WriterFoundation Coordinates.swift
+[10/16] Compiling WriterFoundation FocusState.swift
+[11/16] Emitting module WriterFoundation
+[12/16] Compiling WriterFoundation SourceSnapshot.swift
+[13/16] Compiling WriterFoundation ServiceContracts.swift
+[14/16] Compiling WriterFoundation Identifiers.swift
+[15/25] Compiling WriterStorage Module.swift
+[16/25] Compiling WriterStorage SchemaMigration.swift
+[17/25] Compiling WriterStorage StorageSeams.swift
+[18/25] Compiling WriterStorage StorageError.swift
+[19/25] Compiling WriterStorage StorageTypes.swift
+[20/25] Emitting module WriterStorage
+[21/25] Compiling WriterStorage RecoveryCipher.swift
+[22/25] Compiling WriterStorage DocumentStore.swift
+[23/25] Compiling WriterStorage SQLiteConnection.swift
+[24/31] Compiling WriterStorageTests TestSupport.swift
+[25/31] Compiling WriterStorageTests StorageCoreTests.swift
+[26/31] Compiling WriterStorageTests EncryptionTests.swift
+[27/31] Compiling WriterStorageTests DurabilityAndBoundsTests.swift
+[28/31] Emitting module WriterStorageTests
+[29/31] Compiling WriterStorageTests SchemaRetentionFaultTests.swift
+[30/33] Emitting module WriterStoragePackageTests
+[31/33] Compiling WriterStoragePackageTests runner.swift
+[31/33] Write Objects.LinkFileList
+[32/33] Linking WriterStoragePackageTests
+Build complete! (13.89s)
+Test Suite 'All tests' started at 2026-09-17 19:50:33.071.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-17 19:50:33.072.
+Test Suite 'DurabilityAndBoundsTests' started at 2026-09-17 19:50:33.072.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testInvalidConfiguredBoundsFailBeforeOpeningDatabase]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testInvalidConfiguredBoundsFailBeforeOpeningDatabase]' passed (0.002 seconds).
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testKeyStatusIsUnavailableWhenTheKeyCheckCannotBeRead]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testKeyStatusIsUnavailableWhenTheKeyCheckCannotBeRead]' passed (0.106 seconds).
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testOversizedStoredCiphertextIsRefusedAsCorrupt]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testOversizedStoredCiphertextIsRefusedAsCorrupt]' passed (0.086 seconds).
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testReadsCloseAfterTheKeySuspensionInsteadOfTouchingAClosedStore]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testReadsCloseAfterTheKeySuspensionInsteadOfTouchingAClosedStore]' passed (0.014 seconds).
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testRecoverRereadsTheIndexAfterTheKeySuspension]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testRecoverRereadsTheIndexAfterTheKeySuspension]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testRequiredDurabilityPragmasAreEffective]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testRequiredDurabilityPragmasAreEffective]' passed (0.003 seconds).
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testSourceBeyondTheInputBoundIsRefusedBeforeEncryption]' started.
+Test Case '-[WriterStorageTests.DurabilityAndBoundsTests testSourceBeyondTheInputBoundIsRefusedBeforeEncryption]' passed (0.003 seconds).
+Test Suite 'DurabilityAndBoundsTests' passed at 2026-09-17 19:50:33.292.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.219 (0.220) seconds
+Test Suite 'EncryptionTests' started at 2026-09-17 19:50:33.292.
+Test Case '-[WriterStorageTests.EncryptionTests testAuthenticatedContextHasFixedLayoutAndFullUInt64Range]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testAuthenticatedContextHasFixedLayoutAndFullUInt64Range]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testBoundSourceDigestTamperIsDetected]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testBoundSourceDigestTamperIsDetected]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testChunkReferenceTamperIsDetected]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testChunkReferenceTamperIsDetected]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testCiphertextTamperIsDetected]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testCiphertextTamperIsDetected]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testCrossSnapshotSubstitutionIsDetectedByAuthenticatedContext]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testCrossSnapshotSubstitutionIsDetectedByAuthenticatedContext]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testEncryptedSnapshotIsLongerThanItsPlaintext]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testEncryptedSnapshotIsLongerThanItsPlaintext]' passed (0.004 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testIndexThatDisagreesWithItsSnapshotIsNotReportedComplete]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testIndexThatDisagreesWithItsSnapshotIsNotReportedComplete]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testMissingIndexedSnapshotReportsPartialNotComplete]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testMissingIndexedSnapshotReportsPartialNotComplete]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testNewWriteRefusesToContinuePastDamagedRecovery]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testNewWriteRefusesToContinuePastDamagedRecovery]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testNonceTamperIsDetected]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testNonceTamperIsDetected]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testPreviousReferenceTamperIsDetected]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testPreviousReferenceTamperIsDetected]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testReusedNonceIsRefusedAndNothingIsWritten]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testReusedNonceIsRefusedAndNothingIsWritten]' passed (0.004 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testSystemNonceGeneratorDoesNotRepeatInASample]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testSystemNonceGeneratorDoesNotRepeatInASample]' passed (0.001 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testTamperedIndexReferenceIsRefusedRatherThanChained]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testTamperedIndexReferenceIsRefusedRatherThanChained]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testUnavailableKeysAreTypedAndPreserveTheStoredSnapshot]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testUnavailableKeysAreTypedAndPreserveTheStoredSnapshot]' passed (0.004 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testWritingAndReceiptTextNeverAppearInStoreFiles]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testWritingAndReceiptTextNeverAppearInStoreFiles]' passed (0.010 seconds).
+Test Case '-[WriterStorageTests.EncryptionTests testWrongKeyIsRefusedAndPreservesTheStoredSnapshot]' started.
+Test Case '-[WriterStorageTests.EncryptionTests testWrongKeyIsRefusedAndPreservesTheStoredSnapshot]' passed (0.004 seconds).
+Test Suite 'EncryptionTests' passed at 2026-09-17 19:50:33.378.
+	 Executed 17 tests, with 0 failures (0 unexpected) in 0.085 (0.086) seconds
+Test Suite 'SchemaRetentionFaultTests' started at 2026-09-17 19:50:33.378.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testBackupRefusesAnExistingDestinationWithoutReplacingIt]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testBackupRefusesAnExistingDestinationWithoutReplacingIt]' passed (0.001 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIdenticalWritesProduceExactlyOneSnapshot]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIdenticalWritesProduceExactlyOneSnapshot]' passed (0.004 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIncreasingWritesKeepTheHighestRevision]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIncreasingWritesKeepTheHighestRevision]' passed (0.007 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testCorruptDatabaseFileIsRejectedWithATypedError]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testCorruptDatabaseFileIsRejectedWithATypedError]' passed (0.001 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFailedSyntheticMigrationRollsBackAndLeavesVersionOneUsable]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFailedSyntheticMigrationRollsBackAndLeavesVersionOneUsable]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultAfterCommitLeavesTheRevisionDurableAndRecoverable]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultAfterCommitLeavesTheRevisionDurableAndRecoverable]' passed (0.003 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultsBeforeInsertAndBeforeCommitRollBackCompletely]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultsBeforeInsertAndBeforeCommitRollBackCompletely]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testMissingMigrationStepIsReportedInsteadOfInventingASchema]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testMissingMigrationStepIsReportedInsteadOfInventingASchema]' passed (0.005 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testPruningRollsBackWhenCommitFails]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testPruningRollsBackWhenCommitFails]' passed (0.007 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRealSQLiteFullIsReportedAsDiskFullAndRollsBack]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRealSQLiteFullIsReportedAsDiskFullAndRollsBack]' passed (0.011 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRollingRecoveryStaysBoundedAndBudgetFailurePreservesBothDocuments]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRollingRecoveryStaysBoundedAndBudgetFailurePreservesBothDocuments]' passed (0.020 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testSchemaVersionOneIsCreatedOnceAndReopensCleanly]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testSchemaVersionOneIsCreatedOnceAndReopensCleanly]' passed (0.004 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testSyntheticMigrationBacksUpFirstThenApplies]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testSyntheticMigrationBacksUpFirstThenApplies]' passed (0.008 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testUnsupportedHigherSchemaVersionIsRejectedWithoutChange]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testUnsupportedHigherSchemaVersionIsRejectedWithoutChange]' passed (0.008 seconds).
+Test Suite 'SchemaRetentionFaultTests' passed at 2026-09-17 19:50:33.471.
+	 Executed 14 tests, with 0 failures (0 unexpected) in 0.091 (0.092) seconds
+Test Suite 'StorageCoreTests' started at 2026-09-17 19:50:33.471.
+Test Case '-[WriterStorageTests.StorageCoreTests testClosedStoreRejectsFurtherWork]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testClosedStoreRejectsFurtherWork]' passed (0.005 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testExactSourceBytesSurviveCloseAndReopen]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testExactSourceBytesSurviveCloseAndReopen]' passed (0.008 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testIdempotentRetryReturnsTheOriginalCommitIdentity]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testIdempotentRetryReturnsTheOriginalCommitIdentity]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testIndexAndMetadataReportDurableFacts]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testIndexAndMetadataReportDurableFacts]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testPersistThenRecoverReturnsExactBytes]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testPersistThenRecoverReturnsExactBytes]' passed (0.005 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testReceiptsAreCheckedForConsistencyAndNeverStored]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testReceiptsAreCheckedForConsistencyAndNeverStored]' passed (0.007 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testStaleAndSameRevisionConflictAreRejected]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testStaleAndSameRevisionConflictAreRejected]' passed (0.005 seconds).
+Test Case '-[WriterStorageTests.StorageCoreTests testUInt64MaximumRevisionIsStoredWithoutTruncation]' started.
+Test Case '-[WriterStorageTests.StorageCoreTests testUInt64MaximumRevisionIsStoredWithoutTruncation]' passed (0.007 seconds).
+Test Suite 'StorageCoreTests' passed at 2026-09-17 19:50:33.520.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.049 (0.050) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-17 19:50:33.520.
+	 Executed 46 tests, with 0 failures (0 unexpected) in 0.444 (0.448) seconds
+Test Suite 'All tests' passed at 2026-09-17 19:50:33.520.
+	 Executed 46 tests, with 0 failures (0 unexpected) in 0.444 (0.449) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
