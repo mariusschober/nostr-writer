@@ -2,8 +2,10 @@
 
 This local worktree is on `preparation/native-cores`, based on Stage 01 evidence
 checkpoint `251a7d1`. It is not merged into `implementation/stage-01` and has not
-been pushed. Stage 01 remains blocked on observed final native UI/VoiceOver/network
-checks on an unlocked Mac and an actual hosted CI run. No later stage is accepted.
+been pushed. The separate Stage 01 branch now has evidence commit `e49557e` for
+source candidate `ddac4a3`: the final native tests, visual checks and bounded
+sampled network observation pass. Spoken VoiceOver navigation and an actual
+hosted CI run remain blocked. No later stage is accepted.
 All 60 acceptance requirements and all frozen protocol/historical files remain
 unchanged. These packages do not grant HWP authority.
 
@@ -39,3 +41,7 @@ After Stage 01 is accepted, create the Stage 02 branch from its accepted commit.
 Review and selectively apply the storage preparation, then perform the full plan
 and record actual M07-M13 evidence. Apply wire preparation only in the appropriate
 later stage; do not infer stage completion from this isolated branch or its tests.
+
+[Document integration decisions](DOCUMENT-INTEGRATION.md) records the remaining
+adapter boundaries reviewed against the current source. It adds no acceptance
+claim and does not require another run of the passing component checks.
