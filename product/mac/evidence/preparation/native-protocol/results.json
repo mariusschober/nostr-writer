@@ -1,0 +1,363 @@
+{
+  "format": "nostr-writer-preparation-evidence/1",
+  "recorded_at": "2026-09-17T20:24:41.148883+00:00",
+  "branch": "preparation/native-cores",
+  "source_commit": "698172efc847d9370d0cef37f6f008bebc8ee426",
+  "accepted_predecessor": null,
+  "stage_01_checkpoint": "251a7d1d70585cd953c758cd6b66c87cb2dcd701",
+  "stage_01_status": "BLOCKED",
+  "stage_04_status": "NOT ACCEPTED",
+  "acceptance_ids": [
+    "M22",
+    "M23",
+    "M24",
+    "M25",
+    "M26",
+    "M27",
+    "M28",
+    "M29"
+  ],
+  "acceptance_claim": "Component evidence only. No Stage 04 requirement is marked passed by this report.",
+  "tests": {
+    "status": "PASS",
+    "command": "HWP_NATIVE_PROTOCOL_SAMPLE=/private/tmp/nostr-writer-native-protocol-sample swift test --package-path mac/Packages/WriterHWP",
+    "xctest_cases": 44,
+    "failures": 0,
+    "elapsed_test_seconds": 140.021,
+    "log": "tests.log"
+  },
+  "cli_interoperability": {
+    "status": "PASS",
+    "checks": [
+      {
+        "name": "keyboard/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "keyboard/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "touch-tap/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "touch-tap/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "ime/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "ime/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "gesture/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "gesture/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "disclosed/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "disclosed/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "identified/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "identified/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "selected-quotation/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "selected-quotation/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "inherited/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "inherited/R",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "production-denies-fixture/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "production-denies-fixture/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "changed-document/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "changed-document/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "unsupported-zk/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "unsupported-zk/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "wrong-policy-pin/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "wrong-policy-pin/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "unresigned-statement/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "unresigned-statement/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "admitted-lying-evaluator/V",
+        "status": "PASS",
+        "exit": 2
+      },
+      {
+        "name": "admitted-lying-evaluator/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "empirical-no-retroactive-upgrade/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "empirical-no-retroactive-upgrade/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "empirical-candidate-mismatch/V",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "empirical-candidate-mismatch/R",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "missing-independent-pin",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "wrong-independent-pin",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "unknown-option",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "duplicate-option",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "V-cannot-silently-use-disclosure",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "R-cannot-downgrade-without-evidence",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "directory-not-file",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "FIFO-cannot-hang",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "oversized-sparse-file",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "exact-document-mismatch",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "truncated-private-transport",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/0",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/1",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/2",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/3",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/4",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/5",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/6",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/7",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/8",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/9",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/10",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "bounded-parser-corpus/11",
+        "status": "PASS",
+        "exit": 1
+      },
+      {
+        "name": "native-private-transport-to-frozen-Python",
+        "status": "PASS"
+      },
+      {
+        "name": "native-issued-proof-to-frozen-Python/V",
+        "status": "PASS"
+      },
+      {
+        "name": "native-issued-proof-to-frozen-Python/R",
+        "status": "PASS"
+      },
+      {
+        "name": "native-issued-proof-to-frozen-Node/V",
+        "status": "PASS"
+      }
+    ],
+    "count": 59,
+    "native_sample_sha256": {
+      "document.txt": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1",
+      "policy.cbor": "9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
+      "private.cbor": "fb24b168bb597e852622ec36de6dd4fe4063aa25341dc1ad0e1145a3321d90a1",
+      "private.hwp": "41405c73772f9d07ef5659482d2bbb2b02e43880e5a6cb7b837a1e39f33daaf0",
+      "proof.hwp": "0ea22a0a016fa09f73fc198f7cc3df49c7cbc804e763a1476d1f7c7b5eea66bc"
+    }
+  },
+  "reference_comparisons": {
+    "frozen_full_result_cases": 16,
+    "native_verification_modes_per_case": 3,
+    "cli_modes_per_case": 2,
+    "exact_producer_computations_and_lineages": 9,
+    "producer_refusals": 7,
+    "complete_disclosure_openings": 1250,
+    "complete_disclosure_blocks": 5
+  },
+  "integrity": {
+    "status": "PASS",
+    "distribution_files": 69,
+    "source_manifest_files": 326,
+    "mandatory_acceptance_definitions": 60,
+    "logs": [
+      "preparation.json",
+      "frozen-protocol.json"
+    ]
+  },
+  "native_sample": "public-synthetic-sample",
+  "limitations": [
+    "Unmerged independent preparation, no accepted Stage 03 predecessor.",
+    "No app recording/capture, encrypted disclosure export UI, Keychain adapter or proof UI integration.",
+    "No empirical production approval; shipped production policy remains empty.",
+    "No final native UI/VoiceOver/runtime network observation: last UI runner reached authentication; current CUA app tree was available but screenshot insufficient and authentication-state inspection timed out.",
+    "Hosted CI awaits user authorization for the Stage 01 remote branch; no push performed.",
+    "No full Stage 04 mutation/fuzz/performance matrix or UI cancellation observation. Small bounded parser corpus is not a fuzz campaign.",
+    "No current universal app build with these independent preparation changes.",
+    "No real credentials, private writing or signed production evidence used."
+  ]
+}

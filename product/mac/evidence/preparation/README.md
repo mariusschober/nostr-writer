@@ -9,16 +9,21 @@ unchanged. These packages do not grant HWP authority.
 
 - [Native wire primitives](native-wire/README.md): reviewed source in commit
   `1b4821e`, 17 isolated tests passed; the two fixture-location checks also passed
-  from this worktree. Complete native P/V/R, algorithm parity and production
-  admission remain mandatory Stage 04 work.
+  from this worktree. The later native algorithm/protocol reports add independent
+  component evidence; integrated Stage 04 acceptance remains mandatory.
 - [Encrypted source recovery](storage-core/README.md): reviewed rolling recovery
   core, 46 package tests passed. Actual app integration, one-second scheduling,
   Keychain lifecycle, coordinated source files, conflicts, local library and real
   provider acceptance remain mandatory Stage 02 work.
 - [Native deterministic algorithm](native-algorithm/README.md): scalar replay,
   all 179 fixed-point features, model/support and complete conditional assessment
-  compared with frozen Python. This does not establish capture authentication,
-  approved production trust or complete P/V/R and is not Stage 04 acceptance.
+  compared with frozen Python. Its report is an earlier component checkpoint;
+  approved production trust and integrated Stage 04 acceptance remain absent.
+- [Native protocol and CLI](native-protocol/README.md): release/capture admission,
+  private transport, conditional appraisal/finalization and offline V/R. All 44
+  package tests and 59 CLI/interoperability checks passed. The native synthetic
+  proof is accepted by frozen Python and Node as TEST-ONLY / NOT PROVABLE. App
+  integration, accepted predecessors and full Stage 04 evidence remain mandatory.
 
 After Stage 01 is accepted, create the Stage 02 branch from its accepted commit.
 Review and selectively apply the storage preparation, then perform the full plan

@@ -1,0 +1,14 @@
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Emitting module WriterHWP
+[5/8] Compiling WriterHWP Module.swift
+[6/8] Compiling WriterHWP ProtocolVerification.swift
+[7/9] Compiling WriterHWP ProtocolAdmission.swift
+[8/12] Emitting module HWPVerifyCLI
+[9/12] Compiling HWPVerifyCLI main.swift
+[9/12] Write Objects.LinkFileList
+[10/12] Linking hwp-verify
+[11/12] Applying hwp-verify
+Build complete! (2.68s)
