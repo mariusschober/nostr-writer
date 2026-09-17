@@ -8,9 +8,7 @@
   "stage_02_status": "NOT ACCEPTED",
   "acceptance_ids": [
     "M07",
-    "M08",
-    "M09",
-    "M12"
+    "M08"
   ],
   "acceptance_claim": "Recovery scheduling component evidence only; no assigned Stage 02 criterion is marked passed.",
   "tests": {
