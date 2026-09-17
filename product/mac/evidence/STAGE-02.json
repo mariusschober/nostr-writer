@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "ae698abad229b6cdc68a5f5f107f82ffc4a054d0",
+  "source_commit": "78606bfad0659d3e56239d71b381aacb5afe93c4",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Integrated persistent catalog/library and bounded recovery lifecycle checkpoint; stage is not accepted.",
+  "source_state": "Persistent document/library/recovery checkpoint plus external conflict handling; stage not accepted.",
   "criteria": [
     {
       "id": "M07",
@@ -40,8 +40,11 @@
     {
       "id": "M11",
       "status": "NOT MEASURED",
-      "reason": "Preserve-both external conflict integration and interaction are not implemented.",
-      "evidence": []
+      "reason": "All three preserve-both conflict choices, overwrite refusal, clean reload and own-save echo pass native synthetic-file checks, including changes from a second coordinated process. Actual conflict UI blocked by locked Mac; real-provider flows and signed private recovery remain unobserved.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/conflict-results.json",
+        "product/mac/evidence/logs/stage-02/conflicts-native.log"
+      ]
     },
     {
       "id": "M12",
@@ -105,13 +108,43 @@
       "tests": 2,
       "seconds": 0.992,
       "scope": "Before later library and lifecycle changes; superseded for lifecycle by three-check run."
+    },
+    "native_conflicts": {
+      "status": "PASS",
+      "tests": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 1.948,
+      "scope": [
+        "Second coordinated process changes a synthetic source file",
+        "Native save refuses unreviewed external replacement",
+        "Keep Both creates exact separate local source and imports external version",
+        "Keep Local retains external recovery before replacement",
+        "Open External Copy retains dirty original",
+        "Clean external reload preserves previous source",
+        "Own-save echo does not overwrite subsequent typing",
+        "Affected queued-save/close durability check"
+      ],
+      "keychain": "Synthetic test key only; no real Keychain touched",
+      "not_proven": "Actual provider callbacks/UI decisions, signed private recovery, crash/restart",
+      "first_attempt": "Compile failure in test: MutationReceipt.command.origin field corrected",
+      "later_changes": "After passing checks, added Save As conflict-status clearing, comparison text geometry and test-helper setup. Ordinary final app build passes; those changes were not retested."
+    },
+    "conflict_app_build": {
+      "status": "PASS",
+      "architecture": "arm64",
+      "binary_sha256": "3b9d72b354c76941dabd1a7e9778a10b8d9fa0a775e500adaf1fedb7b4b4c435"
+    },
+    "conflict_ui": {
+      "status": "BLOCKED",
+      "reason": "CUA reported that the Mac is locked and automatic unlock failed. No new screen was observed. Owner unlock requested; no repeated attempts."
     }
   },
   "next_work": [
-    "External file notifications, own-save echo suppression, and preserve-both conflict UI",
-    "Selected-folder library and remaining file/bookmark/assets lifecycle",
-    "Legitimate signing, actual recovery/crash/sleep/quit and iCloud/Google Drive observations"
+    "Selected-folder library, Locate/Remove references and file actions",
+    "Coordinated move/assets and remaining recovery lifecycle gaps",
+    "Owner unlock/signing access, actual conflict/recovery/crash/sleep/quit and iCloud/Google Drive observations"
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "2517ab4835548f329b2d582c9e7a6be42127bc93"
+  "previous_source_commit": "ae698abad229b6cdc68a5f5f107f82ffc4a054d0"
 }

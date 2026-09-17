@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`ae698abad229b6cdc68a5f5f107f82ffc4a054d0` on `implementation/stage-02`, following
+`78606bfad0659d3e56239d71b381aacb5afe93c4` on `implementation/stage-02`, following
 `2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
@@ -75,14 +75,48 @@ python3 tools/check_preparation.py
 python3 tools/bootstrap_protocol.py
 ```
 
+## External conflict checkpoint
+
+Native presenter notifications now schedule a bounded, separate coordinated read; the
+reader excludes its own document presenter. Exact bytes distinguish own-save echoes
+from external versions. Native source writes compare the last observed bytes again
+inside the document accessor, without recursive coordination. An unreviewed external
+change cannot silently replace the provider file.
+
+Review Changes provides a bounded side-by-side comparison and Keep Both (default),
+Keep Local, Open External Copy, and Cancel. Every applied choice first preserves both
+exact versions in encrypted recovery. Keep Both creates a new dated source file at an
+explicitly selected location, with a new UUID/derivation. Keep Local rechecks the external
+bytes at native replacement; Open External Copy leaves the original dirty document
+intact. A clean external reload preserves its previous source and records external
+provenance. Key failure prevents destructive resolution and leaves ordinary Save As
+available. Post-check review also clears the old conflict after a successful Save As.
+
+Two focused native checks **PASS**, zero skips, 1.948 seconds, using a compiled second
+coordinated writer process and synthetic keys. They cover all three choices, stale-save
+refusal, exact preserved bytes, clean reload, own-write echo and the affected save queue.
+A test-field compile error was corrected before the successful run. The final ordinary
+arm64 app build **PASS** includes small later comparison geometry/Save As status changes;
+those branches have not been retested. No passing native check was repeated afterward.
+
+The single attempted UI observation is **BLOCKED**: the computer-use tool reported a
+locked Mac and failed automatic unlock. The owner was asked to unlock it; no new conflict
+screen or provider interaction is claimed observed. Exact logs, binary hash, scope and
+limitations are in `logs/stage-02/conflict-results.json`.
+
+```sh
+xcrun swiftc mac/Packages/WriterStorage/Tools/coordinated_writer.swift -o /private/tmp/nostr-writer-coordinated-writer-stage02
+NW_COORDINATED_WRITER=/private/tmp/nostr-writer-coordinated-writer-stage02 TEST_RUNNER_NW_COORDINATED_WRITER=/private/tmp/nostr-writer-coordinated-writer-stage02 xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -only-testing:NostrWriterTests/ShellTests/testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave -only-testing:NostrWriterTests/ShellTests/testQueuedSavesAndCloseBoundaryPreserveLatestRevision test
+```
+
 ## Remaining required work
 
-External notifications/own-save echoes, preserve-both conflict UI, selected-folder library,
-Locate/Remove references, coordinated rename/move/assets, full close/quit/crash recovery,
+Selected-folder library, Locate/Remove references, coordinated rename/move/assets,
+full close/quit/crash recovery, final conflict UI observation,
 and actual iCloud/Google Drive lifecycles remain. Real encrypted-recovery acceptance needs
 legitimate application signing and Keychain access; an owner signing-team question is
 pending. No fabricated team ID or legacy Keychain fallback is permitted.
 
 Every M07–M13 row is **NOT MEASURED** with its precise outstanding scope in `STAGE-02.json`.
-No Stage 03 start or acceptance is implied. Next implementation work is external-change
-preservation and conflict handling, not another broad verification pass.
+No Stage 03 start or acceptance is implied. Next implementation work is selected-folder library and remaining file actions; no broad
+verification pass is planned.

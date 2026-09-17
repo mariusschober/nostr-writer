@@ -1,0 +1,35 @@
+{
+  "source_commit": "78606bfad0659d3e56239d71b381aacb5afe93c4",
+  "native_checks": {
+    "status": "PASS",
+    "tests": 2,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 1.948,
+    "scope": [
+      "Second coordinated process changes a synthetic source file",
+      "Native save refuses unreviewed external replacement",
+      "Keep Both creates exact separate local source and imports external version",
+      "Keep Local retains external recovery before replacement",
+      "Open External Copy retains dirty original",
+      "Clean external reload preserves previous source",
+      "Own-save echo does not overwrite subsequent typing",
+      "Affected queued-save/close durability check"
+    ],
+    "keychain": "Synthetic test key only; no real Keychain touched",
+    "not_proven": "Actual provider callbacks/UI decisions, signed private recovery, crash/restart",
+    "first_attempt": "Compile failure in test: MutationReceipt.command.origin field corrected",
+    "later_changes": "After passing checks, added Save As conflict-status clearing, comparison text geometry and test-helper setup. Ordinary final app build passes; those changes were not retested."
+  },
+  "final_build": {
+    "status": "PASS",
+    "architecture": "arm64",
+    "binary_sha256": "3b9d72b354c76941dabd1a7e9778a10b8d9fa0a775e500adaf1fedb7b4b4c435"
+  },
+  "ui_observation": {
+    "status": "BLOCKED",
+    "reason": "CUA reported that the Mac is locked and automatic unlock failed. No new screen was observed. Owner unlock requested; no repeated attempts."
+  },
+  "frozen_checks": "PASS: 69 protocol files, 326 recovered manifest files, all 60 acceptance definitions retained",
+  "ci_test_helper": "mac/scripts/test.sh now compiles the synthetic second-process helper and exports its path for package/native checks. Shell syntax checked; full script/CI not rerun."
+}
