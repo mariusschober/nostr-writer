@@ -27,6 +27,8 @@ jobs:
           key: macos-26-xcode26.6-${{ hashFiles('**/Package.resolved', '**/Package.swift') }}
       - name: Record installed toolchain
         run: xcodebuild -version && swift --version
+      - name: Fit required native window on the hosted display
+        run: swift mac/scripts/configure_ci_display.swift
       - name: Build both supported architectures without distribution signing
         run: mac/scripts/build.sh CODE_SIGNING_ALLOWED=NO
       - name: Run isolated package and native tests
