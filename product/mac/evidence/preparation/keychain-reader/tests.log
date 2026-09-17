@@ -1,0 +1,52 @@
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/7] Emitting module WriterStorage
+[5/7] Compiling WriterStorage KeychainRecoveryKey.swift
+[6/17] Compiling WriterStorageTests EncryptionTests.swift
+[7/17] Compiling WriterStorageTests CoordinatedSourceFilesTests.swift
+[8/18] Compiling WriterStorageTests ScopedSourceFilesTests.swift
+[9/18] Compiling WriterStorageTests KeychainRecoveryKeyTests.swift
+[10/18] Compiling WriterStorageTests StorageCoreTests.swift
+[11/18] Compiling WriterStorageTests SchemaRetentionFaultTests.swift
+[12/18] Emitting module WriterStorageTests
+[13/18] Compiling WriterStorageTests TestSupport.swift
+[14/18] Compiling WriterStorageTests DurabilityFileIntegrationTests.swift
+[15/18] Compiling WriterStorageTests DurabilityAndBoundsTests.swift
+[16/18] Compiling WriterStorageTests RecoveryCoordinatorTests.swift
+/private/tmp/nostr-writer-preparation/mac/Packages/WriterStorage/Tests/WriterStorageTests/RecoveryCoordinatorTests.swift:961:13: warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 959 |         XCTAssertEqual(attempts, 1, "A failure must not start an unattended retry loop.")
+ 960 | 
+ 961 |         var state = await coordinator.state()
+     |             `- warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 962 |         XCTAssertTrue(state.isPausedForRetry)
+ 963 |         XCTAssertEqual(state.lastFailure, .persistence(.diskFull("no space")))
+[16/18] Write Objects.LinkFileList
+[17/18] Linking WriterStoragePackageTests
+Build complete! (3.70s)
+Test Suite 'Selected tests' started at 2026-09-17 23:09:27.992.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-17 23:09:27.995.
+Test Suite 'KeychainRecoveryKeyTests' started at 2026-09-17 23:09:27.995.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testInvalidIdentityCannotProduceBroadQuery]' started.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testInvalidIdentityCannotProduceBroadQuery]' passed (0.002 seconds).
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testMalformedOrWrongIdentityAndPolicyAreRefused]' started.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testMalformedOrWrongIdentityAndPolicyAreRefused]' passed (0.001 seconds).
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testNativeResultDecoderDoesNotInventMissingAttributes]' started.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testNativeResultDecoderDoesNotInventMissingAttributes]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testQueryIsExactNoninteractiveAndUsesDataProtection]' started.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testQueryIsExactNoninteractiveAndUsesDataProtection]' passed (0.007 seconds).
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testReadIsOffMainActorAndDoesNotCacheKeyAcrossDenial]' started.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testReadIsOffMainActorAndDoesNotCacheKeyAcrossDenial]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testStatusFailuresRemainDistinctAndNeverRetry]' started.
+Test Case '-[WriterStorageTests.KeychainRecoveryKeyTests testStatusFailuresRemainDistinctAndNeverRetry]' passed (0.001 seconds).
+Test Suite 'KeychainRecoveryKeyTests' passed at 2026-09-17 23:09:28.007.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.011 (0.012) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-17 23:09:28.007.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.011 (0.012) seconds
+Test Suite 'Selected tests' passed at 2026-09-17 23:09:28.007.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.011 (0.015) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

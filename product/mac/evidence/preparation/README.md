@@ -37,6 +37,11 @@ unchanged. These packages do not grant HWP authority.
   source checkpoint; recovery failure leaves ordinary source saving available.
   Actual app lifecycle, clock timing and Stage 02 acceptance remain mandatory.
 
+- [Recovery Keychain reader](keychain-reader/README.md): exact configured item
+  lookup, protection-policy validation, noninteractive access and explicit errors.
+  Six injected-query tests passed once without touching the real Keychain.
+  First-installation creation and legitimate signed-app access remain mandatory.
+
 After Stage 01 is accepted, create the Stage 02 branch from its accepted commit.
 Review and selectively apply the storage preparation, then perform the full plan
 and record actual M07-M13 evidence. Apply wire preparation only in the appropriate

@@ -1,0 +1,7 @@
+{
+  "source_commit": "0a1a806de098aebb67225d8363d12d47f4ea3260",
+  "sha256": {
+    "mac/Packages/WriterStorage/Sources/WriterStorage/KeychainRecoveryKey.swift": "02b1c287c5a1a651badf3fdfa358ec0eb45972ff7590768fde41cdf2948705b4",
+    "mac/Packages/WriterStorage/Tests/WriterStorageTests/KeychainRecoveryKeyTests.swift": "55f908ceb4f6914c258cda5bee70c1b1e0b5d2d1e37c295d44e68226a8333425"
+  }
+}

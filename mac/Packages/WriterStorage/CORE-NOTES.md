@@ -68,7 +68,15 @@ exact bytes and independent ordinary file saving while the recovery key is unava
 See `product/mac/evidence/preparation/recovery-scheduling/` for exact source and logs.
 Virtual-clock scheduling does not measure production UI latency or actual clock timing.
 
-Mandatory work remains: production Keychain creation/access policy, app attachment of
+`KeychainRecoveryKey` now implements load-only Security.framework access for one
+configured service/account/access group, using the data-protection Keychain and
+noninteractive authentication. It validates the returned identity, nonsynchronizable
+WhenUnlockedThisDeviceOnly policy and 32-byte key length. Nothing is cached or
+created on error. Six isolated injected-query checks passed once; no real Keychain
+item was read or changed. See `product/mac/evidence/preparation/keychain-reader/`
+and the separate first-creation/signing decisions in `KEY-LIFECYCLE.md` there.
+
+Mandatory work remains: crash-safe Keychain creation and signed-app access, app attachment of
 checkpoint scheduling, native NSDocument save/close/recovery UI, actual bookmark grants,
 provider conflicts, library/search, outbox scaffolding, capture history, performance and
 real iCloud/Google Drive acceptance. No UI/provider/Keychain/Stage 02 acceptance is claimed
