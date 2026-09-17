@@ -1,0 +1,24 @@
+{
+  "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
+  "files": {
+    "build.log": "4bb75f97ca46214aaf5bab734dd975a0bee78baf48879d824d53c070976d6184",
+    "frozen-protocol.json": "5d31a4aa89a4e554968b389aa2eb8ace0b03050d9203a7a47867bd464fbf79af",
+    "manual-inspection.json": "44effb315414812a3abd37610dd543c28a122725bdadf71668950bd700c622f7",
+    "network-control.csv": "64e830671c3915bbea95533436950d1e37aa16e6d5911aa631ec23d431006081",
+    "network-errors.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "network-window.json": "9e04b2f2ebdcc72d1cd776cf7aff6d07720fa1750314bb5c13dd2978cb2e6ad1",
+    "network.csv": "bbffcef712ddf74119a162fdc817f349ccab7b3c34a4ce1886b5118b21e79e23",
+    "ordinary-app-inspection.json": "c47d2297a7f6721e03a5605d6316b2aeba56e3ba19ae1c05593b2c97cbf6940e",
+    "preparation.json": "f48d7e2aaef010ee7e9a4661c8d2afad85376fb566cbb22ef4c94a2dbedb63ab",
+    "results.json": "b39552f0c10ad99cb5d5c0e91e96964a5d5ce13df8801a1fb20d063eb0566c8d",
+    "screenshot-index.json": "a9310a0432d81ffe7d6774795adb22a37716b829897ab17e2394d12865d6e549",
+    "screenshots/consent.png": "a4a310ec09a92f07335f9ece5834be23bfc26a8d55623f7b14756d899cb4b852",
+    "screenshots/shell-dark-narrow.png": "7e5710eeeba65b3fe45a057a03359971bbaf60bcbf9debd4db22b31429eea100",
+    "screenshots/shell-dark-regular.png": "57f9e3f225d2a34800cdb056432341a947f773c607f83d4a9e2f7c1157fe363a",
+    "screenshots/shell-light-narrow.png": "a9bf462f67accb193c7babf628f3f39076e0b847255944d3fcbbdd9d19cc4d4d",
+    "screenshots/shell-light-regular.png": "980892e17813c08ac22e018b8f433055eb2eb09b2ef399643ac5ea6ef0c8d3e5",
+    "screenshots/writing.png": "409ddbe58503a1b8ade2c27e726c1017e47aafe997baf8cfb172cc6eaff5853c",
+    "source-files.json": "5fd9e291854637847c3bf3ced7a305d4b6c826347ed594c1c736f9fe4fa57989",
+    "tests.log": "a23e60ce7b7080a17d7b53ab9d6863ada9cff0b9a228aed099148efbc66dae5c"
+  }
+}

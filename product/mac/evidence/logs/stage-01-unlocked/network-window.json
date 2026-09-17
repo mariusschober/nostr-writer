@@ -1,0 +1,7 @@
+{
+  "start_utc": "2026-09-17T21:50:17.187912+00:00",
+  "end_utc": "2026-09-17T21:51:22.246355+00:00",
+  "test_exit_code": 0,
+  "scope": "NostrWriter TCP/UDP process summaries; no packet payload or unrelated app traffic",
+  "observer_started_before_test_launch": true
+}

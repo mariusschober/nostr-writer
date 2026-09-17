@@ -1,0 +1,25 @@
+{
+  "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
+  "sha256": {
+    "mac/Config/Base.xcconfig": "5e5ba2af862957eccfecbde46c71888f4d3368cbf225bef8da7bbafff6c71ef3",
+    "mac/Config/Debug.xcconfig": "2f5fb0eb9f0f887e29f25adea15456dbdb6215fc1d73da447b9727617a4238e4",
+    "mac/Config/Release.xcconfig": "1a634de81ddbd797edecc523b43203c0ec330d33fc442286b4bd9289b2e15cda",
+    "mac/NostrWriter.xcodeproj/project.pbxproj": "141cb01c377353ae87ed72be5c3ff55a5c2289dc3d4691869d72759ef66309bf",
+    "mac/NostrWriter.xcodeproj/project.xcworkspace/contents.xcworkspacedata": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f",
+    "mac/NostrWriter.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved": "90b0b34796042a45783a0bfb5fa2f9bf9f2a1707e972daa4ffba8ddbac02bc55",
+    "mac/NostrWriter.xcodeproj/xcshareddata/xcschemes/NostrWriter.xcscheme": "22d3f2e4df0dd66916aca91866a2bb7e675a6cea3e61d405f53bdf4ec0c32103",
+    "mac/NostrWriter/Application/AppDelegate.swift": "c8a6a0887ef7869af2a6ba839ff12c021e08511bbaafc023581c43776cbb6445",
+    "mac/NostrWriter/Application/AppMain.swift": "8ab20d0a8dc4a8455c15dd230f7672478b5a16faa73065f5cee2e3f491c25c3a",
+    "mac/NostrWriter/Application/AppMenus.swift": "f11594cfd9e77aaebeae37d0ab5d652b7095528d654e90f87422e227489ee099",
+    "mac/NostrWriter/Application/RecordingConsent.swift": "00d197e7c098b1e54b721fcfe27521bc0188d8affc9fb8d9dce56681d24df2c3",
+    "mac/NostrWriter/Application/SettingsWindowController.swift": "573fb79614f6358235eb7dcd0900d6b19ff97d4005c40d8dcdb0bdff5a392076",
+    "mac/NostrWriter/Documents/DocumentSession.swift": "7aa88814205dd9fddd67133f072cbd0c6ef4288992c5bb053597ace3a46fd318",
+    "mac/NostrWriter/Documents/WriterDocument.swift": "9bb49630653c1f42455aa7c57e383d26d3249d034fb8bde3b6f553bcd14143d6",
+    "mac/NostrWriter/Documents/WriterWindowController.swift": "f3c511d8234e62339095e8bc89b25d2d5fee10a239aafc37138bbae3f1cf2dc3",
+    "mac/NostrWriter/Info.plist": "6a7d2c619e7187579cd50172bea6137ffa14dc4d2f5633711835d9c5ef58305e",
+    "mac/NostrWriter/NostrWriter.entitlements": "8e5d287dbe8d8489cca204fd829bb4a0a8cc53cdf7ecdef3f0b70e8cac680df2",
+    "mac/NostrWriterTests/ShellTests.swift": "d68fe3d4cf95c8c030e1e5427b8d3be94c925b568d4716d8d8e5d9fd5457242b",
+    "mac/NostrWriterUITests/ShellUITests.swift": "641b4bd6320f63c2a9fda468e57ef842fed5563fa233efd3b7c1432ae846ca00",
+    "mac/project.yml": "a158c6932316479cab9c26584436729fb805799a08600dee84480282794499f9"
+  }
+}

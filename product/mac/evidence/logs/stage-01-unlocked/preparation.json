@@ -1,0 +1,41 @@
+{
+  "checks": {
+    "current_markdown_links": {
+      "local_links": 110,
+      "markdown_files": 45,
+      "status": "PASS"
+    },
+    "frozen_protocol": {
+      "distribution_files": 69,
+      "freeze_sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88",
+      "inventoried_files": 67,
+      "mode": "read-only-verification",
+      "original_freeze_checker": "PASS",
+      "protocol_definition_sha256": "58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4",
+      "status": "PASS"
+    },
+    "plans_and_acceptance": {
+      "application_acceptance_measured": false,
+      "mandatory_acceptance_definitions": 60,
+      "plans": 8,
+      "stages": 8,
+      "starts": 8,
+      "status": "PASS"
+    },
+    "recovery_inventory": {
+      "archive_members": 255,
+      "archives": 7,
+      "baseline_records": 70,
+      "chat6_mappings": 35,
+      "originals": 47,
+      "recovered_members_verified": 214,
+      "status": "PASS"
+    },
+    "snapshot_manifest": {
+      "format": "nostr-writer-source-of-truth/1",
+      "listed_files": 326,
+      "status": "PASS"
+    }
+  },
+  "status": "PASS"
+}

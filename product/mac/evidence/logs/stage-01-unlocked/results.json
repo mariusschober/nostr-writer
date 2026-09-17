@@ -1,0 +1,101 @@
+{
+  "format": "nostr-writer-native-observation/1",
+  "recorded_at": "2026-09-17T21:54:58.366246+00:00",
+  "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
+  "stage_accepted": false,
+  "tests": {
+    "status": "PASS",
+    "native_unit_tests": 4,
+    "native_ui_tests": 3,
+    "failures": 0,
+    "skipped": 0,
+    "unit_seconds": 0.436,
+    "ui_seconds": 44.978,
+    "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -resultBundlePath /private/tmp/nostr-writer-stage01-candidate-20260917.xcresult test",
+    "log": "tests.log"
+  },
+  "screenshots": {
+    "status": "PASS",
+    "reviewed": 6,
+    "regular_points": [
+      1120,
+      760
+    ],
+    "narrow_points": [
+      760,
+      520
+    ],
+    "appearance": [
+      "light",
+      "dark"
+    ],
+    "index": "screenshot-index.json",
+    "note": "Actual window captures; a small fragment of an unrelated desktop overlay is visible at the right edge of regular captures. It does not cover the app controls or tested text. No image content was synthesized or retouched."
+  },
+  "network": {
+    "status": "PASS",
+    "claim": "No NostrWriter-attributed TCP/UDP connection or byte-counter row was observed during the bounded clean-consent and writing run.",
+    "command": "nettop -n -p NostrWriter -P -L 0 -s 1",
+    "sample_headers": 34,
+    "process_rows": 0,
+    "stderr_bytes": 0,
+    "window": {
+      "start_utc": "2026-09-17T21:50:17.187912+00:00",
+      "end_utc": "2026-09-17T21:51:22.246355+00:00",
+      "test_exit_code": 0,
+      "scope": "NostrWriter TCP/UDP process summaries; no packet payload or unrelated app traffic",
+      "observer_started_before_test_launch": true
+    },
+    "positive_control": "The same observer, scoped to a synthetic local-loopback process PID, reported 4100 inbound and 4100 outbound bytes in each of three samples.",
+    "limitations": [
+      "This is sampled process-network accounting, not packet capture or a proof about every possible future execution.",
+      "No traffic attributed to another process is included. Static source inspection also found no runtime network/telemetry/process-launch call paths.",
+      "Process-filtered packet capture could not create a pktap interface without administrator privilege. No privilege change or password entry was performed."
+    ]
+  },
+  "build": {
+    "status": "PASS",
+    "command": "mac/scripts/build.sh",
+    "inspection_command": "python3 mac/scripts/inspect_app.py mac/DerivedData/Build/Products/Debug/NostrWriter.app",
+    "inspection": "ordinary-app-inspection.json",
+    "runtime": "Apple M1 Pro, macOS 26.6.2",
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "macos14_runtime": "NOT MEASURED",
+    "intel_runtime": "NOT MEASURED"
+  },
+  "integrity": {
+    "status": "PASS",
+    "frozen_distribution_files": 69,
+    "source_manifest_files": 326,
+    "acceptance_definitions": 60
+  },
+  "remaining": {
+    "M05": "BLOCKED: hosted CI awaits authorized push to mariusschober/nostr-writer, implementation/stage-01.",
+    "M06": "BLOCKED: spoken VoiceOver navigation remains unobserved because the inspection tool stalled; VoiceOver was restored off. See manual-inspection.json."
+  },
+  "earlier_failures": [
+    {
+      "scope": "Environment / stale app",
+      "observation": "An earlier ordinary process was still running an old loaded debug dylib under the same development bundle ID as the UI-test app. CUA attachment timed out and the first test run inspected conflicting windows. The empty stale synthetic process was stopped."
+    },
+    {
+      "scope": "Product defect corrected",
+      "observation": "A fresh ordinary window initially focused the sidebar and ignored immediate writing. window.initialFirstResponder is now the editor. Both native keyboard tests and direct ordinary-build inspection confirmed the correction."
+    },
+    {
+      "scope": "Test fixture corrected",
+      "observation": "Startup narrow-window overrides were not stable across AppKit presentation. The fixture now uses real resize gestures on straight window edges. A first attempt at the rounded corner did not hit the resize region; the final edge gestures passed in both appearances."
+    },
+    {
+      "scope": "Automation timeout",
+      "observation": "One intermediate run timed out synthesizing input. Its result was not counted as a pass. The final frozen candidate passed all seven native tests in one run."
+    },
+    {
+      "scope": "Unresolved observation tool limitation",
+      "observation": "VoiceOver.app inspection exceeded the requested 20-second timeout and returned after 715.835 seconds. No VoiceOver pass is claimed. System Settings showed the switch restored off."
+    }
+  ]
+}

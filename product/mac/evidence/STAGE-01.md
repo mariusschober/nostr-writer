@@ -2,7 +2,7 @@
 
 Stage 01 is **not accepted**. This is a live implementation report, not a substitute
 for the frozen acceptance matrix. Machine-readable status is in `STAGE-01.json`.
-Input: `3fdab5b1f8d75720c3025e8604f947e2307c31e2`. Source candidate: `5024c1cb9924db8980e55d26ce0dbd33fdf366b9` on
+Input: `3fdab5b1f8d75720c3025e8604f947e2307c31e2`. Source candidate: `ddac4a30073f9eaf7aa9586ed86c449a488bcea4` on
 `implementation/stage-01`. Evidence is committed separately so it can name the exact
 source commit without a self-referential hash.
 
@@ -33,18 +33,32 @@ current implementation guidance is in `mac/docs/DEVELOPMENT.md`.
 | ID | Current result | Evidence |
 | --- | --- | --- |
 | M01 | PASS: 178 current frozen tests, independent checker, deterministic vectors and freeze checks | `logs/stage-01/protocol.json`, `protocol-tests.log`, `preparation.log` |
-| M02 | PASS: universal strict Swift 6/macOS 14 native build | `build.log`, `ordinary-app-inspection.json` |
-| M03 | BLOCKED: final clean first launch and runtime network observation need unlocked desktop | `native-ui.log`, `static-runtime-audit.json` |
-| M04 | PASS: ordinary built app sandbox/hardened runtime and bounded entitlements inspected | `ordinary-app-inspection.json`, `built-entitlements.plist`, `built-signature.log` |
+| M02 | PASS: final universal strict Swift 6/macOS 14 native build | `logs/stage-01-unlocked/build.log`, `ordinary-app-inspection.json` |
+| M03 | PASS: final clean consent/account-free writing; no app TCP/UDP rows during sampled runtime observation | `logs/stage-01-unlocked/tests.log`, `network.csv`, `network-control.csv`, `results.json` |
+| M04 | PASS: final ordinary build sandbox/hardened runtime and bounded entitlements inspected | `logs/stage-01-unlocked/ordinary-app-inspection.json` |
 | M05 | BLOCKED: local packages/pins/scripts verified; hosted CI not run | `dependencies.log`, package build logs; CI definitions in `.github/workflows` |
-| M06 | BLOCKED: 130 Foundation and 4 native unit tests pass; keyboard/VoiceOver/final screenshots pending | `package-and-native-tests.log`, `foundation.log`, `native-ui.log` |
+| M06 | BLOCKED: 130 Foundation, 4 native unit and 3 native UI tests pass; spoken VoiceOver navigation remains unobserved | `foundation.log`, `logs/stage-01-unlocked/tests.log`, `screenshot-index.json`, `manual-inspection.json` |
 
-The reproducible script passed 130 Foundation tests and 4 native unit tests, including actual source loading into TextKit with
-BOM, CRLF, combining Unicode and subsequent edit preservation. Earlier manual desktop
-inspection observed a first-run consent sheet and editable scratch window without
-an account; it does not replace final-candidate keyboard, appearance or VoiceOver proof.
-The latest UI runner reached macOS authentication and failed because the Mac is locked.
-No screenshots or spoken VoiceOver observations are invented.
+The unchanged Foundation implementation previously passed 130 tests. The final source
+candidate now passes all four native unit and three native UI tests in one run. Actual
+1120×760 and 760×520 screenshots in both appearances were reviewed. The real resize
+edges are exercised; there is no startup geometry override. An observed initial-focus
+defect was fixed by setting the editor as the window's initial first responder.
+
+The clean consent test uses a fresh isolated defaults suite, requires all three explicit
+choices, and verifies Escape selects recording off and reaches writing without an account.
+Network accounting starts before launch and reports no NostrWriter TCP/UDP rows through
+the final suite. A synthetic loopback control confirms the observer sees traffic when
+present. This is bounded sampled process accounting, not packet capture or a universal
+absence proof; details and limits are in `logs/stage-01-unlocked/results.json`.
+
+VoiceOver was enabled and its first-use dialog/tutorial and process were observed.
+Its inspection call stalled for 715.835 seconds despite a requested 20-second timeout.
+Spoken labels and navigation order were not observed. VoiceOver was restored to its
+original off state and that setting was checked. M06 remains blocked on a person's
+observation of editor/sidebar/toolbar/status/menu navigation in the final ordinary app.
+The earlier locked-desktop and failed UI attempts remain historical diagnostics, not
+current passes. No further testing loop is authorized by the user's latest direction.
 
 Xcode adds broad test-manager exceptions to a product during UI tests. `test.sh` now
 uses `.build/NativeTestDerivedData`; the ordinary build uses `DerivedData`. The separate
@@ -86,14 +100,45 @@ plugin before allowing Xcode package plugin execution.
 
 ## Remaining work
 
-The source candidate is frozen and all obtainable Stage 01 code checks pass. Unlock the Mac for native UI testing, final light/dark
-1120×760 and 760×520 observations, keyboard/VoiceOver focus, and runtime network audit.
-Source and evidence are preserved locally. Hosted CI requires authorization to publish
-the reviewed candidate to the exact GitHub branch. No push or external publication has
-occurred. Stage 02 remains unaccepted/unstarted until predecessor evidence permits it.
+The final local source is frozen at `ddac4a30073f9eaf7aa9586ed86c449a488bcea4`.
+Stage 01 remains unaccepted because hosted CI (M05) and spoken VoiceOver observation
+(M06) remain open. The Mac is no longer recorded as locked. Native keyboard, consent,
+appearance, resizing, ordinary signing/entitlements and bounded network observation
+are now measured. A person must observe VoiceOver in this exact ordinary build;
+`logs/stage-01-unlocked/manual-inspection.json` specifies the remaining check.
+
+Hosted CI requires authorization to push the reviewed local branch to
+`mariusschober/nostr-writer`, branch `implementation/stage-01`. No push or external
+publication occurred. Stage 02 cannot be accepted or started from an accepted
+predecessor yet. The separate `preparation/native-cores` worktree contains independent,
+unmerged components with their own evidence and no later-stage acceptance claim.
+
+The root handoff, `mac/README.md` and initial `STATUS.json` are recovery-snapshot files
+pinned by the source manifest. Their original 'no app' statements are historical;
+this current stage report and `mac/docs/DEVELOPMENT.md` record actual implementation
+without rewriting the pinned recovery originals.
 
 Focus review corrections cover separate Normal/Locked modes, durable intent acknowledgement before
 activation or extension, full presentation restoration on interruption, safe emergency cancellation,
 invalid clock continuity, checked word counts, injected session IDs, and no relock after completion.
 A native focus presentation adapter and word lineage remain Stage 07 work; pure reducer tests do
 not establish actual system restrictions, sound behaviour, or human composition.
+
+## Unlocked checkpoint commands
+
+Final candidate native run, with a process-scoped `nettop -n -p NostrWriter -P -L 0 -s 1`
+observer started before launch and stopped after completion:
+
+```sh
+xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -resultBundlePath /private/tmp/nostr-writer-stage01-candidate-20260917.xcresult test
+mac/scripts/build.sh
+python3 mac/scripts/inspect_app.py mac/DerivedData/Build/Products/Debug/NostrWriter.app
+python3 tools/check_preparation.py
+python3 tools/bootstrap_protocol.py
+```
+
+Final ordinary binary SHA-256:
+`935a0cfe0ca88383ef89c2f9de8878d26ac51bfe1db065fb2254b9770ab13c2f`.
+Full current evidence is in `logs/stage-01-unlocked/`; earlier logs are retained in
+`logs/stage-01/`. No protocol manifest, acceptance definition or historical original
+was changed. Future checks must remain minimal and scoped to actual changes.

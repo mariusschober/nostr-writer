@@ -3,8 +3,8 @@
   "accepted": false,
   "status": "BLOCKED",
   "input_commit": "3fdab5b1f8d75720c3025e8604f947e2307c31e2",
-  "source_commit": "5024c1cb9924db8980e55d26ce0dbd33fdf366b9",
-  "source_state": "Committed candidate; stage acceptance blocked on native observations and hosted CI",
+  "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
+  "source_state": "Committed final local candidate; native tests and sampled network observations pass, VoiceOver and hosted CI remain blocked.",
   "historical_evidence_used_as_current_pass": false,
   "criteria": [
     {
@@ -22,18 +22,21 @@
       "status": "PASS",
       "reason": "Native strict Swift 6/macOS 14 app compiled for arm64 and x86_64. Only Apple-silicon current-OS runtime exercised.",
       "evidence": [
-        "product/mac/evidence/logs/stage-01/build.log",
-        "product/mac/evidence/logs/stage-01/ordinary-app-inspection.json",
+        "product/mac/evidence/logs/stage-01-unlocked/build.log",
+        "product/mac/evidence/logs/stage-01-unlocked/ordinary-app-inspection.json",
         "product/mac/evidence/logs/stage-01/environment.json"
       ]
     },
     {
       "id": "M03",
-      "status": "BLOCKED",
-      "reason": "Recording consent and account-free scratch editing observed in an earlier native run; clean candidate UI and runtime network checks await unlocked Mac. Static source audit is not network evidence.",
+      "status": "PASS",
+      "reason": "Final clean consent suite reaches writing without account or identity; Escape chooses recording off. Process-network accounting began before launch and observed no app TCP/UDP rows, with a functioning synthetic loopback control. Scope and sampling limitations are recorded.",
       "evidence": [
-        "product/mac/evidence/logs/stage-01/native-ui.log",
-        "product/mac/evidence/logs/stage-01/static-runtime-audit.json"
+        "product/mac/evidence/logs/stage-01-unlocked/tests.log",
+        "product/mac/evidence/logs/stage-01-unlocked/screenshots/consent.png",
+        "product/mac/evidence/logs/stage-01-unlocked/network.csv",
+        "product/mac/evidence/logs/stage-01-unlocked/network-control.csv",
+        "product/mac/evidence/logs/stage-01-unlocked/results.json"
       ]
     },
     {
@@ -41,9 +44,7 @@
       "status": "PASS",
       "reason": "Ordinary universal app has sandbox and hardened runtime; only selected-file, outgoing network and Debug debugging entitlement. XCTest instrumentation is isolated from ordinary build.",
       "evidence": [
-        "product/mac/evidence/logs/stage-01/ordinary-app-inspection.json",
-        "product/mac/evidence/logs/stage-01/built-entitlements.plist",
-        "product/mac/evidence/logs/stage-01/built-signature.log"
+        "product/mac/evidence/logs/stage-01-unlocked/ordinary-app-inspection.json"
       ]
     },
     {
@@ -61,11 +62,12 @@
     {
       "id": "M06",
       "status": "BLOCKED",
-      "reason": "130 Foundation tests and four native unit tests pass. Native keyboard/VoiceOver/final screenshots are blocked by the locked Mac.",
+      "reason": "130 unchanged Foundation tests plus four native unit and three native UI tests pass; actual regular/narrow light/dark screenshots reviewed. Spoken VoiceOver focus order remains unobserved because the inspection tool stalled; VoiceOver was restored off.",
       "evidence": [
-        "product/mac/evidence/logs/stage-01/package-and-native-tests.log",
         "product/mac/evidence/logs/stage-01/foundation.log",
-        "product/mac/evidence/logs/stage-01/native-ui.log"
+        "product/mac/evidence/logs/stage-01-unlocked/tests.log",
+        "product/mac/evidence/logs/stage-01-unlocked/screenshot-index.json",
+        "product/mac/evidence/logs/stage-01-unlocked/manual-inspection.json"
       ]
     }
   ],
@@ -89,9 +91,17 @@
     },
     "universal_build": "PASS",
     "ordinary_app_entitlement_inspection": "PASS",
-    "native_ui_tests": "BLOCKED: Mac locked",
+    "native_ui_tests": {
+      "status": "PASS",
+      "passed": 3,
+      "failed": 0
+    },
     "hosted_ci": "NOT MEASURED: no authorized push",
     "macos14_runtime": "NOT MEASURED",
-    "intel_runtime": "NOT MEASURED"
-  }
+    "intel_runtime": "NOT MEASURED",
+    "voiceover": "BLOCKED: spoken navigation not observed; inspection tool timed out; restored off",
+    "runtime_network_observation": "PASS: no app-attributed TCP/UDP rows during bounded final run; sampled accounting limitations recorded",
+    "final_source_integrity": "PASS: all 69 protocol files, 326 source-manifest files and 60 criteria unchanged"
+  },
+  "previous_source_commit": "5024c1cb9924db8980e55d26ce0dbd33fdf366b9"
 }

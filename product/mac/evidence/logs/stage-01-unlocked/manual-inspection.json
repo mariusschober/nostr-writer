@@ -1,0 +1,39 @@
+{
+  "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
+  "ordinary_binary_sha256": "935a0cfe0ca88383ef89c2f9de8878d26ac51bfe1db065fb2254b9770ab13c2f",
+  "recorded_at": "2026-09-17T21:51:51.343144+00:00",
+  "ordinary_app_observations": [
+    {
+      "status": "PASS",
+      "observation": "Initial accessibility focus is the Markdown editor; typing synthetic text without clicking changes that editor."
+    },
+    {
+      "status": "PASS",
+      "observation": "Native Edit > Undo Typing restores the synthetic document to empty."
+    },
+    {
+      "status": "PASS",
+      "observation": "Native toolbar and traffic lights are visible; future Focus, Preview/Export and Publish remain disabled."
+    },
+    {
+      "status": "PASS",
+      "observation": "Recording off remains visible; no account or identity was requested."
+    }
+  ],
+  "voiceover": {
+    "status": "BLOCKED",
+    "reason": "VoiceOver launched, but its native inspection call timed out after 715.835 seconds despite a requested 20-second timeout. No spoken labels or traversal order were observed; AX labels alone are not a VoiceOver pass.",
+    "initial_setting": "off",
+    "enabled_via": "System Settings > Accessibility > VoiceOver",
+    "first_use_dialog": "Welcome and tutorial observed; the Do not show again preference was not selected",
+    "screen_reader_process_observed": true,
+    "final_setting": "off",
+    "restoration_evidence": "System Settings AX_VOICEOVER_ENABLED was observed off after clicking its current on switch; subsequent process inspection showed no VoiceOver.app process.",
+    "required_observation": "On the final ordinary app, a person must verify VoiceOver announces and navigates the editor, sidebar, toolbar, status and native menus in a usable order, and can return to writing."
+  },
+  "limitations": [
+    "CUA Command-key attempts did not produce the expected visible action in this session; the native XCTest keyboard-undo test provides separate actual keyboard evidence.",
+    "No direct audio recording or spoken VoiceOver observation was obtained.",
+    "All writing used isolated synthetic text. No real keys or private drafts were read."
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "file": "screenshots/consent.png",
+    "test": "ShellUITests/testFirstLaunchConsentAndKeyboardEscape()",
+    "timestamp": 1789681840.97
+  },
+  {
+    "file": "screenshots/writing.png",
+    "test": "ShellUITests/testOfflineWritingAndKeyboardUndo()",
+    "timestamp": 1789681848.73
+  },
+  {
+    "file": "screenshots/shell-dark-narrow.png",
+    "test": "ShellUITests/testShellAppearanceAndWindowSizes()",
+    "timestamp": 1789681880.324
+  },
+  {
+    "file": "screenshots/shell-light-narrow.png",
+    "test": "ShellUITests/testShellAppearanceAndWindowSizes()",
+    "timestamp": 1789681871.09
+  },
+  {
+    "file": "screenshots/shell-dark-regular.png",
+    "test": "ShellUITests/testShellAppearanceAndWindowSizes()",
+    "timestamp": 1789681862.241
+  },
+  {
+    "file": "screenshots/shell-light-regular.png",
+    "test": "ShellUITests/testShellAppearanceAndWindowSizes()",
+    "timestamp": 1789681855.684
+  }
+]

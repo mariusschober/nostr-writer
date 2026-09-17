@@ -1,0 +1,6 @@
+time,,interface,state,bytes_in,bytes_out,rx_dupe,rx_ooo,re-tx,rtt_avg,rcvsize,tx_win,tc_class,tc_mgt,cc_algo,P,C,R,W,arch,
+22:23:30.263073,Python.31216,,,4100,4100,0,0,0,,,,,,,,,,,,
+time,,interface,state,bytes_in,bytes_out,rx_dupe,rx_ooo,re-tx,rtt_avg,rcvsize,tx_win,tc_class,tc_mgt,cc_algo,P,C,R,W,arch,
+22:23:31.266083,Python.31216,,,4100,4100,0,0,0,,,,,,,,,,,,
+time,,interface,state,bytes_in,bytes_out,rx_dupe,rx_ooo,re-tx,rtt_avg,rcvsize,tx_win,tc_class,tc_mgt,cc_algo,P,C,R,W,arch,
+22:23:32.265564,Python.31216,,,4100,4100,0,0,0,,,,,,,,,,,,
