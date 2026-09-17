@@ -2,11 +2,11 @@ import AppKit
 import SwiftUI
 
 @MainActor
-final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTextViewDelegate {
+final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTextViewDelegate, NSWindowDelegate {
     let writerDocument: WriterDocument
     let editor = NSTextView(usingTextLayoutManager: true)
     private let split = NSSplitView()
-    private let sidebar = NSHostingView(rootView: ShellSidebar())
+    private let sidebar: NSHostingView<WriterLibrarySidebar>
     private let wordCount = NSTextField(labelWithString: "0 words")
     private let recoveryWarning = NSTextField(labelWithString: "")
     private let retryRecovery = NSButton(title: "Retry Recovery", target: nil, action: nil)
@@ -16,12 +16,16 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
 
     init(writerDocument: WriterDocument) {
         self.writerDocument = writerDocument
+        let library = (NSApp.delegate as? AppDelegate)?.libraryModel
+            ?? WriterLibraryModel(recovery: writerDocument.recoveryLibrary ?? RecoveryLibrary())
+        self.sidebar = NSHostingView(rootView: WriterLibrarySidebar(model: library))
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1120, height: 760),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable],
                               backing: .buffered, defer: false)
         window.title = "Untitled"
         window.tabbingMode = .preferred
         super.init(window: window)
+        window.delegate = self
         setupContent(window)
         // AppKit chooses the initial key view when ordering the window. Setting
         // only firstResponder in showWindow can be overwritten by that step.
@@ -43,6 +47,8 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         window.setFrame(NSRect(origin: window.frame.origin, size: NSSize(width: 1120, height: 760)), display: false)
     }
     required init?(coder: NSCoder) { nil }
+
+    func windowDidResignKey(_ notification: Notification) { writerDocument.checkpointForInterruption(.interruption) }
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
@@ -157,9 +163,10 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         } else { fileState = "Unsaved" }
         wordCount.stringValue = "\(words) \(words == 1 ? "word" : "words") · \(fileState)"
         wordCount.toolTip = writerDocument.recovery?.message
-        retryRecovery.isHidden = writerDocument.recovery?.hasFailure != true
+        let recoveryFailed = writerDocument.recovery?.hasFailure == true || writerDocument.recoveryPreparationError != nil
+        retryRecovery.isHidden = !recoveryFailed
         retryRecovery.toolTip = writerDocument.recovery?.message
-        recoveryWarning.stringValue = writerDocument.recovery?.hasFailure == true
+        recoveryWarning.stringValue = recoveryFailed
             ? "Recovery unavailable. Save your document to a file; your text is still editable." : ""
         recoveryWarning.toolTip = writerDocument.recovery?.message
         history.stringValue = consent.choice == .off ? "Recording off" : "Recording requested · unavailable in this shell"
@@ -214,14 +221,5 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         item.label = details.0; item.paletteLabel = details.0; item.toolTip = details.0
         item.image = NSImage(systemSymbolName: details.1, accessibilityDescription: details.0)
         return item
-    }
-}
-
-private struct ShellSidebar: View {
-    var body: some View {
-        List {
-            Section("Open") { Label("Current document", systemImage: "doc.text") }
-            Section("Recent") { Text("Opened documents will appear here.").foregroundStyle(.secondary).font(.callout) }
-        }.listStyle(.sidebar).frame(minWidth: 180, idealWidth: 232)
     }
 }

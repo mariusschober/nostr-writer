@@ -20,7 +20,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
         }
     }
 
-    func testSchemaVersionOneIsCreatedOnceAndReopensCleanly() async throws {
+    func testCurrentSchemaIsCreatedOnceAndReopensCleanly() async throws {
         let workspace = try TempWorkspace()
         defer { workspace.remove() }
         let key = testKey()
@@ -31,7 +31,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
         try await store.close()
 
         let raw = try RawDatabase(path: workspace.databaseURL.path)
-        XCTAssertEqual(try raw.integer("PRAGMA user_version"), 1)
+        XCTAssertEqual(try raw.integer("PRAGMA user_version"), DocumentStore.currentSchemaVersion)
         XCTAssertEqual(
             try raw.integer("""
                 SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'
@@ -43,7 +43,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
         let reopened = try makeStore(workspace, key: key)
         let state = try await reopened.recover(documentID)
         guard case .complete(let durable) = state else {
-            return XCTFail("A version 1 store must reopen without a migration, received \(state).")
+            return XCTFail("A current-version store must reopen without a migration, received \(state).")
         }
         XCTAssertEqual(durable.source.utf8, Data("kept".utf8))
         try await reopened.close()
@@ -67,7 +67,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
                 return XCTFail("Expected unsupportedSchemaVersion, received \(error).")
             }
             XCTAssertEqual(found, 99)
-            XCTAssertEqual(supported, 1)
+            XCTAssertEqual(supported, DocumentStore.currentSchemaVersion)
         }
 
         let after = try RawDatabase(path: workspace.databaseURL.path)
@@ -89,11 +89,11 @@ final class SchemaRetentionFaultTests: XCTestCase {
 
         let migration = SchemaMigration(
             steps: [
-                SchemaMigration.Step(fromVersion: 1, toVersion: 2) { database in
+                SchemaMigration.Step(fromVersion: DocumentStore.currentSchemaVersion, toVersion: DocumentStore.currentSchemaVersion + 1) { database in
                     try database.execute("CREATE TABLE synthetic_step (id INTEGER PRIMARY KEY)")
                 }
             ],
-            supportedVersion: 2
+            supportedVersion: DocumentStore.currentSchemaVersion + 1
         )
         let connection = try SQLiteConnection(path: workspace.databaseURL.path, busyTimeoutMilliseconds: 1_000)
         try migration.run(
@@ -102,7 +102,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
             fileSystem: SystemStorageFileSystem(),
             clock: MonotonicClock()
         )
-        XCTAssertEqual(try connection.userVersion(), 2)
+        XCTAssertEqual(try connection.userVersion(), DocumentStore.currentSchemaVersion + 1)
         XCTAssertTrue(try connection.tableNames().contains("synthetic_step"))
         try connection.checkpointAndClose()
 
@@ -116,10 +116,10 @@ final class SchemaRetentionFaultTests: XCTestCase {
         // The backup is a complete pre-migration copy and the migrated store keeps
         // the original encrypted snapshot.
         let backup = try RawDatabase(path: backupURL.path)
-        XCTAssertEqual(try backup.integer("PRAGMA user_version"), 1)
+        XCTAssertEqual(try backup.integer("PRAGMA user_version"), DocumentStore.currentSchemaVersion)
         XCTAssertEqual(try backup.integer("SELECT COUNT(*) FROM recovery_chunks"), 1)
         let migrated = try RawDatabase(path: workspace.databaseURL.path)
-        XCTAssertEqual(try migrated.integer("PRAGMA user_version"), 2)
+        XCTAssertEqual(try migrated.integer("PRAGMA user_version"), DocumentStore.currentSchemaVersion + 1)
         XCTAssertEqual(try migrated.integer("SELECT COUNT(*) FROM recovery_chunks"), 1)
     }
 
@@ -160,12 +160,12 @@ final class SchemaRetentionFaultTests: XCTestCase {
 
         let migration = SchemaMigration(
             steps: [
-                SchemaMigration.Step(fromVersion: 1, toVersion: 2) { database in
+                SchemaMigration.Step(fromVersion: DocumentStore.currentSchemaVersion, toVersion: DocumentStore.currentSchemaVersion + 1) { database in
                     try database.execute("CREATE TABLE synthetic_step (id INTEGER PRIMARY KEY)")
                     throw StorageError.migrationFailed("Synthetic step failure.")
                 }
             ],
-            supportedVersion: 2
+            supportedVersion: DocumentStore.currentSchemaVersion + 1
         )
         let connection = try SQLiteConnection(path: workspace.databaseURL.path, busyTimeoutMilliseconds: 1_000)
         XCTAssertThrowsError(
@@ -180,15 +180,15 @@ final class SchemaRetentionFaultTests: XCTestCase {
                 return XCTFail("Expected migrationFailed, received \(error).")
             }
         }
-        XCTAssertEqual(try connection.userVersion(), 1)
+        XCTAssertEqual(try connection.userVersion(), DocumentStore.currentSchemaVersion)
         XCTAssertFalse(try connection.tableNames().contains("synthetic_step"))
         try connection.checkpointAndClose()
 
-        // The version 1 store is still fully usable, including key handling.
+        // The current-version store is still fully usable, including key handling.
         let reopened = try makeStore(workspace, key: key)
         let state = try await reopened.recover(documentID)
         guard case .complete(let durable) = state else {
-            return XCTFail("A failed migration must leave version 1 usable, received \(state).")
+            return XCTFail("A failed migration must leave the current version usable, received \(state).")
         }
         XCTAssertEqual(durable.source.utf8, Data("still readable".utf8))
         try await reopened.close()
@@ -200,7 +200,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
         let store = try makeStore(workspace)
         try await store.close()
 
-        let migration = SchemaMigration(steps: [], supportedVersion: 2)
+        let migration = SchemaMigration(steps: [], supportedVersion: DocumentStore.currentSchemaVersion + 1)
         let connection = try SQLiteConnection(path: workspace.databaseURL.path, busyTimeoutMilliseconds: 1_000)
         XCTAssertThrowsError(
             try migration.run(
@@ -214,7 +214,7 @@ final class SchemaRetentionFaultTests: XCTestCase {
                 return XCTFail("Expected migrationFailed, received \(error).")
             }
         }
-        XCTAssertEqual(try connection.userVersion(), 1)
+        XCTAssertEqual(try connection.userVersion(), DocumentStore.currentSchemaVersion)
         try connection.checkpointAndClose()
     }
 

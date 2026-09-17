@@ -1,8 +1,10 @@
 import AppKit
+import WriterFoundation
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     let recoveryLibrary = RecoveryLibrary()
+    lazy var libraryModel = WriterLibraryModel(recovery: recoveryLibrary)
     private var settings: NSWindowController?
 
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -16,6 +18,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(workspaceWillSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
         NSApp.activate(ignoringOtherApps: true)
         if NSDocumentController.shared.documents.isEmpty {
             NSDocumentController.shared.newDocument(nil)
@@ -23,6 +26,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool { true }
+
+    func applicationWillResignActive(_ notification: Notification) { checkpointDocuments(.interruption) }
+
+    @objc private func workspaceWillSleep(_ notification: Notification) { checkpointDocuments(.sleep) }
+
+    private func checkpointDocuments(_ boundary: ObservationBoundary) {
+        for document in NSDocumentController.shared.documents.compactMap({ $0 as? WriterDocument }) {
+            document.checkpointForInterruption(boundary)
+        }
+    }
 
     @objc func showSettings(_ sender: Any?) {
         if settings == nil { settings = SettingsWindowController() }

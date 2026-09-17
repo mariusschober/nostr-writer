@@ -26,7 +26,7 @@ import WriterFoundation
 public actor DocumentStore: DocumentPersistence {
 
     /// Schema version this build writes and understands.
-    public static let currentSchemaVersion = 1
+    public static let currentSchemaVersion = 2
 
     /// Metadata key holding the installation key check value.
     static let keyCheckValueKey = "key_check_value"
@@ -87,6 +87,11 @@ public actor DocumentStore: DocumentPersistence {
         self.nonceGenerator = nonceGenerator
         self.fileSystem = fileSystem
         self.faultInjector = faultInjector
+    }
+
+    func catalogConnection() throws -> SQLiteConnection {
+        guard !isClosed else { throw StorageError.storeClosed }
+        return database
     }
 
     // MARK: - DocumentPersistence

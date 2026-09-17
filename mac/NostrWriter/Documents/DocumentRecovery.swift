@@ -8,6 +8,136 @@ import WriterStorage
 actor RecoveryLibrary {
     private var opening: Task<DocumentStore, Error>?
 
+    init() {}
+    init(store: DocumentStore) { opening = Task { store } }
+
+    struct Prepared: Sendable {
+        let source: SourceSnapshot
+        let record: DocumentCatalogRecord
+    }
+
+    func prepare(_ source: SourceSnapshot, url: URL?, parent: SourceSnapshot?) async throws -> Prepared {
+        let store = try await store()
+        let location = url?.standardizedFileURL.resolvingSymlinksInPath().absoluteString
+        var record: DocumentCatalogRecord
+        var prepared = source
+        if let location, let existing = try await store.catalogRecord(at: location) {
+            record = existing
+            switch try await store.recover(existing.documentID) {
+            case .complete(let durable):
+                if durable.source.utf8 == source.utf8 {
+                    prepared = durable.source
+                } else {
+                    // Keep an unsaved prior revision as its own recovery entry
+                    // before the newly opened file can supersede it.
+                    if existing.savedDigest != durable.source.digest {
+                        let copy = try SourceSnapshot(documentID: DocumentID(), revision: Revision(0), utf8: durable.source.utf8)
+                        _ = try await store.persist(RecoveryBatch(source: copy, receipts: []))
+                        var recovered = DocumentCatalogRecord(documentID: copy.documentID,
+                            title: "Recovered \(existing.title)", parent: durable.source)
+                        recovered.isOpen = false
+                        try await store.saveCatalogRecord(recovered)
+                    }
+                    guard let next = durable.source.revision.next else { throw ContractError.unsupported("The document revision limit was reached.") }
+                    prepared = try SourceSnapshot(documentID: existing.documentID, revision: next, utf8: source.utf8)
+                }
+            case .absent:
+                let previous = Revision(existing.savedRevision ?? 0)
+                guard let next = previous.next else { throw ContractError.unsupported("The document revision limit was reached.") }
+                prepared = try SourceSnapshot(documentID: existing.documentID, revision: next, utf8: source.utf8)
+            case .localPartial, .conflict, .corrupt, .keyUnavailable:
+                throw RecoveryKeyError.unavailable("Existing recovery needs review. Your opened file remains editable and no recovery was replaced.")
+            }
+        } else if let existing = try await store.catalogRecord(for: source.documentID) {
+            record = existing
+        } else {
+            record = DocumentCatalogRecord(documentID: source.documentID,
+                                            title: url?.lastPathComponent ?? "Untitled", location: location, parent: parent)
+        }
+        if let url {
+            record.bookmark = try await ScopedSourceFiles().bookmarkForExplicitSelection(url)
+            record.savedRevision = prepared.revision.rawValue; record.savedDigest = prepared.digest
+        }
+        record.isOpen = true; record.isVisible = true; record.updatedAt = Date().timeIntervalSince1970
+        _ = try await store.persist(RecoveryBatch(source: prepared, receipts: []))
+        try await store.saveCatalogRecord(record)
+        return Prepared(source: prepared, record: record)
+    }
+
+    func recordSave(_ saved: SavedFileRevision, parent: SourceSnapshot?) async throws {
+        let store = try await store()
+        var record = try await store.catalogRecord(for: saved.source.documentID)
+            ?? DocumentCatalogRecord(documentID: saved.source.documentID, parent: parent)
+        record.location = saved.url.standardizedFileURL.resolvingSymlinksInPath().absoluteString
+        record.bookmark = try await ScopedSourceFiles().bookmarkForExplicitSelection(saved.url)
+        if let newer = try await store.catalogRecord(for: saved.source.documentID),
+           let revision = newer.savedRevision, revision > saved.source.revision.rawValue { return }
+        record.title = saved.url.lastPathComponent
+        record.savedRevision = saved.source.revision.rawValue; record.savedDigest = saved.source.digest
+        record.isOpen = true; record.updatedAt = Date().timeIntervalSince1970
+        try await store.saveCatalogRecord(record)
+    }
+
+    func catalogEntries() async throws -> [DocumentCatalogRecord] {
+        let store = try await store()
+        return try await store.catalogRecords().filter { $0.isVisible }
+    }
+
+    /// A separate recovery identity survives rolling-checkpoint compaction of
+    /// the document that is about to be reverted or replaced.
+    func preserveCopy(_ source: SourceSnapshot, title: String) async throws {
+        let store = try await store()
+        let copy = try SourceSnapshot(documentID: DocumentID(), revision: Revision(0), utf8: source.utf8)
+        _ = try await store.persist(RecoveryBatch(source: copy, receipts: []))
+        var record = DocumentCatalogRecord(documentID: copy.documentID, title: title, parent: source)
+        record.isOpen = false
+        try await store.saveCatalogRecord(record)
+    }
+
+    func markClosed(_ id: DocumentID) async throws {
+        let store = try await store()
+        guard var record = try await store.catalogRecord(for: id) else { return }
+        record.isOpen = false; record.updatedAt = Date().timeIntervalSince1970
+        try await store.saveCatalogRecord(record)
+    }
+
+    func recoveredEntries() async throws -> [DocumentCatalogRecord] {
+        let store = try await store()
+        let records = try await store.catalogRecords()
+        let metadata = try await store.allDocumentMetadata()
+        let orphans = metadata.filter { entry in !records.contains(where: { $0.documentID == entry.documentID }) }
+            .map { DocumentCatalogRecord(documentID: $0.documentID, title: "Recovered document") }
+        return (records + orphans).filter { record in
+            guard record.isVisible, let latest = metadata.first(where: { $0.documentID == record.documentID }) else { return false }
+            return record.savedDigest != latest.latestDigest
+        }
+    }
+
+
+    func searchCurrentText(_ query: String) async throws -> [DocumentCatalogRecord] {
+        guard !query.isEmpty, query.utf8.count <= 4096 else { return [] }
+        let store = try await store()
+        var result: [DocumentCatalogRecord] = []
+        for record in try await store.catalogRecords() where record.isVisible {
+            try Task.checkCancellation()
+            if record.title.localizedCaseInsensitiveContains(query) { result.append(record) }
+            // Search only the current source checkpoint. No deleted revisions,
+            // detailed history, keys, or plaintext persistent search index.
+            else if case .complete(let current) = try await store.recover(record.documentID),
+               current.source.string.localizedCaseInsensitiveContains(query) { result.append(record) }
+            if result.count >= 100 { break }
+        }
+        return result
+    }
+
+    func recoveredSource(_ id: DocumentID) async throws -> SourceSnapshot {
+        let store = try await store()
+        guard case .complete(let current) = try await store.recover(id) else {
+            throw RecoveryKeyError.unavailable("This recovery needs review and was preserved unchanged.")
+        }
+        return current.source
+    }
+
     func store(retry: Bool = false) async throws -> DocumentStore {
         if retry, let opening {
             do { return try await opening.value } catch { self.opening = nil }
@@ -61,6 +191,7 @@ final class DocumentRecovery {
     private var pending: SourceSnapshot?
     private var handoff: Task<Void, Never>?
     private var monitor: Task<Void, Never>?
+    private var metadataHandoff: Task<Void, Never>?
     private var generation = UUID()
     private(set) var message = "Preparing recovery…"
     private(set) var hasFailure = false
@@ -132,22 +263,34 @@ final class DocumentRecovery {
     }
 
     func flush(_ source: SourceSnapshot, boundary: ObservationBoundary) async throws {
-        observe(source)
-        await handoff?.value
+        // An earlier boundary must not replace a newer pending edit while the
+        // store is opening. The actor flushes its latest admitted revision.
+        if source.revision >= latest.revision { observe(source) }
+        await waitForHandoff()
         guard let coordinator else { throw RecoveryKeyError.unavailable(message) }
-        do { _ = try await coordinator.flush(source, atBoundary: boundary) }
+        do { _ = try await coordinator.flushLatest(atBoundary: boundary) }
         catch { fail(error); throw error }
+        await metadataHandoff?.value
     }
 
-    func acknowledgeSave(_ saved: SavedFileRevision) {
+    func acknowledgeSave(_ saved: SavedFileRevision, parent: SourceSnapshot?) {
         // Save status belongs to WriterDocument. A recovery failure cannot turn
         // a completed ordinary file save into an unsaved-file claim.
-        Task { [weak self] in
+        let previous = metadataHandoff
+        metadataHandoff = Task { [weak self] in
             guard let self else { return }
-            await self.handoff?.value
-            do { _ = try await self.coordinator?.acknowledgeSavedFile(saved) }
+            await previous?.value
+            await self.waitForHandoff()
+            do {
+                _ = try await self.coordinator?.acknowledgeSavedFile(saved)
+                try await self.library.recordSave(saved, parent: parent)
+            }
             catch { self.fail(error) }
         }
+    }
+
+    private func waitForHandoff() async {
+        while let pendingHandoff = handoff { await pendingHandoff.value }
     }
 
     func stop() { generation = UUID(); monitor?.cancel(); handoff?.cancel() }
@@ -164,5 +307,40 @@ final class DocumentRecovery {
             message = "Recovery is unavailable. Your text is still editable; save it to a file."
         }
         didChange?()
+    }
+}
+
+/// A lifecycle request stops waiting after five seconds. Cancellation does not
+/// roll back a store commit already in progress and never reports it as durable.
+@MainActor
+private final class RecoveryDeadlineState {
+    var worker: Task<Void, Never>?
+    var timer: Task<Void, Never>?
+    private var continuation: CheckedContinuation<Void, Error>?
+
+    init(_ continuation: CheckedContinuation<Void, Error>) { self.continuation = continuation }
+
+    func finish(_ result: Result<Void, Error>) {
+        guard let continuation else { return }
+        self.continuation = nil
+        worker?.cancel(); timer?.cancel(); worker = nil; timer = nil
+        continuation.resume(with: result)
+    }
+}
+
+@MainActor
+enum RecoveryDeadline {
+    static func run(_ operation: @escaping @MainActor () async throws -> Void) async throws {
+        try await withCheckedThrowingContinuation { continuation in
+            let request = RecoveryDeadlineState(continuation)
+            request.worker = Task {
+                do { try await operation(); request.finish(.success(())) }
+                catch { request.finish(.failure(error)) }
+            }
+            request.timer = Task {
+                do { try await Task.sleep(for: .seconds(5)) } catch { return }
+                request.finish(.failure(RecoveryKeyError.unavailable("Recovery did not finish in time. Keep this document open or save it to a file.")))
+            }
+        }
     }
 }

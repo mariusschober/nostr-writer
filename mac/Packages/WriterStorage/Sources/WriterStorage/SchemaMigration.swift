@@ -16,10 +16,10 @@ struct SchemaMigration {
     let steps: [Step]
     let supportedVersion: Int
 
-    /// The shipped plan. Empty because version 1 is the initial schema. A
-    /// computed property avoids a shared mutable static for a closure-carrying type.
+    /// Version 2 adds bounded document-location metadata. Existing version 1
+    /// recovery is backed up by the common migration path before any change.
     static var standard: SchemaMigration {
-        SchemaMigration(steps: [], supportedVersion: DocumentStore.currentSchemaVersion)
+        SchemaMigration(steps: [Step(fromVersion: 1, toVersion: 2, apply: createCatalog)], supportedVersion: DocumentStore.currentSchemaVersion)
     }
 
     func run(
@@ -37,7 +37,14 @@ struct SchemaMigration {
             }
             try database.withTransaction {
                 try Self.createSchemaVersion1(on: database)
-                try database.setUserVersion(1)
+                var installed = 1
+                while installed < supportedVersion {
+                    guard let step = steps.first(where: { $0.fromVersion == installed }), step.toVersion == installed + 1 else {
+                        throw StorageError.migrationFailed("The initial schema has no defined next step.")
+                    }
+                    try step.apply(database); installed = step.toVersion
+                }
+                try database.setUserVersion(installed)
             }
             return
         }
@@ -73,6 +80,17 @@ struct SchemaMigration {
             }
             current = applied
         }
+    }
+
+    private static func createCatalog(on database: SQLiteConnection) throws {
+        try database.execute("""
+            CREATE TABLE document_catalog (
+                document_id TEXT PRIMARY KEY,
+                location_key TEXT UNIQUE,
+                metadata BLOB NOT NULL,
+                updated_at REAL NOT NULL
+            )
+            """)
     }
 
     // MARK: - Backup

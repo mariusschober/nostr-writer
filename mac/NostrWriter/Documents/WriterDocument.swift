@@ -1,5 +1,6 @@
 import AppKit
 import WriterFoundation
+import WriterStorage
 import os
 
 @MainActor
@@ -14,15 +15,32 @@ final class WriterDocument: NSDocument {
     // decoded source into the main-actor live editor; no UI or capture state lives here.
     private nonisolated let loadedBytes = OSAllocatedUnfairLock(initialState: Data())
     private var documentID = DocumentID()
+    private var openingRevision = Revision(0)
+    private var selectedScope: SelectedSourceLease?
     private(set) var derivedFrom: SourceSnapshot?
     private(set) var session: DocumentSession?
     private(set) var recovery: DocumentRecovery?
+    var recoveryLibrary: RecoveryLibrary?
+    private var recoveryAttachment: Task<Void, Never>?
+    private var pendingPreparation: (RecoveryLibrary.Prepared, SourceSnapshot)?
+    private(set) var recoveryPreparationError: String?
     private(set) var savedFile: SavedFileRevision?
     private(set) var isSavingSource = false
     private(set) var saveFailed = false
     private var writeSnapshot: SourceSnapshot?
     private var saveChangeToken: Any?
     private nonisolated let writingBytes = OSAllocatedUnfairLock<SourceSnapshot?>(initialState: nil)
+    private struct QueuedSave {
+        let url: URL
+        let type: String
+        let operation: NSDocument.SaveOperationType
+        var completions: [(Error?) -> Void]
+    }
+    private var queuedSaves: [QueuedSave] = []
+    private var saveWaiters: [CheckedContinuation<Void, Never>] = []
+    private var lifecycleBusy = false
+    private var preservedRevertSource: SourceSnapshot?
+    private var interruptionFlush: Task<Void, Never>?
     var sourceBytes: Data { session?.snapshot.utf8 ?? loadedBytes.withLock { $0 } }
     override class var autosavesInPlace: Bool { false }
     override class var autosavesDrafts: Bool { false }
@@ -30,15 +48,18 @@ final class WriterDocument: NSDocument {
 
     override func makeWindowControllers() {
         do {
-            session = DocumentSession(snapshot: try SourceSnapshot(documentID: documentID, revision: Revision(0), utf8: loadedBytes.withLock { $0 }))
+            if session == nil {
+                session = DocumentSession(snapshot: try SourceSnapshot(documentID: documentID, revision: openingRevision, utf8: loadedBytes.withLock { $0 }))
+            }
         } catch { presentError(error); return }
         let controller = WriterWindowController(writerDocument: self)
         addWindowController(controller)
-        if let source = session?.snapshot, let library = (NSApp.delegate as? AppDelegate)?.recoveryLibrary {
-            recovery = DocumentRecovery(source: source, library: library)
-            recovery?.didChange = { [weak self] in self?.refreshWindows() }
+        recoveryLibrary = recoveryLibrary ?? (NSApp.delegate as? AppDelegate)?.recoveryLibrary
+        attachRecovery()
+        if let source = session?.snapshot, let fileURL {
+            savedFile = SavedFileRevision(source: source, url: fileURL)
+            (NSApp.delegate as? AppDelegate)?.libraryModel.noteRecent(fileURL)
         }
-        if let source = session?.snapshot, let fileURL { savedFile = SavedFileRevision(source: source, url: fileURL) }
         refreshWindows()
     }
 
@@ -57,7 +78,16 @@ final class WriterDocument: NSDocument {
     override func save(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType,
                        completionHandler: @escaping (Error?) -> Void) {
         guard !isSavingSource else {
-            completionHandler(CocoaError(.userCancelled)); return
+            // One physical writer, with the newest live revision captured when
+            // its turn starts. Distinct destinations retain their order.
+            if let last = queuedSaves.indices.last, queuedSaves[last].url == url,
+               queuedSaves[last].type == typeName, queuedSaves[last].operation == saveOperation,
+               queuedSaves[last].completions.count < 64 {
+                queuedSaves[last].completions.append(completionHandler)
+            } else if queuedSaves.count < 8 {
+                queuedSaves.append(QueuedSave(url: url, type: typeName, operation: saveOperation, completions: [completionHandler]))
+            } else { completionHandler(CocoaError(.userCancelled)) }
+            return
         }
         isSavingSource = true; saveFailed = false
         writeSnapshot = session?.snapshot
@@ -65,8 +95,17 @@ final class WriterDocument: NSDocument {
         let sourceToWrite = writeSnapshot
         writingBytes.withLock { $0 = sourceToWrite }
         refreshWindows()
-        super.save(to: url, ofType: typeName, for: saveOperation) { [weak self] error in
-            guard let self else { completionHandler(error); return }
+        Task { [self] in
+            // Recovery failure must never prevent an emergency ordinary source
+            // save. The recovery warning remains separate from file status.
+            do { try await flushRecovery(at: .save) } catch { }
+            performNativeSave(to: url, ofType: typeName, for: saveOperation, completionHandler: completionHandler)
+        }
+    }
+
+    private func performNativeSave(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType,
+                                   completionHandler: @escaping (Error?) -> Void) {
+        super.save(to: url, ofType: typeName, for: saveOperation) { [self] error in
             if error == nil, let source = self.writeSnapshot {
                 var savedSource = source
                 if saveOperation == .saveAsOperation, let current = self.session?.snapshot {
@@ -77,27 +116,53 @@ final class WriterDocument: NSDocument {
                         self.session = DocumentSession(snapshot: replacement)
                         savedSource = try SourceSnapshot(documentID: self.documentID, revision: source.revision, utf8: source.utf8)
                         self.recovery?.stop()
-                        if let library = (NSApp.delegate as? AppDelegate)?.recoveryLibrary {
+                        self.recoveryAttachment?.cancel()
+                        self.pendingPreparation = nil
+                        if let library = self.recoveryLibrary {
                             self.recovery = DocumentRecovery(source: replacement, library: library)
                             self.recovery?.didChange = { [weak self] in self?.refreshWindows() }
                         }
                     } catch {
                         self.isSavingSource = false; self.saveFailed = true; self.writeSnapshot = nil; self.saveChangeToken = nil
                         self.writingBytes.withLock { $0 = nil }
-                        self.refreshWindows(); completionHandler(error); return
+                        self.applyPreparedRecovery(); self.refreshWindows(); completionHandler(error); self.startNextSave(); return
                     }
                 }
                 let saved = SavedFileRevision(source: savedSource, url: url)
                 self.savedFile = saved
-                self.recovery?.acknowledgeSave(saved)
+                (NSApp.delegate as? AppDelegate)?.libraryModel.noteRecent(url)
+                self.recovery?.acknowledgeSave(saved, parent: self.derivedFrom)
             }
             self.isSavingSource = false; self.saveFailed = error != nil; self.writeSnapshot = nil; self.saveChangeToken = nil
             self.writingBytes.withLock { $0 = nil }
-            self.refreshWindows(); completionHandler(error)
+            self.applyPreparedRecovery(); self.refreshWindows(); completionHandler(error)
+            self.startNextSave()
         }
     }
 
+    private func startNextSave() {
+        guard !isSavingSource else { return }
+        if !queuedSaves.isEmpty {
+            let next = queuedSaves.removeFirst()
+            save(to: next.url, ofType: next.type, for: next.operation) { error in
+                for completion in next.completions { completion(error) }
+            }
+        } else {
+            let waiters = saveWaiters; saveWaiters.removeAll()
+            for waiter in waiters { waiter.resume() }
+        }
+    }
+
+    func awaitSourceSaves() async {
+        guard isSavingSource || !queuedSaves.isEmpty else { return }
+        await withCheckedContinuation { saveWaiters.append($0) }
+    }
+
     override func revert(toContentsOf url: URL, ofType typeName: String) throws {
+        guard let source = session?.snapshot, source == preservedRevertSource else {
+            throw RecoveryKeyError.unavailable("Preserve the current writing before reverting. Use File → Revert to Saved.")
+        }
+        preservedRevertSource = nil
         try super.revert(toContentsOf: url, ofType: typeName)
         guard let session else { return }
         let bytes = loadedBytes.withLock { $0 }
@@ -112,22 +177,175 @@ final class WriterDocument: NSDocument {
         refreshWindows()
     }
 
+    func revertPreservingRecovery(to url: URL, ofType typeName: String) async throws {
+        guard !lifecycleBusy, !isSavingSource, let source = session?.snapshot, let library = recoveryLibrary else {
+            throw RecoveryKeyError.unavailable("Revert is unavailable. Keep this document open or save a separate copy first.")
+        }
+        setLifecycleBusy(true)
+        defer { preservedRevertSource = nil; setLifecycleBusy(false) }
+        try await RecoveryDeadline.run {
+            try await library.preserveCopy(source, title: "Before Revert — \(self.displayName ?? "Untitled")")
+        }
+        guard session?.snapshot == source else { throw CocoaError(.userCancelled) }
+        preservedRevertSource = source
+        try revert(toContentsOf: url, ofType: typeName)
+        (NSApp.delegate as? AppDelegate)?.libraryModel.refresh()
+    }
+
+    @objc func revertPreservingChanges(_ sender: Any?) {
+        guard let fileURL, let fileType, !lifecycleBusy, !isSavingSource else { return }
+        let alert = NSAlert()
+        alert.messageText = "Revert to the saved file?"
+        alert.informativeText = "Your current writing will be kept in Recovered drafts before the saved file replaces it."
+        alert.addButton(withTitle: "Cancel"); alert.addButton(withTitle: "Revert")
+        guard alert.runModal() == .alertSecondButtonReturn else { return }
+        Task {
+            do { try await revertPreservingRecovery(to: fileURL, ofType: fileType) }
+            catch {
+                let failure = NSAlert(); failure.messageText = "Your writing was kept open"
+                failure.informativeText = "Recovery could not safely preserve your current writing. Save a separate copy before trying Revert again."
+                failure.addButton(withTitle: "Back to Writing"); failure.runModal()
+            }
+        }
+    }
+
+    override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if item.action == #selector(revertPreservingChanges(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
+        return super.validateUserInterfaceItem(item)
+    }
+
+    private func setLifecycleBusy(_ busy: Bool) {
+        lifecycleBusy = busy
+        for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.editor.isEditable = !busy }
+    }
+
+    func flushRecovery(at boundary: ObservationBoundary) async throws {
+        try await RecoveryDeadline.run { [self] in
+            await awaitRecoveryAttachment()
+            guard let recovery, let source = session?.snapshot else {
+                throw RecoveryKeyError.unavailable("Recovery is unavailable. Save your writing to a file.")
+            }
+            try await recovery.flush(source, boundary: boundary)
+        }
+    }
+
+    func checkpointForInterruption(_ boundary: ObservationBoundary) {
+        guard interruptionFlush == nil else { return }
+        interruptionFlush = Task { [weak self] in
+            guard let self else { return }
+            defer { self.interruptionFlush = nil }
+            do { try await self.flushRecovery(at: boundary) } catch { }
+        }
+    }
+
+    override func canClose(withDelegate delegate: Any, shouldClose shouldCloseSelector: Selector?, contextInfo: UnsafeMutableRawPointer?) {
+        // This path also participates in NSDocumentController's ordinary quit
+        // negotiation. Keep AppKit's Save/Discard/Cancel decision intact.
+        Task { [self] in
+            await awaitSourceSaves()
+            setLifecycleBusy(true)
+            do { try await flushRecovery(at: .close) } catch { }
+            setLifecycleBusy(false)
+            continueNativeClose(withDelegate: delegate, shouldClose: shouldCloseSelector, contextInfo: contextInfo)
+        }
+    }
+
+    private func continueNativeClose(withDelegate delegate: Any, shouldClose selector: Selector?, contextInfo: UnsafeMutableRawPointer?) {
+        super.canClose(withDelegate: delegate, shouldClose: selector, contextInfo: contextInfo)
+    }
+
+    override func close() {
+        interruptionFlush?.cancel(); recovery?.stop(); recoveryAttachment?.cancel()
+        if let id = session?.snapshot.documentID, let library = recoveryLibrary {
+            Task { try? await library.markClosed(id) }
+        }
+        super.close()
+    }
+
     override func duplicate() throws -> NSDocument {
         let copy = WriterDocument()
         copy.fileType = fileType
         try copy.read(from: sourceBytes, ofType: fileType ?? "net.daringfireball.markdown")
         copy.derivedFrom = session?.snapshot
+        copy.recoveryLibrary = recoveryLibrary
         copy.updateChangeCount(.changeDone)
         NSDocumentController.shared.addDocument(copy)
         NSFileCoordinator.addFilePresenter(copy)
         return copy
     }
 
+    func restoreRecoveredSource(_ source: SourceSnapshot, title: String, asCopy: Bool = false) throws {
+        let restored: SourceSnapshot
+        if asCopy {
+            restored = try SourceSnapshot(documentID: DocumentID(), revision: Revision(0), utf8: source.utf8)
+            derivedFrom = source
+        } else { restored = source }
+        documentID = restored.documentID; openingRevision = restored.revision
+        let bytes = restored.utf8; loadedBytes.withLock { $0 = bytes }
+        displayName = title; updateChangeCount(.changeDone)
+    }
+
+    func retainSelectedScope(_ lease: SelectedSourceLease) { selectedScope = lease }
+
     func refreshWindows() {
         for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.refreshStatus() }
     }
 
-    @objc func retryRecovery(_ sender: Any?) { recovery?.retry() }
+    @objc func retryRecovery(_ sender: Any?) {
+        if let recovery { recovery.retry() } else { attachRecovery(retry: true) }
+    }
+
+    func awaitRecoveryAttachment() async { await recoveryAttachment?.value }
+
+    private func attachRecovery(retry: Bool = false) {
+        guard let initial = session?.snapshot, let library = recoveryLibrary else { return }
+        recoveryAttachment?.cancel()
+        recoveryPreparationError = nil
+        let url = fileURL, parent = derivedFrom
+        recoveryAttachment = Task { [weak self] in
+            do {
+                if retry { _ = try await library.store(retry: true) }
+                let prepared = try await library.prepare(initial, url: url, parent: parent)
+                guard let self, !Task.isCancelled else { return }
+                self.pendingPreparation = (prepared, initial)
+                self.applyPreparedRecovery()
+            } catch {
+                guard let self, !Task.isCancelled else { return }
+                self.recoveryPreparationError = "Recovery is unavailable. Save your document to a file; your text remains editable."
+                self.refreshWindows()
+            }
+        }
+    }
+
+    private func applyPreparedRecovery() {
+        guard !isSavingSource, let (prepared, initial) = pendingPreparation,
+              let current = session?.snapshot, current.documentID == initial.documentID,
+              let library = recoveryLibrary else { return }
+        pendingPreparation = nil
+        do {
+            let delta = current.revision.rawValue - initial.revision.rawValue
+            let (revision, overflow) = prepared.source.revision.rawValue.addingReportingOverflow(delta)
+            guard !overflow else { throw ContractError.unsupported("The document revision limit was reached.") }
+            let rebound = try SourceSnapshot(documentID: prepared.source.documentID, revision: Revision(revision), utf8: current.utf8)
+            // Only identity/revision changes here; the editor and its undo history
+            // retain all edits that arrived while the private store was opening.
+            documentID = rebound.documentID
+            session = DocumentSession(snapshot: rebound)
+            if let saved = savedFile, saved.source.documentID == initial.documentID,
+               saved.source.revision >= initial.revision {
+                let savedDelta = saved.source.revision.rawValue - initial.revision.rawValue
+                let (savedRevision, savedOverflow) = prepared.source.revision.rawValue.addingReportingOverflow(savedDelta)
+                guard !savedOverflow else { throw ContractError.unsupported("The document revision limit was reached.") }
+                savedFile = SavedFileRevision(source: try SourceSnapshot(documentID: documentID,
+                    revision: Revision(savedRevision), utf8: saved.source.utf8), url: saved.url)
+            }
+            recovery = DocumentRecovery(source: rebound, library: library)
+            recovery?.didChange = { [weak self] in self?.refreshWindows() }
+            if let savedFile { recovery?.acknowledgeSave(savedFile, parent: derivedFrom) }
+            recoveryPreparationError = nil
+        } catch { recoveryPreparationError = "Recovery could not attach safely. Save your document to a file." }
+        refreshWindows()
+    }
 
 
     nonisolated override func read(from data: Data, ofType typeName: String) throws {
@@ -139,6 +357,7 @@ final class WriterDocument: NSDocument {
     }
 
     func acceptScratchEdit(_ text: String) throws {
+        guard !lifecycleBusy else { throw CocoaError(.userCancelled) }
         // This stage-local scratch adapter is replaced by the attributed gateway in Stage 03.
         let next = Data(text.utf8)
         guard next != sourceBytes else { return }

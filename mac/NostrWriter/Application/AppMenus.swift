@@ -29,6 +29,8 @@ enum AppMenus {
         item(file, "Close", #selector(NSWindow.performClose(_:)), "w")
         item(file, "Save…", #selector(NSDocument.save(_:)), "s")
         item(file, "Save As…", #selector(NSDocument.saveAs(_:)), "s", [.command, .shift])
+        item(file, "Duplicate", #selector(NSDocument.duplicate(_:)))
+        item(file, "Revert to Saved…", #selector(WriterDocument.revertPreservingChanges(_:)))
         let edit = menu("Edit")
         item(edit, "Undo", Selector(("undo:")), "z")
         item(edit, "Redo", Selector(("redo:")), "z", [.command, .shift])

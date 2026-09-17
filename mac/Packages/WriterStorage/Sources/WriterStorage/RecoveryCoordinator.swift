@@ -420,6 +420,14 @@ public actor RecoveryCoordinator {
 
     // MARK: - Lifecycle boundaries
 
+    /// Select the latest admitted source on this actor so editing cannot make
+    /// an app-level boundary request stale while it crosses executors.
+    @discardableResult
+    public func flushLatest(atBoundary boundary: ObservationBoundary) async throws -> DurableRevision {
+        guard let source = latestObserved else { throw RecoveryCoordinatorError.closed }
+        return try await flush(source, atBoundary: boundary)
+    }
+
     /// Waits until the given snapshot, or a newer one, is durably recoverable.
     ///
     /// Used at save, sleep and resign boundaries. It force-schedules a checkpoint
