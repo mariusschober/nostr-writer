@@ -1,0 +1,54 @@
+{
+  "format": "nostr-writer-preparation-evidence/1",
+  "recorded_at": "2026-09-17T20:47:47.501315+00:00",
+  "source_commit": "c74b88bf66b6178274302ebc8a4e128485357268",
+  "branch": "preparation/native-cores",
+  "stage_01_checkpoint": "251a7d1d70585cd953c758cd6b66c87cb2dcd701",
+  "accepted_predecessor": null,
+  "stage_02_status": "NOT ACCEPTED",
+  "acceptance_ids": [
+    "M07",
+    "M08",
+    "M11",
+    "M12"
+  ],
+  "acceptance_claim": "Native file component checks only; no assigned Stage 02 criterion is marked passed.",
+  "tests": {
+    "status": "PASS",
+    "command": "NW_COORDINATED_WRITER=/private/tmp/nostr-writer-coordinated-writer swift test --package-path mac/Packages/WriterStorage",
+    "xctest_cases": 59,
+    "failures": 0,
+    "skipped": 0,
+    "elapsed_test_seconds": 0.685,
+    "new_file_tests": 9,
+    "new_bookmark_seam_tests": 4,
+    "previous_recovery_tests": 46,
+    "log": "tests.log"
+  },
+  "second_process": {
+    "status": "PASS",
+    "build_command": "swiftc mac/Packages/WriterStorage/Tools/coordinated_writer.swift -o /private/tmp/nostr-writer-coordinated-writer",
+    "scope": "real second local Foundation-coordinated writer over public synthetic temporary text; no provider accounts"
+  },
+  "fixed_during_review": [
+    "NSFileCoordinator opened a FIFO before the accessor, blocking the first hostile-input check. Preflight file-type checks now run before coordination. The final hostile-input check passes in 0.013 seconds without intervention.",
+    "Atomic create uses RENAME_EXCL so another file created after the first check is not overwritten.",
+    "Replacement rechecks exact source bytes inside coordination before rename and retains file security metadata and extended attributes."
+  ],
+  "integrity": {
+    "status": "PASS",
+    "distribution_files": 69,
+    "source_manifest_files": 326,
+    "mandatory_acceptance_definitions": 60
+  },
+  "limitations": [
+    "No NSDocument, library, conflict-sheet or scheduler integration is claimed by this checkpoint.",
+    "Real sandbox bookmark grants, stale bookmarks, revoked permissions and real iCloud/Google Drive sessions remain NOT MEASURED. Grant lifecycle tests use an injected provider.",
+    "Cooperating writers are coordinated; a malicious local process that bypasses coordination can still race the filesystem.",
+    "The preflight check is advisory; it is not a guarantee against another process replacing a node after preflight.",
+    "File replacement has fault-injected failure points; no physical power loss/full volume or real provider outage measured.",
+    "After replacement but before directory synchronization failure yields durability-uncertain rather than a Saved acknowledgement.",
+    "The caller needs sufficient grants for a same-folder temporary file; actual sandbox parent-folder behavior remains to be verified.",
+    "No app UI/VoiceOver/typing latency or universal application build with these components measured."
+  ]
+}

@@ -31,6 +31,9 @@
 		E9BFC20089FCB88156BED75F /* ShellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB960820E5E9A29AF3E18BF /* ShellTests.swift */; };
 		ED30CC425B16F1622DE5B23C /* AppMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE425E3021C5F9A91B948DC3 /* AppMain.swift */; };
 		EEFDD1A3FE5FF4E5D3E3A1BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5B3836510ACD0548383D3 /* AppDelegate.swift */; };
+		E02000000000000000000002 /* DocumentRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02000000000000000000001; };
+		E02000000000000000000003 /* DocumentRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02000000000000000000001; };
+		E02000000000000000000004 /* WriterStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 26EAA9821413D4BD7CA656C0; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,7 @@
 		E1587FCB6ACBF371E6B11DB4 /* DocumentSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSession.swift; sourceTree = "<group>"; };
 		ECD885391FB3F412C926EC24 /* NostrWriterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NostrWriterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED9A24C8DF0D4E3DACE8328 /* WriterNostr */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WriterNostr; path = Packages/WriterNostr; sourceTree = SOURCE_ROOT; };
+		E02000000000000000000001 /* DocumentRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRecovery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0963CCF005E33A6963331CFC /* WriterFoundation in Frameworks */,
+				E02000000000000000000004 /* WriterStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				E1587FCB6ACBF371E6B11DB4 /* DocumentSession.swift */,
+				E02000000000000000000001 /* DocumentRecovery.swift */,
 				10C7678FA7AC1A7B9FC57A7E /* WriterDocument.swift */,
 				6B2CC97A9E15AA339FA2EB62 /* WriterWindowController.swift */,
 			);
@@ -303,6 +309,7 @@
 				EEFDD1A3FE5FF4E5D3E3A1BF /* AppDelegate.swift in Sources */,
 				C327130D6506E1DE59250B2B /* AppMenus.swift in Sources */,
 				D54351EAC4C6865705865F04 /* DocumentSession.swift in Sources */,
+				E02000000000000000000002 /* DocumentRecovery.swift in Sources */,
 				24C622F0E32FF305549DC72C /* RecordingConsent.swift in Sources */,
 				AC87B0F87D6F1D83EFDF133F /* SettingsWindowController.swift in Sources */,
 				E9BFC20089FCB88156BED75F /* ShellTests.swift in Sources */,
@@ -319,6 +326,7 @@
 				ED30CC425B16F1622DE5B23C /* AppMain.swift in Sources */,
 				6D0BEE13C66FFE498E247A62 /* AppMenus.swift in Sources */,
 				792E1154110FD9B897E7C56D /* DocumentSession.swift in Sources */,
+				E02000000000000000000003 /* DocumentRecovery.swift in Sources */,
 				AF2EFB864B0A39850D73B252 /* RecordingConsent.swift in Sources */,
 				48B68A623603BF841A6FDCD4 /* SettingsWindowController.swift in Sources */,
 				6D5B0EC5C583A1E87C16C9CE /* WriterDocument.swift in Sources */,

@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "scope": "Six component checks only; no Stage 02 acceptance or real Keychain observation",
+  "input_commit": "82496ef",
+  "source_files": [
+    "mac/Packages/WriterStorage/Sources/WriterStorage/RecoveryBootstrap.swift",
+    "mac/Packages/WriterStorage/Sources/WriterStorage/DocumentStore.swift",
+    "mac/Packages/WriterStorage/Tests/WriterStorageTests/RecoveryBootstrapTests.swift"
+  ],
+  "command": "swift test --package-path mac/Packages/WriterStorage --filter RecoveryBootstrapTests",
+  "passed": 6,
+  "failed": 0,
+  "duration_seconds": 0.046,
+  "build_seconds": 5.43,
+  "not_measured": [
+    "actual signed app Keychain access",
+    "app document attachment",
+    "power-loss filesystem observation",
+    "provider storage",
+    "bootstrap write/readback/store-open injected faults"
+  ],
+  "environment_failure": "Initial sandbox invocation could not write the compiler module cache; no source test executed. One normal-cache invocation compiled and passed."
+}

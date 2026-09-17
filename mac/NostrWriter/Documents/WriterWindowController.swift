@@ -8,6 +8,8 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
     private let split = NSSplitView()
     private let sidebar = NSHostingView(rootView: ShellSidebar())
     private let wordCount = NSTextField(labelWithString: "0 words")
+    private let recoveryWarning = NSTextField(labelWithString: "")
+    private let retryRecovery = NSButton(title: "Retry Recovery", target: nil, action: nil)
     private let history = NSTextField(labelWithString: "Recording off")
     private let consent = RecordingConsent()
     private let placeholder = NSTextField(labelWithString: "Write what you think.")
@@ -91,17 +93,27 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         placeholder.translatesAutoresizingMaskIntoConstraints = false
         placeholder.setAccessibilityElement(false)
         writing.addSubview(placeholder)
-        let status = NSStackView(views: [wordCount, NSView(), history])
+        retryRecovery.target = writerDocument; retryRecovery.action = #selector(WriterDocument.retryRecovery(_:))
+        retryRecovery.bezelStyle = .inline; retryRecovery.isHidden = true
+        let status = NSStackView(views: [wordCount, NSView(), retryRecovery, history])
         status.orientation = .horizontal; status.spacing = 16; status.translatesAutoresizingMaskIntoConstraints = false
         wordCount.font = .systemFont(ofSize: 12); wordCount.textColor = .secondaryLabelColor
         history.font = .systemFont(ofSize: 12); history.textColor = .secondaryLabelColor
         root.addSubview(status)
+        recoveryWarning.translatesAutoresizingMaskIntoConstraints = false
+        recoveryWarning.font = .systemFont(ofSize: 11)
+        recoveryWarning.textColor = .secondaryLabelColor
+        recoveryWarning.setAccessibilityIdentifier("recovery-warning")
+        root.addSubview(recoveryWarning)
         NSLayoutConstraint.activate([
             split.leadingAnchor.constraint(equalTo: root.leadingAnchor), split.trailingAnchor.constraint(equalTo: root.trailingAnchor),
             split.topAnchor.constraint(equalTo: root.topAnchor), split.bottomAnchor.constraint(equalTo: status.topAnchor, constant: -8),
             status.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 16),
             status.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -16),
-            status.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -8), status.heightAnchor.constraint(equalToConstant: 20),
+            status.bottomAnchor.constraint(equalTo: recoveryWarning.topAnchor, constant: -2), status.heightAnchor.constraint(equalToConstant: 20),
+            recoveryWarning.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 16),
+            recoveryWarning.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -16),
+            recoveryWarning.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -6),
             sidebar.widthAnchor.constraint(greaterThanOrEqualToConstant: 180), sidebar.widthAnchor.constraint(lessThanOrEqualToConstant: 300),
             scroll.leadingAnchor.constraint(equalTo: writing.leadingAnchor), scroll.trailingAnchor.constraint(equalTo: writing.trailingAnchor),
             scroll.topAnchor.constraint(equalTo: writing.topAnchor), scroll.bottomAnchor.constraint(equalTo: writing.bottomAnchor),
@@ -128,9 +140,28 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         return candidate.utf8.count <= 8 * 1024 * 1024 && candidate.unicodeScalars.count <= 1_000_000
     }
 
-    private func refreshStatus() {
+    func reloadSource() {
+        let selection = editor.selectedRange()
+        editor.string = String(decoding: writerDocument.sourceBytes, as: UTF8.self)
+        editor.setSelectedRange(NSRange(location: min(selection.location, editor.string.utf16.count), length: 0))
+        refreshStatus()
+    }
+
+    func refreshStatus() {
         let words = editor.string.split(whereSeparator: \.isWhitespace).count
-        wordCount.stringValue = "\(words) \(words == 1 ? "word" : "words") · \(writerDocument.isDocumentEdited ? "Unsaved" : "Scratch document")"
+        let fileState: String
+        if writerDocument.isSavingSource { fileState = "Saving…" }
+        else if writerDocument.saveFailed { fileState = "Save failed" }
+        else if let saved = writerDocument.savedFile, saved.source == writerDocument.session?.snapshot {
+            fileState = "Saved to \(saved.url.deletingLastPathComponent().lastPathComponent)"
+        } else { fileState = "Unsaved" }
+        wordCount.stringValue = "\(words) \(words == 1 ? "word" : "words") · \(fileState)"
+        wordCount.toolTip = writerDocument.recovery?.message
+        retryRecovery.isHidden = writerDocument.recovery?.hasFailure != true
+        retryRecovery.toolTip = writerDocument.recovery?.message
+        recoveryWarning.stringValue = writerDocument.recovery?.hasFailure == true
+            ? "Recovery unavailable. Save your document to a file; your text is still editable." : ""
+        recoveryWarning.toolTip = writerDocument.recovery?.message
         history.stringValue = consent.choice == .off ? "Recording off" : "Recording requested · unavailable in this shell"
         placeholder.isHidden = !editor.string.isEmpty
     }

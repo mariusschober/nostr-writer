@@ -1,0 +1,64 @@
+{
+  "format": "nostr-writer-preparation-evidence/1",
+  "recorded_at": "2026-09-17T21:12:35.182475+00:00",
+  "source_commit": "735681c4543a7084cd17925e75f39024f6d46983",
+  "branch": "preparation/native-cores",
+  "stage_01_checkpoint": "251a7d1d70585cd953c758cd6b66c87cb2dcd701",
+  "accepted_predecessor": null,
+  "stage_02_status": "NOT ACCEPTED",
+  "acceptance_ids": [
+    "M07",
+    "M08"
+  ],
+  "acceptance_claim": "Recovery scheduling component evidence only; no assigned Stage 02 criterion is marked passed.",
+  "tests": {
+    "status": "PASS",
+    "command": "swift test --package-path mac/Packages/WriterStorage --filter 'RecoveryCoordinatorTests|DurabilityFileIntegrationTests'",
+    "xctest_cases": 36,
+    "scheduler_cases": 34,
+    "composition_cases": 2,
+    "failures": 0,
+    "skipped": 0,
+    "elapsed_test_seconds": 0.1,
+    "log": "tests.log",
+    "compiler_warnings": [
+      "One test-local variable is never mutated; no production-source warning."
+    ]
+  },
+  "earlier_storage_evidence": {
+    "source_commit": "c74b88bf66b6178274302ebc8a4e128485357268",
+    "xctest_cases": 59,
+    "log": "../native-files/tests.log",
+    "note": "Those implementations remain byte-identical; final selected run compiled the full current package and ran only the 36 new scheduling/composition cases. Do not represent this as one 95-test run."
+  },
+  "composition": [
+    "Close forces the newest unsaved revision into the real encrypted SQLite store; reopening recovers its exact BOM, CRLF and Unicode bytes while the saved source remains at the earlier revision.",
+    "An unavailable injected recovery key prevents durability acknowledgement but permits ordinary coordinated source saving; after key restoration, explicit retry restores recovery with the same source."
+  ],
+  "review_corrections": [
+    "Revision zero is a real first revision, distinct from no durable revision.",
+    "Failed persistence pauses scheduling instead of spinning; a new edit restores the cleared scheduling anchor.",
+    "Close forces pending source and has a cancellable waiter; cancellation leaves an already-committing store write alone.",
+    "A failed or cancelled close permits continued editing; a concurrent close is refused and a completed close clears isClosing.",
+    "A failed timer clears its task/token and exposes schedulingFailed.",
+    "The oldest-pending clock advances after the preceding commit; continuous editing cannot postpone the deadline.",
+    "Injected intervals are scaled correctly and clamped to one second; source bounds and foreign recovery seeds are checked before retention.",
+    "Saved-file acknowledgements reflect completion order and reject mismatched bytes for the current revision."
+  ],
+  "integrity": {
+    "status": "PASS",
+    "distribution_files": 69,
+    "source_manifest_files": 326,
+    "mandatory_acceptance_definitions": 60
+  },
+  "limitations": [
+    "Not attached to NSDocument, application lifecycle, native close/quit UI or Keychain; source is local unmerged preparation.",
+    "The 34 scheduler tests use a virtual clock. Actual SystemMonotonicScheduler timing, app latency and the one-second product acceptance bound remain NOT MEASURED.",
+    "A store delayed beyond the checkpoint interval exposes overdue state; scheduling alone cannot guarantee the device completed a durable write.",
+    "No real Keychain, sandbox grants, iCloud, Google Drive, full volume, physical power loss or Intel runtime measured.",
+    "Input bounds were tested with smaller injected limits; exact default 8 MiB / 1,000,000 scalar edge cases were not separately run for the coordinator.",
+    "Saved acknowledgements assume the caller reports real completion order; serialization of native saves remains the document-session owner responsibility.",
+    "Detailed private capture history and mutation receipts are not persisted by source recovery; no HWP authority or consent grant is created.",
+    "All Stage 01 external acceptance blockers and all later mandatory stages remain open."
+  ]
+}

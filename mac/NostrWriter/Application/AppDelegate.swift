@@ -2,6 +2,7 @@ import AppKit
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    let recoveryLibrary = RecoveryLibrary()
     private var settings: NSWindowController?
 
     func applicationWillFinishLaunching(_ notification: Notification) {

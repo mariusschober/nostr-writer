@@ -1,0 +1,81 @@
+{
+  "component": "recovery-keychain-reader",
+  "source_commit": "0a1a806de098aebb67225d8363d12d47f4ea3260",
+  "branch": "preparation/native-cores",
+  "stage_accepted": false,
+  "status": "PASS: isolated implementation and injected-query checks only",
+  "test_command": "swift test --package-path mac/Packages/WriterStorage --filter KeychainRecoveryKeyTests",
+  "test_invocations": 1,
+  "tests": {
+    "passed": 6,
+    "failed": 0,
+    "seconds": 0.011
+  },
+  "build_seconds": 3.7,
+  "real_keychain_accessed": false,
+  "keychain_mutations": false,
+  "source_implemented_by": "parent",
+  "worker_edited_source": false,
+  "criteria": {
+    "M07": "NOT MEASURED: full document integration remains",
+    "M08": "NOT MEASURED: real Keychain and bootstrap integration remains"
+  },
+  "remaining": [
+    "Signed/provisioned native Keychain access",
+    "Crash-safe first key creation",
+    "Native recovery UI and document integration",
+    "Real provider acceptance"
+  ],
+  "checks": {
+    "preparation": {
+      "checks": {
+        "current_markdown_links": {
+          "local_links": 124,
+          "markdown_files": 54,
+          "status": "PASS"
+        },
+        "frozen_protocol": {
+          "distribution_files": 69,
+          "freeze_sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88",
+          "inventoried_files": 67,
+          "mode": "read-only-verification",
+          "original_freeze_checker": "PASS",
+          "protocol_definition_sha256": "58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4",
+          "status": "PASS"
+        },
+        "plans_and_acceptance": {
+          "application_acceptance_measured": false,
+          "mandatory_acceptance_definitions": 60,
+          "plans": 8,
+          "stages": 8,
+          "starts": 8,
+          "status": "PASS"
+        },
+        "recovery_inventory": {
+          "archive_members": 255,
+          "archives": 7,
+          "baseline_records": 70,
+          "chat6_mappings": 35,
+          "originals": 47,
+          "recovered_members_verified": 214,
+          "status": "PASS"
+        },
+        "snapshot_manifest": {
+          "format": "nostr-writer-source-of-truth/1",
+          "listed_files": 326,
+          "status": "PASS"
+        }
+      },
+      "status": "PASS"
+    },
+    "frozen_protocol": {
+      "distribution_files": 69,
+      "freeze_sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88",
+      "inventoried_files": 67,
+      "mode": "read-only-verification",
+      "original_freeze_checker": "PASS",
+      "protocol_definition_sha256": "58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4",
+      "status": "PASS"
+    }
+  }
+}

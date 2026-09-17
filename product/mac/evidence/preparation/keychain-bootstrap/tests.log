@@ -1,0 +1,55 @@
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Compiling WriterStorage DocumentStore.swift
+[5/8] Compiling WriterStorage RecoveryBootstrap.swift
+[6/8] Emitting module WriterStorage
+[7/9] Compiling WriterStorage SchemaMigration.swift
+[8/20] Compiling WriterStorageTests DurabilityFileIntegrationTests.swift
+[9/20] Compiling WriterStorageTests CoordinatedSourceFilesTests.swift
+[10/20] Compiling WriterStorageTests DurabilityAndBoundsTests.swift
+[11/20] Compiling WriterStorageTests EncryptionTests.swift
+[12/20] Emitting module WriterStorageTests
+[13/20] Compiling WriterStorageTests RecoveryCoordinatorTests.swift
+/private/tmp/nostr-writer-preparation/mac/Packages/WriterStorage/Tests/WriterStorageTests/RecoveryCoordinatorTests.swift:961:13: warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 959 |         XCTAssertEqual(attempts, 1, "A failure must not start an unattended retry loop.")
+ 960 | 
+ 961 |         var state = await coordinator.state()
+     |             `- warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 962 |         XCTAssertTrue(state.isPausedForRetry)
+ 963 |         XCTAssertEqual(state.lastFailure, .persistence(.diskFull("no space")))
+[14/20] Compiling WriterStorageTests RecoveryBootstrapTests.swift
+[15/20] Compiling WriterStorageTests SchemaRetentionFaultTests.swift
+[16/20] Compiling WriterStorageTests StorageCoreTests.swift
+[17/20] Compiling WriterStorageTests KeychainRecoveryKeyTests.swift
+[18/20] Compiling WriterStorageTests ScopedSourceFilesTests.swift
+[19/21] Compiling WriterStorageTests TestSupport.swift
+[19/21] Write Objects.LinkFileList
+[20/21] Linking WriterStoragePackageTests
+Build complete! (5.43s)
+Test Suite 'Selected tests' started at 2026-09-17 23:48:05.293.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-17 23:48:05.298.
+Test Suite 'RecoveryBootstrapTests' started at 2026-09-17 23:48:05.298.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testDeniedPreparingKeyDoesNotCreateKeyOrDatabase]' started.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testDeniedPreparingKeyDoesNotCreateKeyOrDatabase]' passed (0.013 seconds).
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testInterruptedFirstCreationCanResumeOnlyEmptyPreparingInstallation]' started.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testInterruptedFirstCreationCanResumeOnlyEmptyPreparingInstallation]' passed (0.009 seconds).
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testLiveStoreOwnsExclusiveLeaseUntilClose]' started.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testLiveStoreOwnsExclusiveLeaseUntilClose]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testNewInstallationCreatesOnceAndReopensSameIdentity]' started.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testNewInstallationCreatesOnceAndReopensSameIdentity]' passed (0.007 seconds).
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testReadyMissingKeyPreservesDatabaseAndNeverReplacesKey]' started.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testReadyMissingKeyPreservesDatabaseAndNeverReplacesKey]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testUnknownExistingRootAndPreparingRootWithDataArePreserved]' started.
+Test Case '-[WriterStorageTests.RecoveryBootstrapTests testUnknownExistingRootAndPreparingRootWithDataArePreserved]' passed (0.004 seconds).
+Test Suite 'RecoveryBootstrapTests' passed at 2026-09-17 23:48:05.344.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.045 (0.046) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-17 23:48:05.344.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.045 (0.046) seconds
+Test Suite 'Selected tests' passed at 2026-09-17 23:48:05.344.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.045 (0.051) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

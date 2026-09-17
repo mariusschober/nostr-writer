@@ -56,4 +56,41 @@ final class ShellTests: XCTestCase {
         XCTAssertTrue(session.acceptsCompletion(for: session.snapshot))
         XCTAssertEqual(session.snapshot.utf8, Data("New".utf8))
     }
+    func testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity() async throws {
+        _ = NSApplication.shared
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-native-\(UUID())")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let document = WriterDocument()
+        document.fileType = "net.daringfireball.markdown"
+        let bytes = Data([0xef, 0xbb, 0xbf]) + Data("Cafe\u{301}\r\n  \n".utf8)
+        try document.read(from: bytes, ofType: "net.daringfireball.markdown")
+        document.makeWindowControllers()
+        let id = try XCTUnwrap(document.session?.snapshot.documentID)
+        let first = root.appendingPathComponent("first.md")
+        try await document.save(to: first, ofType: "net.daringfireball.markdown", for: .saveOperation)
+        XCTAssertEqual(try Data(contentsOf: first), bytes)
+        XCTAssertEqual(document.savedFile?.source, document.session?.snapshot)
+        try document.acceptScratchEdit(String(decoding: bytes, as: UTF8.self) + "new")
+        XCTAssertNotEqual(document.savedFile?.source, document.session?.snapshot)
+        try document.revert(toContentsOf: first, ofType: "net.daringfireball.markdown")
+        XCTAssertEqual(document.sourceBytes, bytes)
+        XCTAssertEqual(Data((document.windowControllers[0] as! WriterWindowController).editor.string.utf8), bytes)
+        XCTAssertEqual(document.session?.snapshot.documentID, id)
+        let copy = try XCTUnwrap(try document.duplicate() as? WriterDocument)
+        copy.makeWindowControllers()
+        XCTAssertNotEqual(copy.session?.snapshot.documentID, id)
+        XCTAssertEqual(copy.sourceBytes, bytes)
+        XCTAssertEqual(copy.derivedFrom, document.session?.snapshot)
+        XCTAssertNil(copy.fileURL)
+        copy.close()
+        let second = root.appendingPathComponent("second.md")
+        try await document.save(to: second, ofType: "net.daringfireball.markdown", for: .saveAsOperation)
+        XCTAssertNotEqual(document.session?.snapshot.documentID, id)
+        XCTAssertEqual(document.derivedFrom?.documentID, id)
+        XCTAssertEqual(try Data(contentsOf: second), bytes)
+        XCTAssertEqual(document.savedFile?.source, document.session?.snapshot)
+        document.close()
+    }
+
 }

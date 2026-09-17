@@ -1,0 +1,19 @@
+{
+  "mac/Packages/WriterStorage/CORE-NOTES.md": "5ac096db570f129e9f37bc6da428707ce045f4558eae66f3d7ab223d2817bd36",
+  "mac/Packages/WriterStorage/Package.swift": "347c73ec696e3e31dfaa2a7fa79facba645f8bf5d5aabe9ebb2fd87cc883375d",
+  "mac/Packages/WriterStorage/Sources/CSQLite/module.modulemap": "bbfe59a972a3e8e09e347c04bc22c0eacd2544881af8a4b6068bfc30b38466e8",
+  "mac/Packages/WriterStorage/Sources/CSQLite/shim.h": "1818f6dab44dbbe48944d0249a168888c248a1f53a4560db108309a56d77dd71",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/DocumentStore.swift": "a3e4630eb26c9a29c524cc2d30b4efea65a4650a30479df6fe3b9b3b2d2095c3",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/Module.swift": "afb2bbe995958d10f4491b84ecb1a64d376972152bcaace32de5685eda689664",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/RecoveryCipher.swift": "90b8b30c0a377929e98f1cde84f9dec5b704b83b901b45ce78a53a5bfe36a883",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/SQLiteConnection.swift": "3d2fd9fc7800940a944476b10109454c61430695591a3e6f074924396b598a98",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/SchemaMigration.swift": "e48fc2a4f5c3abc05d8f673a71d14b1ce326c2a28301e08c3285c11333d7f42e",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/StorageError.swift": "73ab17808cf90f26545e6fab8d948190be6eb2c05990c28783022f3d12c768e1",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/StorageSeams.swift": "5e88b82ac495f592b4d52584e1d3accab1add950f83ffae7a15f2baa94b7eb08",
+  "mac/Packages/WriterStorage/Sources/WriterStorage/StorageTypes.swift": "a39aecda5690782955747b7fb53d98bd5284b48e9e28e6ec9892759fc32f4567",
+  "mac/Packages/WriterStorage/Tests/WriterStorageTests/DurabilityAndBoundsTests.swift": "4484149f51a08f21902597f9bd405696aa6b078b336dc2ce8ced333cc824378c",
+  "mac/Packages/WriterStorage/Tests/WriterStorageTests/EncryptionTests.swift": "065110fc9cc7e18567811d78a435ae9e4ed25284c538417b0b69f8625121c5d7",
+  "mac/Packages/WriterStorage/Tests/WriterStorageTests/SchemaRetentionFaultTests.swift": "898d6ddd882a79a5403067573ba9fca91fc2ae39796f629c150f0e78f4e97bea",
+  "mac/Packages/WriterStorage/Tests/WriterStorageTests/StorageCoreTests.swift": "82d582e305a544f4703f57fc93325661fa163bd6b4f7de5a8a7e7f45e9a7ce29",
+  "mac/Packages/WriterStorage/Tests/WriterStorageTests/TestSupport.swift": "943253a73223203a2d3a837ddab99863c4736e1332827697233732c90efe8495"
+}
