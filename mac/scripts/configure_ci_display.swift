@@ -26,7 +26,22 @@ guard let selected = candidates.first else {
     exit(1)
 }
 print("Selecting hosted display mode \(selected.width)x\(selected.height)")
-let result = CGDisplaySetDisplayMode(display, selected, nil)
+// CGDisplaySetDisplayMode is process-scoped: macOS restores the old mode when
+// this setup script exits. Commit only to this disposable login session so
+// the later XCTest process sees the same usable display.
+var configuration: CGDisplayConfigRef?
+let begin = CGBeginDisplayConfiguration(&configuration)
+guard begin == .success, let configuration else {
+    fputs("Cannot begin hosted display configuration (\(begin.rawValue)).\n", stderr)
+    exit(1)
+}
+let configure = CGConfigureDisplayWithDisplayMode(configuration, display, selected, nil)
+guard configure == .success else {
+    CGCancelDisplayConfiguration(configuration)
+    fputs("Cannot select hosted display mode (\(configure.rawValue)).\n", stderr)
+    exit(1)
+}
+let result = CGCompleteDisplayConfiguration(configuration, .forSession)
 guard result == .success else {
     fputs("Hosted display configuration failed (\(result.rawValue)).\n", stderr)
     exit(1)

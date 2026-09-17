@@ -1,0 +1,23 @@
+{
+  "run_id": 35281226918,
+  "url": "https://github.com/mariusschober/nostr-writer/actions/runs/35281226918",
+  "commit": "e49557e6f7dfcff91344fe64569ac2f640b7d5da",
+  "conclusion": "failure",
+  "universal_build": "PASS",
+  "native_unit_tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "native_ui_tests": {
+    "tests": 3,
+    "assertion_failures": 4
+  },
+  "passed_ui_behaviors": [
+    "consent and keyboard escape",
+    "offline typing and keyboard undo",
+    "narrow window sizing"
+  ],
+  "failure": "Regular window measured 1024x674 instead of required 1120x760 in both appearances. Assertions unchanged.",
+  "correction_commit": "e7cc5d9651bedcebdd535efe75dcd994f9d985ad",
+  "correction": "CI-only supported display-mode selection with explicit minimum usable-size check. No application or test-assertion change."
+}

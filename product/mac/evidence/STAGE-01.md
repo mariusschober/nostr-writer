@@ -36,8 +36,8 @@ current implementation guidance is in `mac/docs/DEVELOPMENT.md`.
 | M02 | PASS: final universal strict Swift 6/macOS 14 native build | `logs/stage-01-unlocked/build.log`, `ordinary-app-inspection.json` |
 | M03 | PASS: final clean consent/account-free writing; no app TCP/UDP rows during sampled runtime observation | `logs/stage-01-unlocked/tests.log`, `network.csv`, `network-control.csv`, `results.json` |
 | M04 | PASS: final ordinary build sandbox/hardened runtime and bounded entitlements inspected | `logs/stage-01-unlocked/ordinary-app-inspection.json` |
-| M05 | BLOCKED: local packages/pins/scripts verified; hosted CI not run | `dependencies.log`, package build logs; CI definitions in `.github/workflows` |
-| M06 | BLOCKED: 130 Foundation, 4 native unit and 3 native UI tests pass; spoken VoiceOver navigation remains unobserved | `foundation.log`, `logs/stage-01-unlocked/tests.log`, `screenshot-index.json`, `manual-inspection.json` |
+| M05 | BLOCKED: hosted regular-window geometry failed twice; session-scoped display correction pending | `logs/stage-01-ci/first-run.json`, `second-run.json`, `second-run-diagnostic.log` |
+| M06 | PASS: 130 Foundation, 4 native unit and 3 native UI tests pass; owner confirms listened-to VoiceOver is fine | `foundation.log`, `logs/stage-01-unlocked/tests.log`, `screenshot-index.json`, `voiceover-owner-observation.json` |
 
 The unchanged Foundation implementation previously passed 130 tests. The final source
 candidate now passes all four native unit and three native UI tests in one run. Actual
@@ -54,9 +54,11 @@ absence proof; details and limits are in `logs/stage-01-unlocked/results.json`.
 
 VoiceOver was enabled and its first-use dialog/tutorial and process were observed.
 Its inspection call stalled for 715.835 seconds despite a requested 20-second timeout.
-Spoken labels and navigation order were not observed. VoiceOver was restored to its
-original off state and that setting was checked. M06 remains blocked on a person's
-observation of editor/sidebar/toolbar/status/menu navigation in the final ordinary app.
+The agent did not observe spoken labels and navigation order. VoiceOver was restored
+to its original off state and that setting was checked. Subsequently, in response to
+the requested editor/sidebar/toolbar/status/menu check in the final ordinary app,
+the owner reported: “Voiceover is fine, I listened to it.” This direct owner
+observation resolves the earlier M06 blocker; no agent audio capture is claimed.
 The earlier locked-desktop and failed UI attempts remain historical diagnostics, not
 current passes. No further testing loop is authorized by the user's latest direction.
 
@@ -101,16 +103,23 @@ plugin before allowing Xcode package plugin execution.
 ## Remaining work
 
 The final local source is frozen at `ddac4a30073f9eaf7aa9586ed86c449a488bcea4`.
-Stage 01 remains unaccepted because hosted CI (M05) and spoken VoiceOver observation
-(M06) remain open. The Mac is no longer recorded as locked. Native keyboard, consent,
+Stage 01 remains unaccepted pending the hosted CI result (M05). VoiceOver observation
+(M06) is now owner-confirmed. The Mac is no longer recorded as locked. Native keyboard, consent,
 appearance, resizing, ordinary signing/entitlements and bounded network observation
-are now measured. A person must observe VoiceOver in this exact ordinary build;
-`logs/stage-01-unlocked/manual-inspection.json` specifies the remaining check.
+are now measured. `logs/stage-01-unlocked/voiceover-owner-observation.json` records
+the owner's confirmation and the exact build named in the requested check.
 
-Hosted CI requires authorization to push the reviewed local branch to
-`mariusschober/nostr-writer`, branch `implementation/stage-01`. No push or external
-publication occurred. Stage 02 cannot be accepted or started from an accepted
-predecessor yet. The separate `preparation/native-cores` worktree contains independent,
+The owner authorized the push to `mariusschober/nostr-writer`, branch
+`implementation/stage-01`; reviewed commit `e49557e` was pushed successfully.
+[Hosted CI run 35281226918](https://github.com/mariusschober/nostr-writer/actions/runs/35281226918)
+and [35282183578](https://github.com/mariusschober/nostr-writer/actions/runs/35282183578)
+failed the same four regular-window dimension assertions (1024×674 versus 1120×760).
+Builds, 130 Foundation tests, four native unit tests, consent, writing/undo and narrow sizing passed.
+The second setup saw 1280×960, but the SDK documents that `CGDisplaySetDisplayMode`
+reverts when its process exits. The correction now uses `CGCompleteDisplayConfiguration`
+with `.forSession`, restricted to disposable hosted runners. It changes no application
+behavior or test assertion. No local UI or Foundation rerun is needed for this CI-only change.
+Stage 02 cannot be accepted or started from an accepted predecessor yet. The separate `preparation/native-cores` worktree contains independent,
 unmerged components with their own evidence and no later-stage acceptance claim.
 
 The root handoff, `mac/README.md` and initial `STATUS.json` are recovery-snapshot files

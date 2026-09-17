@@ -1,0 +1,123 @@
+{
+  "conclusion": "failure",
+  "headSha": "e7cc5d9651bedcebdd535efe75dcd994f9d985ad",
+  "jobs": [
+    {
+      "completedAt": "2026-09-17T22:34:52Z",
+      "conclusion": "failure",
+      "databaseId": 105406395383,
+      "name": "native",
+      "startedAt": "2026-09-17T22:28:25Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-17T22:28:25Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-17T22:28:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:28:29Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "number": 2,
+          "startedAt": "2026-09-17T22:28:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:28:29Z",
+          "conclusion": "success",
+          "name": "Verify preparation and frozen bytes",
+          "number": 3,
+          "startedAt": "2026-09-17T22:28:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:28:30Z",
+          "conclusion": "success",
+          "name": "Cache only Swift dependency artifacts",
+          "number": 4,
+          "startedAt": "2026-09-17T22:28:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:28:32Z",
+          "conclusion": "success",
+          "name": "Record installed toolchain",
+          "number": 5,
+          "startedAt": "2026-09-17T22:28:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:28:42Z",
+          "conclusion": "success",
+          "name": "Fit required native window on the hosted display",
+          "number": 6,
+          "startedAt": "2026-09-17T22:28:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:30:18Z",
+          "conclusion": "success",
+          "name": "Build both supported architectures without distribution signing",
+          "number": 7,
+          "startedAt": "2026-09-17T22:28:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:34:39Z",
+          "conclusion": "failure",
+          "name": "Run isolated package and native tests",
+          "number": 8,
+          "startedAt": "2026-09-17T22:30:18Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:34:40Z",
+          "conclusion": "success",
+          "name": "Recheck frozen inputs",
+          "number": 9,
+          "startedAt": "2026-09-17T22:34:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:34:47Z",
+          "conclusion": "success",
+          "name": "Retain native test evidence",
+          "number": 10,
+          "startedAt": "2026-09-17T22:34:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:34:47Z",
+          "conclusion": "skipped",
+          "name": "Post Cache only Swift dependency artifacts",
+          "number": 19,
+          "startedAt": "2026-09-17T22:34:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:34:47Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "number": 20,
+          "startedAt": "2026-09-17T22:34:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-17T22:34:50Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "startedAt": "2026-09-17T22:34:47Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mariusschober/nostr-writer/actions/runs/35282183578/job/105406395383"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/mariusschober/nostr-writer/actions/runs/35282183578"
+}

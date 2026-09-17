@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "observation_type": "direct owner report",
+  "owner_statement": "You have approval to push. Voiceover is fine, I listened to it.",
+  "requested_check": "VoiceOver announces editor, sidebar, toolbar, status and native menus in a usable order and permits returning to writing.",
+  "requested_app_path": "/Users/schober/Projects/Nostr Writer/mac/DerivedData/Build/Products/Debug/NostrWriter.app",
+  "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
+  "artifact_sha256_from_prior_bundle_inspection": "935a0cfe0ca88383ef89c2f9de8878d26ac51bfe1db065fb2254b9770ab13c2f",
+  "scope_note": "Owner confirmed listening to VoiceOver in response to the requested check. No independent agent audio recording or additional detailed owner transcript is claimed.",
+  "supersedes": "Earlier agent inspection stalled and could not establish spoken navigation.",
+  "recorded_at_utc": "2026-09-17T22:18:02Z"
+}

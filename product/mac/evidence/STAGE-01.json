@@ -4,7 +4,7 @@
   "status": "BLOCKED",
   "input_commit": "3fdab5b1f8d75720c3025e8604f947e2307c31e2",
   "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
-  "source_state": "Committed final local candidate; native tests and sampled network observations pass, VoiceOver and hosted CI remain blocked.",
+  "source_state": "Application source unchanged; owner-observed VoiceOver passes. Two hosted runs failed regular-window geometry because the initial display change expired at setup-process exit. SDK-documented session-scoped configuration replaces it; new result pending.",
   "historical_evidence_used_as_current_pass": false,
   "criteria": [
     {
@@ -50,24 +50,28 @@
     {
       "id": "M05",
       "status": "BLOCKED",
-      "reason": "All package scaffolds compile and exact dependency/license inventory checks pass. Hosted macOS CI has not run: source has not been pushed to the actual remote destination.",
+      "reason": "Hosted build, Foundation, native unit, consent, writing and narrow sizing pass; regular sizing failed twice because display adjustment reverted on process exit. Session-scoped configuration fix pending hosted validation.",
       "evidence": [
         "product/mac/evidence/logs/stage-01/dependencies.log",
         "product/mac/evidence/logs/stage-01/WriterStorage-build.log",
         "product/mac/evidence/logs/stage-01/WriterExport-build.log",
         "product/mac/evidence/logs/stage-01/WriterNostr-build.log",
-        "product/mac/evidence/logs/stage-01/native-cli.json"
+        "product/mac/evidence/logs/stage-01/native-cli.json",
+        "product/mac/evidence/logs/stage-01-ci/first-run.json",
+        "product/mac/evidence/logs/stage-01-ci/second-run.json",
+        "product/mac/evidence/logs/stage-01-ci/second-run-diagnostic.log"
       ]
     },
     {
       "id": "M06",
-      "status": "BLOCKED",
-      "reason": "130 unchanged Foundation tests plus four native unit and three native UI tests pass; actual regular/narrow light/dark screenshots reviewed. Spoken VoiceOver focus order remains unobserved because the inspection tool stalled; VoiceOver was restored off.",
+      "status": "PASS",
+      "reason": "130 unchanged Foundation tests, four native unit and three native UI tests pass; actual regular/narrow light/dark screenshots reviewed. Owner confirmed listening to VoiceOver and reported it fine after the requested navigation check.",
       "evidence": [
         "product/mac/evidence/logs/stage-01/foundation.log",
         "product/mac/evidence/logs/stage-01-unlocked/tests.log",
         "product/mac/evidence/logs/stage-01-unlocked/screenshot-index.json",
-        "product/mac/evidence/logs/stage-01-unlocked/manual-inspection.json"
+        "product/mac/evidence/logs/stage-01-unlocked/manual-inspection.json",
+        "product/mac/evidence/logs/stage-01-unlocked/voiceover-owner-observation.json"
       ]
     }
   ],
@@ -96,12 +100,65 @@
       "passed": 3,
       "failed": 0
     },
-    "hosted_ci": "NOT MEASURED: no authorized push",
+    "hosted_ci": "FAIL: runs 35281226918 and 35282183578; identical four regular-window dimension assertions. Session-scoped display fix pending validation.",
     "macos14_runtime": "NOT MEASURED",
     "intel_runtime": "NOT MEASURED",
-    "voiceover": "BLOCKED: spoken navigation not observed; inspection tool timed out; restored off",
+    "voiceover": "PASS: owner reported Voiceover is fine, I listened to it; direct owner observation, not agent audio capture",
     "runtime_network_observation": "PASS: no app-attributed TCP/UDP rows during bounded final run; sampled accounting limitations recorded",
     "final_source_integrity": "PASS: all 69 protocol files, 326 source-manifest files and 60 criteria unchanged"
   },
-  "previous_source_commit": "5024c1cb9924db8980e55d26ce0dbd33fdf366b9"
+  "previous_source_commit": "5024c1cb9924db8980e55d26ce0dbd33fdf366b9",
+  "ci_configuration_commit": "e7cc5d9651bedcebdd535efe75dcd994f9d985ad",
+  "ci_runs": [
+    {
+      "run_id": 35281226918,
+      "url": "https://github.com/mariusschober/nostr-writer/actions/runs/35281226918",
+      "commit": "e49557e6f7dfcff91344fe64569ac2f640b7d5da",
+      "conclusion": "failure",
+      "universal_build": "PASS",
+      "native_unit_tests": {
+        "passed": 4,
+        "failed": 0
+      },
+      "native_ui_tests": {
+        "tests": 3,
+        "assertion_failures": 4
+      },
+      "passed_ui_behaviors": [
+        "consent and keyboard escape",
+        "offline typing and keyboard undo",
+        "narrow window sizing"
+      ],
+      "failure": "Regular window measured 1024x674 instead of required 1120x760 in both appearances. Assertions unchanged.",
+      "correction_commit": "e7cc5d9651bedcebdd535efe75dcd994f9d985ad",
+      "correction": "CI-only supported display-mode selection with explicit minimum usable-size check. No application or test-assertion change."
+    },
+    {
+      "run_id": 35282183578,
+      "url": "https://github.com/mariusschober/nostr-writer/actions/runs/35282183578",
+      "commit": "e7cc5d9651bedcebdd535efe75dcd994f9d985ad",
+      "status": "completed",
+      "display_setup": "PASS",
+      "conclusion": "failure",
+      "universal_build": "PASS",
+      "foundation_tests": {
+        "passed": 130,
+        "failed": 0
+      },
+      "native_unit_tests": {
+        "passed": 4,
+        "failed": 0
+      },
+      "native_ui_tests": {
+        "tests": 3,
+        "assertion_failures": 4
+      },
+      "failure": "Display setup observed 1280x960, but its process-scoped CGDisplaySetDisplayMode change reverted on exit; later regular windows measured 1024x674.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-01-ci/second-run.json",
+        "product/mac/evidence/logs/stage-01-ci/second-run-diagnostic.log"
+      ],
+      "root_cause_authority": "Installed Apple SDK CoreGraphics/CGDirectDisplay.h documents process-lifetime CGDisplaySetDisplayMode; CGDisplayConfiguration.h documents CGCompleteDisplayConfiguration with kCGConfigureForSession."
+    }
+  ]
 }
