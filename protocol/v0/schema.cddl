@@ -1,0 +1,67 @@
+; Human Writing Protocol v0. Exact fields, CBOR profile and semantic/resource
+; constraints in SPECIFICATION.md remain mandatory in addition to this grammar.
+ref = {"sha256": bstr .size 32, "size": uint}
+key-ref = ref
+v = "hwp/0"
+claim = "fresh-composition" / "wording-origin"
+mode = "attested-v1" / "disclosed-v1"
+stage = "conformance" / "empirical"
+artifacts = {"algorithm_spec": ref, "program": ref, "model": ref,
+             "decision_policy": ref, "evidence_adapter": ref, "output_contract": ref}
+bundle = {"v": v, "type": "bundle", "root": ref,
+          "objects": [* [bstr .size 32, bstr]]}
+protocol-definition = {"v": v, "type": "protocol-definition",
+ "name": "Human Writing Protocol", "revision": "0.0.0", "artifacts": {* tstr => ref}}
+program = {"v": v, "type": "program", "algorithm": "hwp-a/v0",
+ "files": [* {"path": tstr, "ref": ref}]}
+release = {"v": v, "type": "release", "algorithm": "hwp-a/v0",
+ "claim": claim, "artifacts": artifacts, "capture_profiles": [+ ref],
+ "protocol": ref, "stage": stage, "validation": ref}
+capture-profile = {"v": v, "type": "capture-profile", "class": "fixture" / "evaluated",
+ "domains": [+ tstr], "max_resolution_us": uint, "assumptions": [+ tstr], "evaluation": ref / null}
+validation-dossier = {"v": v, "type": "validation-dossier", "stage": stage, "claim": claim,
+ "model": ref, "decision_policy": ref, "program": ref, "capture_profiles": [+ ref],
+ "allowed_domains": [+ tstr], "risk_target": [1,1000], "coverage_target": [1,2],
+ "confidence": [19,20], "reports": [* {"role": tstr, "artifact": ref}], "candidate": ref / null}
+decision-policy = {"threshold": int, "claim_kind": claim, "allowed_domains": [+ tstr]}
+capture-start = {"v": v, "type": "capture-start", "session": bstr .size 32,
+ "profile": ref, "adapter": ref, "nonce": bstr .size 32, "subject": key-ref / null,
+ "release": ref, "parents": [* {"capture": ref, "proof": ref / null}]}
+participation = {"v": v, "type": "participation", "start": ref}
+capture-end = {"v": v, "type": "capture-end", "start": ref, "count": uint,
+ "root": bstr .size 32, "complete": bool, "participation": ref / null, "document": ref}
+origin = ["observed", [+ ref]] / ["inherited", ref, uint, uint] / ["excluded", tstr]
+scope = {"v": v, "type": "scope", "document": ref,
+ "kind": "whole-document" / "selected-ranges", "ranges": [+ {"start": uint, "end": uint, "origin": origin}]}
+statement = {"v": v, "type": "statement", "document": ref,
+ "media_type": "text/plain" / "text/markdown", "scope": ref, "release": ref,
+ "captures": [+ ref], "target_capture": ref, "lineage": bstr .size 32,
+ "mode": mode, "author": key-ref / null, "nonce": bstr .size 32}
+appraisal = {"v": v, "type": "appraisal", "statement": ref, "result": "HUMAN-WRITTEN"}
+author-endorsement = {"v": v, "type": "author-endorsement", "statement": ref, "identity": ref / null}
+identity-binding = {"v": v, "type": "identity-binding", "subject": key-ref,
+ "namespace": tstr, "identifier": tstr}
+proof = {"v": v, "type": "proof", "statement": ref, "appraisals": [+ ref], "author": ref / null}
+verification-policy = {"v": v, "type": "verification-policy", "label": tstr,
+ "releases": [* ref], "capture_authorities": [* {"profile": ref, "keys": [+ key-ref]}],
+ "evaluators": [* key-ref], "quorum": uint, "modes": [+ mode], "require_author": bool,
+ "identity_authorities": [* key-ref], "denied": [* bstr .size 32], "status_as_of": uint / null,
+ "protocol": ref, "purpose": "production" / "conformance"}
+cose-key = {1: 1, 3: -19, -1: 6, -2: bstr .size 32}
+protected = {1: -19, 3: "application/cbor", 4: bstr .size 32}
+cose-sign1 = #6.18([bstr, {}, bstr, bstr .size 64])
+opening = {"index": uint, "salt": bstr .size 32, "event": bstr}
+opening-block = {"v": v, "type": "opening-block", "offset": uint, "openings": [1*256 opening]}
+lineage-salt = {"statement": ref, "salt": bstr .size 32}
+private-disclosure = {"v": v, "type": "private-disclosure",
+ "logs": [* {"capture": ref, "count": uint, "parts": [* ref]}], "lineage_salts": [* lineage-salt]}
+private-api = {"logs": [* {"capture": ref, "openings": [* opening]}], "lineage_salts": [* lineage-salt]}
+private-lineage = {"adapter": "hwp-a-v0-output/1", "target_record_id": tstr,
+ "record_captures": [+ {"id": tstr, "capture": ref}], "assessment": assessment}
+outcome = "HUMAN-WRITTEN" / "NOT PROVABLE"
+algorithm-range = {"start": uint, "end": uint, "verdict": outcome, "excluded": bool,
+ "exclusion": uint / null, "reason": tstr / null,
+ "origin": "direct" / "inherited" / "external" / "spelling", "origin_documents": [* tstr]}
+assessment = {"verdict": outcome, "contribution_verdict": outcome, "ranges": [* algorithm-range],
+ "reason": null, "candidate_document_pass": bool, "certification_enabled": bool,
+ "claim_kind": claim, "algorithm_version": "hwp-a/v0"}
