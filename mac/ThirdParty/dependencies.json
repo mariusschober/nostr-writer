@@ -1,0 +1,84 @@
+{
+  "dependencies": [
+    {
+      "name": "BigInt",
+      "version": "5.7.0",
+      "url": "https://github.com/attaswift/BigInt.git",
+      "revision": "e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe",
+      "license": "MIT",
+      "purpose": "Exact integer arithmetic",
+      "license_file": "ThirdParty/BigInt/LICENSE.md",
+      "license_sha256": "c3dfd0dca467f6d198bf365a954d4be6cb6b0e3d848ec724f86e5f579ca38d9e"
+    },
+    {
+      "name": "CryptoSwift",
+      "version": "1.9.0",
+      "url": "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "revision": "e45a26384239e028ec87fbcc788f513b67e10d8f",
+      "license": "zlib",
+      "purpose": "NIP44 IETF ChaCha20 primitive",
+      "license_file": "ThirdParty/CryptoSwift/LICENSE",
+      "license_sha256": "e4ea9188602dd4217309aec044481b0a7d2f9d539b1d1673b9a1809709c804e0"
+    },
+    {
+      "name": "KeyboardShortcuts",
+      "version": "3.0.1",
+      "url": "https://github.com/sindresorhus/KeyboardShortcuts.git",
+      "revision": "49c3fc04ea827f816df67843bfcc57286b47ff06",
+      "license": "MIT",
+      "purpose": "Opt-in Quick Post shortcut",
+      "license_file": "ThirdParty/KeyboardShortcuts/license",
+      "license_sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+    },
+    {
+      "name": "swift-markdown",
+      "version": "0.7.3",
+      "url": "https://github.com/swiftlang/swift-markdown.git",
+      "revision": "7d9a5ce307528578dfa777d505496bd5f544ad94",
+      "license": "Apache-2.0 with Swift exception",
+      "purpose": "CommonMark parsing",
+      "license_file": "ThirdParty/swift-markdown/LICENSE.txt",
+      "license_sha256": "167beb36f181bd163c93c6feb45c68e5f9462fe1af55b278f7bfd1df20e673a3"
+    },
+    {
+      "name": "swift-cmark",
+      "version": "0.8.0",
+      "url": "https://github.com/swiftlang/swift-cmark.git",
+      "revision": "924936d0427cb25a61169739a7660230bffa6ea6",
+      "license": "BSD-2-Clause and bundled notices",
+      "purpose": "Markdown C parser",
+      "license_file": "ThirdParty/swift-cmark/COPYING",
+      "license_sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+    },
+    {
+      "name": "swift-secp256k1",
+      "version": "0.23.2",
+      "url": "https://github.com/21-DOT-DEV/swift-secp256k1.git",
+      "revision": "e70a10e036a55fffea31568f0af92d69b6d449cd",
+      "license": "MIT with vendored licenses",
+      "purpose": "Single libsecp256k1/P256K signing and ECDH",
+      "license_file": "ThirdParty/swift-secp256k1/LICENSE",
+      "license_sha256": "3f662f0afc2c5a0702de996e3b89dd43d66e5d22c6dade94010f99afbce09486"
+    },
+    {
+      "name": "ZIPFoundation",
+      "version": "0.9.20",
+      "url": "https://github.com/weichsel/ZIPFoundation.git",
+      "revision": "22787ffb59de99e5dc1fbfe80b19c97a904ad48d",
+      "license": "MIT",
+      "purpose": "OOXML and bounded ZIP containers",
+      "license_file": "ThirdParty/ZIPFoundation/LICENSE",
+      "license_sha256": "93a5b6f4c4fcfbca71aaf17f5758d249cf205d5d1c237becc37f14e43af09f6b"
+    }
+  ],
+  "runtime_system_libraries": [
+    "CryptoKit",
+    "Security",
+    "SQLite",
+    "AppKit",
+    "SwiftUI",
+    "Compression"
+  ],
+  "owner_source": "No NostrShot implementation source copied in Stage 01; only required pinned dependencies adopted.",
+  "font_assets": "None redistributed."
+}

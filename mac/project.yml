@@ -1,0 +1,84 @@
+name: NostrWriter
+options:
+  minimumXcodeGenVersion: 2.46.0
+  deploymentTarget:
+    macOS: '14.0'
+  createIntermediateGroups: true
+configs:
+  Debug: debug
+  Release: release
+configFiles:
+  Debug: Config/Debug.xcconfig
+  Release: Config/Release.xcconfig
+packages:
+  WriterFoundation:
+    path: Packages/WriterFoundation
+  WriterStorage:
+    path: Packages/WriterStorage
+  WriterHWP:
+    path: Packages/WriterHWP
+  WriterExport:
+    path: Packages/WriterExport
+  WriterNostr:
+    path: Packages/WriterNostr
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts.git
+    revision: 49c3fc04ea827f816df67843bfcc57286b47ff06
+targets:
+  NostrWriter:
+    type: application
+    platform: macOS
+    sources:
+      - path: NostrWriter
+        excludes: [Info.plist, NostrWriter.entitlements]
+    dependencies:
+      - package: WriterFoundation
+      - package: WriterStorage
+      - package: WriterHWP
+      - package: WriterExport
+      - package: WriterNostr
+      - package: KeyboardShortcuts
+    settings:
+      base:
+        PRODUCT_NAME: NostrWriter
+  NostrWriterTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: NostrWriterTests
+      - path: NostrWriter
+        excludes: [Application/AppMain.swift, Info.plist, NostrWriter.entitlements]
+    dependencies:
+      - package: WriterFoundation
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mariusschober.nostrwriter.tests
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: ''
+        CODE_SIGN_ENTITLEMENTS: ''
+  NostrWriterUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources: [NostrWriterUITests]
+    dependencies:
+      - target: NostrWriter
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mariusschober.nostrwriter.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: ''
+        CODE_SIGN_ENTITLEMENTS: ''
+        # XCTest's ad-hoc runner loads a separate test bundle. This exception
+        # applies only to the non-shipping runner; the app retains runtime protection.
+        ENABLE_HARDENED_RUNTIME: NO
+        OTHER_CODE_SIGN_FLAGS: ''
+schemes:
+  NostrWriter:
+    build:
+      targets:
+        NostrWriter: all
+    test:
+      targets:
+        - NostrWriterTests
+        - NostrWriterUITests
+      gatherCoverageData: true

@@ -1,0 +1,42 @@
+name: Native Mac app
+on:
+  pull_request:
+  push:
+    branches: [main, 'implementation/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: macos-26
+    timeout-minutes: 35
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verify preparation and frozen bytes
+        run: mac/scripts/check.sh
+      - name: Cache only Swift dependency artifacts
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            mac/DerivedData/SourcePackages
+            mac/.build/NativeTestDerivedData/SourcePackages
+          key: macos-26-xcode26.6-${{ hashFiles('**/Package.resolved', '**/Package.swift') }}
+      - name: Record installed toolchain
+        run: xcodebuild -version && swift --version
+      - name: Build both supported architectures without distribution signing
+        run: mac/scripts/build.sh CODE_SIGNING_ALLOWED=NO
+      - name: Run isolated package and native tests
+        run: mac/scripts/test.sh CODE_SIGN_IDENTITY=-
+      - name: Recheck frozen inputs
+        if: always()
+        run: python3 tools/bootstrap_protocol.py
+      - name: Retain native test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: native-test-results
+          path: mac/.build/NativeTestDerivedData/Logs/Test/*.xcresult

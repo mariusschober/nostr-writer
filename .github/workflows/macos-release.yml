@@ -1,0 +1,33 @@
+name: Manual Mac distribution
+on:
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Exact reviewed source commit to build
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: macos-26
+    environment: macos-release
+    timeout-minutes: 45
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ inputs.source_commit }}
+          persist-credentials: false
+      - name: Require an exact commit and Stage 08 release tooling
+        env:
+          EXPECTED_COMMIT: ${{ inputs.source_commit }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_COMMIT"
+          if [ ! -x mac/scripts/release.sh ]; then
+            echo 'BLOCKED: Stage 08 release tooling and owner-controlled signing configuration are not yet present.' >&2
+            exit 1
+          fi
+      - name: Execute the reviewed distribution process
+        run: mac/scripts/release.sh
