@@ -8,7 +8,7 @@ let package = Package(
         .package(url: "https://github.com/attaswift/BigInt.git", revision: "e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe")
     ],
     targets: [
-        .target(name: "WriterHWP", dependencies: ["WriterFoundation", .product(name: "BigInt", package: "BigInt")]),
+        .target(name: "WriterHWP", dependencies: ["WriterFoundation", .product(name: "BigInt", package: "BigInt")], resources: [.copy("ProtocolAnchors")]),
         .executableTarget(name: "HWPVerifyCLI", dependencies: ["WriterHWP"]),
         .testTarget(name: "WriterHWPTests", dependencies: ["WriterHWP"], resources: [.copy("Fixtures")])
     ],
