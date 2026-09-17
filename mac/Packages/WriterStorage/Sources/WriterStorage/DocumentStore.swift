@@ -40,6 +40,9 @@ public actor DocumentStore: DocumentPersistence {
     private let fileSystem: StorageFileSystem
     private let faultInjector: StorageFaultInjecting
     private var isClosed = false
+    private var installationLease: RecoveryInstallationLease?
+
+    func retainInstallationLease(_ lease: RecoveryInstallationLease) { installationLease = lease }
 
     public init(
         configuration: DocumentStoreConfiguration,
@@ -380,6 +383,7 @@ public actor DocumentStore: DocumentPersistence {
         guard !isClosed else { return }
         isClosed = true
         try database.checkpointAndClose()
+        installationLease = nil
     }
 
     // MARK: - Persist critical section (synchronous, no await)

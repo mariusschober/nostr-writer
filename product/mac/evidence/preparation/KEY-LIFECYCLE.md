@@ -2,9 +2,9 @@
 
 Independent preparation for PLAN-02; no Stage 02 acceptance. These decisions
 resolve the key bootstrap boundary without changing DATA or SECURITY. The
-load-only adapter and its component evidence are recorded separately. The
-bootstrap sequence below is an implementation decision, not implemented or
-observed behavior.
+load-only adapter and its component evidence are recorded separately. The bootstrap sequence below is now implemented in `RecoveryBootstrap.swift`; six
+focused component checks passed in `keychain-bootstrap/results.json`. Actual signed
+app Keychain and document integration remain unobserved.
 
 ## Reading a key is not creating an installation
 
@@ -26,7 +26,7 @@ authentication context with interaction disabled:
 
 ## First creation and crash ordering
 
-The future application bootstrap owns a private store root and exclusive
+The application bootstrap component owns a private store root and exclusive
 single-writer access. Do not infer a new installation from a missing key or from
 `DocumentStore.recover` returning absent for one document. In particular,
 `DocumentStore.init` currently creates/migrates SQLite before a key is loaded;
@@ -37,7 +37,7 @@ Keychain account within the environment-specific recovery service. The marker
 contains no key or writing. Development and release use separate services and
 private roots; Nostr/HWP signing keys are different purposes and entries.
 
-The intended creation order is:
+The implemented creation order is:
 
 1. Establish that the dedicated root is new, then durably create a preparing
    marker under exclusive ownership. Unknown existing files, symlinks, malformed
@@ -59,9 +59,10 @@ allow source editing/saving and offer explicit recovery/retry. Any reset or
 retirement of old private state is a separate user decision with preservation
 and deletion consequences. Do not automatically discard an interrupted marker.
 
-Bootstrap faults must be checked at marker creation, key addition, readback,
-ready-marker replacement and first store open when that implementation is added.
-Existing source/recovery tests do not cover these not-yet-implemented steps.
+The focused checks cover fresh/reopened identity, missing ready key, denied access,
+interrupted key creation, unknown existing state and exclusive lease lifetime.
+Marker-write/readback/ready-replacement/first-store-open injected faults and actual
+power-loss behavior are not measured. Existing checks are not blanket coverage.
 
 ## Signing dependency for real verification
 
