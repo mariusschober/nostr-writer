@@ -38,7 +38,7 @@ public struct DocumentStoreConfiguration: Sendable {
     ///
     /// A snapshot that would push the store past this ceiling is refused with
     /// `StorageError.recoveryBudgetExceeded` and the commit rolls back. Under
-    /// `recoveryRationale` the superseded checkpoints have already been reclaimed
+    /// `.rollingJournal` the superseded checkpoints have already been reclaimed
     /// inside that transaction, so the ceiling applies to the bounded set; under
     /// `.keepAllCheckpoints` space is reclaimed only by an explicit
     /// `pruneRecoverySnapshots` call.

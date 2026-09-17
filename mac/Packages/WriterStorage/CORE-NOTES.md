@@ -14,8 +14,11 @@ key. The fixed 133-byte authenticated context binds the document, recovery strea
 full UInt64 revision and chunk index, source digest/length and previous reference.
 A recovery stream is not an HWP capture run and confers no authority.
 
-Every commit retains the configured newest source recovery checkpoints (default two,
-minimum two). Older disposable checkpoints are pruned in the same transaction. Failure
+With the explicit `.rollingJournal` retention policy, each commit retains the
+configured newest source recovery checkpoints (default count two, minimum two).
+The configuration otherwise defaults to `.keepAllCheckpoints` within the fixed
+ciphertext budget; choosing rolling recovery is the app owner's explicit decision.
+Older disposable checkpoints are pruned in the same transaction. Failure
 rolls back the new write, pointer update and pruning together. Detailed private capture
 history is a separate capability and is never placed in this table or deleted here.
 The global ciphertext budget defaults to 256 MiB; if mandatory checkpoints cannot fit,

@@ -18,7 +18,7 @@ import WriterFoundation
 /// - A `DurableRevision` is only ever returned after the enclosing transaction has
 ///   committed. The durable index is re-read after awaiting a key, because the
 ///   actor can be reentered at that suspension point.
-/// - Each successful commit retains the configured newest recovery checkpoints
+/// - Under `.rollingJournal`, each commit retains the configured newest checkpoints
 ///   (at least two). Superseded source checkpoints are pruned in that transaction.
 ///   These are disposable recovery copies, never private capture/history records.
 ///   If the required checkpoints exceed the global budget, the transaction rolls
