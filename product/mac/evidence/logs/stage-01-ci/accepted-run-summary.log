@@ -1,0 +1,14 @@
+native	Fit required native window on the hosted display	2026-09-17T22:42:35.5491110Z Main display frame: (0.0, 0.0, 1024.0, 768.0); usable frame: (0.0, 63.0, 1024.0, 674.0)
+native	Fit required native window on the hosted display	2026-09-17T22:42:35.5502020Z Selecting hosted display mode 1280x960
+native	Fit required native window on the hosted display	2026-09-17T22:42:35.5509990Z Main display frame: (0.0, 0.0, 1280.0, 960.0); usable frame: (0.0, 78.0, 1280.0, 851.0)
+native	Build both supported architectures without distribution signing	2026-09-17T22:44:21.2037950Z ** BUILD SUCCEEDED **
+native	Run isolated package and native tests	2026-09-17T22:45:11.2066970Z 	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+native	Run isolated package and native tests	2026-09-17T22:45:11.4969680Z 	 Executed 130 tests, with 0 failures (0 unexpected) in 0.243 (0.257) seconds
+native	Run isolated package and native tests	2026-09-17T22:45:11.4970330Z 	 Executed 130 tests, with 0 failures (0 unexpected) in 0.243 (0.258) seconds
+native	Run isolated package and native tests	2026-09-17T22:46:37.2584760Z 	 Executed 4 tests, with 0 failures (0 unexpected) in 0.853 (0.855) seconds
+native	Run isolated package and native tests	2026-09-17T22:46:37.2585790Z 	 Executed 4 tests, with 0 failures (0 unexpected) in 0.853 (0.855) seconds
+native	Run isolated package and native tests	2026-09-17T22:46:37.2586850Z 	 Executed 4 tests, with 0 failures (0 unexpected) in 0.853 (0.856) seconds
+native	Run isolated package and native tests	2026-09-17T22:47:28.4147760Z 	 Executed 3 tests, with 0 failures (0 unexpected) in 50.067 (50.068) seconds
+native	Run isolated package and native tests	2026-09-17T22:47:28.4275930Z 	 Executed 3 tests, with 0 failures (0 unexpected) in 50.067 (50.069) seconds
+native	Run isolated package and native tests	2026-09-17T22:47:28.4451160Z 	 Executed 3 tests, with 0 failures (0 unexpected) in 50.067 (50.070) seconds
+native	Run isolated package and native tests	2026-09-17T22:47:29.2222300Z ** TEST SUCCEEDED **

@@ -1,10 +1,10 @@
 {
   "stage": "01",
-  "accepted": false,
-  "status": "BLOCKED",
+  "accepted": true,
+  "status": "PASS",
   "input_commit": "3fdab5b1f8d75720c3025e8604f947e2307c31e2",
   "source_commit": "ddac4a30073f9eaf7aa9586ed86c449a488bcea4",
-  "source_state": "Application source unchanged; owner-observed VoiceOver passes. Two hosted runs failed regular-window geometry because the initial display change expired at setup-process exit. SDK-documented session-scoped configuration replaces it; new result pending.",
+  "source_state": "Accepted Stage 01 application source ddac4a3 is unchanged in tested hosted commit ddb2607. Local runtime and owner VoiceOver evidence plus successful hosted CI complete M01-M06.",
   "historical_evidence_used_as_current_pass": false,
   "criteria": [
     {
@@ -49,8 +49,8 @@
     },
     {
       "id": "M05",
-      "status": "BLOCKED",
-      "reason": "Hosted build, Foundation, native unit, consent, writing and narrow sizing pass; regular sizing failed twice because display adjustment reverted on process exit. Session-scoped configuration fix pending hosted validation.",
+      "status": "PASS",
+      "reason": "Locked dependencies, licenses and environment; portable/native scripts reproducible. Hosted CI run 35283330208 passes universal build, 130 Foundation tests and all seven native tests. Earlier display failures retained.",
       "evidence": [
         "product/mac/evidence/logs/stage-01/dependencies.log",
         "product/mac/evidence/logs/stage-01/WriterStorage-build.log",
@@ -59,7 +59,9 @@
         "product/mac/evidence/logs/stage-01/native-cli.json",
         "product/mac/evidence/logs/stage-01-ci/first-run.json",
         "product/mac/evidence/logs/stage-01-ci/second-run.json",
-        "product/mac/evidence/logs/stage-01-ci/second-run-diagnostic.log"
+        "product/mac/evidence/logs/stage-01-ci/second-run-diagnostic.log",
+        "product/mac/evidence/logs/stage-01-ci/accepted-run.json",
+        "product/mac/evidence/logs/stage-01-ci/accepted-run-summary.log"
       ]
     },
     {
@@ -75,7 +77,7 @@
       ]
     }
   ],
-  "next_stage": "Not accepted; prerequisites remain open. Independent later work may proceed only with that limitation explicit.",
+  "next_stage": "Stage 02 may start from the evidence commit containing this accepted report. Its M07-M13 remain mandatory and are not yet accepted.",
   "checks": {
     "frozen_tests": {
       "passed": 178,
@@ -100,7 +102,7 @@
       "passed": 3,
       "failed": 0
     },
-    "hosted_ci": "FAIL: runs 35281226918 and 35282183578; identical four regular-window dimension assertions. Session-scoped display fix pending validation.",
+    "hosted_ci": "PASS: https://github.com/mariusschober/nostr-writer/actions/runs/35283330208",
     "macos14_runtime": "NOT MEASURED",
     "intel_runtime": "NOT MEASURED",
     "voiceover": "PASS: owner reported Voiceover is fine, I listened to it; direct owner observation, not agent audio capture",
@@ -108,7 +110,7 @@
     "final_source_integrity": "PASS: all 69 protocol files, 326 source-manifest files and 60 criteria unchanged"
   },
   "previous_source_commit": "5024c1cb9924db8980e55d26ce0dbd33fdf366b9",
-  "ci_configuration_commit": "e7cc5d9651bedcebdd535efe75dcd994f9d985ad",
+  "ci_configuration_commit": "ddb26077fa54c4f061daaab736c4c71d5203c53b",
   "ci_runs": [
     {
       "run_id": 35281226918,
@@ -159,6 +161,28 @@
         "product/mac/evidence/logs/stage-01-ci/second-run-diagnostic.log"
       ],
       "root_cause_authority": "Installed Apple SDK CoreGraphics/CGDirectDisplay.h documents process-lifetime CGDisplaySetDisplayMode; CGDisplayConfiguration.h documents CGCompleteDisplayConfiguration with kCGConfigureForSession."
+    },
+    {
+      "run_id": 35283330208,
+      "url": "https://github.com/mariusschober/nostr-writer/actions/runs/35283330208",
+      "commit": "ddb26077fa54c4f061daaab736c4c71d5203c53b",
+      "status": "completed",
+      "conclusion": "success",
+      "universal_build": "PASS",
+      "foundation_tests": {
+        "passed": 130,
+        "failed": 0
+      },
+      "native_unit_tests": {
+        "passed": 4,
+        "failed": 0
+      },
+      "native_ui_tests": {
+        "passed": 3,
+        "failed": 0
+      },
+      "display_configuration": "PASS: session-scoped setting survived setup exit; all required dimensions passed"
     }
-  ]
+  ],
+  "accepted_ci_commit": "ddb26077fa54c4f061daaab736c4c71d5203c53b"
 }

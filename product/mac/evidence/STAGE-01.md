@@ -1,6 +1,6 @@
-# Stage 01 — native foundation (acceptance blocked)
+# Stage 01 — native foundation (accepted)
 
-Stage 01 is **not accepted**. This is a live implementation report, not a substitute
+Stage 01 is **accepted** (M01–M06). This is a live implementation report, not a substitute
 for the frozen acceptance matrix. Machine-readable status is in `STAGE-01.json`.
 Input: `3fdab5b1f8d75720c3025e8604f947e2307c31e2`. Source candidate: `ddac4a30073f9eaf7aa9586ed86c449a488bcea4` on
 `implementation/stage-01`. Evidence is committed separately so it can name the exact
@@ -36,7 +36,7 @@ current implementation guidance is in `mac/docs/DEVELOPMENT.md`.
 | M02 | PASS: final universal strict Swift 6/macOS 14 native build | `logs/stage-01-unlocked/build.log`, `ordinary-app-inspection.json` |
 | M03 | PASS: final clean consent/account-free writing; no app TCP/UDP rows during sampled runtime observation | `logs/stage-01-unlocked/tests.log`, `network.csv`, `network-control.csv`, `results.json` |
 | M04 | PASS: final ordinary build sandbox/hardened runtime and bounded entitlements inspected | `logs/stage-01-unlocked/ordinary-app-inspection.json` |
-| M05 | BLOCKED: hosted regular-window geometry failed twice; session-scoped display correction pending | `logs/stage-01-ci/first-run.json`, `second-run.json`, `second-run-diagnostic.log` |
+| M05 | PASS: locked dependencies/environment/scripts and hosted universal build + all native checks | `logs/stage-01-ci/accepted-run.json`, `accepted-run-summary.log` |
 | M06 | PASS: 130 Foundation, 4 native unit and 3 native UI tests pass; owner confirms listened-to VoiceOver is fine | `foundation.log`, `logs/stage-01-unlocked/tests.log`, `screenshot-index.json`, `voiceover-owner-observation.json` |
 
 The unchanged Foundation implementation previously passed 130 tests. The final source
@@ -103,7 +103,7 @@ plugin before allowing Xcode package plugin execution.
 ## Remaining work
 
 The final local source is frozen at `ddac4a30073f9eaf7aa9586ed86c449a488bcea4`.
-Stage 01 remains unaccepted pending the hosted CI result (M05). VoiceOver observation
+Stage 01 is accepted after hosted CI run 35283330208 passed (M05). VoiceOver observation
 (M06) is now owner-confirmed. The Mac is no longer recorded as locked. Native keyboard, consent,
 appearance, resizing, ordinary signing/entitlements and bounded network observation
 are now measured. `logs/stage-01-unlocked/voiceover-owner-observation.json` records
@@ -119,7 +119,11 @@ The second setup saw 1280×960, but the SDK documents that `CGDisplaySetDisplayM
 reverts when its process exits. The correction now uses `CGCompleteDisplayConfiguration`
 with `.forSession`, restricted to disposable hosted runners. It changes no application
 behavior or test assertion. No local UI or Foundation rerun is needed for this CI-only change.
-Stage 02 cannot be accepted or started from an accepted predecessor yet. The separate `preparation/native-cores` worktree contains independent,
+[Hosted run 35283330208](https://github.com/mariusschober/nostr-writer/actions/runs/35283330208)
+on `ddb26077fa54c4f061daaab736c4c71d5203c53b` passed the universal build, 130 Foundation
+tests, four native unit tests and all three native UI tests. Application and native test
+source are unchanged from locally observed `ddac4a3`. No local checks were repeated.
+Stage 02 can now start from this accepted evidence commit; M07–M13 are not yet accepted. The separate `preparation/native-cores` worktree contains independent,
 unmerged components with their own evidence and no later-stage acceptance claim.
 
 The root handoff, `mac/README.md` and initial `STATUS.json` are recovery-snapshot files
