@@ -1,2 +1,3 @@
-// Implementation belongs to its assigned stage. No production capability is exposed yet.
+// Native encrypted source recovery and coordinated file/access components.
+// App integration and actual provider acceptance belong to Stage 02.
 import WriterFoundation

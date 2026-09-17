@@ -48,8 +48,28 @@ UInt64.max, key races/denial, transaction fault points, rolling retention and ro
 consistent migration backups, configured limits and real SQLITE_FULL induced through
 a temporary SQLite page ceiling. Actual physical power loss/full disk is not measured.
 
-Mandatory work remains: production Keychain creation/access policy, one-second and
-lifecycle checkpoint scheduling, native NSDocument save/close/recovery UI, bookmarks,
-coordinated file/provider conflicts, library/search, outbox scaffolding, capture history,
-performance and real iCloud/Google Drive acceptance. No UI/provider/Keychain/Stage 02
-acceptance is claimed by these package tests. See the unchanged PLAN 02 and M07-M13.
+`RecoveryCoordinator` schedules immutable source checkpoints on an injected monotonic
+clock. The first snapshot is immediate; later edits coalesce within a maximum one-second
+interval anchored to the oldest pending edit. A slow store exposes overdue recovery;
+it never fabricates durability. Explicit boundaries and close await the newest source,
+with bounded waiters and one store write at a time. Failed checkpoints preserve text
+and pause until retry or another edit. A failed/cancelled close permits editing again;
+a concurrent second close is refused. Saved-file acknowledgements remain independent
+of recovery, including an older file write that completes after a newer one.
+
+Standalone coordinated source reads/copies/replacements and scoped bookmark helpers
+are also available. These operations must not be nested inside NSDocument's own file
+accessors. See `product/mac/evidence/preparation/native-files/` for 13 additional tests,
+including a real second local coordinated writer; sandbox/provider grants remain unmeasured.
+
+The final scheduler ran 34 virtual-clock tests plus two composition tests using the real
+encrypted store and coordinated files. They verify close/reopen recovery of unsaved
+exact bytes and independent ordinary file saving while the recovery key is unavailable.
+See `product/mac/evidence/preparation/recovery-scheduling/` for exact source and logs.
+Virtual-clock scheduling does not measure production UI latency or actual clock timing.
+
+Mandatory work remains: production Keychain creation/access policy, app attachment of
+checkpoint scheduling, native NSDocument save/close/recovery UI, actual bookmark grants,
+provider conflicts, library/search, outbox scaffolding, capture history, performance and
+real iCloud/Google Drive acceptance. No UI/provider/Keychain/Stage 02 acceptance is claimed
+by these package tests. See the unchanged PLAN 02 and M07-M13.
