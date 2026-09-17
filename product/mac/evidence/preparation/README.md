@@ -25,6 +25,11 @@ unchanged. These packages do not grant HWP authority.
   proof is accepted by frozen Python and Node as TEST-ONLY / NOT PROVABLE. App
   integration, accepted predecessors and full Stage 04 evidence remain mandatory.
 
+- [Native files and bookmarks](native-files/README.md): exact coordinated reads,
+  atomic replacement and conflict-copy primitives with balanced access scopes.
+  All 59 storage package tests passed, including a second local process. Real
+  provider, sandbox-grant and complete app lifecycle acceptance remain mandatory.
+
 After Stage 01 is accepted, create the Stage 02 branch from its accepted commit.
 Review and selectively apply the storage preparation, then perform the full plan
 and record actual M07-M13 evidence. Apply wire preparation only in the appropriate
