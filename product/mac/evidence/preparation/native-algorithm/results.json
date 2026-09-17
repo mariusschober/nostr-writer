@@ -1,0 +1,72 @@
+{
+  "format": "nostr-writer-preparation-evidence/1",
+  "recorded_at": "2026-09-17T19:40:50.951204+00:00",
+  "branch": "preparation/native-cores",
+  "source_commit": "348cb41788c2d1f31e18b5e154197d0b188cc29a",
+  "accepted_predecessor": null,
+  "stage_01_checkpoint": "251a7d1d70585cd953c758cd6b66c87cb2dcd701",
+  "stage_01_status": "BLOCKED",
+  "stage_04_status": "NOT ACCEPTED",
+  "acceptance_ids": [
+    "M22",
+    "M23",
+    "M24",
+    "M25",
+    "M26",
+    "M27",
+    "M28",
+    "M29"
+  ],
+  "acceptance_claim": "Component evidence only; no Stage 04 requirement is marked passed by this report.",
+  "tests": {
+    "status": "PASS",
+    "command": "swift test --package-path mac/Packages/WriterHWP",
+    "xctest_cases": 31,
+    "failures": 0,
+    "elapsed_test_seconds": 42.086,
+    "log": "tests.log"
+  },
+  "reference_comparisons": {
+    "replay_positive_complete_states": 19,
+    "replay_negative_first_rejections": 38,
+    "replay_helper_cases": 21,
+    "feature_histories": 9,
+    "feature_units": 304,
+    "feature_values": 54416,
+    "model_validation_cases": 23,
+    "model_evaluations": 12,
+    "integer_arithmetic_cases": 40,
+    "complete_assessments": 28,
+    "json_snapshots": 4
+  },
+  "integrity": {
+    "status": "PASS",
+    "distribution_files": 69,
+    "source_manifest_files": 326,
+    "mandatory_acceptance_definitions": 60,
+    "logs": [
+      "preparation.json",
+      "frozen-protocol.json"
+    ]
+  },
+  "limitations": {
+    "capture_authentication": "NOT IMPLEMENTED",
+    "producer_V_R": "NOT IMPLEMENTED",
+    "native_cli_verification": "NOT IMPLEMENTED",
+    "operational_and_empirical_release_admission": "NOT IMPLEMENTED",
+    "proof_UI": "NOT IMPLEMENTED",
+    "full_scale_performance_and_UI_cancellation": "NOT MEASURED",
+    "empirical_accuracy": "NOT MEASURED",
+    "production_approval_set": "EMPTY",
+    "conditional_positive_fixtures": "SYNTHETIC LABORATORY ASSUMPTIONS ONLY"
+  },
+  "stage_01_external_blockers": [
+    "Mac remains locked; final native UI, keyboard, VoiceOver and runtime-network observations require an unlocked Mac.",
+    "Hosted CI requires authorization to push Stage 01 checkpoint 251a7d1 to mariusschober/nostr-writer branch implementation/stage-01. No authorization received."
+  ],
+  "publication": {
+    "pushed": false,
+    "proof_issued": false,
+    "private_user_data_used": false
+  }
+}

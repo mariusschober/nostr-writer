@@ -15,6 +15,10 @@ unchanged. These packages do not grant HWP authority.
   core, 46 package tests passed. Actual app integration, one-second scheduling,
   Keychain lifecycle, coordinated source files, conflicts, local library and real
   provider acceptance remain mandatory Stage 02 work.
+- [Native deterministic algorithm](native-algorithm/README.md): scalar replay,
+  all 179 fixed-point features, model/support and complete conditional assessment
+  compared with frozen Python. This does not establish capture authentication,
+  approved production trust or complete P/V/R and is not Stage 04 acceptance.
 
 After Stage 01 is accepted, create the Stage 02 branch from its accepted commit.
 Review and selectively apply the storage preparation, then perform the full plan
