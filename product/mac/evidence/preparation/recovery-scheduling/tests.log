@@ -1,0 +1,107 @@
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/7] Emitting module WriterStorage
+[5/7] Compiling WriterStorage RecoveryCoordinator.swift
+[6/10] Emitting module WriterStorageTests
+[7/10] Compiling WriterStorageTests DurabilityFileIntegrationTests.swift
+[8/10] Compiling WriterStorageTests RecoveryCoordinatorTests.swift
+/private/tmp/nostr-writer-preparation/mac/Packages/WriterStorage/Tests/WriterStorageTests/RecoveryCoordinatorTests.swift:961:13: warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 959 |         XCTAssertEqual(attempts, 1, "A failure must not start an unattended retry loop.")
+ 960 | 
+ 961 |         var state = await coordinator.state()
+     |             `- warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 962 |         XCTAssertTrue(state.isPausedForRetry)
+ 963 |         XCTAssertEqual(state.lastFailure, .persistence(.diskFull("no space")))
+[8/10] Write Objects.LinkFileList
+[9/10] Linking WriterStoragePackageTests
+Build complete! (3.53s)
+Test Suite 'Selected tests' started at 2026-09-17 22:10:18.176.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-17 22:10:18.177.
+Test Suite 'DurabilityFileIntegrationTests' started at 2026-09-17 22:10:18.177.
+Test Case '-[WriterStorageTests.DurabilityFileIntegrationTests testCloseFlushesNewestExactSourceAcrossEncryptedStoreReopen]' started.
+Test Case '-[WriterStorageTests.DurabilityFileIntegrationTests testCloseFlushesNewestExactSourceAcrossEncryptedStoreReopen]' passed (0.033 seconds).
+Test Case '-[WriterStorageTests.DurabilityFileIntegrationTests testUnavailableRecoveryKeyDoesNotPreventOrdinarySourceSaveOrClaimRecovery]' started.
+Test Case '-[WriterStorageTests.DurabilityFileIntegrationTests testUnavailableRecoveryKeyDoesNotPreventOrdinarySourceSaveOrClaimRecovery]' passed (0.027 seconds).
+Test Suite 'DurabilityFileIntegrationTests' passed at 2026-09-17 22:10:18.237.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.060 (0.060) seconds
+Test Suite 'RecoveryCoordinatorTests' started at 2026-09-17 22:10:18.237.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testAdmissionBoundIsEnforcedBeforeRetaining]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testAdmissionBoundIsEnforcedBeforeRetaining]' passed (0.001 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testAfterCommitFailureRetriesIdempotentlyWithDocumentStore]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testAfterCommitFailureRetriesIdempotentlyWithDocumentStore]' passed (0.010 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testAnOlderSaveLandingLastIsReportedAsOutOfOrder]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testAnOlderSaveLandingLastIsReportedAsOutOfOrder]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testASecondConcurrentCloseIsRejected]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testASecondConcurrentCloseIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCancellingAFlushWaiterDoesNotCancelTheStoreWrite]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCancellingAFlushWaiterDoesNotCancelTheStoreWrite]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCheckpointHonoursASubsecondInterval]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCheckpointHonoursASubsecondInterval]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseAndReopenPreserveExactBomCrlfUnicodeBytes]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseAndReopenPreserveExactBomCrlfUnicodeBytes]' passed (0.011 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseCanBeCancelledWhileTheStoreIsBlocked]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseCanBeCancelledWhileTheStoreIsBlocked]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testClosedCoordinatorRejectsNewWorkButKeepsStateReadable]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testClosedCoordinatorRejectsNewWorkButKeepsStateReadable]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseDuringWriteDoesNotAbandonTheAcknowledgedCommit]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseDuringWriteDoesNotAbandonTheAcknowledgedCommit]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseFlushesTheNewestRevisionBeforeTheTimerFires]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCloseFlushesTheNewestRevisionBeforeTheTimerFires]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testConcurrentFlushesShareOneWriteAndOneCommit]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testConcurrentFlushesShareOneWriteAndOneCommit]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testContinuousEditsKeepTheDeadlineAnchoredToTheOldestChange]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testContinuousEditsKeepTheDeadlineAnchoredToTheOldestChange]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCoordinatorNeverWritesPlaintextToDisk]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCoordinatorNeverWritesPlaintextToDisk]' passed (0.011 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCurrentRevisionAcknowledgementWithWrongBytesIsRejected]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testCurrentRevisionAcknowledgementWithWrongBytesIsRejected]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testFailedCloseKeepsNewestTextAndPermitsExplicitRetry]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testFailedCloseKeepsNewestTextAndPermitsExplicitRetry]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testFirstUnsavedSnapshotCheckpointsImmediately]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testFirstUnsavedSnapshotCheckpointsImmediately]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testInitialiserRejectsForeignRecoveredDurableAndUnusableBounds]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testInitialiserRejectsForeignRecoveredDurableAndUnusableBounds]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testIntermediateSnapshotsAreCoalescedToTheNewest]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testIntermediateSnapshotsAreCoalescedToTheNewest]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testIntervalTicksScalesAttosecondsAndClampsToOneSecond]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testIntervalTicksScalesAttosecondsAndClampsToOneSecond]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testLagAdvancesToTheNextPendingEditAfterAnOlderCommit]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testLagAdvancesToTheNextPendingEditAfterAnOlderCommit]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testMonotonicInstantSaturatesInsteadOfWrapping]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testMonotonicInstantSaturatesInsteadOfWrapping]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testObservationRejectsStaleConflictingAndForeignSnapshots]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testObservationRejectsStaleConflictingAndForeignSnapshots]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testOlderCompletionCannotMarkANewerRevisionDurable]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testOlderCompletionCannotMarkANewerRevisionDurable]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testPermanentFailureAttemptsOnceAndPauses]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testPermanentFailureAttemptsOnceAndPauses]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testPersistenceFailureIsTypedAndPrivacySafe]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testPersistenceFailureIsTypedAndPrivacySafe]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRecoveryCarriesNoMutationReceiptBacklog]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRecoveryCarriesNoMutationReceiptBacklog]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRevisionAtUInt64MaxIsDurableAndDoesNotOverflow]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRevisionAtUInt64MaxIsDurableAndDoesNotOverflow]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRevisionZeroFailureStillRetainsTheNewestText]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRevisionZeroFailureStillRetainsTheNewestText]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRevisionZeroIsCheckpointedAndRecordedAsDurable]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testRevisionZeroIsCheckpointedAndRecordedAsDurable]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testSaveAcknowledgementCannotMarkANewerRevisionSaved]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testSaveAcknowledgementCannotMarkANewerRevisionSaved]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testSaveAcknowledgementRejectsForeignAndUnknownRevisions]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testSaveAcknowledgementRejectsForeignAndUnknownRevisions]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testSlowStoreSurfacesCheckpointLag]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testSlowStoreSurfacesCheckpointLag]' passed (0.000 seconds).
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testWaiterCountIsBounded]' started.
+Test Case '-[WriterStorageTests.RecoveryCoordinatorTests testWaiterCountIsBounded]' passed (0.000 seconds).
+Test Suite 'RecoveryCoordinatorTests' passed at 2026-09-17 22:10:18.280.
+	 Executed 34 tests, with 0 failures (0 unexpected) in 0.040 (0.042) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-17 22:10:18.280.
+	 Executed 36 tests, with 0 failures (0 unexpected) in 0.100 (0.103) seconds
+Test Suite 'Selected tests' passed at 2026-09-17 22:10:18.280.
+	 Executed 36 tests, with 0 failures (0 unexpected) in 0.100 (0.104) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

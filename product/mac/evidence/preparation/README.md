@@ -12,9 +12,9 @@ unchanged. These packages do not grant HWP authority.
   from this worktree. The later native algorithm/protocol reports add independent
   component evidence; integrated Stage 04 acceptance remains mandatory.
 - [Encrypted source recovery](storage-core/README.md): reviewed rolling recovery
-  core, 46 package tests passed. Actual app integration, one-second scheduling,
-  Keychain lifecycle, coordinated source files, conflicts, local library and real
-  provider acceptance remain mandatory Stage 02 work.
+  core, 46 package tests passed. The file and scheduling reports below extend
+  this component evidence. Actual app integration, Keychain lifecycle, conflicts,
+  local library and real provider acceptance remain mandatory Stage 02 work.
 - [Native deterministic algorithm](native-algorithm/README.md): scalar replay,
   all 179 fixed-point features, model/support and complete conditional assessment
   compared with frozen Python. Its report is an earlier component checkpoint;
@@ -29,6 +29,11 @@ unchanged. These packages do not grant HWP authority.
   atomic replacement and conflict-copy primitives with balanced access scopes.
   All 59 storage package tests passed, including a second local process. Real
   provider, sandbox-grant and complete app lifecycle acceptance remain mandatory.
+
+- [Recovery scheduling](recovery-scheduling/README.md): 34 virtual-clock tests
+  and two real storage/file composition tests passed. Close forces the newest
+  source checkpoint; recovery failure leaves ordinary source saving available.
+  Actual app lifecycle, clock timing and Stage 02 acceptance remain mandatory.
 
 After Stage 01 is accepted, create the Stage 02 branch from its accepted commit.
 Review and selectively apply the storage preparation, then perform the full plan

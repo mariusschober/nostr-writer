@@ -31,7 +31,7 @@
     "scope": "real second local Foundation-coordinated writer over public synthetic temporary text; no provider accounts"
   },
   "fixed_during_review": [
-    "NSFileCoordinator opened a FIFO before the accessor, blocking the first hostile-input check. Preflight file-type checks now run before coordination. The final hostile-input check passes in 0.015 seconds without intervention.",
+    "NSFileCoordinator opened a FIFO before the accessor, blocking the first hostile-input check. Preflight file-type checks now run before coordination. The final hostile-input check passes in 0.013 seconds without intervention.",
     "Atomic create uses RENAME_EXCL so another file created after the first check is not overwritten.",
     "Replacement rechecks exact source bytes inside coordination before rename and retains file security metadata and extended attributes."
   ],

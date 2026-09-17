@@ -38,7 +38,7 @@ The initial FIFO test exposed Foundation opening the pipe before our callback.
 A one-second stack sample identified that wait; opening the disposable FIFO's
 writer released the original test process without restarting it. The product fix
 now preflights nonregular items before Foundation coordination and retains checks
-inside the accessor. Final hostile-input test: 0.015 seconds, without intervention.
+inside the accessor. Final hostile-input test: 0.013 seconds, without intervention.
 No result from the manually released initial run is used as final acceptance.
 
 Actual sandbox grants/provider sessions are **NOT MEASURED**. Bookmark tests inject
