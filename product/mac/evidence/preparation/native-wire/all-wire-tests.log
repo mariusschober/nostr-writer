@@ -1,0 +1,72 @@
+[0/1] Planning build
+Building for debugging...
+[0/6] Write sources
+[2/6] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Compiling WriterHWP CanonicalCBOR.swift
+[5/8] Emitting module WriterHWP
+[6/11] Compiling WriterHWP Merkle.swift
+[7/11] Compiling WriterHWP ContentStore.swift
+[8/11] Compiling WriterHWP StrictCOSE.swift
+[8/13] Write Objects.LinkFileList
+[9/17] Linking hwp-verify
+[10/17] Applying hwp-verify
+[12/17] Compiling WriterHWPTests CommitmentTests.swift
+[13/17] Compiling WriterHWPTests StrictCOSETests.swift
+[14/17] Emitting module WriterHWPTests
+[15/17] Compiling WriterHWPTests CanonicalCBORTests.swift
+[15/17] Write Objects.LinkFileList
+[16/17] Linking WriterHWPPackageTests
+Build complete! (1.92s)
+Test Suite 'All tests' started at 2026-09-17 19:23:01.843.
+Test Suite 'WriterHWPPackageTests.xctest' started at 2026-09-17 19:23:01.843.
+Test Suite 'CanonicalCBORTests' started at 2026-09-17 19:23:01.843.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testCoreBytewiseOrderingIsNotLengthFirst]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testCoreBytewiseOrderingIsNotLengthFirst]' passed (0.001 seconds).
+Test Case '-[WriterHWPTests.CanonicalCBORTests testDepthAndGlobalItemBudgetRejectBeforeUnboundedWork]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testDepthAndGlobalItemBudgetRejectBeforeUnboundedWork]' passed (0.025 seconds).
+Test Case '-[WriterHWPTests.CanonicalCBORTests testFrozenVectorAndObjectPoolDecodingMatchesPythonOracle]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testFrozenVectorAndObjectPoolDecodingMatchesPythonOracle]' passed (3.122 seconds).
+Test Case '-[WriterHWPTests.CanonicalCBORTests testIntegersBooleansAndMapKeysHaveDistinctDomains]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testIntegersBooleansAndMapKeysHaveDistinctDomains]' passed (0.000 seconds).
+Test Case '-[WriterHWPTests.CanonicalCBORTests testMalformedUTF8NonminimalAndImpossibleLengthsReject]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testMalformedUTF8NonminimalAndImpossibleLengthsReject]' passed (0.000 seconds).
+Test Case '-[WriterHWPTests.CanonicalCBORTests testSlicedInputAndTruncationNeverTrap]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testSlicedInputAndTruncationNeverTrap]' passed (0.000 seconds).
+Test Case '-[WriterHWPTests.CanonicalCBORTests testUnicodeByteIdentityAndBOMArePreserved]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testUnicodeByteIdentityAndBOMArePreserved]' passed (0.000 seconds).
+Test Suite 'CanonicalCBORTests' passed at 2026-09-17 19:23:04.993.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 3.149 (3.150) seconds
+Test Suite 'CommitmentTests' started at 2026-09-17 19:23:04.993.
+Test Case '-[WriterHWPTests.CommitmentTests testEmptyTreeAndHostileCountsFailSafely]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testEmptyTreeAndHostileCountsFailSafely]' passed (0.000 seconds).
+Test Case '-[WriterHWPTests.CommitmentTests testEveryLeafAndPrefixAtUnbalancedTreeSizesAndTampering]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testEveryLeafAndPrefixAtUnbalancedTreeSizesAndTampering]' passed (0.012 seconds).
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenBundlesRoundTripEveryObjectByte]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenBundlesRoundTripEveryObjectByte]' passed (3.008 seconds).
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenPrefixRootsAndConsistencyPathsAgreeExactly]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenPrefixRootsAndConsistencyPathsAgreeExactly]' passed (0.001 seconds).
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenSaltedCaptureLeavesAndSelectedOpeningsAgreeExactly]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenSaltedCaptureLeavesAndSelectedOpeningsAgreeExactly]' passed (0.003 seconds).
+Test Case '-[WriterHWPTests.CommitmentTests testReferenceLengthDigestAndBundleEntriesCannotBeSubstituted]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testReferenceLengthDigestAndBundleEntriesCannotBeSubstituted]' passed (0.001 seconds).
+Test Suite 'CommitmentTests' passed at 2026-09-17 19:23:08.019.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 3.025 (3.026) seconds
+Test Suite 'StrictCOSETests' started at 2026-09-17 19:23:08.019.
+Test Case '-[WriterHWPTests.StrictCOSETests testEveryCollectedFrozenSignatureVerifiesNatively]' started.
+Test Case '-[WriterHWPTests.StrictCOSETests testEveryCollectedFrozenSignatureVerifiesNatively]' passed (15.741 seconds).
+Test Case '-[WriterHWPTests.StrictCOSETests testNativeSigningPreservesExactHeadersPayloadAndInteroperableVerification]' started.
+Test Case '-[WriterHWPTests.StrictCOSETests testNativeSigningPreservesExactHeadersPayloadAndInteroperableVerification]' passed (1.154 seconds).
+Test Case '-[WriterHWPTests.StrictCOSETests testSignatureMalleabilityWrongKeyAndChangedPayloadReject]' started.
+Test Case '-[WriterHWPTests.StrictCOSETests testSignatureMalleabilityWrongKeyAndChangedPayloadReject]' passed (0.820 seconds).
+Test Case '-[WriterHWPTests.StrictCOSETests testStrictPointAdmissionMatchesFrozenArithmetic]' started.
+Test Case '-[WriterHWPTests.StrictCOSETests testStrictPointAdmissionMatchesFrozenArithmetic]' passed (3.434 seconds).
+Test Suite 'StrictCOSETests' passed at 2026-09-17 19:23:29.169.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 21.149 (21.149) seconds
+Test Suite 'WriterHWPPackageTests.xctest' passed at 2026-09-17 19:23:29.169.
+	 Executed 17 tests, with 0 failures (0 unexpected) in 27.323 (27.325) seconds
+Test Suite 'All tests' passed at 2026-09-17 19:23:29.169.
+	 Executed 17 tests, with 0 failures (0 unexpected) in 27.323 (27.326) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

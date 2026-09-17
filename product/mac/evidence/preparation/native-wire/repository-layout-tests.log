@@ -1,0 +1,84 @@
+Fetching https://github.com/attaswift/BigInt.git from cache
+Fetched https://github.com/attaswift/BigInt.git from cache (2.94s)
+Creating working copy for https://github.com/attaswift/BigInt.git
+Working copy of https://github.com/attaswift/BigInt.git resolved at e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe
+Building for debugging...
+[0/15] /private/tmp/nostr-writer-preparation/mac/Packages/WriterHWP/.build/arm64-apple-macosx/debug/WriterHWPPackageTests.derived/runner.swift
+[1/15] Write sources
+[2/15] Write hwp-verify-entitlement.plist
+[2/15] Write sources
+[8/15] Copying Fixtures
+[9/15] Write swift-version--58304C5D6DBC2206.txt
+[11/44] Compiling BigInt Strideable.swift
+[12/44] Compiling BigInt String Conversion.swift
+[13/46] Compiling BigInt Addition.swift
+[14/46] Compiling BigInt BigInt.swift
+[15/46] Compiling BigInt BigUInt.swift
+[16/46] Emitting module BigInt
+[17/46] Compiling BigInt Subtraction.swift
+[18/46] Compiling BigInt Words and Bits.swift
+[19/46] Compiling BigInt Prime Test.swift
+[20/46] Compiling BigInt Random.swift
+[21/46] Compiling BigInt Bitwise Ops.swift
+[22/46] Compiling BigInt Codable.swift
+[23/46] Compiling BigInt Comparable.swift
+[24/46] Compiling BigInt GCD.swift
+[25/46] Compiling BigInt Hashable.swift
+[26/46] Compiling BigInt Exponentiation.swift
+[27/46] Compiling BigInt Floating Point Conversion.swift
+[28/46] Compiling BigInt Shifts.swift
+[29/46] Compiling BigInt Square Root.swift
+[30/46] Compiling BigInt Integer Conversion.swift
+[31/46] Compiling BigInt Multiplication.swift
+[32/46] Compiling BigInt Data Conversion.swift
+[33/46] Compiling BigInt Division.swift
+[34/46] Compiling WriterFoundation SourceSnapshot.swift
+[35/46] Compiling WriterFoundation ServiceContracts.swift
+[36/46] Compiling WriterFoundation ProofPresentation.swift
+[37/46] Compiling WriterFoundation NetworkContracts.swift
+[38/46] Emitting module WriterFoundation
+[39/46] Compiling WriterFoundation Coordinates.swift
+[40/46] Compiling WriterFoundation Identifiers.swift
+[41/46] Compiling WriterFoundation FocusState.swift
+[42/52] Compiling WriterHWP CanonicalCBOR.swift
+[43/52] Emitting module WriterHWP
+[44/52] Compiling WriterHWP StrictCOSE.swift
+[45/52] Compiling WriterHWP Module.swift
+[46/52] Compiling WriterHWP ContentStore.swift
+[47/52] Compiling WriterHWP Merkle.swift
+[48/60] Emitting module HWPVerifyCLI
+[49/60] Compiling HWPVerifyCLI main.swift
+[49/60] Write Objects.LinkFileList
+[50/60] Linking hwp-verify
+[51/60] Applying hwp-verify
+[53/60] Compiling WriterHWPTests StrictCOSETests.swift
+[54/60] Compiling WriterHWPTests resource_bundle_accessor.swift
+[55/60] Emitting module WriterHWPTests
+[56/60] Compiling WriterHWPTests CommitmentTests.swift
+[57/60] Compiling WriterHWPTests FrozenOracle.swift
+[58/60] Compiling WriterHWPTests CanonicalCBORTests.swift
+[59/62] Compiling WriterHWPPackageTests runner.swift
+[60/62] Emitting module WriterHWPPackageTests
+[60/62] Write Objects.LinkFileList
+[61/62] Linking WriterHWPPackageTests
+Build complete! (19.76s)
+Test Suite 'Selected tests' started at 2026-09-17 19:32:07.882.
+Test Suite 'WriterHWPPackageTests.xctest' started at 2026-09-17 19:32:07.883.
+Test Suite 'CanonicalCBORTests' started at 2026-09-17 19:32:07.883.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testFrozenVectorAndObjectPoolDecodingMatchesPythonOracle]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testFrozenVectorAndObjectPoolDecodingMatchesPythonOracle]' passed (3.115 seconds).
+Test Suite 'CanonicalCBORTests' passed at 2026-09-17 19:32:10.998.
+	 Executed 1 test, with 0 failures (0 unexpected) in 3.115 (3.115) seconds
+Test Suite 'CommitmentTests' started at 2026-09-17 19:32:10.998.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenBundlesRoundTripEveryObjectByte]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenBundlesRoundTripEveryObjectByte]' passed (2.998 seconds).
+Test Suite 'CommitmentTests' passed at 2026-09-17 19:32:13.996.
+	 Executed 1 test, with 0 failures (0 unexpected) in 2.998 (2.998) seconds
+Test Suite 'WriterHWPPackageTests.xctest' passed at 2026-09-17 19:32:13.996.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 6.113 (6.113) seconds
+Test Suite 'Selected tests' passed at 2026-09-17 19:32:13.996.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 6.113 (6.115) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

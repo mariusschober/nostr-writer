@@ -1,0 +1,6 @@
+{
+  "native_signature_verified_by_frozen_python": true,
+  "exact_protected_headers_and_payload": true,
+  "signature_bytes_identical": false,
+  "note": "CryptoKit Ed25519 uses documented randomized signing; verification equations and strict canonical constraints are unchanged."
+}

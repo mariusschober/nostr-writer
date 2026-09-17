@@ -1,0 +1,21 @@
+{
+  "status": "PREPARATORY ONLY",
+  "hashes": {
+    "Package.resolved": "548e3643537851778f7e2dc72803e5b67b93a21f2eda795e92ddfb5d3830fff8",
+    "Package.swift": "12f541639d5561ad2ad85a7990aed024944f5034a508efa64424631a0a8ce54c",
+    "Tools/generate_test_oracles.py": "808b9623bff101a5cc3ec38258c310924012509425c16fc1cc3b71245fc0ebd0",
+    "Sources/HWPVerifyCLI/main.swift": "8315b4b702fc1c7520769697134c92d6bfad3f1bd24167645432f65a00b98245",
+    "Sources/WriterHWP/Merkle.swift": "0a7c290d455402ad3763fb82045d997f05ccb8e2f47bb3e1c65805212b851780",
+    "Sources/WriterHWP/StrictCOSE.swift": "ccc5a5166fcc5e5de09bf055235d81a0c249dbe44a9707ea7603d72a132cc5a6",
+    "Sources/WriterHWP/ContentStore.swift": "37de0a8078eb6d96f145efe3cb8ae02fd6be00b2dc6b10b60880c62778a7f142",
+    "Sources/WriterHWP/CanonicalCBOR.swift": "dfcf2a6d997c8ac8e29aa58dcbabf93173995dd6a61c36d6b7ad81ac743e2abe",
+    "Sources/WriterHWP/Module.swift": "afb2bbe995958d10f4491b84ecb1a64d376972152bcaace32de5685eda689664",
+    "Tests/WriterHWPTests/StrictCOSETests.swift": "63c4c6a1a04ae5a331a2533b8cc54ac01a2a45c5e931a21b2654488b8eb34baf",
+    "Tests/WriterHWPTests/FrozenOracle.swift": "6462506406e58e7e8b7de41a4e573bc72a9a89da387bd21fa39ac396936e4128",
+    "Tests/WriterHWPTests/CommitmentTests.swift": "5a22ab2816fe2376fff884394648f0c173c8bb444bcc245c91fdd38ca434069e",
+    "Tests/WriterHWPTests/CanonicalCBORTests.swift": "5f353781f11e01074a3fa32547953c5530354953ff4786a19c157d4ca69f12bb",
+    "Tests/WriterHWPTests/Fixtures/merkle-oracle.json": "a09bb96b05656edd80aaacb0d8a64f89576abe93cdc7b1b43896f7fc8a3c31fa",
+    "Tests/WriterHWPTests/Fixtures/cbor-expectations.json": "74382ceda553d93320485eafd991a9a058d7f8808c6d9fffda3b84ead0378f2f",
+    "Tests/WriterHWPTests/Fixtures/cose-oracle.json": "bf7354e42ca6a5bba4e28d5194b93a08d73d4b0081723315535f4d75fa0fa9f0"
+  }
+}

@@ -1,0 +1,32 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Copying Fixtures
+[2/7] Write swift-version--58304C5D6DBC2206.txt
+[4/9] Emitting module WriterHWPTests
+[5/9] Compiling WriterHWPTests CanonicalCBORTests.swift
+[6/9] Compiling WriterHWPTests FrozenOracle.swift
+[7/9] Compiling WriterHWPTests CommitmentTests.swift
+[7/9] Write Objects.LinkFileList
+[8/9] Linking WriterHWPPackageTests
+Build complete! (2.03s)
+Test Suite 'Selected tests' started at 2026-09-17 19:25:46.168.
+Test Suite 'WriterHWPPackageTests.xctest' started at 2026-09-17 19:25:46.169.
+Test Suite 'CanonicalCBORTests' started at 2026-09-17 19:25:46.169.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testFrozenVectorAndObjectPoolDecodingMatchesPythonOracle]' started.
+Test Case '-[WriterHWPTests.CanonicalCBORTests testFrozenVectorAndObjectPoolDecodingMatchesPythonOracle]' passed (3.083 seconds).
+Test Suite 'CanonicalCBORTests' passed at 2026-09-17 19:25:49.252.
+	 Executed 1 test, with 0 failures (0 unexpected) in 3.083 (3.083) seconds
+Test Suite 'CommitmentTests' started at 2026-09-17 19:25:49.252.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenBundlesRoundTripEveryObjectByte]' started.
+Test Case '-[WriterHWPTests.CommitmentTests testFrozenBundlesRoundTripEveryObjectByte]' passed (2.964 seconds).
+Test Suite 'CommitmentTests' passed at 2026-09-17 19:25:52.217.
+	 Executed 1 test, with 0 failures (0 unexpected) in 2.964 (2.965) seconds
+Test Suite 'WriterHWPPackageTests.xctest' passed at 2026-09-17 19:25:52.217.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 6.047 (6.048) seconds
+Test Suite 'Selected tests' passed at 2026-09-17 19:25:52.217.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 6.047 (6.048) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

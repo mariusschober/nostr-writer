@@ -9,7 +9,8 @@ let package = Package(
     ],
     targets: [
         .target(name: "WriterHWP", dependencies: ["WriterFoundation", .product(name: "BigInt", package: "BigInt")]),
-        .executableTarget(name: "HWPVerifyCLI", dependencies: ["WriterHWP"])
+        .executableTarget(name: "HWPVerifyCLI", dependencies: ["WriterHWP"]),
+        .testTarget(name: "WriterHWPTests", dependencies: ["WriterHWP"], resources: [.copy("Fixtures")])
     ],
     swiftLanguageModes: [.v6]
 )
