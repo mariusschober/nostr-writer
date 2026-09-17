@@ -1,0 +1,22 @@
+{
+  "status": "FIXED",
+  "exception": "EXC_BREAKPOINT",
+  "frames": [
+    "_dispatch_assert_queue_fail",
+    "dispatch_assert_queue$V2.cold.1",
+    "dispatch_assert_queue",
+    "_swift_task_checkIsolatedSwift",
+    "swift_task_isCurrentExecutorWithFlagsImpl(swift::SerialExecutorRef, swift::swift_task_is_current_executor_flag)",
+    "_checkExpectedExecutor(_filenameStart:_filenameLength:_filenameIsASCII:_line:_executor:)",
+    "@objc WriterDocument.data(ofType:)",
+    "-[NSDocument writeToURL:ofType:error:]",
+    "-[NSDocument writeToURL:ofType:forSaveOperation:originalContentsURL:error:]",
+    "-[NSDocument(NSDocumentSaving) _writeSafelyToURL:ofType:forSaveOperation:forceTemporaryDirectory:error:]",
+    "-[NSDocument writeSafelyToURL:ofType:forSaveOperation:error:]",
+    "__85-[NSDocument(NSDocumentSaving) _saveToURL:ofType:forSaveOperation:completionHandler:]_block_invoke_2.440",
+    "_dispatch_call_block_and_release"
+  ],
+  "cause": "AppKit invoked data(ofType:) off the main actor after asynchronous saving was enabled.",
+  "resolution": "Nonisolated immutable-snapshot buffer, pinned native change-count token, explicit nonisolated read callback.",
+  "verified_by": "native-lifecycle.log"
+}

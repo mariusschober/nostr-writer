@@ -1,0 +1,81 @@
+{
+  "stage": "02",
+  "accepted": false,
+  "status": "NOT MEASURED",
+  "input_commit": "1fb8625",
+  "source_commit": "2517ab4835548f329b2d582c9e7a6be42127bc93",
+  "preparation_import_commit": "3cd49d6",
+  "source_state": "First integrated document/recovery checkpoint; not stage acceptance. No Stage 03 start.",
+  "criteria": [
+    {
+      "id": "M07",
+      "status": "NOT MEASURED",
+      "reason": "One native round-trip check passes exact Save/Revert/Duplicate/Save As bytes and in-session identities. Persistent identity/derivation, save races, loss-preserving Revert, close/quit and restart still incomplete.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/native-lifecycle.log"
+      ]
+    },
+    {
+      "id": "M08",
+      "status": "NOT MEASURED",
+      "reason": "Encrypted components and six new bootstrap checks pass within recorded scope. App recovery attachment compiles; actual Keychain access, close/sleep boundaries and crash-reopen flow not observed. Ad-hoc signing has no usable recovery access group.",
+      "evidence": []
+    },
+    {
+      "id": "M09",
+      "status": "NOT MEASURED",
+      "reason": "Actual iCloud Drive lifecycle not observed.",
+      "evidence": []
+    },
+    {
+      "id": "M10",
+      "status": "NOT MEASURED",
+      "reason": "Actual Google Drive for desktop lifecycle not observed.",
+      "evidence": []
+    },
+    {
+      "id": "M11",
+      "status": "NOT MEASURED",
+      "reason": "Preserve-both conflict integration and interaction are not implemented.",
+      "evidence": []
+    },
+    {
+      "id": "M12",
+      "status": "NOT MEASURED",
+      "reason": "Coordinated file/bookmark components have separate evidence; app bookmark catalog, permission loss, move/assets and duplicate-window flow remain incomplete.",
+      "evidence": []
+    },
+    {
+      "id": "M13",
+      "status": "NOT MEASURED",
+      "reason": "Local library, recent/search and recovered-unsaved document flows not implemented.",
+      "evidence": []
+    }
+  ],
+  "checks": {
+    "native_lifecycle": {
+      "status": "PASS",
+      "tests": 1,
+      "failed": 0,
+      "test_seconds": 1.069
+    },
+    "bootstrap": {
+      "status": "PASS",
+      "tests": 6,
+      "failed": 0,
+      "scope": "Synthetic Keychain + real temporary files; preparation/keychain-bootstrap"
+    },
+    "frozen_inputs": "PASS: 69 files",
+    "recovery_snapshot": "PASS: 326 pinned files",
+    "acceptance_definitions": "PASS: 60 retained",
+    "current_ui_observation": "NOT MEASURED",
+    "real_keychain": "NOT MEASURED: requires legitimate signed app identity/access group",
+    "actual_providers": "NOT MEASURED"
+  },
+  "next_work": [
+    "Persistent document/bookmark/derivation catalog and unsaved recovery entries",
+    "Finish recovery boundaries and preserve-before-Revert/Save As",
+    "Coalesced save requests, external conflicts, library UI, real provider observations"
+  ],
+  "historical_evidence_used_as_current_pass": false
+}
