@@ -1,0 +1,21 @@
+{
+  "candidate_document_pass": true,
+  "certification_enabled": false,
+  "contribution_verdict": "NOT PROVABLE",
+  "ranges": [
+    {
+      "end": 156,
+      "excluded": false,
+      "exclusion": null,
+      "origin": "direct",
+      "origin_documents": [
+        "keyboard"
+      ],
+      "reason": "RELEASE_NOT_APPROVED",
+      "start": 0,
+      "verdict": "NOT PROVABLE"
+    }
+  ],
+  "reason": null,
+  "verdict": "NOT PROVABLE"
+}

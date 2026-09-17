@@ -1,0 +1,2239 @@
+{
+  "documents": [
+    {
+      "final_text": "A writer considers a claim, changes the wording, and follows the consequences through a longer argument. This synthetic fixture proves no human authorship. ",
+      "id": "ime",
+      "language": "en",
+      "observations": [
+        {
+          "i": 0,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 186000,
+          "token": "p0"
+        },
+        {
+          "i": 1,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 187000,
+          "token": "p0-tap"
+        },
+        {
+          "i": 2,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 216000,
+          "token": "p0-tap"
+        },
+        {
+          "i": 3,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 226000,
+          "token": "p0"
+        },
+        {
+          "basis": [
+            1
+          ],
+          "i": 4,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 236000,
+          "token": "p0"
+        },
+        {
+          "i": 5,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 433000,
+          "token": "p5"
+        },
+        {
+          "i": 6,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 434000,
+          "token": "p5-tap"
+        },
+        {
+          "i": 7,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 463000,
+          "token": "p5-tap"
+        },
+        {
+          "i": 8,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 473000,
+          "token": "p5"
+        },
+        {
+          "basis": [
+            6
+          ],
+          "i": 9,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 483000,
+          "token": "p5"
+        },
+        {
+          "i": 10,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 587000,
+          "token": "p10"
+        },
+        {
+          "i": 11,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 588000,
+          "token": "p10-tap"
+        },
+        {
+          "i": 12,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 617000,
+          "token": "p10-tap"
+        },
+        {
+          "i": 13,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 627000,
+          "token": "p10"
+        },
+        {
+          "basis": [
+            11
+          ],
+          "i": 14,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 637000,
+          "token": "p10"
+        },
+        {
+          "i": 15,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 905000,
+          "token": "p15"
+        },
+        {
+          "i": 16,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 906000,
+          "token": "p15-tap"
+        },
+        {
+          "i": 17,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 935000,
+          "token": "p15-tap"
+        },
+        {
+          "i": 18,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 945000,
+          "token": "p15"
+        },
+        {
+          "basis": [
+            16
+          ],
+          "i": 19,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 955000,
+          "token": "p15"
+        },
+        {
+          "i": 20,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 1151000,
+          "token": "p20"
+        },
+        {
+          "i": 21,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 1152000,
+          "token": "p20-tap"
+        },
+        {
+          "i": 22,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 1181000,
+          "token": "p20-tap"
+        },
+        {
+          "i": 23,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 1191000,
+          "token": "p20"
+        },
+        {
+          "basis": [
+            21
+          ],
+          "i": 24,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 1201000,
+          "token": "p20"
+        },
+        {
+          "i": 25,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 1316000,
+          "token": "p25"
+        },
+        {
+          "i": 26,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 1317000,
+          "token": "p25-tap"
+        },
+        {
+          "i": 27,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 1346000,
+          "token": "p25-tap"
+        },
+        {
+          "i": 28,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 1356000,
+          "token": "p25"
+        },
+        {
+          "basis": [
+            26
+          ],
+          "i": 29,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 1366000,
+          "token": "p25"
+        },
+        {
+          "i": 30,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 1445000,
+          "token": "p30"
+        },
+        {
+          "i": 31,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 1446000,
+          "token": "p30-tap"
+        },
+        {
+          "i": 32,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 1475000,
+          "token": "p30-tap"
+        },
+        {
+          "i": 33,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 1485000,
+          "token": "p30"
+        },
+        {
+          "basis": [
+            31
+          ],
+          "i": 34,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 1495000,
+          "token": "p30"
+        },
+        {
+          "i": 35,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 1749000,
+          "token": "p35"
+        },
+        {
+          "i": 36,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 1750000,
+          "token": "p35-tap"
+        },
+        {
+          "i": 37,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 1779000,
+          "token": "p35-tap"
+        },
+        {
+          "i": 38,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 1789000,
+          "token": "p35"
+        },
+        {
+          "basis": [
+            36
+          ],
+          "i": 39,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 1799000,
+          "token": "p35"
+        },
+        {
+          "i": 40,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 2133000,
+          "token": "p40"
+        },
+        {
+          "i": 41,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 2134000,
+          "token": "p40-tap"
+        },
+        {
+          "i": 42,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 2163000,
+          "token": "p40-tap"
+        },
+        {
+          "i": 43,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 2173000,
+          "token": "p40"
+        },
+        {
+          "basis": [
+            41
+          ],
+          "i": 44,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 2183000,
+          "token": "p40"
+        },
+        {
+          "i": 45,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 2530000,
+          "token": "p45"
+        },
+        {
+          "i": 46,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 2531000,
+          "token": "p45-tap"
+        },
+        {
+          "i": 47,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 2560000,
+          "token": "p45-tap"
+        },
+        {
+          "i": 48,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 2570000,
+          "token": "p45"
+        },
+        {
+          "basis": [
+            46
+          ],
+          "i": 49,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 2580000,
+          "token": "p45"
+        },
+        {
+          "i": 50,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 2810000,
+          "token": "p50"
+        },
+        {
+          "i": 51,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 2811000,
+          "token": "p50-tap"
+        },
+        {
+          "i": 52,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 2840000,
+          "token": "p50-tap"
+        },
+        {
+          "i": 53,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 2850000,
+          "token": "p50"
+        },
+        {
+          "basis": [
+            51
+          ],
+          "i": 54,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 2860000,
+          "token": "p50"
+        },
+        {
+          "i": 55,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 3094000,
+          "token": "p55"
+        },
+        {
+          "i": 56,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 3095000,
+          "token": "p55-tap"
+        },
+        {
+          "i": 57,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 3124000,
+          "token": "p55-tap"
+        },
+        {
+          "i": 58,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 3134000,
+          "token": "p55"
+        },
+        {
+          "basis": [
+            56
+          ],
+          "i": 59,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 3144000,
+          "token": "p55"
+        },
+        {
+          "i": 60,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 3230000,
+          "token": "p60"
+        },
+        {
+          "i": 61,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 3231000,
+          "token": "p60-tap"
+        },
+        {
+          "i": 62,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 3260000,
+          "token": "p60-tap"
+        },
+        {
+          "i": 63,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 3270000,
+          "token": "p60"
+        },
+        {
+          "basis": [
+            61
+          ],
+          "i": 64,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 3280000,
+          "token": "p60"
+        },
+        {
+          "i": 65,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 3421000,
+          "token": "p65"
+        },
+        {
+          "i": 66,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 3422000,
+          "token": "p65-tap"
+        },
+        {
+          "i": 67,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 3451000,
+          "token": "p65-tap"
+        },
+        {
+          "i": 68,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 3461000,
+          "token": "p65"
+        },
+        {
+          "basis": [
+            66
+          ],
+          "i": 69,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 3471000,
+          "token": "p65"
+        },
+        {
+          "i": 70,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 3600000,
+          "token": "p70"
+        },
+        {
+          "i": 71,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 3601000,
+          "token": "p70-tap"
+        },
+        {
+          "i": 72,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 3630000,
+          "token": "p70-tap"
+        },
+        {
+          "i": 73,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 3640000,
+          "token": "p70"
+        },
+        {
+          "basis": [
+            71
+          ],
+          "i": 74,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 3650000,
+          "token": "p70"
+        },
+        {
+          "i": 75,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 3882000,
+          "token": "p75"
+        },
+        {
+          "i": 76,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 3883000,
+          "token": "p75-tap"
+        },
+        {
+          "i": 77,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 3912000,
+          "token": "p75-tap"
+        },
+        {
+          "i": 78,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 3922000,
+          "token": "p75"
+        },
+        {
+          "basis": [
+            76
+          ],
+          "i": 79,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 3932000,
+          "token": "p75"
+        },
+        {
+          "i": 80,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 4279000,
+          "token": "p80"
+        },
+        {
+          "i": 81,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 4280000,
+          "token": "p80-tap"
+        },
+        {
+          "i": 82,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 4309000,
+          "token": "p80-tap"
+        },
+        {
+          "i": 83,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 4319000,
+          "token": "p80"
+        },
+        {
+          "basis": [
+            81
+          ],
+          "i": 84,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 4329000,
+          "token": "p80"
+        },
+        {
+          "i": 85,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 4559000,
+          "token": "p85"
+        },
+        {
+          "i": 86,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 4560000,
+          "token": "p85-tap"
+        },
+        {
+          "i": 87,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 4589000,
+          "token": "p85-tap"
+        },
+        {
+          "i": 88,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 4599000,
+          "token": "p85"
+        },
+        {
+          "basis": [
+            86
+          ],
+          "i": 89,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 4609000,
+          "token": "p85"
+        },
+        {
+          "i": 90,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 5028000,
+          "token": "p90"
+        },
+        {
+          "i": 91,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 5029000,
+          "token": "p90-tap"
+        },
+        {
+          "i": 92,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 5058000,
+          "token": "p90-tap"
+        },
+        {
+          "i": 93,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 5068000,
+          "token": "p90"
+        },
+        {
+          "basis": [
+            91
+          ],
+          "i": 94,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 5078000,
+          "token": "p90"
+        },
+        {
+          "i": 95,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 5263000,
+          "token": "p95"
+        },
+        {
+          "i": 96,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 5264000,
+          "token": "p95-tap"
+        },
+        {
+          "i": 97,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 5293000,
+          "token": "p95-tap"
+        },
+        {
+          "i": 98,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 5303000,
+          "token": "p95"
+        },
+        {
+          "basis": [
+            96
+          ],
+          "i": 99,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 5313000,
+          "token": "p95"
+        },
+        {
+          "i": 100,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 5456000,
+          "token": "p100"
+        },
+        {
+          "i": 101,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 5457000,
+          "token": "p100-tap"
+        },
+        {
+          "i": 102,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 5486000,
+          "token": "p100-tap"
+        },
+        {
+          "i": 103,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 5496000,
+          "token": "p100"
+        },
+        {
+          "basis": [
+            101
+          ],
+          "i": 104,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 5506000,
+          "token": "p100"
+        },
+        {
+          "i": 105,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 5566000,
+          "token": "p105"
+        },
+        {
+          "i": 106,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 5567000,
+          "token": "p105-tap"
+        },
+        {
+          "i": 107,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 5596000,
+          "token": "p105-tap"
+        },
+        {
+          "i": 108,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 5606000,
+          "token": "p105"
+        },
+        {
+          "basis": [
+            106
+          ],
+          "i": 109,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 5616000,
+          "token": "p105"
+        },
+        {
+          "i": 110,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 5899000,
+          "token": "p110"
+        },
+        {
+          "i": 111,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 5900000,
+          "token": "p110-tap"
+        },
+        {
+          "i": 112,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 5929000,
+          "token": "p110-tap"
+        },
+        {
+          "i": 113,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 5939000,
+          "token": "p110"
+        },
+        {
+          "basis": [
+            111
+          ],
+          "i": 114,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 5949000,
+          "token": "p110"
+        },
+        {
+          "i": 115,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 6053000,
+          "token": "p115"
+        },
+        {
+          "i": 116,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 6054000,
+          "token": "p115-tap"
+        },
+        {
+          "i": 117,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 6083000,
+          "token": "p115-tap"
+        },
+        {
+          "i": 118,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 6093000,
+          "token": "p115"
+        },
+        {
+          "basis": [
+            116
+          ],
+          "i": 119,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 6103000,
+          "token": "p115"
+        },
+        {
+          "i": 120,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 6468000,
+          "token": "p120"
+        },
+        {
+          "i": 121,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 6469000,
+          "token": "p120-tap"
+        },
+        {
+          "i": 122,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 6498000,
+          "token": "p120-tap"
+        },
+        {
+          "i": 123,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 6508000,
+          "token": "p120"
+        },
+        {
+          "basis": [
+            121
+          ],
+          "i": 124,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 6518000,
+          "token": "p120"
+        },
+        {
+          "i": 125,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 6771000,
+          "token": "p125"
+        },
+        {
+          "i": 126,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 6772000,
+          "token": "p125-tap"
+        },
+        {
+          "i": 127,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 6801000,
+          "token": "p125-tap"
+        },
+        {
+          "i": 128,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 6811000,
+          "token": "p125"
+        },
+        {
+          "basis": [
+            126
+          ],
+          "i": 129,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 6821000,
+          "token": "p125"
+        },
+        {
+          "i": 130,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 6916000,
+          "token": "p130"
+        },
+        {
+          "i": 131,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 6917000,
+          "token": "p130-tap"
+        },
+        {
+          "i": 132,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 6946000,
+          "token": "p130-tap"
+        },
+        {
+          "i": 133,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 6956000,
+          "token": "p130"
+        },
+        {
+          "basis": [
+            131
+          ],
+          "i": 134,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 6966000,
+          "token": "p130"
+        },
+        {
+          "i": 135,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 7029000,
+          "token": "p135"
+        },
+        {
+          "i": 136,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 7030000,
+          "token": "p135-tap"
+        },
+        {
+          "i": 137,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 7059000,
+          "token": "p135-tap"
+        },
+        {
+          "i": 138,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 7069000,
+          "token": "p135"
+        },
+        {
+          "basis": [
+            136
+          ],
+          "i": 139,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 7079000,
+          "token": "p135"
+        },
+        {
+          "i": 140,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 7300000,
+          "token": "p140"
+        },
+        {
+          "i": 141,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 7301000,
+          "token": "p140-tap"
+        },
+        {
+          "i": 142,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 7330000,
+          "token": "p140-tap"
+        },
+        {
+          "i": 143,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 7340000,
+          "token": "p140"
+        },
+        {
+          "basis": [
+            141
+          ],
+          "i": 144,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 7350000,
+          "token": "p140"
+        },
+        {
+          "i": 145,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 7784000,
+          "token": "p145"
+        },
+        {
+          "i": 146,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 7785000,
+          "token": "p145-tap"
+        },
+        {
+          "i": 147,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 7814000,
+          "token": "p145-tap"
+        },
+        {
+          "i": 148,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 7824000,
+          "token": "p145"
+        },
+        {
+          "basis": [
+            146
+          ],
+          "i": 149,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 7834000,
+          "token": "p145"
+        },
+        {
+          "i": 150,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 8123000,
+          "token": "p150"
+        },
+        {
+          "i": 151,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 8124000,
+          "token": "p150-tap"
+        },
+        {
+          "i": 152,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 8153000,
+          "token": "p150-tap"
+        },
+        {
+          "i": 153,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 8163000,
+          "token": "p150"
+        },
+        {
+          "basis": [
+            151
+          ],
+          "i": 154,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 8173000,
+          "token": "p150"
+        },
+        {
+          "i": 155,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 8285000,
+          "token": "p155"
+        },
+        {
+          "i": 156,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 8286000,
+          "token": "p155-tap"
+        },
+        {
+          "i": 157,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 8315000,
+          "token": "p155-tap"
+        },
+        {
+          "i": 158,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 8325000,
+          "token": "p155"
+        },
+        {
+          "basis": [
+            156
+          ],
+          "i": 159,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 8335000,
+          "token": "p155"
+        },
+        {
+          "i": 160,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 8417000,
+          "token": "p160"
+        },
+        {
+          "i": 161,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 8418000,
+          "token": "p160-tap"
+        },
+        {
+          "i": 162,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 8447000,
+          "token": "p160-tap"
+        },
+        {
+          "i": 163,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 8457000,
+          "token": "p160"
+        },
+        {
+          "basis": [
+            161
+          ],
+          "i": 164,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 8467000,
+          "token": "p160"
+        },
+        {
+          "i": 165,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 8574000,
+          "token": "p165"
+        },
+        {
+          "i": 166,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 8575000,
+          "token": "p165-tap"
+        },
+        {
+          "i": 167,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 8604000,
+          "token": "p165-tap"
+        },
+        {
+          "i": 168,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 8614000,
+          "token": "p165"
+        },
+        {
+          "basis": [
+            166
+          ],
+          "i": 169,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 8624000,
+          "token": "p165"
+        },
+        {
+          "i": 170,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 9025000,
+          "token": "p170"
+        },
+        {
+          "i": 171,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 9026000,
+          "token": "p170-tap"
+        },
+        {
+          "i": 172,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 9055000,
+          "token": "p170-tap"
+        },
+        {
+          "i": 173,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 9065000,
+          "token": "p170"
+        },
+        {
+          "basis": [
+            171
+          ],
+          "i": 174,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 9075000,
+          "token": "p170"
+        },
+        {
+          "i": 175,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 9207000,
+          "token": "p175"
+        },
+        {
+          "i": 176,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 9208000,
+          "token": "p175-tap"
+        },
+        {
+          "i": 177,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 9237000,
+          "token": "p175-tap"
+        },
+        {
+          "i": 178,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 9247000,
+          "token": "p175"
+        },
+        {
+          "basis": [
+            176
+          ],
+          "i": 179,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 9257000,
+          "token": "p175"
+        },
+        {
+          "i": 180,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 9381000,
+          "token": "p180"
+        },
+        {
+          "i": 181,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 9382000,
+          "token": "p180-tap"
+        },
+        {
+          "i": 182,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 9411000,
+          "token": "p180-tap"
+        },
+        {
+          "i": 183,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 9421000,
+          "token": "p180"
+        },
+        {
+          "basis": [
+            181
+          ],
+          "i": 184,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 9431000,
+          "token": "p180"
+        },
+        {
+          "i": 185,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 9501000,
+          "token": "p185"
+        },
+        {
+          "i": 186,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 9502000,
+          "token": "p185-tap"
+        },
+        {
+          "i": 187,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 9531000,
+          "token": "p185-tap"
+        },
+        {
+          "i": 188,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 9541000,
+          "token": "p185"
+        },
+        {
+          "basis": [
+            186
+          ],
+          "i": 189,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 9551000,
+          "token": "p185"
+        },
+        {
+          "i": 190,
+          "kind": "ime_start",
+          "profile": "ime",
+          "source": "device",
+          "t": 9760000,
+          "token": "p190"
+        },
+        {
+          "i": 191,
+          "kind": "touch_down",
+          "profile": "ime",
+          "source": "device",
+          "t": 9761000,
+          "token": "p190-tap"
+        },
+        {
+          "i": 192,
+          "kind": "touch_up",
+          "profile": "ime",
+          "source": "device",
+          "t": 9790000,
+          "token": "p190-tap"
+        },
+        {
+          "i": 193,
+          "kind": "ime_update",
+          "profile": "ime",
+          "source": "device",
+          "t": 9800000,
+          "token": "p190"
+        },
+        {
+          "basis": [
+            191
+          ],
+          "i": 194,
+          "kind": "ime_commit",
+          "profile": "ime",
+          "source": "device",
+          "t": 9810000,
+          "token": "p190"
+        }
+      ],
+      "resolution_us": 1000,
+      "transactions": [
+        {
+          "causes": [
+            4
+          ],
+          "deleted": "",
+          "end": 0,
+          "i": 0,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 0,
+          "t": 236000,
+          "text": "A wr"
+        },
+        {
+          "causes": [
+            9
+          ],
+          "deleted": "",
+          "end": 4,
+          "i": 1,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 4,
+          "t": 483000,
+          "text": "iter"
+        },
+        {
+          "causes": [
+            14
+          ],
+          "deleted": "",
+          "end": 8,
+          "i": 2,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 8,
+          "t": 637000,
+          "text": " con"
+        },
+        {
+          "causes": [
+            19
+          ],
+          "deleted": "",
+          "end": 12,
+          "i": 3,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 12,
+          "t": 955000,
+          "text": "side"
+        },
+        {
+          "causes": [
+            24
+          ],
+          "deleted": "",
+          "end": 16,
+          "i": 4,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 16,
+          "t": 1201000,
+          "text": "rs a"
+        },
+        {
+          "causes": [
+            29
+          ],
+          "deleted": "",
+          "end": 20,
+          "i": 5,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 20,
+          "t": 1366000,
+          "text": " cla"
+        },
+        {
+          "causes": [
+            34
+          ],
+          "deleted": "",
+          "end": 24,
+          "i": 6,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 24,
+          "t": 1495000,
+          "text": "im, "
+        },
+        {
+          "causes": [
+            39
+          ],
+          "deleted": "",
+          "end": 28,
+          "i": 7,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 28,
+          "t": 1799000,
+          "text": "chan"
+        },
+        {
+          "causes": [
+            44
+          ],
+          "deleted": "",
+          "end": 32,
+          "i": 8,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 32,
+          "t": 2183000,
+          "text": "ges "
+        },
+        {
+          "causes": [
+            49
+          ],
+          "deleted": "",
+          "end": 36,
+          "i": 9,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 36,
+          "t": 2580000,
+          "text": "the "
+        },
+        {
+          "causes": [
+            54
+          ],
+          "deleted": "",
+          "end": 40,
+          "i": 10,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 40,
+          "t": 2860000,
+          "text": "word"
+        },
+        {
+          "causes": [
+            59
+          ],
+          "deleted": "",
+          "end": 44,
+          "i": 11,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 44,
+          "t": 3144000,
+          "text": "ing,"
+        },
+        {
+          "causes": [
+            64
+          ],
+          "deleted": "",
+          "end": 48,
+          "i": 12,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 48,
+          "t": 3280000,
+          "text": " and"
+        },
+        {
+          "causes": [
+            69
+          ],
+          "deleted": "",
+          "end": 52,
+          "i": 13,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 52,
+          "t": 3471000,
+          "text": " fol"
+        },
+        {
+          "causes": [
+            74
+          ],
+          "deleted": "",
+          "end": 56,
+          "i": 14,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 56,
+          "t": 3650000,
+          "text": "lows"
+        },
+        {
+          "causes": [
+            79
+          ],
+          "deleted": "",
+          "end": 60,
+          "i": 15,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 60,
+          "t": 3932000,
+          "text": " the"
+        },
+        {
+          "causes": [
+            84
+          ],
+          "deleted": "",
+          "end": 64,
+          "i": 16,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 64,
+          "t": 4329000,
+          "text": " con"
+        },
+        {
+          "causes": [
+            89
+          ],
+          "deleted": "",
+          "end": 68,
+          "i": 17,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 68,
+          "t": 4609000,
+          "text": "sequ"
+        },
+        {
+          "causes": [
+            94
+          ],
+          "deleted": "",
+          "end": 72,
+          "i": 18,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 72,
+          "t": 5078000,
+          "text": "ence"
+        },
+        {
+          "causes": [
+            99
+          ],
+          "deleted": "",
+          "end": 76,
+          "i": 19,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 76,
+          "t": 5313000,
+          "text": "s th"
+        },
+        {
+          "causes": [
+            104
+          ],
+          "deleted": "",
+          "end": 80,
+          "i": 20,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 80,
+          "t": 5506000,
+          "text": "roug"
+        },
+        {
+          "causes": [
+            109
+          ],
+          "deleted": "",
+          "end": 84,
+          "i": 21,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 84,
+          "t": 5616000,
+          "text": "h a "
+        },
+        {
+          "causes": [
+            114
+          ],
+          "deleted": "",
+          "end": 88,
+          "i": 22,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 88,
+          "t": 5949000,
+          "text": "long"
+        },
+        {
+          "causes": [
+            119
+          ],
+          "deleted": "",
+          "end": 92,
+          "i": 23,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 92,
+          "t": 6103000,
+          "text": "er a"
+        },
+        {
+          "causes": [
+            124
+          ],
+          "deleted": "",
+          "end": 96,
+          "i": 24,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 96,
+          "t": 6518000,
+          "text": "rgum"
+        },
+        {
+          "causes": [
+            129
+          ],
+          "deleted": "",
+          "end": 100,
+          "i": 25,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 100,
+          "t": 6821000,
+          "text": "ent."
+        },
+        {
+          "causes": [
+            134
+          ],
+          "deleted": "",
+          "end": 104,
+          "i": 26,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 104,
+          "t": 6966000,
+          "text": " Thi"
+        },
+        {
+          "causes": [
+            139
+          ],
+          "deleted": "",
+          "end": 108,
+          "i": 27,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 108,
+          "t": 7079000,
+          "text": "s sy"
+        },
+        {
+          "causes": [
+            144
+          ],
+          "deleted": "",
+          "end": 112,
+          "i": 28,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 112,
+          "t": 7350000,
+          "text": "nthe"
+        },
+        {
+          "causes": [
+            149
+          ],
+          "deleted": "",
+          "end": 116,
+          "i": 29,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 116,
+          "t": 7834000,
+          "text": "tic "
+        },
+        {
+          "causes": [
+            154
+          ],
+          "deleted": "",
+          "end": 120,
+          "i": 30,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 120,
+          "t": 8173000,
+          "text": "fixt"
+        },
+        {
+          "causes": [
+            159
+          ],
+          "deleted": "",
+          "end": 124,
+          "i": 31,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 124,
+          "t": 8335000,
+          "text": "ure "
+        },
+        {
+          "causes": [
+            164
+          ],
+          "deleted": "",
+          "end": 128,
+          "i": 32,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 128,
+          "t": 8467000,
+          "text": "prov"
+        },
+        {
+          "causes": [
+            169
+          ],
+          "deleted": "",
+          "end": 132,
+          "i": 33,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 132,
+          "t": 8624000,
+          "text": "es n"
+        },
+        {
+          "causes": [
+            174
+          ],
+          "deleted": "",
+          "end": 136,
+          "i": 34,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 136,
+          "t": 9075000,
+          "text": "o hu"
+        },
+        {
+          "causes": [
+            179
+          ],
+          "deleted": "",
+          "end": 140,
+          "i": 35,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 140,
+          "t": 9257000,
+          "text": "man "
+        },
+        {
+          "causes": [
+            184
+          ],
+          "deleted": "",
+          "end": 144,
+          "i": 36,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 144,
+          "t": 9431000,
+          "text": "auth"
+        },
+        {
+          "causes": [
+            189
+          ],
+          "deleted": "",
+          "end": 148,
+          "i": 37,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 148,
+          "t": 9551000,
+          "text": "orsh"
+        },
+        {
+          "causes": [
+            194
+          ],
+          "deleted": "",
+          "end": 152,
+          "i": 38,
+          "op": "splice",
+          "profile": "ime",
+          "source": "direct",
+          "start": 152,
+          "t": 9810000,
+          "text": "ip. "
+        }
+      ]
+    }
+  ],
+  "target": "ime",
+  "version": "hwp-a/0.2"
+}

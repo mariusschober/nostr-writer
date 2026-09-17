@@ -1,0 +1,1 @@
+{"status":"PASS","node":"v22.16.0","objects":24,"signatures_checked":7,"merkle_inclusions":7,"merkle_prefix_roots":8,"negative_cbor":8,"scope":"Independent standards-layer checker, not full HWP policy verification or behavioural detection"}

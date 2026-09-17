@@ -1,39 +1,45 @@
-# Astra research/product reconciliation — 2026-09-16
+# Astra Pro reconciliation — 17 September 2026
 
-This repository is the source of truth for the Human Writing Provenance work generated in the preceding ChatGPT/Astra sessions.
+Scope: all 47 supplied files, including a six-section assistant-response compilation, six top-level ZIPs, the nested final protocol ZIP and expanded Chat 5/6 attachments. This is not a complete export of every original user message/tool trace; absent content is not invented.
 
-## What had already reached GitHub
+Inspected GitHub baseline: `262cb213cda8e533a958fe21915a2406138b6f9c`, main, 70 tracked files. One branch, no tags; issue/PR searches returned none. Prior commits remain intact.
 
-Before this reconciliation, `main` ended at `c53e794a11aa801b553af462fe5da33593e12eee`. The research foundation, the HWP-A 0.3 adversarial **documents/results** and HWP-C/1 cryptographic core had been committed. HWP-C/1 was complete and browsable. HWP-A 0.3's GitHub directory lacked the executable `hwp_a/`, tests, several artifacts and check scripts because those source uploads had previously failed. The joined frozen Human Writing Protocol v0 and the Mac MVP implementation handoff had not been committed. Some binary Git blobs from a failed later attempt were orphaned and were not reachable from `main`.
+## Published versus missing
 
-## What this reconciliation restores
+| Task / attempt | Remote baseline | Disposition |
+|---|---|---|
+| 1, a29313c | Research and three supplied experiment files present; exact match | Retained |
+| Earlier A1 through 9874007 | Executable source/tests present | Retained unchanged |
+| 2, HWP-A 0.2 | Package absent; root index refers to another version | All 43 files recovered to algorithm/v0_2; exact content, relocated paths |
+| 3, 73679e0 | 18 of 37 versioned files plus root index present, all matching ZIP | Added 19 missing files |
+| 4, c53e794 | All 22 HWP-C1 files present and byte-identical | Retained unchanged |
+| 5, joined v0 | All 69 frozen files absent from main | Recovered directly, including 16,161,774-byte vector |
+| 6, Mac preparation | Product/Swift tree absent from main | Mapped all 35 supplied attachments; identified missing claimed code |
+| Seven later attempts, f266e9a…262cb21 | Optimistic README, corrupt transport, absent claimed tree | Replaced current claims; preserved failed evidence |
 
-- Complete HWP-A 0.3.0 generated package, including executable reference source/tests/artifacts.
-- Complete HWP-C/1 generated package (also retained in its existing browsable directory).
-- Complete frozen Human Writing Protocol v0, protocol-definition SHA-256 `58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4`.
-- Complete Mac MVP product/architecture/UX/storage/HWP/Nostr/export/focus/security contracts, 8 detailed PLAN prompts, 8 START prompts, and the 60-criterion completion contract.
-- WriterFoundation preparation kernels and tests.
-- A deterministic compressed archive at `artifacts/source-of-truth/astra-history-2026-09-16.tar.xz` with an embedded per-file SHA-256/provenance manifest, so the complete historical package remains recoverable even if a working-tree file is later edited.
+[RECOVERY-INVENTORY.json](history/astra-pro/RECOVERY-INVENTORY.json) records original and ZIP-member hashes, baseline Git blobs and attachment destinations. [SOURCE-OF-TRUTH-MANIFEST.json](SOURCE-OF-TRUTH-MANIFEST.json) pins the reconciled snapshot. Historical/frozen bytes remain distinct from new recovery tools and docs.
 
-## Byte preservation versus reconstruction
+## Failed later publication
 
-The HWP-A 0.3, HWP-C/1 and HWP v0 package files are byte-preserved from the generated ZIP artifacts available in the conversation runtime. The Mac handoff documents/plans were recovered from exact conversation attachments. The direct current `product/mac/NOSTR.md` corrects one implementation-planning arithmetic error from the earlier handoff: under the pinned current NIP-44 padding formula, a 65,537-byte plaintext produces 109,324 Base64 characters, not 92,836. The raw earlier attachment remains preserved inside the source-of-truth archive/history material.
+Latest committed transport: 15,000 bytes, SHA-256 `aab1ac798924a8a7b06d92e9d5b3921a1bbc81e99d2fdf8ea723f66b4dd7f2f3`. Workflow expectation: 298,576 bytes and `7b2d159bed88b75ded0aa8ff14fcd3e789ef10f92e1e9ee1763db0a276e86a0`. XZ failed with `Corrupt input data`. The f266e9a transport was also corrupt (15,009 bytes). Partial decoding exposed initial documents and incomplete inventory, not missing Swift source. Created blobs and README claims were not publication of the source tree.
 
-The original WriterFoundation **source files** were not retained as conversation attachments; only its README and recorded `47/47` result survived. Its current source/tests are therefore explicitly reconstructed from the preserved contracts rather than falsely represented as byte-identical historical source. The reconstructed package again passes 47/47 tests on Linux Swift 6.2.1. This provenance distinction is intentional.
+Both corrupt transports, prior documents, workflow, checksums and probes are preserved in [history/failed-publication](history/failed-publication/README.md). Active broken transport/workflow paths are removed. Replacement CI verifies committed material with read-only permissions; it cannot materialize code or push to main.
 
-## Scientific status
+The frozen distribution has its own source-only commit `df574612a0101150e2259dc80019058d0b4b5d6b` and annotated locator tag `human-writing-protocol-v0`. The tag is a locator for the independently hashed distribution, not a production approval.
 
-Reconciliation changes repository availability, not scientific validity. No real participant detector model, independently admitted native capture profile, or production Human Writing Proof release exists. `NOT PROVABLE` never means AI-written. Test policies/fixtures cannot authorize production issuance. Application implementation must preserve the frozen protocol's exact claim and trust semantics.
+## Final version and stale claims
 
-## Verification
+- Final definition: `58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4`.
+- FREEZE.json SHA-256: `c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88`.
+- Final distribution: 67 inventoried files plus FREEZE.json/FREEZE.sha256; 178 historical tests.
+- Task 5's earlier stdout (174 tests, `559e025c…`) is intermediate, not the final delivered freeze. Original text is preserved.
+- Frozen publication notes retain “not performed”: historical bytes are not rewritten to describe later recovery.
+- Prior claims of a reconstructed 47-test Swift package are unsupported by accessible source. They are historical claims, not current validation.
 
-After materialization, run:
+## Bounded preparation repairs
 
-```sh
-python3 tools/check_preparation.py
-python3 protocol/v0/tools/check_freeze.py
-python3 -m unittest discover -s algorithm/v0_3/tests -v
-swift test --package-path mac/Packages/WriterFoundation
-```
+Exact originals remain in history/astra-pro/originals. Current product docs link a recovery notice. INPUTS.md and the new bootstrap verify directly committed files instead of requiring missing transport chunks. SOURCES.md is a labeled replacement bibliography. Original Foundation README remains, with a current missing-source warning. Stage 01 owns that implementation; Stage 05 creates the missing export fixture. [Gap register](docs/recovery/MISSING-ARTIFACTS.md).
 
-Protocol v0's own README/RESULTS contain its full conformance commands and historical test evidence. Native macOS application/UI/cloud/export/notarization acceptance remains work for the eight implementation stages.
+The prior repair note claims a NIP-44 arithmetic fix, but the supplied NOSTR attachment has no numeric example to replace. Current contract adds the verified boundary: 65,537 plaintext bytes pad to 81,920 and yield 109,324 Base64 characters (6-byte prefix + 65-byte envelope). The original stays unchanged in history. PLAN 03’s 12–28 pt font range was aligned with the detailed UX contract’s 13–32 pt; original variants remain archived.
+
+[Current observed checks](docs/recovery/VERIFICATION.md) are separate from historical RESULTS/PREPARATION. Recovery is not a full independent security audit, empirical detector validation, native capture approval or Mac acceptance. No real proof or production approval is created.

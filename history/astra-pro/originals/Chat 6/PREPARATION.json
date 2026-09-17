@@ -1,0 +1,40 @@
+{
+  "status": "PREPARATION-COMPLETE-NOT-APPLICATION-COMPLETE",
+  "date": "2026-09-16",
+  "plans": 8,
+  "start_prompts": 8,
+  "mandatory_mvp_criteria": 60,
+  "portable_swift_tests": {
+    "passed": 47,
+    "failures": 0,
+    "host": "Linux",
+    "swift": "6.2.1"
+  },
+  "preparation_tests": {
+    "passed": 10,
+    "failures": 0
+  },
+  "frozen_protocol_tests": {
+    "passed": 178,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "partition_sizes": [
+      107,
+      23,
+      44,
+      4
+    ]
+  },
+  "protocol_freeze_check": "PASS",
+  "regenerated_vectors_match_original": true,
+  "self_contained_bootstrap": "PASS",
+  "independent_protocol_public_verifier": "PASS",
+  "mac_application_built": false,
+  "native_mac_ui_tested": false,
+  "nostrshot_native_build_tested": false,
+  "real_cloud_provider_lifecycle_tested": false,
+  "developer_id_notarization_tested": false,
+  "real_human_proofs_issued": 0,
+  "note": "Test counts concern preparation kernels and frozen upstream protocol conformance, not app completion, capture trust or detector accuracy."
+}

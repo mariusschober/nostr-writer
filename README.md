@@ -1,28 +1,40 @@
-# Human Writing Protocol / Nostr Writer
+# Nostr Writer
 
-This repository is the source of truth for the Human Writing Provenance research, **Human Writing Protocol v0**, and the implementation-ready **Nostr Writer for Mac** handoff.
+A native Mac writing application with optional Nostr publishing and experimental Human Writing Protocol (HWP) integration. **Application implementation has not started.** This repository contains the recovered research, executable reference protocols, and Mac implementation contract.
 
-The project does not claim that failed verification means AI authorship. The only positive protocol claim is **HUMAN-WRITTEN** under an exact, independently selected protocol/release/scope/trust policy. Everything else is **NOT PROVABLE** and receives no Human Writing Proof. Current real-world detector/capture approval remains empty; synthetic conformance fixtures are not production certificates.
+## Start here
 
-## Current authoritative layers
+1. Read [AGENTS.md](AGENTS.md) and [IMPLEMENTATION.md](IMPLEMENTATION.md).
+2. Read the [Mac handoff](product/mac/README.md) and its recovery notice.
+3. Execute [Stage 01](product/mac/plans/PLAN-01-FOUNDATION.md) using [START 01](product/mac/starts/START-01.md), then the remaining stages in order.
 
-- [`protocol/v0/`](protocol/v0/) — frozen joined Human Writing Protocol v0. Protocol-definition SHA-256: `58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4`.
-- [`product/mac/`](product/mac/) — complete Mac MVP product/UX/architecture contracts, 8 implementation PLANs, 8 short START prompts, and 60 mandatory completion criteria.
-- [`mac/Packages/WriterFoundation/`](mac/Packages/WriterFoundation/) — pre-implementation pure-Swift kernels. See [`RECONCILIATION.md`](RECONCILIATION.md) for provenance.
-- [`algorithm/v0_3/`](algorithm/v0_3/) — HWP-A 0.3 behavioural reference and adversarial audit. This is an executable research baseline, not an approved production detector.
-- [`proof/hwp-c-1/`](proof/hwp-c-1/) — cryptographic core candidate and interoperability vectors.
-- [`research/hwp/`](research/hwp/) — first-principles research foundation and earlier evidence chain.
+A clone contains the full 69-file frozen protocol, including its 16 MB interoperability vector. No ChatGPT attachment or materialization job is required.
 
-Start product implementation with [`product/mac/README.md`](product/mac/README.md) and [`product/mac/plans/PLAN-01-FOUNDATION.md`](product/mac/plans/PLAN-01-FOUNDATION.md). Coding agents should also read [`AGENTS.md`](AGENTS.md).
+```sh
+python3 tools/check_preparation.py
+python3 tools/bootstrap_protocol.py
+```
 
-## Reconciliation and permanent recovery
+These are read-only standard-library checks. See [test instructions](docs/VERIFICATION.md) and [observed recovery results](docs/recovery/VERIFICATION.md).
 
-[`RECONCILIATION.md`](RECONCILIATION.md) documents what had reached GitHub, what previously failed to upload, which artifacts were byte-preserved, and the one preparation kernel whose source had to be explicitly reconstructed from preserved contracts.
+## Repository map
 
-`artifacts/source-of-truth/astra-history-2026-09-16.tar.xz` is a deterministic compressed recovery archive containing the complete generated A0.3, C1, v0, Mac-handoff and preparation material. Its SHA-256 is `4897634b27d11cbe251ca627cc256ce9d54a32e3646f3f21d5eac2bd08ea671d`; the embedded manifest gives per-file SHA-256/provenance. The direct working tree is the normal interface; the archive is the durable fallback.
+| Path | Meaning |
+|---|---|
+| [product/mac](product/mac/README.md) | Product/UX/architecture, eight plans and starts, 60 mandatory criteria |
+| [protocol/v0](protocol/v0/README.md) | **Authoritative joined HWP v0.0.0**, immutable original distribution |
+| [algorithm/v0_3](algorithm/v0_3/README.md) | Complete HWP-A 0.3 baseline and adversarial audit |
+| [algorithm/v0_2](algorithm/v0_2/README.md) | Earlier HWP-A 0.2, isolated from other versions |
+| [algorithm](algorithm/README.md) | Original A1 source and version index |
+| [proof/hwp-c-1](proof/hwp-c-1/README.md) | Historical cryptographic core candidate |
+| [research/hwp](research/hwp/01-foundation.md), [experiments](experiments/README.md) | Original research and synthetic checks |
+| [history/astra-pro](history/astra-pro/README.md) | All supplied replies, exact files/ZIPs, mappings and hashes |
+| [RECONCILIATION.md](RECONCILIATION.md) | Published/missing/recovered status and remaining gaps |
 
-## Scientific boundary
+Original WriterFoundation source/tests were **not supplied or recoverable from the committed corrupt transport**. Stage 01 implements these contracts. The archived 47-pass Swift claim is not evidence for code in this checkout. [Gap register](docs/recovery/MISSING-ARTIFACTS.md).
 
-Writing-process evidence can support a falsifiable assurance claim, but it cannot give direct access to hidden cognition when qualifying composition and an adversarial process produce identical admissible observations. Cryptography binds exact bytes, evidence, execution, scope and trust assertions; it cannot make fabricated observations genuine. The repository therefore keeps observation authenticity, behavioural inference, proof verification, author/key association and product discipline as separate obligations.
+## Claim boundaries
 
-No human participant detector model, independently admitted native Mac capture profile, production Human Writing Proof authority, or real proof issuance is established merely by this source reconciliation.
+Frozen source locator: [human-writing-protocol-v0](https://github.com/mariusschober/nostr-writer/tree/human-writing-protocol-v0).
+
+Frozen definition: `58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4`. Production approvals remain empty. Conformance fixtures cannot authorize real HUMAN-WRITTEN certificates; NOT PROVABLE never means AI-generated. Recovery and unit tests do not establish detector accuracy, trusted native capture, independent security review or Mac application completion.

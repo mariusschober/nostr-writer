@@ -1,0 +1,2932 @@
+{
+  "format": "nostr-writer-recovery/1",
+  "date": "2026-09-17",
+  "repository": "mariusschober/nostr-writer",
+  "baseline_commit": "262cb213cda8e533a958fe21915a2406138b6f9c",
+  "originals": [
+    {
+      "supplied_path": "Chat 5/Human-Writing-Protocol-v0-FREEZE.json",
+      "archive_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-FREEZE.json",
+      "bytes": 10907,
+      "sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88"
+    },
+    {
+      "supplied_path": "Chat 5/Human-Writing-Protocol-v0-RESULTS.json",
+      "archive_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-RESULTS.json",
+      "bytes": 14572,
+      "sha256": "1f37c155140b4a95cdd174bbdaf1c77b7758b4789c1670dc0c258f632b694adb"
+    },
+    {
+      "supplied_path": "Chat 5/Human-Writing-Protocol-v0-SPECIFICATION.md",
+      "archive_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-SPECIFICATION.md",
+      "bytes": 33675,
+      "sha256": "ae5aedcc99a108f383591ef97bf65a2ebcb538daf9e8954d2957e18d670641c5"
+    },
+    {
+      "supplied_path": "Chat 5/Human-Writing-Protocol-v0-clean-extraction-checks.txt",
+      "archive_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-clean-extraction-checks.txt",
+      "bytes": 1223,
+      "sha256": "e98825f6738d0adbb806125803dc6accf2875bad69eecd26254d9adc7e951785"
+    },
+    {
+      "supplied_path": "Chat 5/Human-Writing-Protocol-v0.zip",
+      "archive_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "bytes": 3238564,
+      "sha256": "5588ffcf0ff4bf108a15a206f96ecc9db86692089839b62b068cb9d24b6f8de0"
+    },
+    {
+      "supplied_path": "Chat 5.zip",
+      "archive_path": "history/astra-pro/originals/Chat 5.zip",
+      "bytes": 3217522,
+      "sha256": "d76695a2ac04beb1af4234048ab1e14c57a5049eeac764c6b654773c83d363f2"
+    },
+    {
+      "supplied_path": "Chat 6/ARCHITECTURE.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/ARCHITECTURE.md",
+      "bytes": 9498,
+      "sha256": "e62fae2b7ff2bb5857d325054db620ee687dfacfa026b8cf8cc7593e8ab9c829"
+    },
+    {
+      "supplied_path": "Chat 6/DATA.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/DATA.md",
+      "bytes": 11421,
+      "sha256": "f3e9fb703662ba1241611b9bc2276dbe6291097535342861a2bd70840bbd96f2"
+    },
+    {
+      "supplied_path": "Chat 6/EXPORT.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/EXPORT.md",
+      "bytes": 7877,
+      "sha256": "2918136ee60079567bfaf69c6df3b2740720dc191c656b7b1f4abc25a06dc988"
+    },
+    {
+      "supplied_path": "Chat 6/FOCUS.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/FOCUS.md",
+      "bytes": 7191,
+      "sha256": "071c6600e9db52380eb6140e06845b7562a2810fffb933e986555e79e0cf57b9"
+    },
+    {
+      "supplied_path": "Chat 6/HWP.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/HWP.md",
+      "bytes": 9664,
+      "sha256": "af4b75e4bf5ca7998bedf7a368cbb37ade7d1b320636c5335987a467acc284c6"
+    },
+    {
+      "supplied_path": "Chat 6/INPUTS.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/INPUTS.md",
+      "bytes": 3646,
+      "sha256": "46c140f693595eca432ff5e852169dc224bc55b258e1f66b5df63d36a5ac40a5"
+    },
+    {
+      "supplied_path": "Chat 6/MVP-COMPLETE.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/MVP-COMPLETE.md",
+      "bytes": 4601,
+      "sha256": "ae1b7d3c47fe0c8398834f508527f083a3fa7bb323d459ff98602b2058d103fe"
+    },
+    {
+      "supplied_path": "Chat 6/NOSTR.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/NOSTR.md",
+      "bytes": 11500,
+      "sha256": "917e29c6b07ed5788c60f1e1f547ae89c8399e93fb601f47919e3e6e47c5f0ab"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-01-FOUNDATION.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-01-FOUNDATION.md",
+      "bytes": 8382,
+      "sha256": "999c7fef01b9c3d5458c104c5391ebead3a81da40d62bf079b27ebe531a77507"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-02-DOCUMENTS.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-02-DOCUMENTS.md",
+      "bytes": 8932,
+      "sha256": "d93f436ccf77449119ba2decbc2c2af9e0161bad24f5d1e665a1284958c0b9e3"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-03-EDITOR.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-03-EDITOR.md",
+      "bytes": 9578,
+      "sha256": "de599afd3389914a7e8d9f5464d32558eeffb55217014dda5773ad21194d7576"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-04-HWP.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-04-HWP.md",
+      "bytes": 9123,
+      "sha256": "160823742110a82ea5c0a50325e96b9cd0c7582b976ef5a0a98968aa135dca02"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-05-EXPORT.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-05-EXPORT.md",
+      "bytes": 8583,
+      "sha256": "e5a3e4c9e3fe771b7c5f21896a3568e501f6b04c76ce60e64ac70dd86ceef139"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-06-NOSTR.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-06-NOSTR.md",
+      "bytes": 9669,
+      "sha256": "947ad4a532ed1845f10dd82761a50a4a60546b7bb5b3b69d4d294ff8ce96a4e2"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-07-FOCUS.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-07-FOCUS.md",
+      "bytes": 9271,
+      "sha256": "4c28c2f0c6d5967f15ec99eeb38aed738bfa2fbcae0fe8097ef9b4df32103e82"
+    },
+    {
+      "supplied_path": "Chat 6/PLAN-08-RELEASE.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PLAN-08-RELEASE.md",
+      "bytes": 9860,
+      "sha256": "18b460dee01642f6ee78b6880ba00e9f7c1a5403e3118a2339e285db5de6c226"
+    },
+    {
+      "supplied_path": "Chat 6/PREPARATION.json",
+      "archive_path": "history/astra-pro/originals/Chat 6/PREPARATION.json",
+      "bytes": 1067,
+      "sha256": "ea820db1483678927432be183cc173c94146034b5750b16f67c395eb290a94e9"
+    },
+    {
+      "supplied_path": "Chat 6/PREPARATION.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PREPARATION.md",
+      "bytes": 1827,
+      "sha256": "be5638e958c0adc681151f564efc7bd733571bcc1a3f114c783f822d730f914b"
+    },
+    {
+      "supplied_path": "Chat 6/PRODUCT.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/PRODUCT.md",
+      "bytes": 7905,
+      "sha256": "973ed72bf39d13b8afb420befcb1c729ce8fd3a2ce69d818c2c1a41bc61bb2bc"
+    },
+    {
+      "supplied_path": "Chat 6/README(4).md",
+      "archive_path": "history/astra-pro/originals/Chat 6/README(4).md",
+      "bytes": 4686,
+      "sha256": "eb2289e7e39ef8916ccee2c9e0bed6c30a2f99c96cffbe229d043fad861a6256"
+    },
+    {
+      "supplied_path": "Chat 6/README(5).md",
+      "archive_path": "history/astra-pro/originals/Chat 6/README(5).md",
+      "bytes": 835,
+      "sha256": "cf5f57e4211b903bb1aec524d86b6f7d388bf94cdd46e852d94ea7956c7d3a1d"
+    },
+    {
+      "supplied_path": "Chat 6/REPOSITORY-AUDIT.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/REPOSITORY-AUDIT.md",
+      "bytes": 6367,
+      "sha256": "2806dd6919d6af52ac33894a44bd9902101de3ba0cf03a63caec3b94fb137f46"
+    },
+    {
+      "supplied_path": "Chat 6/SECURITY.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/SECURITY.md",
+      "bytes": 4812,
+      "sha256": "ab58de791fef71bb8a8e372b92f5b8a6f2c2758b4c95f0540907c801d72a6392"
+    },
+    {
+      "supplied_path": "Chat 6/START-01.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-01.md",
+      "bytes": 316,
+      "sha256": "651b98c0ceeb16aea65fbcd7b66bdb0c982f309f75971450aa86f0a29940390f"
+    },
+    {
+      "supplied_path": "Chat 6/START-02.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-02.md",
+      "bytes": 318,
+      "sha256": "d59456de4d8e35b39c4ab3599fdfbb3ef008ea49a102cd4edd78c127b9bf240a"
+    },
+    {
+      "supplied_path": "Chat 6/START-03.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-03.md",
+      "bytes": 315,
+      "sha256": "761482c06bcabb944627bc67bcc092e00e7b28ca21f72198b391c89e8ed17fab"
+    },
+    {
+      "supplied_path": "Chat 6/START-04.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-04.md",
+      "bytes": 312,
+      "sha256": "c207de7a5481e20e7aa0ea150a2750a454ff8b616b5aed4397542e4a9e5b6d77"
+    },
+    {
+      "supplied_path": "Chat 6/START-05.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-05.md",
+      "bytes": 315,
+      "sha256": "6461d4d0cf6b8b0f3df08b3a7a6bf25b00aa369c4e634c5cd0e1094ec107d9d2"
+    },
+    {
+      "supplied_path": "Chat 6/START-06.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-06.md",
+      "bytes": 314,
+      "sha256": "48c0947c13bd255b2fca9729a8166e5adf5ed24a1ecd172a6c578128f0458ebd"
+    },
+    {
+      "supplied_path": "Chat 6/START-07.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-07.md",
+      "bytes": 314,
+      "sha256": "074abe3a0cce677f4199ed28e2c3a085fe2d08dd03abb2b26d81a01336e2a253"
+    },
+    {
+      "supplied_path": "Chat 6/START-08.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/START-08.md",
+      "bytes": 316,
+      "sha256": "af2e7ffaeb73311ab2e96e4523305b46f9e13a05538d26327c0ecae78f2640a6"
+    },
+    {
+      "supplied_path": "Chat 6/UX.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/UX.md",
+      "bytes": 14448,
+      "sha256": "ed57c728a347419e4bcb87639234c610411f4c4dd989d45f72b55c85d446c8f6"
+    },
+    {
+      "supplied_path": "Chat 6/acceptance.json",
+      "archive_path": "history/astra-pro/originals/Chat 6/acceptance.json",
+      "bytes": 15776,
+      "sha256": "a1af2c687bcce091a6b6b7920b10d36eeed94368afbc76a2627cd0b925b127c9"
+    },
+    {
+      "supplied_path": "Chat 6/bootstrap_protocol.py",
+      "archive_path": "history/astra-pro/originals/Chat 6/bootstrap_protocol.py",
+      "bytes": 6945,
+      "sha256": "df1f0f5dbff12b3d28757513673da2d323d4957b6f92a21079104a172ca9a3c5"
+    },
+    {
+      "supplied_path": "Chat 6/interfaces.md",
+      "archive_path": "history/astra-pro/originals/Chat 6/interfaces.md",
+      "bytes": 4766,
+      "sha256": "22db00f2220ff7b1e792081694329d1051c1def077c19fb876e801ee705383cd"
+    },
+    {
+      "supplied_path": "Chat 6.zip",
+      "archive_path": "history/astra-pro/originals/Chat 6.zip",
+      "bytes": 119855,
+      "sha256": "f387c52a002cbc22298b631ca070f8d367409acd62631c468d7f7c8e48cec985"
+    },
+    {
+      "supplied_path": "Chat History with GPT 6 Astra Pro.txt",
+      "archive_path": "history/astra-pro/originals/Chat History with GPT 6 Astra Pro.txt",
+      "bytes": 61501,
+      "sha256": "26ae66fdab309cd979d2bf5c315cfef014eab5de8a3afbc5f230bb1e8c87aa30"
+    },
+    {
+      "supplied_path": "HWP-A-0.2.0 (1).zip",
+      "archive_path": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "bytes": 126457,
+      "sha256": "d57cb993593cbdf4beb90180853cdaa08a793081ebf1a5d08e79e9628b26d229"
+    },
+    {
+      "supplied_path": "HWP-A-0.3.0 (1).zip",
+      "archive_path": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "bytes": 93617,
+      "sha256": "8da86d0d12d6800c759f88f570898dd7e3874ba6727076dd852627f52a6a5211"
+    },
+    {
+      "supplied_path": "HWP-C-1.0.0-candidate.1.zip",
+      "archive_path": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "bytes": 72993,
+      "sha256": "004f067caff628d9a855758a30ac113dbb2e7065e12a35f216e309927fce8a37"
+    },
+    {
+      "supplied_path": "hwp-reproducible-checks (1).zip",
+      "archive_path": "history/astra-pro/originals/hwp-reproducible-checks (1).zip",
+      "bytes": 7517,
+      "sha256": "a6d1b80823b1fba0594b104a672870e562f58fb0351a990924ea234bae175750"
+    }
+  ],
+  "archive_members": [
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/.gitignore",
+      "bytes": 26,
+      "sha256": "4cad133d4f0a6cf4bba15f1b8bbae48d6a55f20b94f75487c51a93cc6a5af59f",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/.gitignore"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/FREEZE.json",
+      "bytes": 10907,
+      "sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/FREEZE.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/FREEZE.sha256",
+      "bytes": 78,
+      "sha256": "ddbbe4cf0ba1f2c002b98f50c7ee5bda75c958d0526e566bd0c4118dc29d4c37",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/FREEZE.sha256"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/LICENSE",
+      "bytes": 1401,
+      "sha256": "d41e62180bd5ccc3b3e78933a79537a001ed6f2ecfbd4d14be1f87b18b353cfe",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/LICENSE"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/PUBLICATION.md",
+      "bytes": 1344,
+      "sha256": "9eef1a115f3b2c86e7952de234d08bdb3f916a0910c7e1576b67c9d307a6fa3d",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/PUBLICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/README.md",
+      "bytes": 5592,
+      "sha256": "72548b4d27777b6dc78e4ea51988697e01d48ae0fed880779ec8b824981fb85e",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/README.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/RESULTS.md",
+      "bytes": 2002,
+      "sha256": "629c679ba1b4ff54f24d68bac1cd65af069bc5654d8c5b92865806df97ac1678",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/RESULTS.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/SOURCES.md",
+      "bytes": 1813,
+      "sha256": "e21661947dd88f6c242367538a43c015587f8bb60b2b284007ee59923a08aaf6",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/SOURCES.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/SPECIFICATION.md",
+      "bytes": 33675,
+      "sha256": "ae5aedcc99a108f383591ef97bf65a2ebcb538daf9e8954d2957e18d670641c5",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/SPECIFICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/A03-DATASET_PROTOCOL.md",
+      "bytes": 9596,
+      "sha256": "c9bd4f5144cd82bc6ddab151852adce3db91ef9b145073f25a98a2949357b200",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/A03-DATASET_PROTOCOL.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/A03-FEATURES.md",
+      "bytes": 6609,
+      "sha256": "e19b42a8f372e72ed9e375b3c365a2b5ac905c33b8fbe1e932d36ff828408913",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/A03-FEATURES.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/A03-SPECIFICATION.md",
+      "bytes": 21717,
+      "sha256": "1b5527bef28fdff13e133732da5a1a9a2dc4ce2b0a5105c747dbaf359a6fd6a8",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/A03-SPECIFICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/A03-TELEMETRY.md",
+      "bytes": 7928,
+      "sha256": "a746ded39072604f0d9576f352cdb07bbc91f245b910db016d949de77fc4fff8",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/A03-TELEMETRY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/A03-THEORY.md",
+      "bytes": 10353,
+      "sha256": "aa6f23458d6cdada4a6f1d9ec8d055d4d6a5efa8eb808c6c7d480dc256253823",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/A03-THEORY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/C1-LICENSE",
+      "bytes": 1315,
+      "sha256": "ebb8e44c15060b929cd90d7e6a3ed928c3d964b38289d7e3fe483ce3c7e393f7",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/C1-LICENSE"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/C1-SPECIFICATION.md",
+      "bytes": 29540,
+      "sha256": "5f19ee912724796daf33a14d3fa752552865b086cb9586349318d7ff1f16f759",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/C1-SPECIFICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/INPUTS.json",
+      "bytes": 288,
+      "sha256": "17f1aad032bfd00ac6e29cc01a77d166a2f1277b431ca35a51a5004039eece3a",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/INPUTS.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/reproduce_counterexamples.py",
+      "bytes": 2063,
+      "sha256": "d04dc062320738a5b329d1357e13b1e4efbd5489f451c4aecac34b441b439441",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/reproduce_counterexamples.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/baseline/reproduced-counterexamples.json",
+      "bytes": 375,
+      "sha256": "abb39115e69e5b18f62768fdb56e9a3e0fabdf75bad55acb867377d93fd51331",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/baseline/reproduced-counterexamples.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/ALGORITHM.md",
+      "bytes": 12582,
+      "sha256": "4df74e53044cc275920619aad43a7c66c3111b57a2dca7df4941e1c001e7f453",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/ALGORITHM.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/AUDIT.md",
+      "bytes": 7877,
+      "sha256": "daa7bf278c0bf47bcb7782d4de8f9fbe2572bd73fd12b89d4db3648e4029d35e",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/AUDIT.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/BINDING.md",
+      "bytes": 7863,
+      "sha256": "fd9aecebbd171e4df17e0c708f855b3be1e6df7df5a13686d8323a840f743c99",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/BINDING.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/CONFORMANCE.md",
+      "bytes": 7776,
+      "sha256": "6b1794b6ba5622ed6b61cada473f9d2723affa7be4ba144578ef7e56b3fee16a",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/CONFORMANCE.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/FEATURE_NAMES.json",
+      "bytes": 4106,
+      "sha256": "49342ec6457a4f0a799802e84d499661c4adb67b07c69df430b66fc6562e87d9",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/FEATURE_NAMES.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/OUTPUT.md",
+      "bytes": 5432,
+      "sha256": "04f7092dbf73f852000b5698bd28b1a9f5dc159607282c28ab6d9161a6c3a837",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/OUTPUT.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/docs/THREAT-MODEL.md",
+      "bytes": 10444,
+      "sha256": "844e8685a6e256ed118b78b3d23474f193c0f13ff5f3746136a192e608ab2236",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/docs/THREAT-MODEL.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/__init__.py",
+      "bytes": 96,
+      "sha256": "9f44c2f68f17a43906d7b168e80ccacd15d1b3aeac524c2e6be9e595a8128431",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/__init__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/__main__.py",
+      "bytes": 1239,
+      "sha256": "80c861648a1515f3e65b4985425976bfa257400c1afb998d87576362d8332038",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/__main__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/__init__.py",
+      "bytes": 151,
+      "sha256": "6a838819bdea1b83e220662afbfb0b030558dda9e7203f1cd74051dbcf36a0b7",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/__init__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/__main__.py",
+      "bytes": 1891,
+      "sha256": "a6d68a648abd63578181c03bab72bb5d4914f4be63a3a80eb496e9cd91004831",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/__main__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/attacks.py",
+      "bytes": 3682,
+      "sha256": "9b254ada0d481759ee9292737bdcc8671e81805b64d463590f2e92a09ad01ca3",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/attacks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/calibration.py",
+      "bytes": 7211,
+      "sha256": "69a8e6e8ed4d46770ab66e15606a8c01d38a22b0b746d50c424fcd3063069560",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/calibration.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/dataset.py",
+      "bytes": 4073,
+      "sha256": "1dd08102771d90e26dadeef5a9e0e922cac93376cd8edf344c26c5ccfafee254",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/dataset.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/features.py",
+      "bytes": 12877,
+      "sha256": "10a2364ff97195f763f20ea420cef5657ca6bb1830a457c32196eb3b05317f56",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/features.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/fixtures.py",
+      "bytes": 6598,
+      "sha256": "aa5d896165ab277206afa86ff8d412986da0b5cb26c5ae44d63d33fc7a4fed46",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/fixtures.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/ledger.py",
+      "bytes": 6363,
+      "sha256": "4c1364163b0973220bed77c2d7891029cf31c236575b2ad05bca0d82049c3c2a",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/ledger.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/metrics.py",
+      "bytes": 4299,
+      "sha256": "e596a60de8fa19fc9f2ed0c5741bc02171413801fec7a238e09f46aa677ab1e7",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/metrics.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/model.py",
+      "bytes": 11170,
+      "sha256": "6a13c20cc14511c021a0d54c1ab55c3b3cf5b615be3ff9a54140833a184e1a6f",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/model.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/release.py",
+      "bytes": 2562,
+      "sha256": "84b01999330cbcb5a35058a5fb71c7f7f03ea34281f649acea24a3ff36ba90be",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/release.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/replay.py",
+      "bytes": 24125,
+      "sha256": "5bdbf25942842934dad70b3ad907817c92739c340c474a75d2c196eaf990166c",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/replay.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/algorithm/verify.py",
+      "bytes": 10839,
+      "sha256": "f570d45d39a227c29f5ec632355a4ba474f8abce314fe47ed3f31e1b114da2dd",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/algorithm/verify.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/bridge.py",
+      "bytes": 10041,
+      "sha256": "23270a042f97c34de85397c0965dcd1ca36146e813a591a132502af879a38e72",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/bridge.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/core.py",
+      "bytes": 34904,
+      "sha256": "173d3f625c4459cf0d24c7d2de959e6af3df804623c912310a06e7a645d0656a",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/core.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/disclosure.py",
+      "bytes": 3433,
+      "sha256": "498cc002dc507dfb498a5d880697110a6cf09a67bdea525651711b05aa9ed8f3",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/disclosure.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/protocol.py",
+      "bytes": 18835,
+      "sha256": "1f137f324162ec0b3d3ace4293a8083d4720d618c3b94cc9534c907f9266e02a",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/protocol.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/hwp0/rfc3161.py",
+      "bytes": 3724,
+      "sha256": "ac321390832ce18356ec1157549776828c466158d072d4585ad7d798d45fc8dc",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/hwp0/rfc3161.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/manifests/production-default.cbor.hex",
+      "bytes": 635,
+      "sha256": "991f634bfb25b4102c35af5baac2e57375f1afd1eb6470ecb7c63ebe124c8c0b",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/manifests/production-default.cbor.hex"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/manifests/production-default.sha256",
+      "bytes": 65,
+      "sha256": "d80f4cfc18dd60a4e72839ec4dec9d0f676e32f5d795a16ca5ed843b34e2a820",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/manifests/production-default.sha256"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/manifests/program.cbor.hex",
+      "bytes": 3427,
+      "sha256": "654000c5949a1fe8c240d46b969f5edc0f0a21dd1e82723f8f99db0c0680c0fe",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/manifests/program.cbor.hex"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/manifests/protocol.cbor.hex",
+      "bytes": 2463,
+      "sha256": "b0557c802127ccd4fcc1c9adb2c94ac4f31b9de739c0428f9cc937c08a3d03d1",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/manifests/protocol.cbor.hex"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/requirements.txt",
+      "bytes": 85,
+      "sha256": "c0fef9d15a505ab067a41d5a655ef616d640a00ea6d5fb201a851b5d8c6951a0",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/requirements.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/run_checks.py",
+      "bytes": 3829,
+      "sha256": "30ec11a69a40044d551825c1333b7dbb8265290e3879090c986bb3cdb9b7bbcb",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/run_checks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/schema.cddl",
+      "bytes": 4758,
+      "sha256": "456092be7b69e46c41af511720a5e8d29a7f2dd9c7db6e9790a2aa41f81194ec",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/schema.cddl"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/telemetry.schema.json",
+      "bytes": 10122,
+      "sha256": "00d0c874a1dbf1eb4c7082f8c3f3bf4c8aba33715c16f1fc3d4d119e37b3cce7",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/telemetry.schema.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tests/__init__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tests/support.py",
+      "bytes": 7223,
+      "sha256": "22b6f7dc478ca67da301bafadfd95083552f7d3001f1b4734a4c77ffbb0a7508",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tests/support.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tests/test_algorithm.py",
+      "bytes": 26277,
+      "sha256": "6ffcbe70f0940cac324171a041033ffbf14e97181ed8c33d160b1aa16e2981f3",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tests/test_algorithm.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tests/test_calibration.py",
+      "bytes": 4172,
+      "sha256": "20bb153000657ae7bbf11e36582618896eda7dc7a707de15daa5596c77f912f2",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tests/test_calibration.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tests/test_protocol.py",
+      "bytes": 20868,
+      "sha256": "ea155001a524e414eaf40da4d848f9382d4eab4bf82720997a3db7f4b2ee442d",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tests/test_protocol.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tests/test_timestamp.py",
+      "bytes": 3440,
+      "sha256": "1502facd42b5890c28dfc35561a0274ce631d8112db6fd2096c3ebaba776619b",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tests/test_timestamp.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tools/build_manifests.py",
+      "bytes": 1303,
+      "sha256": "3b8b8ae6e2acef756f5f335578e667364982e2b5b0e37c5856ef4cf28a905326",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tools/build_manifests.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tools/check_freeze.py",
+      "bytes": 1516,
+      "sha256": "531dfa211207e2017084e4946d3ee07c1be1a30b7e92512a6024f920563d3472",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tools/check_freeze.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tools/check_interop.mjs",
+      "bytes": 4025,
+      "sha256": "afb439606534d1efaf11196c82ee745cdf7891690b0fd339b7322a63af36e7d7",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tools/check_interop.mjs"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tools/generate_vectors.py",
+      "bytes": 6413,
+      "sha256": "f703d36d60043c5bb2066ecd102886420df1acef0debd05a87fbc1ae47012e1d",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tools/generate_vectors.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/tools/verify_attested.mjs",
+      "bytes": 24397,
+      "sha256": "69961a7b3efd012c7fb910c9a4df496244cb12b50b6dcda1138d1f4d666c424f",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/tools/verify_attested.mjs"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/vectors/algorithm-feature-vector.json",
+      "bytes": 4071,
+      "sha256": "029c0e10fb12739dd4bd65df87bf63379591d779d307b4c1bdc329c2a52d5e25",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/vectors/algorithm-feature-vector.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/vectors/interchange.json",
+      "bytes": 16161774,
+      "sha256": "356a1cea43b4e961176cf52855fa4c2f4808e9d37d59a4c781c3967532b96bbe",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/vectors/interchange.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/vectors/results.json",
+      "bytes": 14572,
+      "sha256": "1f37c155140b4a95cdd174bbdaf1c77b7758b4789c1670dc0c258f632b694adb",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/vectors/results.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "member": "protocol/v0/vectors/test-output.txt",
+      "bytes": 19256,
+      "sha256": "70073fe9e2c415662542f7e4c8e09ff32ba2559106d033d9df2cc0dc684ca45b",
+      "remote_at_start": "absent",
+      "recovered_path": "protocol/v0/vectors/test-output.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "Chat 5/Human-Writing-Protocol-v0-SPECIFICATION.md",
+      "bytes": 33675,
+      "sha256": "ae5aedcc99a108f383591ef97bf65a2ebcb538daf9e8954d2957e18d670641c5",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-SPECIFICATION.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "__MACOSX/Chat 5/._Human-Writing-Protocol-v0-SPECIFICATION.md",
+      "bytes": 426,
+      "sha256": "a8a24aa3a6c1042759f2f9e5cad36a7d2e67d14abb913d615c12fdea56587f03",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "Chat 5/Human-Writing-Protocol-v0-clean-extraction-checks.txt",
+      "bytes": 1223,
+      "sha256": "e98825f6738d0adbb806125803dc6accf2875bad69eecd26254d9adc7e951785",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-clean-extraction-checks.txt",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "__MACOSX/Chat 5/._Human-Writing-Protocol-v0-clean-extraction-checks.txt",
+      "bytes": 426,
+      "sha256": "429fec7cf206a88fd86126a6fff3fb713e66aa634245d45cbed056576357d452",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "Chat 5/Human-Writing-Protocol-v0-RESULTS.json",
+      "bytes": 14572,
+      "sha256": "1f37c155140b4a95cdd174bbdaf1c77b7758b4789c1670dc0c258f632b694adb",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-RESULTS.json",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "__MACOSX/Chat 5/._Human-Writing-Protocol-v0-RESULTS.json",
+      "bytes": 426,
+      "sha256": "afbbe36c60ab02b1b89a91a13180bb1862c6a7a7ae311f43dec4f63892369b2a",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "Chat 5/Human-Writing-Protocol-v0-FREEZE.json",
+      "bytes": 10907,
+      "sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0-FREEZE.json",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "__MACOSX/Chat 5/._Human-Writing-Protocol-v0-FREEZE.json",
+      "bytes": 426,
+      "sha256": "60ebcb6440f8b08def6ad131f05a0ab0c23082526f709c4fd8933889f6364130",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "Chat 5/Human-Writing-Protocol-v0.zip",
+      "bytes": 3238564,
+      "sha256": "5588ffcf0ff4bf108a15a206f96ecc9db86692089839b62b068cb9d24b6f8de0",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 5/Human-Writing-Protocol-v0.zip",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 5.zip",
+      "member": "__MACOSX/Chat 5/._Human-Writing-Protocol-v0.zip",
+      "bytes": 426,
+      "sha256": "5535b61630e589f8c5c650aaf5cf6fe38e4ab90b0a33e1fc523259d2940b6065",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-01.md",
+      "bytes": 316,
+      "sha256": "651b98c0ceeb16aea65fbcd7b66bdb0c982f309f75971450aa86f0a29940390f",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-01.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-01.md",
+      "bytes": 426,
+      "sha256": "91d4aca2e15bc4869a7d0aa44bda92e3a68432e1df600c8ad12202a05deb03c5",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PREPARATION.json",
+      "bytes": 1067,
+      "sha256": "ea820db1483678927432be183cc173c94146034b5750b16f67c395eb290a94e9",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PREPARATION.json",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PREPARATION.json",
+      "bytes": 426,
+      "sha256": "d798eb8284aaef734a09516282f320add405e8bf9e7ce29b569069e09d9221a5",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/bootstrap_protocol.py",
+      "bytes": 6945,
+      "sha256": "df1f0f5dbff12b3d28757513673da2d323d4957b6f92a21079104a172ca9a3c5",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/bootstrap_protocol.py",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._bootstrap_protocol.py",
+      "bytes": 426,
+      "sha256": "aef319e2f1cb0a181eb966986d44c03248d6a63e7d0097c189350e5e6f2b0f84",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-05.md",
+      "bytes": 315,
+      "sha256": "6461d4d0cf6b8b0f3df08b3a7a6bf25b00aa369c4e634c5cd0e1094ec107d9d2",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-05.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-05.md",
+      "bytes": 426,
+      "sha256": "02c7808b886d889f5f5d7af0b2a9c4976c1b4024857e2743925a2b5fad6dec9a",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PRODUCT.md",
+      "bytes": 7905,
+      "sha256": "973ed72bf39d13b8afb420befcb1c729ce8fd3a2ce69d818c2c1a41bc61bb2bc",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PRODUCT.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PRODUCT.md",
+      "bytes": 426,
+      "sha256": "d7e6a40784e6d20b8a1f03addb0890f88f16a5d367fb2555cf426adfa6142c84",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-08-RELEASE.md",
+      "bytes": 9860,
+      "sha256": "18b460dee01642f6ee78b6880ba00e9f7c1a5403e3118a2339e285db5de6c226",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-08-RELEASE.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-08-RELEASE.md",
+      "bytes": 426,
+      "sha256": "7458f668ed4032d8fb7e37fcef8fd8a3cb30f22bccec9efb4156aace38073c8b",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/ARCHITECTURE.md",
+      "bytes": 9498,
+      "sha256": "e62fae2b7ff2bb5857d325054db620ee687dfacfa026b8cf8cc7593e8ab9c829",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/ARCHITECTURE.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._ARCHITECTURE.md",
+      "bytes": 426,
+      "sha256": "a2f268d578cb46b5fec0d25595cdf09637e42073d0139c08c1d054a8cc5d7b52",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-04.md",
+      "bytes": 312,
+      "sha256": "c207de7a5481e20e7aa0ea150a2750a454ff8b616b5aed4397542e4a9e5b6d77",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-04.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-04.md",
+      "bytes": 426,
+      "sha256": "f903863c5accaf3a928741a39d75fb752f0f4bc8b2083b89c0c2a355f255ed91",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-05-EXPORT.md",
+      "bytes": 8583,
+      "sha256": "e5a3e4c9e3fe771b7c5f21896a3568e501f6b04c76ce60e64ac70dd86ceef139",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-05-EXPORT.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-05-EXPORT.md",
+      "bytes": 426,
+      "sha256": "4ea1547bb0127126a9061b24b96d7366459d30277135f720048c5e2add25eafd",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/INPUTS.md",
+      "bytes": 3646,
+      "sha256": "46c140f693595eca432ff5e852169dc224bc55b258e1f66b5df63d36a5ac40a5",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/INPUTS.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._INPUTS.md",
+      "bytes": 426,
+      "sha256": "a0a4cd637a957341094a1adbee06ea221b2280182604381c023639e7fa1b36f6",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/UX.md",
+      "bytes": 14448,
+      "sha256": "ed57c728a347419e4bcb87639234c610411f4c4dd989d45f72b55c85d446c8f6",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/UX.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._UX.md",
+      "bytes": 426,
+      "sha256": "a852f72e10f2c65fab309c10488035641b52204aa4c0641cafa5d9b6d02b394d",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/acceptance.json",
+      "bytes": 15776,
+      "sha256": "a1af2c687bcce091a6b6b7920b10d36eeed94368afbc76a2627cd0b925b127c9",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/acceptance.json",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._acceptance.json",
+      "bytes": 426,
+      "sha256": "20c0f4d2f403cc0f2780fe9b5f2f6a29dc218418423cdd137e8ef65b50579382",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/FOCUS.md",
+      "bytes": 7191,
+      "sha256": "071c6600e9db52380eb6140e06845b7562a2810fffb933e986555e79e0cf57b9",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/FOCUS.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._FOCUS.md",
+      "bytes": 426,
+      "sha256": "f72f722d97037084b91d9388d5158d39c67a203cb63ad6b72744f32f772d7fa4",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/DATA.md",
+      "bytes": 11421,
+      "sha256": "f3e9fb703662ba1241611b9bc2276dbe6291097535342861a2bd70840bbd96f2",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/DATA.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._DATA.md",
+      "bytes": 426,
+      "sha256": "0cd989d7c418014aba312d5789d1b06da762fe6a5ee5df161fd3affad3f1ea97",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PREPARATION.md",
+      "bytes": 1827,
+      "sha256": "be5638e958c0adc681151f564efc7bd733571bcc1a3f114c783f822d730f914b",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PREPARATION.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PREPARATION.md",
+      "bytes": 426,
+      "sha256": "7256df6454295018247cbd03ca597181dd4244dc4d55e2c8c2c245518657e4de",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-06-NOSTR.md",
+      "bytes": 9669,
+      "sha256": "947ad4a532ed1845f10dd82761a50a4a60546b7bb5b3b69d4d294ff8ce96a4e2",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-06-NOSTR.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-06-NOSTR.md",
+      "bytes": 426,
+      "sha256": "b523f58a6c1af2ad3e616c27cb909ce3eab540f493010b12241d8b0897b93298",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-04-HWP.md",
+      "bytes": 9123,
+      "sha256": "160823742110a82ea5c0a50325e96b9cd0c7582b976ef5a0a98968aa135dca02",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-04-HWP.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-04-HWP.md",
+      "bytes": 426,
+      "sha256": "493a8104ab6540ea5722f36769953e4802f6bb91f05c95e9683df828cc099616",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/REPOSITORY-AUDIT.md",
+      "bytes": 6367,
+      "sha256": "2806dd6919d6af52ac33894a44bd9902101de3ba0cf03a63caec3b94fb137f46",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/REPOSITORY-AUDIT.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._REPOSITORY-AUDIT.md",
+      "bytes": 426,
+      "sha256": "277fb0b29d41a6082a4a7514bf51d7ad7f563db3738f827b04a28cbfc310de76",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/HWP.md",
+      "bytes": 9664,
+      "sha256": "af4b75e4bf5ca7998bedf7a368cbb37ade7d1b320636c5335987a467acc284c6",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/HWP.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._HWP.md",
+      "bytes": 426,
+      "sha256": "cb4fc59f103b451b7fe2f1637280c9bc546a15dc1b6c7f8d20c013e06ae5b5e8",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-07-FOCUS.md",
+      "bytes": 9271,
+      "sha256": "4c28c2f0c6d5967f15ec99eeb38aed738bfa2fbcae0fe8097ef9b4df32103e82",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-07-FOCUS.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-07-FOCUS.md",
+      "bytes": 426,
+      "sha256": "dea21e7dd1b851b81170a8eb044b76e8723a1707855f4dfe337ffd1c6c4eb014",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-02-DOCUMENTS.md",
+      "bytes": 8932,
+      "sha256": "d93f436ccf77449119ba2decbc2c2af9e0161bad24f5d1e665a1284958c0b9e3",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-02-DOCUMENTS.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-02-DOCUMENTS.md",
+      "bytes": 426,
+      "sha256": "d592e869ecf6c04f7b29d17f4be5e0ad9b847dbc01237250110e12d77c85caac",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-03-EDITOR.md",
+      "bytes": 9578,
+      "sha256": "de599afd3389914a7e8d9f5464d32558eeffb55217014dda5773ad21194d7576",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-03-EDITOR.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-03-EDITOR.md",
+      "bytes": 426,
+      "sha256": "bd23e97615d0acc23cf787c463d500b21b6b50a54548acc0acde373e2ad1afe5",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-08.md",
+      "bytes": 316,
+      "sha256": "af2e7ffaeb73311ab2e96e4523305b46f9e13a05538d26327c0ecae78f2640a6",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-08.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-08.md",
+      "bytes": 426,
+      "sha256": "ce1e744f2350928913ce508e36754e9d79dad06bd501206edaf540b58f049fdb",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/interfaces.md",
+      "bytes": 4766,
+      "sha256": "22db00f2220ff7b1e792081694329d1051c1def077c19fb876e801ee705383cd",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/interfaces.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._interfaces.md",
+      "bytes": 426,
+      "sha256": "637d0edb254a39472151c1540c077941483c118566bc403474950221d0b83b70",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/NOSTR.md",
+      "bytes": 11500,
+      "sha256": "917e29c6b07ed5788c60f1e1f547ae89c8399e93fb601f47919e3e6e47c5f0ab",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/NOSTR.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._NOSTR.md",
+      "bytes": 426,
+      "sha256": "2eb716a532347fae288f23c7252a29da2ac35c5f252f71d929f30f37b37fc1d3",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-07.md",
+      "bytes": 314,
+      "sha256": "074abe3a0cce677f4199ed28e2c3a085fe2d08dd03abb2b26d81a01336e2a253",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-07.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-07.md",
+      "bytes": 426,
+      "sha256": "ee44186cb721a8eb0a8f2a83a713a93dbc73780ed9be54f35bca4957c153c0be",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/PLAN-01-FOUNDATION.md",
+      "bytes": 8382,
+      "sha256": "999c7fef01b9c3d5458c104c5391ebead3a81da40d62bf079b27ebe531a77507",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/PLAN-01-FOUNDATION.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._PLAN-01-FOUNDATION.md",
+      "bytes": 426,
+      "sha256": "935248311824622a6bacf09eeb5844a188534a220451608160027945acdd25b1",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/MVP-COMPLETE.md",
+      "bytes": 4601,
+      "sha256": "ae1b7d3c47fe0c8398834f508527f083a3fa7bb323d459ff98602b2058d103fe",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/MVP-COMPLETE.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._MVP-COMPLETE.md",
+      "bytes": 426,
+      "sha256": "f1faf85753039486d987073c51836fa5297d0eddf3a1631a55d0853cb300253b",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-03.md",
+      "bytes": 315,
+      "sha256": "761482c06bcabb944627bc67bcc092e00e7b28ca21f72198b391c89e8ed17fab",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-03.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-03.md",
+      "bytes": 426,
+      "sha256": "c35fed185bd82b7f1c885bcd0b004e8b5c496711970e9d4e7029fa369cb6e215",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/EXPORT.md",
+      "bytes": 7877,
+      "sha256": "2918136ee60079567bfaf69c6df3b2740720dc191c656b7b1f4abc25a06dc988",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/EXPORT.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._EXPORT.md",
+      "bytes": 426,
+      "sha256": "59f0e02caba86de1e9852544d66aa692f463e34ac7900b9402545e0e0dc607b0",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/README(4).md",
+      "bytes": 4686,
+      "sha256": "eb2289e7e39ef8916ccee2c9e0bed6c30a2f99c96cffbe229d043fad861a6256",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/README(4).md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._README(4).md",
+      "bytes": 426,
+      "sha256": "dc6329ac5ec01f63f49c443de534afe20d30fa3b5d35097aed1ef7d0d8d0015c",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-02.md",
+      "bytes": 318,
+      "sha256": "d59456de4d8e35b39c4ab3599fdfbb3ef008ea49a102cd4edd78c127b9bf240a",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-02.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-02.md",
+      "bytes": 426,
+      "sha256": "e5355a350d18afeff4267475bf8aa87c5b6f9361fa54d137706025c66e872d6c",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/README(5).md",
+      "bytes": 835,
+      "sha256": "cf5f57e4211b903bb1aec524d86b6f7d388bf94cdd46e852d94ea7956c7d3a1d",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/README(5).md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._README(5).md",
+      "bytes": 426,
+      "sha256": "cac95bcb90598330f261d79aa443467b569d86cc749f36acfc3989132768cbaf",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/START-06.md",
+      "bytes": 314,
+      "sha256": "48c0947c13bd255b2fca9729a8166e5adf5ed24a1ecd172a6c578128f0458ebd",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/START-06.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._START-06.md",
+      "bytes": 426,
+      "sha256": "8c589a892ac5cec2608a27feb00811d9cfd77e2ee6ffdbf8903e33f3a79dd817",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "Chat 6/SECURITY.md",
+      "bytes": 4812,
+      "sha256": "ab58de791fef71bb8a8e372b92f5b8a6f2c2758b4c95f0540907c801d72a6392",
+      "remote_at_start": "absent",
+      "recovered_path": "history/astra-pro/originals/Chat 6/SECURITY.md",
+      "disposition": "Exact expanded copy also preserved"
+    },
+    {
+      "archive": "history/astra-pro/originals/Chat 6.zip",
+      "member": "__MACOSX/Chat 6/._SECURITY.md",
+      "bytes": 426,
+      "sha256": "7cd8f7e21c39c6c36860e47d4a7fc2d8a33b0ba2331b5a0e04ecf13c94cef8a2",
+      "disposition": "Finder metadata retained inside original ZIP only"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/.gitignore",
+      "bytes": 45,
+      "sha256": "23a2c3c02b184e6ce4aa5ba65acced7a84a0359c9ccdd18db0e4c81e4a941b91",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/.gitignore"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/API.md",
+      "bytes": 7979,
+      "sha256": "e7295a5c9aab566c07dc36c000f9258e956f86a85cce86906f1f657923141e10",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/API.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/DATASET_PROTOCOL.md",
+      "bytes": 15386,
+      "sha256": "c50a537e39ea8ab88472870526449240e4f34467e02ffdb439529a881765919b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/DATASET_PROTOCOL.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/FEATURES.md",
+      "bytes": 10139,
+      "sha256": "d15d9129fe54d413429d9fd2d3fd34ee3e4459712bce05b1f40d1ddf64b4047c",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/FEATURES.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/PUBLISHING.md",
+      "bytes": 1369,
+      "sha256": "ca70a125ee8bceec7c7112012caae6d95a42308e677b6e205a432ec53fb1448f",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/PUBLISHING.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/README.md",
+      "bytes": 4060,
+      "sha256": "cf595ae7ad7cef004e26a4d930740a25ed2c77f34300ece133e0dc76376d6c60",
+      "remote_at_start": "different",
+      "recovered_path": "algorithm/v0_2/README.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/RESULTS.md",
+      "bytes": 7468,
+      "sha256": "5bd75aae9d9afbc087e031d48b12929f4ee4cd8a8482db8e6984f52fa5501fa4",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/RESULTS.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/SPECIFICATION.md",
+      "bytes": 32618,
+      "sha256": "64c03117d4bedb06f1971e650b1eeb862a79bbcd9ac8d4cfac8156d973712dd0",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/SPECIFICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/TELEMETRY.md",
+      "bytes": 9873,
+      "sha256": "3f68c2f6c37dd942e7016f7e19cd5fe9b7b9605c894ddc6a46a9c54ac41b21b5",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/TELEMETRY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/THEORY.md",
+      "bytes": 11711,
+      "sha256": "585ae97a0c9ff7d2ceff7fdf82d9320499303595f417e76f59e53daf2db1cf48",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/THEORY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/calibration-request-empty.json",
+      "bytes": 1047,
+      "sha256": "5b0f57cada156e706aaef62037b651f0e576f639ffb3282d34ac13620bfa9c7c",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/calibration-request-empty.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/empty-calibration-result.json",
+      "bytes": 4418,
+      "sha256": "dd0428cb59266a323b0f252eb029f4e2ea4f1c06ab0baa03f8635e31fad8cee2",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/empty-calibration-result.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/feature-vector.json",
+      "bytes": 6584,
+      "sha256": "9dd5c02380e5f41f8a51f10dac2bd08737b056b68b61ef5a2f9da3d2f2354bd9",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/feature-vector.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/fixture-model.json",
+      "bytes": 222063,
+      "sha256": "1575e1e3880e8f5f308c9e605c071d2c17d447aa3e9724139bf7e011d9f931bd",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/fixture-model.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/gesture.trace.json",
+      "bytes": 33747,
+      "sha256": "9589b0398c1fc6bd9c45a5b0796a0bbe8be018914bca702be6f2ad575f43b136",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/gesture.trace.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/ime.trace.json",
+      "bytes": 48988,
+      "sha256": "6b37a7b2068bf45f81bbd73aa2c29551b3d0b4d342764aeab0ddc95e44625e2b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/ime.trace.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/keyboard.trace.json",
+      "bytes": 103407,
+      "sha256": "c51892d3efae4e608925cf0ce1d04925074ed870760e55784c8e5f6e1441d752",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/keyboard.trace.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/origin-vector.json",
+      "bytes": 19863,
+      "sha256": "c79b055d24f6c9d1149a48a72962fe606c87ae39f9a8eaa7d11fb4fee3db7187",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/origin-vector.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/public-verdict.json",
+      "bytes": 432,
+      "sha256": "f405974fd737d05f50048d692dc3cd71e7167f685dbe54cd208830c787c7d996",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/public-verdict.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/results.json",
+      "bytes": 7378,
+      "sha256": "8e841e11f437dad44ec3d76555aa5f8d3b55cc229715d2520f97eed3db9eec67",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/results.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/standalone-verdict.json",
+      "bytes": 435,
+      "sha256": "b4984fd397f40c8b7d6070051e89b848373e1f6516239f450b24ec696947db9f",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/standalone-verdict.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/test-output.txt",
+      "bytes": 8773,
+      "sha256": "5e18869b6250269d3db47a9779dd4dc8619f462ab8e3403c5bd03a4e48b55a97",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/test-output.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/timing-attack.json",
+      "bytes": 113912,
+      "sha256": "1343cadfa4ced47163f2401c524ddc5fee33b2719c37ebb0de6959a2016d97d9",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/timing-attack.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/artifacts/touch-tap.trace.json",
+      "bytes": 104813,
+      "sha256": "d3189327f5b2dad9482eb4dee704266b3208a48a01854fca350d41edf19f77f2",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/artifacts/touch-tap.trace.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/assurance-contract.json",
+      "bytes": 1120,
+      "sha256": "93de027f54a2ccbb0aa4fac0b50bc395f1667e028f0e55ff11fac0d3cf68fad7",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/assurance-contract.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/build_metadata.py",
+      "bytes": 8722,
+      "sha256": "d9223d1139c82b8885c389e210efe2c7010c0abf40cfb42e0597938151d3982e",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/build_metadata.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/__init__.py",
+      "bytes": 151,
+      "sha256": "ab98692abb564f660f2d8c90cca5991cbc8d00875fb823424976411fa0498234",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/__init__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/__main__.py",
+      "bytes": 1891,
+      "sha256": "a6d68a648abd63578181c03bab72bb5d4914f4be63a3a80eb496e9cd91004831",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/__main__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/attacks.py",
+      "bytes": 3255,
+      "sha256": "9843c93ab1596d3ec0fca56891b81306d778f3153547cdd6174940046fb3243b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/attacks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/calibration.py",
+      "bytes": 7211,
+      "sha256": "69a8e6e8ed4d46770ab66e15606a8c01d38a22b0b746d50c424fcd3063069560",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/calibration.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/dataset.py",
+      "bytes": 3501,
+      "sha256": "d89cd964d35d9e7ae194a33024fa4738faed83db4b1f96394a3cf13fff85fdb8",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/dataset.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/features.py",
+      "bytes": 9402,
+      "sha256": "7806a5db2e3f41ab18f2cda81ea650aab4044cae05e3802fe1eeb56d2cb241cd",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/features.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/fixtures.py",
+      "bytes": 5329,
+      "sha256": "7f965b43625c3710c03e28a34d3723308ab281df18bbe9bde79c3889099e099c",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/fixtures.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/metrics.py",
+      "bytes": 4109,
+      "sha256": "bfcd2e8e2da6de09599eff30b2cca0ee85fca0658b2bb27240a4fa2d310979c8",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/metrics.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/model.py",
+      "bytes": 8393,
+      "sha256": "399a0def0726411eb55d7c6509b1c707b058e1d554829f22b9f8d46a76e6f9a8",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/model.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/release.py",
+      "bytes": 1287,
+      "sha256": "2a8f5dab45af820767cc4fbf5c321645b095d7238bfcf2288673f6fe3478cf54",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/release.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/replay.py",
+      "bytes": 19767,
+      "sha256": "be3a36104ec86a9f54d8b1368ada134a99f26d7fd5c2833cfb4f494b6c470f8a",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/replay.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/hwp_a/verify.py",
+      "bytes": 7943,
+      "sha256": "d5be778628e461f610ba340fb9b3ffafa3debea7e2bf26c8518a1296f9a28f1b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/hwp_a/verify.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/requirements.txt",
+      "bytes": 27,
+      "sha256": "1668a3152e33680d94637b13421c15e68bd97cd8701f7f555c691f5bc5c0b9f3",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/requirements.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/run_experiments.py",
+      "bytes": 4896,
+      "sha256": "5113fe91c9b6b002334236c59f348dd3de8ff751a6ad07b0b2a0e1d4cbec40be",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/run_experiments.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/telemetry.schema.json",
+      "bytes": 12986,
+      "sha256": "3e1194163151253262ac93791f6a5287dbf634fc0a5f2b880487a101c5acd47e",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/telemetry.schema.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/tests/test_algorithm.py",
+      "bytes": 13465,
+      "sha256": "fbda0750a6e546e0496609747de051df7d6ebfca1d9806ba49729539e50db0ea",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/tests/test_algorithm.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.2.0 (1).zip",
+      "member": "algorithm/tests/test_statistics.py",
+      "bytes": 12677,
+      "sha256": "5741a20cb85422b4e11e4c1b40d161e3ee91c22e9c0f49b2ede1740621eb4856",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_2/tests/test_statistics.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/README.md",
+      "bytes": 968,
+      "sha256": "0f80f98b02626bc007e50d2116bba5f2224f46a669ecaf4b5f7f65edba9a5a0a",
+      "remote_at_start": "identical",
+      "recovered_path": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "disposition": "Original index preserved in ZIP; active algorithm index revised"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/API.md",
+      "bytes": 4132,
+      "sha256": "80eca15d9c38beeef7233a9b67e55061945b0c2cce981b40a34990a02cba1f23",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/API.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/AUDIT.md",
+      "bytes": 6999,
+      "sha256": "2241da9232c0ede4b1524c48dba76240c99f28bd2f00587e3de94ed4d98eec31",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/AUDIT.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/DATASET_PROTOCOL.md",
+      "bytes": 9596,
+      "sha256": "c9bd4f5144cd82bc6ddab151852adce3db91ef9b145073f25a98a2949357b200",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/DATASET_PROTOCOL.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/FEATURES.md",
+      "bytes": 6609,
+      "sha256": "e19b42a8f372e72ed9e375b3c365a2b5ac905c33b8fbe1e932d36ff828408913",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/FEATURES.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/PUBLICATION.md",
+      "bytes": 1232,
+      "sha256": "b338f2bb7ef8c8b4f6cca374fb98f0b9c989786d3449c32bd698c8fdd4fee98f",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/PUBLICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/README.md",
+      "bytes": 4614,
+      "sha256": "0528c4b6aeded3fba5359e8cf174a420096582bd769a437d3089d2c6e90d7df7",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/README.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/RESULTS.md",
+      "bytes": 2330,
+      "sha256": "02e2448cbd12f11c0cf67fb3387e0175ea257c62b4b0a6f2ef00f993eb71121b",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/RESULTS.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/SOURCES.md",
+      "bytes": 1451,
+      "sha256": "6d1cb94718509cf26af091efe3ab9cac77f4de6ac4ac8cd41be7a0e210c2757e",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/SOURCES.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/SPECIFICATION.md",
+      "bytes": 21717,
+      "sha256": "1b5527bef28fdff13e133732da5a1a9a2dc4ce2b0a5105c747dbaf359a6fd6a8",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/SPECIFICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/TELEMETRY.md",
+      "bytes": 7928,
+      "sha256": "a746ded39072604f0d9576f352cdb07bbc91f245b910db016d949de77fc4fff8",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/TELEMETRY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/THEORY.md",
+      "bytes": 10353,
+      "sha256": "aa6f23458d6cdada4a6f1d9ec8d055d4d6a5efa8eb808c6c7d480dc256253823",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/THEORY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/baseline.json",
+      "bytes": 263,
+      "sha256": "6b48599f9ca222042ab10f243ab3b0558583335a3094a55c828a8e2f1b868532",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/artifacts/baseline.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/deterministic-vectors.json",
+      "bytes": 18215,
+      "sha256": "e479f99e132e1fde2bd06155aff2fe0bd303f7f539f72145c7cedb029c04618b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/artifacts/deterministic-vectors.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/feature-vector.json",
+      "bytes": 4071,
+      "sha256": "029c0e10fb12739dd4bd65df87bf63379591d779d307b4c1bdc329c2a52d5e25",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/artifacts/feature-vector.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/reproduce_v02.py",
+      "bytes": 3385,
+      "sha256": "551c56084474b991b7639f598befb53b4e18056c5ca43140dc62ebdb0b1778e0",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/artifacts/reproduce_v02.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/results.json",
+      "bytes": 7549,
+      "sha256": "4eb2e56109d437c0a41f96581eef48ce44fbf76af8af1c7af4f2243abe2b3a11",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/artifacts/results.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/telemetry-example.json",
+      "bytes": 757,
+      "sha256": "ab75ce353a87073de4167f41a73b29f185f3e13ad5d69e7e15778bee2dd0c3e3",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/artifacts/telemetry-example.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/test-output.txt",
+      "bytes": 10822,
+      "sha256": "d4e1cc92bcafa166a5693b78e0188934d2a59048234d685ee35a6a436eff993d",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/artifacts/test-output.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/artifacts/v02-counterexamples.json",
+      "bytes": 1000,
+      "sha256": "13ad3cbd947ab491191a0fa06aa76fb2ffb90774a68f45c01b9996a006f12947",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/artifacts/v02-counterexamples.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/__init__.py",
+      "bytes": 151,
+      "sha256": "ea73ac699e53eea41c186ff256d9c00c56b36a98b6e0b54b5a16fc7d053f7a25",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/__init__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/__main__.py",
+      "bytes": 1891,
+      "sha256": "a6d68a648abd63578181c03bab72bb5d4914f4be63a3a80eb496e9cd91004831",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/__main__.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/attacks.py",
+      "bytes": 3682,
+      "sha256": "9b254ada0d481759ee9292737bdcc8671e81805b64d463590f2e92a09ad01ca3",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/attacks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/calibration.py",
+      "bytes": 7211,
+      "sha256": "69a8e6e8ed4d46770ab66e15606a8c01d38a22b0b746d50c424fcd3063069560",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/calibration.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/dataset.py",
+      "bytes": 4073,
+      "sha256": "1dd08102771d90e26dadeef5a9e0e922cac93376cd8edf344c26c5ccfafee254",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/dataset.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/features.py",
+      "bytes": 12877,
+      "sha256": "10a2364ff97195f763f20ea420cef5657ca6bb1830a457c32196eb3b05317f56",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/features.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/fixtures.py",
+      "bytes": 6600,
+      "sha256": "44b7b0327c8911e011db1f95dfb24a5da37750279c59eac1124286ff525edd93",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/fixtures.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/ledger.py",
+      "bytes": 6201,
+      "sha256": "5f15e56d54d68c6abf18ea3ce7e6ef3739017859a0b2d6bb7bc3443ddd0c672f",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/ledger.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/metrics.py",
+      "bytes": 4152,
+      "sha256": "865215bf4bd4102279d39c4224af1a109bb6e1d7d0a491711b18ec34809a4f74",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/metrics.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/model.py",
+      "bytes": 11172,
+      "sha256": "803bec447523b13628be11f845810afabd65c787db7d3da98178e0156eb7154b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/model.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/release.py",
+      "bytes": 2562,
+      "sha256": "84b01999330cbcb5a35058a5fb71c7f7f03ea34281f649acea24a3ff36ba90be",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/release.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/replay.py",
+      "bytes": 23840,
+      "sha256": "ace5058165484b81cc63b499c7a8fbb2a0b70942bda7f8dc0738b20512aa86e7",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/replay.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/hwp_a/verify.py",
+      "bytes": 10841,
+      "sha256": "62453f18ac51a03888be059d31bc0ddc049b769985d0a00afee5dd78ee1e5ba8",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/hwp_a/verify.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/requirements.txt",
+      "bytes": 46,
+      "sha256": "1cfbd046c0c432323ae46e12f03741a08545959bdfcc5ba2ed7d0425c9015364",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/requirements.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/run_checks.py",
+      "bytes": 3925,
+      "sha256": "4ae00795382e3d17dc6bdad3a582a8b1c36cd90796085cc4a39948471a390323",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/run_checks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/telemetry.schema.json",
+      "bytes": 10123,
+      "sha256": "cd9601971b48c2cbb40917adbfa470badcfe2be8a18061d05627f1e6adc9167e",
+      "remote_at_start": "identical",
+      "recovered_path": "algorithm/v0_3/telemetry.schema.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/tests/test_calibration.py",
+      "bytes": 4154,
+      "sha256": "23b9cc89b10d7a76517eec637cb9499ad31dd376cadb548b9303ba56250f7d0b",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/tests/test_calibration.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-A-0.3.0 (1).zip",
+      "member": "algorithm/v0_3/tests/test_revision.py",
+      "bytes": 26144,
+      "sha256": "62a8d713504fd43a06cfc7c95a2b3cbe8907385fb116ef9c2aed7e1cf60daab4",
+      "remote_at_start": "absent",
+      "recovered_path": "algorithm/v0_3/tests/test_revision.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/LICENSE",
+      "bytes": 1315,
+      "sha256": "ebb8e44c15060b929cd90d7e6a3ed928c3d964b38289d7e3fe483ce3c7e393f7",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/LICENSE"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/README.md",
+      "bytes": 5081,
+      "sha256": "428fd7cb3fe4de326d066681075fc74cb54f4a1fbbdd730e1a22e8d9ade931f4",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/README.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/SOURCES.md",
+      "bytes": 2832,
+      "sha256": "a5bdd94d8e032ea8b8517f3a866b3c409bfcc5800d6f28226543c379f05e9885",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/SOURCES.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/SPECIFICATION.md",
+      "bytes": 29540,
+      "sha256": "5f19ee912724796daf33a14d3fa752552865b086cb9586349318d7ff1f16f759",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/SPECIFICATION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/docs/ARCHIVAL.md",
+      "bytes": 7436,
+      "sha256": "1df9a53b1b51047f4a9284bc2dbadc5190e45ac9cb0a5dc557f3465157783b39",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/docs/ARCHIVAL.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/docs/HWP-A03-BINDING.md",
+      "bytes": 7745,
+      "sha256": "a88df282b90ed15264b7e1fbebc6f19672a5ed451e185702d7fd2ef60d899386",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/docs/HWP-A03-BINDING.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/docs/INTEROP.md",
+      "bytes": 5866,
+      "sha256": "a1b54a3b705dae8755364e8be14b1ed44f66e12ad31570aa60edbff2cb16c188",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/docs/INTEROP.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/docs/PRIVATE-EXECUTION.md",
+      "bytes": 6609,
+      "sha256": "f3b06691b24ffc97d7f30cfd123eb0cb09602bcb122cedf90faa55e53be38973",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/docs/PRIVATE-EXECUTION.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/docs/SECURITY.md",
+      "bytes": 9717,
+      "sha256": "cc430771d49e1b5de99a605d684737b059468999eec87362d9f06381b0d6d7e3",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/docs/SECURITY.md"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/hwp_crypto.py",
+      "bytes": 37008,
+      "sha256": "994e891e1f2039ed7c9f282049fb35ae6dcf761d67c4bf50740ed89b71155a3b",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/hwp_crypto.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/requirements.txt",
+      "bytes": 39,
+      "sha256": "f29cbc3dcf2bb01fea99bdbf99e811b965a31b3dfc1ed17f04d5116c5b1a425f",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/requirements.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/rfc3161_adapter.py",
+      "bytes": 3729,
+      "sha256": "28cb17d51ac6941cd9e00ed5f69615b9d8e2a87ca3cf0a18933242aa42a5d65f",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/rfc3161_adapter.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/run_checks.py",
+      "bytes": 3277,
+      "sha256": "5637bf7f26593135f68292464929d2dc46d690279af703935d55241adeaa1ef3",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/run_checks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/schema.cddl",
+      "bytes": 3504,
+      "sha256": "956f3262e3f3348d38b2e1a1bd5f6c038c8ccfbb4352e42a128b4c2ba8f293d3",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/schema.cddl"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/tests/fixtures.py",
+      "bytes": 5464,
+      "sha256": "d4f7fb5a66ad13efbe5d9b2db5b3183061f5ea34c481cd6a6c14c8f0b0d43ec8",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/tests/fixtures.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/tests/test_core.py",
+      "bytes": 22278,
+      "sha256": "e3c664ef2ec58bb63c9e9eb2f16ace244859d84dced0d5251565edbb50b7eaa1",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/tests/test_core.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/tests/test_timestamp.py",
+      "bytes": 3444,
+      "sha256": "6701dd7207c4fc17549dee331eebb5ee37ae945dd07270eda0134d3d6be79505",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/tests/test_timestamp.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/tools/generate_vectors.py",
+      "bytes": 2525,
+      "sha256": "f5203d4ef7c45a976b27b6ba7dfeb682e9bde2b58f14ec17a6d404087a1650d0",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/tools/generate_vectors.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/tools/independent_check.mjs",
+      "bytes": 5841,
+      "sha256": "061c4b4e463f8897aaba8627b9fed15170b10edb67f76f5f5d39e31787ea5f11",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/tools/independent_check.mjs"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/vectors/interchange.json",
+      "bytes": 19029,
+      "sha256": "da1e43e496af8a41d9ac8f13ecf2c85894e827ee28a1104702d67152c268e6aa",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/vectors/interchange.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/vectors/results.json",
+      "bytes": 7434,
+      "sha256": "7082af00672200221f729b5c782a2a8b435f296e372749358d395cbc07b3e348",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/vectors/results.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/HWP-C-1.0.0-candidate.1.zip",
+      "member": "proof/hwp-c-1/vectors/test-output.txt",
+      "bytes": 8051,
+      "sha256": "f785c3ac0bf359dec6ac59408f70f52579fd6914127e5e27b131683913eccda3",
+      "remote_at_start": "identical",
+      "recovered_path": "proof/hwp-c-1/vectors/test-output.txt"
+    },
+    {
+      "archive": "history/astra-pro/originals/hwp-reproducible-checks (1).zip",
+      "member": "experiments/foundation_checks.py",
+      "bytes": 13254,
+      "sha256": "501fa02e3a687aac8c84844526fd19e3095c8ebed8a0fad9dcdc9e54d7e16690",
+      "remote_at_start": "identical",
+      "recovered_path": "experiments/foundation_checks.py"
+    },
+    {
+      "archive": "history/astra-pro/originals/hwp-reproducible-checks (1).zip",
+      "member": "experiments/results.json",
+      "bytes": 2014,
+      "sha256": "8e9a5e3a1a08091199f18f9ecc82d632d0b5742324d8e5ae1d18f76e8d471e77",
+      "remote_at_start": "identical",
+      "recovered_path": "experiments/results.json"
+    },
+    {
+      "archive": "history/astra-pro/originals/hwp-reproducible-checks (1).zip",
+      "member": "experiments/vectors.json",
+      "bytes": 3393,
+      "sha256": "46fbdad48678c95a84c6fb71842d6d3528e9f9151e9c9bf1e398458061fa0613",
+      "remote_at_start": "identical",
+      "recovered_path": "experiments/vectors.json"
+    }
+  ],
+  "chat6_mapping": [
+    {
+      "source": "Chat 6/ARCHITECTURE.md",
+      "target": "product/mac/ARCHITECTURE.md",
+      "original_sha256": "e62fae2b7ff2bb5857d325054db620ee687dfacfa026b8cf8cc7593e8ab9c829"
+    },
+    {
+      "source": "Chat 6/DATA.md",
+      "target": "product/mac/DATA.md",
+      "original_sha256": "f3e9fb703662ba1241611b9bc2276dbe6291097535342861a2bd70840bbd96f2"
+    },
+    {
+      "source": "Chat 6/EXPORT.md",
+      "target": "product/mac/EXPORT.md",
+      "original_sha256": "2918136ee60079567bfaf69c6df3b2740720dc191c656b7b1f4abc25a06dc988"
+    },
+    {
+      "source": "Chat 6/FOCUS.md",
+      "target": "product/mac/FOCUS.md",
+      "original_sha256": "071c6600e9db52380eb6140e06845b7562a2810fffb933e986555e79e0cf57b9"
+    },
+    {
+      "source": "Chat 6/HWP.md",
+      "target": "product/mac/HWP.md",
+      "original_sha256": "af4b75e4bf5ca7998bedf7a368cbb37ade7d1b320636c5335987a467acc284c6"
+    },
+    {
+      "source": "Chat 6/INPUTS.md",
+      "target": "product/mac/INPUTS.md",
+      "original_sha256": "46c140f693595eca432ff5e852169dc224bc55b258e1f66b5df63d36a5ac40a5"
+    },
+    {
+      "source": "Chat 6/MVP-COMPLETE.md",
+      "target": "product/mac/MVP-COMPLETE.md",
+      "original_sha256": "ae1b7d3c47fe0c8398834f508527f083a3fa7bb323d459ff98602b2058d103fe"
+    },
+    {
+      "source": "Chat 6/NOSTR.md",
+      "target": "product/mac/NOSTR.md",
+      "original_sha256": "917e29c6b07ed5788c60f1e1f547ae89c8399e93fb601f47919e3e6e47c5f0ab"
+    },
+    {
+      "source": "Chat 6/PLAN-01-FOUNDATION.md",
+      "target": "product/mac/plans/PLAN-01-FOUNDATION.md",
+      "original_sha256": "999c7fef01b9c3d5458c104c5391ebead3a81da40d62bf079b27ebe531a77507"
+    },
+    {
+      "source": "Chat 6/PLAN-02-DOCUMENTS.md",
+      "target": "product/mac/plans/PLAN-02-DOCUMENTS.md",
+      "original_sha256": "d93f436ccf77449119ba2decbc2c2af9e0161bad24f5d1e665a1284958c0b9e3"
+    },
+    {
+      "source": "Chat 6/PLAN-03-EDITOR.md",
+      "target": "product/mac/plans/PLAN-03-EDITOR.md",
+      "original_sha256": "de599afd3389914a7e8d9f5464d32558eeffb55217014dda5773ad21194d7576"
+    },
+    {
+      "source": "Chat 6/PLAN-04-HWP.md",
+      "target": "product/mac/plans/PLAN-04-HWP.md",
+      "original_sha256": "160823742110a82ea5c0a50325e96b9cd0c7582b976ef5a0a98968aa135dca02"
+    },
+    {
+      "source": "Chat 6/PLAN-05-EXPORT.md",
+      "target": "product/mac/plans/PLAN-05-EXPORT.md",
+      "original_sha256": "e5a3e4c9e3fe771b7c5f21896a3568e501f6b04c76ce60e64ac70dd86ceef139"
+    },
+    {
+      "source": "Chat 6/PLAN-06-NOSTR.md",
+      "target": "product/mac/plans/PLAN-06-NOSTR.md",
+      "original_sha256": "947ad4a532ed1845f10dd82761a50a4a60546b7bb5b3b69d4d294ff8ce96a4e2"
+    },
+    {
+      "source": "Chat 6/PLAN-07-FOCUS.md",
+      "target": "product/mac/plans/PLAN-07-FOCUS.md",
+      "original_sha256": "4c28c2f0c6d5967f15ec99eeb38aed738bfa2fbcae0fe8097ef9b4df32103e82"
+    },
+    {
+      "source": "Chat 6/PLAN-08-RELEASE.md",
+      "target": "product/mac/plans/PLAN-08-RELEASE.md",
+      "original_sha256": "18b460dee01642f6ee78b6880ba00e9f7c1a5403e3118a2339e285db5de6c226"
+    },
+    {
+      "source": "Chat 6/PREPARATION.json",
+      "target": "product/mac/PREPARATION.json",
+      "original_sha256": "ea820db1483678927432be183cc173c94146034b5750b16f67c395eb290a94e9"
+    },
+    {
+      "source": "Chat 6/PREPARATION.md",
+      "target": "product/mac/PREPARATION.md",
+      "original_sha256": "be5638e958c0adc681151f564efc7bd733571bcc1a3f114c783f822d730f914b"
+    },
+    {
+      "source": "Chat 6/PRODUCT.md",
+      "target": "product/mac/PRODUCT.md",
+      "original_sha256": "973ed72bf39d13b8afb420befcb1c729ce8fd3a2ce69d818c2c1a41bc61bb2bc"
+    },
+    {
+      "source": "Chat 6/README(4).md",
+      "target": "product/mac/README.md",
+      "original_sha256": "eb2289e7e39ef8916ccee2c9e0bed6c30a2f99c96cffbe229d043fad861a6256"
+    },
+    {
+      "source": "Chat 6/README(5).md",
+      "target": "mac/Packages/WriterFoundation/README.md",
+      "original_sha256": "cf5f57e4211b903bb1aec524d86b6f7d388bf94cdd46e852d94ea7956c7d3a1d"
+    },
+    {
+      "source": "Chat 6/REPOSITORY-AUDIT.md",
+      "target": "product/mac/REPOSITORY-AUDIT.md",
+      "original_sha256": "2806dd6919d6af52ac33894a44bd9902101de3ba0cf03a63caec3b94fb137f46"
+    },
+    {
+      "source": "Chat 6/SECURITY.md",
+      "target": "product/mac/SECURITY.md",
+      "original_sha256": "ab58de791fef71bb8a8e372b92f5b8a6f2c2758b4c95f0540907c801d72a6392"
+    },
+    {
+      "source": "Chat 6/START-01.md",
+      "target": "product/mac/starts/START-01.md",
+      "original_sha256": "651b98c0ceeb16aea65fbcd7b66bdb0c982f309f75971450aa86f0a29940390f"
+    },
+    {
+      "source": "Chat 6/START-02.md",
+      "target": "product/mac/starts/START-02.md",
+      "original_sha256": "d59456de4d8e35b39c4ab3599fdfbb3ef008ea49a102cd4edd78c127b9bf240a"
+    },
+    {
+      "source": "Chat 6/START-03.md",
+      "target": "product/mac/starts/START-03.md",
+      "original_sha256": "761482c06bcabb944627bc67bcc092e00e7b28ca21f72198b391c89e8ed17fab"
+    },
+    {
+      "source": "Chat 6/START-04.md",
+      "target": "product/mac/starts/START-04.md",
+      "original_sha256": "c207de7a5481e20e7aa0ea150a2750a454ff8b616b5aed4397542e4a9e5b6d77"
+    },
+    {
+      "source": "Chat 6/START-05.md",
+      "target": "product/mac/starts/START-05.md",
+      "original_sha256": "6461d4d0cf6b8b0f3df08b3a7a6bf25b00aa369c4e634c5cd0e1094ec107d9d2"
+    },
+    {
+      "source": "Chat 6/START-06.md",
+      "target": "product/mac/starts/START-06.md",
+      "original_sha256": "48c0947c13bd255b2fca9729a8166e5adf5ed24a1ecd172a6c578128f0458ebd"
+    },
+    {
+      "source": "Chat 6/START-07.md",
+      "target": "product/mac/starts/START-07.md",
+      "original_sha256": "074abe3a0cce677f4199ed28e2c3a085fe2d08dd03abb2b26d81a01336e2a253"
+    },
+    {
+      "source": "Chat 6/START-08.md",
+      "target": "product/mac/starts/START-08.md",
+      "original_sha256": "af2e7ffaeb73311ab2e96e4523305b46f9e13a05538d26327c0ecae78f2640a6"
+    },
+    {
+      "source": "Chat 6/UX.md",
+      "target": "product/mac/UX.md",
+      "original_sha256": "ed57c728a347419e4bcb87639234c610411f4c4dd989d45f72b55c85d446c8f6"
+    },
+    {
+      "source": "Chat 6/acceptance.json",
+      "target": "product/mac/contracts/acceptance.json",
+      "original_sha256": "a1af2c687bcce091a6b6b7920b10d36eeed94368afbc76a2627cd0b925b127c9"
+    },
+    {
+      "source": "Chat 6/bootstrap_protocol.py",
+      "target": "history/astra-pro/legacy-tools/bootstrap_protocol.py",
+      "original_sha256": "df1f0f5dbff12b3d28757513673da2d323d4957b6f92a21079104a172ca9a3c5"
+    },
+    {
+      "source": "Chat 6/interfaces.md",
+      "target": "product/mac/contracts/interfaces.md",
+      "original_sha256": "22db00f2220ff7b1e792081694329d1051c1def077c19fb876e801ee705383cd"
+    }
+  ],
+  "baseline_files": [
+    {
+      "path": ".github/workflows/materialize-source-of-truth.yml",
+      "git_blob": "8c184b2aa157111a41c05cca2e8a5f58eec7ece6",
+      "bytes": 3639,
+      "sha256": "8c46f2282758c0d3d64f00210107c57581425f6cddd3753390e07415d442423f"
+    },
+    {
+      "path": "README.md",
+      "git_blob": "01efe91b4de0d518f98553fa9a9de831698e8b40",
+      "bytes": 3251,
+      "sha256": "a5aa920962c01f87ebd0778917a0fba46c986db0d9bd37b9a545e558f86b9ec3"
+    },
+    {
+      "path": "RECONCILIATION.md",
+      "git_blob": "24deed95d2cddd8743d2d1a98a1561bd44182533",
+      "bytes": 3607,
+      "sha256": "c4b31ffcbb5e3999a2e2adafa6110c2d33da3a8bc4c38c886c2f752bc039915e"
+    },
+    {
+      "path": "algorithm/README.md",
+      "git_blob": "8efe58ab7da7e8069eba6da66ccfcd67c11c0833",
+      "bytes": 968,
+      "sha256": "0f80f98b02626bc007e50d2116bba5f2224f46a669ecaf4b5f7f65edba9a5a0a"
+    },
+    {
+      "path": "algorithm/a1_features.py",
+      "git_blob": "9489508ee498bae135371acf5a7b9f8e6ff79980",
+      "bytes": 8657,
+      "sha256": "5faa6a6c93a129551f954082e051f6cd448c00ae4c9de5361d3c037024118845"
+    },
+    {
+      "path": "algorithm/a1_replay.py",
+      "git_blob": "bf2c5292201b9d6e236a4c5cb9daae34bf3a9476",
+      "bytes": 9761,
+      "sha256": "f9badc45b13aa72c31295d8c3814efe330c2e7b79b6179aa3a1a497c56ddb5af"
+    },
+    {
+      "path": "algorithm/a1_types.py",
+      "git_blob": "2ea9a41e034d47a6114fa38fcc031bb2f3182e8d",
+      "bytes": 4338,
+      "sha256": "a53c196e4aebff5de4c3afed5f681cab85434c14e391f732616aca191a8e03ba"
+    },
+    {
+      "path": "algorithm/attack.py",
+      "git_blob": "11b5e680606fc816aeea89d73b7529225e8f4165",
+      "bytes": 3337,
+      "sha256": "d9479c7e02d0ffd68da256c5a01b77e125ea749094a8882aab18964d65a94cbb"
+    },
+    {
+      "path": "algorithm/experiment.py",
+      "git_blob": "e6ce99aed2b34108a92632b93718cfbb10874ca5",
+      "bytes": 6362,
+      "sha256": "8d70ee38b387f836dd2f50857d2fc80ac0258844bb9f7917c97b94b8f406ddb7"
+    },
+    {
+      "path": "algorithm/fixtures.py",
+      "git_blob": "21c6a73044d45aa6cfc49587946c15979c6efd03",
+      "bytes": 5205,
+      "sha256": "83922f9c31414b3e3ff772db04f6af66aa877e6fdd93eca24de1aca7e35d7a2e"
+    },
+    {
+      "path": "algorithm/reference.py",
+      "git_blob": "f86c21c357f881d3b0a41578ab94da074a3fb543",
+      "bytes": 8721,
+      "sha256": "3a36b1dc511e8a9611f61c92d06f3ccaaec815826a68f2a602373a89ce8531c2"
+    },
+    {
+      "path": "algorithm/test_reference.py",
+      "git_blob": "42f499e50ef68cb4b321df5c5d77fed67d4db68f",
+      "bytes": 15530,
+      "sha256": "7cfac74aa55490c7986f9a71df1fb9b041c9074d412984a2eda2e778a2ffb5fc"
+    },
+    {
+      "path": "algorithm/train.py",
+      "git_blob": "182a561745328525be8bb7f3d036047321d8f7e4",
+      "bytes": 15140,
+      "sha256": "4207f15dc058bba0b634c841dd49f710f51445118e3a67b0ecf6e9131aeaaced"
+    },
+    {
+      "path": "algorithm/v0_3/API.md",
+      "git_blob": "37d1dd1763beee5aec601c907734b7e3cde1b58d",
+      "bytes": 4132,
+      "sha256": "80eca15d9c38beeef7233a9b67e55061945b0c2cce981b40a34990a02cba1f23"
+    },
+    {
+      "path": "algorithm/v0_3/AUDIT.md",
+      "git_blob": "b4a81a8c386593ae2d46527eca80207576a62c95",
+      "bytes": 6999,
+      "sha256": "2241da9232c0ede4b1524c48dba76240c99f28bd2f00587e3de94ed4d98eec31"
+    },
+    {
+      "path": "algorithm/v0_3/DATASET_PROTOCOL.md",
+      "git_blob": "f4ce9e7355cc9a6088bd78b028c433c7982800f3",
+      "bytes": 9596,
+      "sha256": "c9bd4f5144cd82bc6ddab151852adce3db91ef9b145073f25a98a2949357b200"
+    },
+    {
+      "path": "algorithm/v0_3/FEATURES.md",
+      "git_blob": "32f6cabd543b7610f40ac5dfe36c786af932bc51",
+      "bytes": 6609,
+      "sha256": "e19b42a8f372e72ed9e375b3c365a2b5ac905c33b8fbe1e932d36ff828408913"
+    },
+    {
+      "path": "algorithm/v0_3/PUBLICATION.md",
+      "git_blob": "8f507fae08aa92a4e45973ef0e7d30d206a225dc",
+      "bytes": 1232,
+      "sha256": "b338f2bb7ef8c8b4f6cca374fb98f0b9c989786d3449c32bd698c8fdd4fee98f"
+    },
+    {
+      "path": "algorithm/v0_3/README.md",
+      "git_blob": "fcf924ea2562ce08361019690ac17ee78c8eeb53",
+      "bytes": 4614,
+      "sha256": "0528c4b6aeded3fba5359e8cf174a420096582bd769a437d3089d2c6e90d7df7"
+    },
+    {
+      "path": "algorithm/v0_3/RESULTS.md",
+      "git_blob": "d89c8baffbb347a5c407bbffbc3a3d73015f3127",
+      "bytes": 2330,
+      "sha256": "02e2448cbd12f11c0cf67fb3387e0175ea257c62b4b0a6f2ef00f993eb71121b"
+    },
+    {
+      "path": "algorithm/v0_3/SOURCES.md",
+      "git_blob": "a017c18a67fe76c435e0052c7a81bde6f46aa4c2",
+      "bytes": 1451,
+      "sha256": "6d1cb94718509cf26af091efe3ab9cac77f4de6ac4ac8cd41be7a0e210c2757e"
+    },
+    {
+      "path": "algorithm/v0_3/SPECIFICATION.md",
+      "git_blob": "29e247561ad0e17336aba4b2dca51d84a61abb28",
+      "bytes": 21717,
+      "sha256": "1b5527bef28fdff13e133732da5a1a9a2dc4ce2b0a5105c747dbaf359a6fd6a8"
+    },
+    {
+      "path": "algorithm/v0_3/TELEMETRY.md",
+      "git_blob": "88910a7b25d59b4f4f3474564538cededa26a1d5",
+      "bytes": 7928,
+      "sha256": "a746ded39072604f0d9576f352cdb07bbc91f245b910db016d949de77fc4fff8"
+    },
+    {
+      "path": "algorithm/v0_3/THEORY.md",
+      "git_blob": "2062682e3a935f9226e5c5eed223fb10b5602f70",
+      "bytes": 10353,
+      "sha256": "aa6f23458d6cdada4a6f1d9ec8d055d4d6a5efa8eb808c6c7d480dc256253823"
+    },
+    {
+      "path": "algorithm/v0_3/artifacts/baseline.json",
+      "git_blob": "7209f38c8f286289f812fb53957cf9e9c700c461",
+      "bytes": 263,
+      "sha256": "6b48599f9ca222042ab10f243ab3b0558583335a3094a55c828a8e2f1b868532"
+    },
+    {
+      "path": "algorithm/v0_3/artifacts/feature-vector.json",
+      "git_blob": "266cc4e96f5c9c00b7f99629df624ca1b91cd3d2",
+      "bytes": 4071,
+      "sha256": "029c0e10fb12739dd4bd65df87bf63379591d779d307b4c1bdc329c2a52d5e25"
+    },
+    {
+      "path": "algorithm/v0_3/artifacts/results.json",
+      "git_blob": "886389900aef48fb9ca2877c1624f27a5932c208",
+      "bytes": 7549,
+      "sha256": "4eb2e56109d437c0a41f96581eef48ce44fbf76af8af1c7af4f2243abe2b3a11"
+    },
+    {
+      "path": "algorithm/v0_3/artifacts/telemetry-example.json",
+      "git_blob": "dcc6cd831de73b817aa522825004b9409564eeb3",
+      "bytes": 757,
+      "sha256": "ab75ce353a87073de4167f41a73b29f185f3e13ad5d69e7e15778bee2dd0c3e3"
+    },
+    {
+      "path": "algorithm/v0_3/artifacts/v02-counterexamples.json",
+      "git_blob": "e509d34647b8cec08727413e1da47e4f4c5c9cd5",
+      "bytes": 1000,
+      "sha256": "13ad3cbd947ab491191a0fa06aa76fb2ffb90774a68f45c01b9996a006f12947"
+    },
+    {
+      "path": "algorithm/v0_3/requirements.txt",
+      "git_blob": "fc480ac7e882265ab82cdc190fd4ae35034b6c4e",
+      "bytes": 46,
+      "sha256": "1cfbd046c0c432323ae46e12f03741a08545959bdfcc5ba2ed7d0425c9015364"
+    },
+    {
+      "path": "algorithm/v0_3/telemetry.schema.json",
+      "git_blob": "4a61177680941b616b3cc00e868cd0fcb5022f98",
+      "bytes": 10123,
+      "sha256": "cd9601971b48c2cbb40917adbfa470badcfe2be8a18061d05627f1e6adc9167e"
+    },
+    {
+      "path": "artifacts/reconcile-delta/probe.bin",
+      "git_blob": "8df30b879f83a9f7ab903584dff3842328b3879d",
+      "bytes": 37,
+      "sha256": "2b63bcc7744a9730eb3564bfaeb9778b6c7d270b9709162c52aa9e7f4bbbd83a"
+    },
+    {
+      "path": "artifacts/reconcile-delta/test.txt",
+      "git_blob": "30d74d258442c7c65512eafab474568dd706c430",
+      "bytes": 4,
+      "sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    },
+    {
+      "path": "artifacts/source-of-truth/SHA256SUMS",
+      "git_blob": "0579c8a3ad5e739aabe21c87f9793a517c938341",
+      "bytes": 97,
+      "sha256": "8f115f2706ccf3367266bf5fb8aacbb93ff833d3d8452e2b1d84a6ec38eaf0c0"
+    },
+    {
+      "path": "artifacts/source-of-truth/astra-history-2026-09-16.tar.xz",
+      "git_blob": "34f40cd98f9a8249f0e98ee903bdeb419f743c9e",
+      "bytes": 15000,
+      "sha256": "aab1ac798924a8a7b06d92e9d5b3921a1bbc81e99d2fdf8ea723f66b4dd7f2f3"
+    },
+    {
+      "path": "experiments/README.md",
+      "git_blob": "bd82d1353af7045dc4ff0bcd3f67677464ecc1ef",
+      "bytes": 1430,
+      "sha256": "1aeebf7dffc7a84a4bd918b765f1c42d2cabf8f54967c25c3d2de61a9eafc9d2"
+    },
+    {
+      "path": "experiments/foundation_checks.py",
+      "git_blob": "92903b42d0a31d2b872d5d1a0df120f8d1cd3dcc",
+      "bytes": 13254,
+      "sha256": "501fa02e3a687aac8c84844526fd19e3095c8ebed8a0fad9dcdc9e54d7e16690"
+    },
+    {
+      "path": "experiments/requirements.txt",
+      "git_blob": "c20ae31ce22ee67bf283e44a224c99b467f871ec",
+      "bytes": 89,
+      "sha256": "1654065e5511c969e4f92a1ed90a7c36d3deeaa0150a7dd4bfe5f802720f9de1"
+    },
+    {
+      "path": "experiments/results.json",
+      "git_blob": "52391bae94f783c14f544c45d5580d4d298163ac",
+      "bytes": 2014,
+      "sha256": "8e9a5e3a1a08091199f18f9ecc82d632d0b5742324d8e5ae1d18f76e8d471e77"
+    },
+    {
+      "path": "experiments/vectors.json",
+      "git_blob": "1f4c613076eed90d66041e019e55f017701e2bbf",
+      "bytes": 3393,
+      "sha256": "46fbdad48678c95a84c6fb71842d6d3528e9f9151e9c9bf1e398458061fa0613"
+    },
+    {
+      "path": "proof/hwp-c-1/LICENSE",
+      "git_blob": "f09cf892466d5b4e08edf510b380bc32787f5daf",
+      "bytes": 1315,
+      "sha256": "ebb8e44c15060b929cd90d7e6a3ed928c3d964b38289d7e3fe483ce3c7e393f7"
+    },
+    {
+      "path": "proof/hwp-c-1/README.md",
+      "git_blob": "1a31dc1f8e58a23225c802243651f26662dc5eed",
+      "bytes": 5081,
+      "sha256": "428fd7cb3fe4de326d066681075fc74cb54f4a1fbbdd730e1a22e8d9ade931f4"
+    },
+    {
+      "path": "proof/hwp-c-1/SOURCES.md",
+      "git_blob": "7dc0a350d41b6c90c24397d23184d9f2d4d2d0cf",
+      "bytes": 2832,
+      "sha256": "a5bdd94d8e032ea8b8517f3a866b3c409bfcc5800d6f28226543c379f05e9885"
+    },
+    {
+      "path": "proof/hwp-c-1/SPECIFICATION.md",
+      "git_blob": "57f2afcdc9162948ed8dbe3592a3b829073a2149",
+      "bytes": 29540,
+      "sha256": "5f19ee912724796daf33a14d3fa752552865b086cb9586349318d7ff1f16f759"
+    },
+    {
+      "path": "proof/hwp-c-1/docs/ARCHIVAL.md",
+      "git_blob": "a52602e89619d574675ef3ebcd59fd843cab1a87",
+      "bytes": 7436,
+      "sha256": "1df9a53b1b51047f4a9284bc2dbadc5190e45ac9cb0a5dc557f3465157783b39"
+    },
+    {
+      "path": "proof/hwp-c-1/docs/HWP-A03-BINDING.md",
+      "git_blob": "65fd8e6d1d170cef11ff685630686f548b3c7f87",
+      "bytes": 7745,
+      "sha256": "a88df282b90ed15264b7e1fbebc6f19672a5ed451e185702d7fd2ef60d899386"
+    },
+    {
+      "path": "proof/hwp-c-1/docs/INTEROP.md",
+      "git_blob": "cfce7fc03a376d258a18e3e0992df8ed828a8234",
+      "bytes": 5866,
+      "sha256": "a1b54a3b705dae8755364e8be14b1ed44f66e12ad31570aa60edbff2cb16c188"
+    },
+    {
+      "path": "proof/hwp-c-1/docs/PRIVATE-EXECUTION.md",
+      "git_blob": "de99e73e6a90ac5e39b9112d5ccdb5e5b6012535",
+      "bytes": 6609,
+      "sha256": "f3b06691b24ffc97d7f30cfd123eb0cb09602bcb122cedf90faa55e53be38973"
+    },
+    {
+      "path": "proof/hwp-c-1/docs/SECURITY.md",
+      "git_blob": "a4f8aa134e2b479a23a2c03b5afec56ac9518dcd",
+      "bytes": 9717,
+      "sha256": "cc430771d49e1b5de99a605d684737b059468999eec87362d9f06381b0d6d7e3"
+    },
+    {
+      "path": "proof/hwp-c-1/hwp_crypto.py",
+      "git_blob": "b4f5fa06937527f335964e9c76d6bd5cecd88c84",
+      "bytes": 37008,
+      "sha256": "994e891e1f2039ed7c9f282049fb35ae6dcf761d67c4bf50740ed89b71155a3b"
+    },
+    {
+      "path": "proof/hwp-c-1/requirements.txt",
+      "git_blob": "e96522a28a730a583d1f00cdc1943c4ac4f1345b",
+      "bytes": 39,
+      "sha256": "f29cbc3dcf2bb01fea99bdbf99e811b965a31b3dfc1ed17f04d5116c5b1a425f"
+    },
+    {
+      "path": "proof/hwp-c-1/rfc3161_adapter.py",
+      "git_blob": "10e2711a4bb0eea8e488266f20380e5d429d694e",
+      "bytes": 3729,
+      "sha256": "28cb17d51ac6941cd9e00ed5f69615b9d8e2a87ca3cf0a18933242aa42a5d65f"
+    },
+    {
+      "path": "proof/hwp-c-1/run_checks.py",
+      "git_blob": "dc8ecd294abff200c16cd96e709b038935defb54",
+      "bytes": 3277,
+      "sha256": "5637bf7f26593135f68292464929d2dc46d690279af703935d55241adeaa1ef3"
+    },
+    {
+      "path": "proof/hwp-c-1/schema.cddl",
+      "git_blob": "f4f50fa16c7b16b5380140abbac7d2dc7a4c1b35",
+      "bytes": 3504,
+      "sha256": "956f3262e3f3348d38b2e1a1bd5f6c038c8ccfbb4352e42a128b4c2ba8f293d3"
+    },
+    {
+      "path": "proof/hwp-c-1/tests/fixtures.py",
+      "git_blob": "81d59c8cb5717edb4adc8bcc0b5d3d4a5d00b924",
+      "bytes": 5464,
+      "sha256": "d4f7fb5a66ad13efbe5d9b2db5b3183061f5ea34c481cd6a6c14c8f0b0d43ec8"
+    },
+    {
+      "path": "proof/hwp-c-1/tests/test_core.py",
+      "git_blob": "2c64a9cdad598c8b426d2d289f9475300b5536de",
+      "bytes": 22278,
+      "sha256": "e3c664ef2ec58bb63c9e9eb2f16ace244859d84dced0d5251565edbb50b7eaa1"
+    },
+    {
+      "path": "proof/hwp-c-1/tests/test_timestamp.py",
+      "git_blob": "c7fe7fd46292493760c38e5f67610b5bfb3d4c92",
+      "bytes": 3444,
+      "sha256": "6701dd7207c4fc17549dee331eebb5ee37ae945dd07270eda0134d3d6be79505"
+    },
+    {
+      "path": "proof/hwp-c-1/tools/generate_vectors.py",
+      "git_blob": "2bc3ae536178b4bc567f02a63e336f715601519d",
+      "bytes": 2525,
+      "sha256": "f5203d4ef7c45a976b27b6ba7dfeb682e9bde2b58f14ec17a6d404087a1650d0"
+    },
+    {
+      "path": "proof/hwp-c-1/tools/independent_check.mjs",
+      "git_blob": "be17a494d50d66a2d8ded23a34efb25efbfd7288",
+      "bytes": 5841,
+      "sha256": "061c4b4e463f8897aaba8627b9fed15170b10edb67f76f5f5d39e31787ea5f11"
+    },
+    {
+      "path": "proof/hwp-c-1/vectors/interchange.json",
+      "git_blob": "cb02e1717417c38cd08ec6f8adfb069801ec9f80",
+      "bytes": 19029,
+      "sha256": "da1e43e496af8a41d9ac8f13ecf2c85894e827ee28a1104702d67152c268e6aa"
+    },
+    {
+      "path": "proof/hwp-c-1/vectors/results.json",
+      "git_blob": "fe57f790a18972ac0f0607834bb296d23a7c12bb",
+      "bytes": 7434,
+      "sha256": "7082af00672200221f729b5c782a2a8b435f296e372749358d395cbc07b3e348"
+    },
+    {
+      "path": "proof/hwp-c-1/vectors/test-output.txt",
+      "git_blob": "d402900eabf6f8c17891b4e9b8d085e34a30f94b",
+      "bytes": 8051,
+      "sha256": "f785c3ac0bf359dec6ac59408f70f52579fd6914127e5e27b131683913eccda3"
+    },
+    {
+      "path": "research/hwp/01-foundation.md",
+      "git_blob": "bb60f2ffb8381b651b8d61de6c1676f5408f9c71",
+      "bytes": 10313,
+      "sha256": "2e02ebecbf2db51639ab693dab69a4fae824b4a5141a50d042c6627e03e112c6"
+    },
+    {
+      "path": "research/hwp/02-algorithm.md",
+      "git_blob": "9dba4342c717288e1e35dc47559d5c1ad7566acb",
+      "bytes": 15617,
+      "sha256": "0bc7ffb07d7ac7aafe240870c4f9e70286ddc3774bd92f38ee2ec037ae575488"
+    },
+    {
+      "path": "research/hwp/03-proof-system.md",
+      "git_blob": "cc866a4a86b741eaa35228e1ce9e2dcbd3cfd4c0",
+      "bytes": 16254,
+      "sha256": "46e037b948c029a6b662d308e2bdff920155e4aca56e8c42fea162e9e7493bd7"
+    },
+    {
+      "path": "research/hwp/04-validation.md",
+      "git_blob": "47dc582e140c2864dab36fdaa3e37702dcd60660",
+      "bytes": 12217,
+      "sha256": "2fa17cc0f95711a1e93fd84d78287730fe789307e5fcb3a17894dea9c58c0d63"
+    },
+    {
+      "path": "research/hwp/05-interoperability.md",
+      "git_blob": "85371da6d080ce91bbcbebc47871d0e33432dd7a",
+      "bytes": 7272,
+      "sha256": "6c2ec2136f571392b76c60872ccfe308cf9c1f95e66a7234f8ab8fcee05d6a61"
+    },
+    {
+      "path": "research/hwp/06-sources.md",
+      "git_blob": "3acab00d22bba9ef2e2aedfb0a09e26f9b28fdb7",
+      "bytes": 8135,
+      "sha256": "5f2ed6080eba201b032452f8e38f75881037a6884e3c0f7f9cc22d1353660a2c"
+    },
+    {
+      "path": "research/hwp/07-results.md",
+      "git_blob": "2c2161527de15dc89fc82fbd6ea9655303b6ae54",
+      "bytes": 6479,
+      "sha256": "e9e8c4c43f09aa012952129850ad8f4408c615629a612b95ddf545242227d57f"
+    },
+    {
+      "path": "research/hwp/research-policy.json",
+      "git_blob": "9528cc605c0fa3c692aed3cfb27d1fa4edefc460",
+      "bytes": 1490,
+      "sha256": "cacb6d8ef479364903847bfdcccd691c449a7705f494c77fb2783ace3ce5c3fe"
+    }
+  ]
+}

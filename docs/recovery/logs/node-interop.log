@@ -1,0 +1,1 @@
+^D{"status":"PASS","node":"v22.16.0","public_cases":16,"canonical_cbor":12,"rejected_cbor":7,"private_event_commitments":1250,"normalized_records":1,"lineage_commitments":1,"inclusion_paths":4,"scope":"Independent class-V attestation verifier and binding-layer checks; no independent behavioural recomputation."}

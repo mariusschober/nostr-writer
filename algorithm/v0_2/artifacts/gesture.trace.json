@@ -1,0 +1,1498 @@
+{
+  "documents": [
+    {
+      "final_text": "A writer considers a claim, changes the wording, and follows the consequences through a longer argument. This synthetic fixture proves no human authorship. ",
+      "id": "gesture",
+      "language": "en",
+      "observations": [
+        {
+          "i": 0,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 186000,
+          "token": "p0"
+        },
+        {
+          "i": 1,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 286000,
+          "token": "p0"
+        },
+        {
+          "i": 2,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 386000,
+          "token": "p0"
+        },
+        {
+          "i": 3,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 583000,
+          "token": "p3"
+        },
+        {
+          "i": 4,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 683000,
+          "token": "p3"
+        },
+        {
+          "i": 5,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 783000,
+          "token": "p3"
+        },
+        {
+          "i": 6,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 887000,
+          "token": "p6"
+        },
+        {
+          "i": 7,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 987000,
+          "token": "p6"
+        },
+        {
+          "i": 8,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1087000,
+          "token": "p6"
+        },
+        {
+          "i": 9,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1355000,
+          "token": "p9"
+        },
+        {
+          "i": 10,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1455000,
+          "token": "p9"
+        },
+        {
+          "i": 11,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1555000,
+          "token": "p9"
+        },
+        {
+          "i": 12,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1751000,
+          "token": "p12"
+        },
+        {
+          "i": 13,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1851000,
+          "token": "p12"
+        },
+        {
+          "i": 14,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 1951000,
+          "token": "p12"
+        },
+        {
+          "i": 15,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2066000,
+          "token": "p15"
+        },
+        {
+          "i": 16,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2166000,
+          "token": "p15"
+        },
+        {
+          "i": 17,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2266000,
+          "token": "p15"
+        },
+        {
+          "i": 18,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2345000,
+          "token": "p18"
+        },
+        {
+          "i": 19,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2445000,
+          "token": "p18"
+        },
+        {
+          "i": 20,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2545000,
+          "token": "p18"
+        },
+        {
+          "i": 21,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2799000,
+          "token": "p21"
+        },
+        {
+          "i": 22,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2899000,
+          "token": "p21"
+        },
+        {
+          "i": 23,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 2999000,
+          "token": "p21"
+        },
+        {
+          "i": 24,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 3333000,
+          "token": "p24"
+        },
+        {
+          "i": 25,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 3433000,
+          "token": "p24"
+        },
+        {
+          "i": 26,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 3533000,
+          "token": "p24"
+        },
+        {
+          "i": 27,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 3880000,
+          "token": "p27"
+        },
+        {
+          "i": 28,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 3980000,
+          "token": "p27"
+        },
+        {
+          "i": 29,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4080000,
+          "token": "p27"
+        },
+        {
+          "i": 30,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4310000,
+          "token": "p30"
+        },
+        {
+          "i": 31,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4410000,
+          "token": "p30"
+        },
+        {
+          "i": 32,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4510000,
+          "token": "p30"
+        },
+        {
+          "i": 33,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4744000,
+          "token": "p33"
+        },
+        {
+          "i": 34,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4844000,
+          "token": "p33"
+        },
+        {
+          "i": 35,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 4944000,
+          "token": "p33"
+        },
+        {
+          "i": 36,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5030000,
+          "token": "p36"
+        },
+        {
+          "i": 37,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5130000,
+          "token": "p36"
+        },
+        {
+          "i": 38,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5230000,
+          "token": "p36"
+        },
+        {
+          "i": 39,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5371000,
+          "token": "p39"
+        },
+        {
+          "i": 40,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5471000,
+          "token": "p39"
+        },
+        {
+          "i": 41,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5571000,
+          "token": "p39"
+        },
+        {
+          "i": 42,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5700000,
+          "token": "p42"
+        },
+        {
+          "i": 43,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5800000,
+          "token": "p42"
+        },
+        {
+          "i": 44,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 5900000,
+          "token": "p42"
+        },
+        {
+          "i": 45,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 6132000,
+          "token": "p45"
+        },
+        {
+          "i": 46,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 6232000,
+          "token": "p45"
+        },
+        {
+          "i": 47,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 6332000,
+          "token": "p45"
+        },
+        {
+          "i": 48,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 6679000,
+          "token": "p48"
+        },
+        {
+          "i": 49,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 6779000,
+          "token": "p48"
+        },
+        {
+          "i": 50,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 6879000,
+          "token": "p48"
+        },
+        {
+          "i": 51,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 7109000,
+          "token": "p51"
+        },
+        {
+          "i": 52,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 7209000,
+          "token": "p51"
+        },
+        {
+          "i": 53,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 7309000,
+          "token": "p51"
+        },
+        {
+          "i": 54,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 7728000,
+          "token": "p54"
+        },
+        {
+          "i": 55,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 7828000,
+          "token": "p54"
+        },
+        {
+          "i": 56,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 7928000,
+          "token": "p54"
+        },
+        {
+          "i": 57,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8113000,
+          "token": "p57"
+        },
+        {
+          "i": 58,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8213000,
+          "token": "p57"
+        },
+        {
+          "i": 59,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8313000,
+          "token": "p57"
+        },
+        {
+          "i": 60,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8456000,
+          "token": "p60"
+        },
+        {
+          "i": 61,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8556000,
+          "token": "p60"
+        },
+        {
+          "i": 62,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8656000,
+          "token": "p60"
+        },
+        {
+          "i": 63,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8716000,
+          "token": "p63"
+        },
+        {
+          "i": 64,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8816000,
+          "token": "p63"
+        },
+        {
+          "i": 65,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 8916000,
+          "token": "p63"
+        },
+        {
+          "i": 66,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 9199000,
+          "token": "p66"
+        },
+        {
+          "i": 67,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 9299000,
+          "token": "p66"
+        },
+        {
+          "i": 68,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 9399000,
+          "token": "p66"
+        },
+        {
+          "i": 69,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 9503000,
+          "token": "p69"
+        },
+        {
+          "i": 70,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 9603000,
+          "token": "p69"
+        },
+        {
+          "i": 71,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 9703000,
+          "token": "p69"
+        },
+        {
+          "i": 72,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10068000,
+          "token": "p72"
+        },
+        {
+          "i": 73,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10168000,
+          "token": "p72"
+        },
+        {
+          "i": 74,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10268000,
+          "token": "p72"
+        },
+        {
+          "i": 75,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10521000,
+          "token": "p75"
+        },
+        {
+          "i": 76,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10621000,
+          "token": "p75"
+        },
+        {
+          "i": 77,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10721000,
+          "token": "p75"
+        },
+        {
+          "i": 78,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10816000,
+          "token": "p78"
+        },
+        {
+          "i": 79,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 10916000,
+          "token": "p78"
+        },
+        {
+          "i": 80,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11016000,
+          "token": "p78"
+        },
+        {
+          "i": 81,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11079000,
+          "token": "p81"
+        },
+        {
+          "i": 82,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11179000,
+          "token": "p81"
+        },
+        {
+          "i": 83,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11279000,
+          "token": "p81"
+        },
+        {
+          "i": 84,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11500000,
+          "token": "p84"
+        },
+        {
+          "i": 85,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11600000,
+          "token": "p84"
+        },
+        {
+          "i": 86,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 11700000,
+          "token": "p84"
+        },
+        {
+          "i": 87,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12134000,
+          "token": "p87"
+        },
+        {
+          "i": 88,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12234000,
+          "token": "p87"
+        },
+        {
+          "i": 89,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12334000,
+          "token": "p87"
+        },
+        {
+          "i": 90,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12623000,
+          "token": "p90"
+        },
+        {
+          "i": 91,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12723000,
+          "token": "p90"
+        },
+        {
+          "i": 92,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12823000,
+          "token": "p90"
+        },
+        {
+          "i": 93,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 12935000,
+          "token": "p93"
+        },
+        {
+          "i": 94,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13035000,
+          "token": "p93"
+        },
+        {
+          "i": 95,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13135000,
+          "token": "p93"
+        },
+        {
+          "i": 96,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13217000,
+          "token": "p96"
+        },
+        {
+          "i": 97,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13317000,
+          "token": "p96"
+        },
+        {
+          "i": 98,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13417000,
+          "token": "p96"
+        },
+        {
+          "i": 99,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13524000,
+          "token": "p99"
+        },
+        {
+          "i": 100,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13624000,
+          "token": "p99"
+        },
+        {
+          "i": 101,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 13724000,
+          "token": "p99"
+        },
+        {
+          "i": 102,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14125000,
+          "token": "p102"
+        },
+        {
+          "i": 103,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14225000,
+          "token": "p102"
+        },
+        {
+          "i": 104,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14325000,
+          "token": "p102"
+        },
+        {
+          "i": 105,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14457000,
+          "token": "p105"
+        },
+        {
+          "i": 106,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14557000,
+          "token": "p105"
+        },
+        {
+          "i": 107,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14657000,
+          "token": "p105"
+        },
+        {
+          "i": 108,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14781000,
+          "token": "p108"
+        },
+        {
+          "i": 109,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14881000,
+          "token": "p108"
+        },
+        {
+          "i": 110,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 14981000,
+          "token": "p108"
+        },
+        {
+          "i": 111,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 15051000,
+          "token": "p111"
+        },
+        {
+          "i": 112,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 15151000,
+          "token": "p111"
+        },
+        {
+          "i": 113,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 15251000,
+          "token": "p111"
+        },
+        {
+          "i": 114,
+          "kind": "gesture_start",
+          "profile": "gesture",
+          "source": "device",
+          "t": 15460000,
+          "token": "p114"
+        },
+        {
+          "i": 115,
+          "kind": "gesture_update",
+          "profile": "gesture",
+          "source": "device",
+          "t": 15560000,
+          "token": "p114"
+        },
+        {
+          "i": 116,
+          "kind": "gesture_end",
+          "profile": "gesture",
+          "source": "device",
+          "t": 15660000,
+          "token": "p114"
+        }
+      ],
+      "resolution_us": 1000,
+      "transactions": [
+        {
+          "causes": [
+            2
+          ],
+          "deleted": "",
+          "end": 0,
+          "i": 0,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 0,
+          "t": 386000,
+          "text": "A wr"
+        },
+        {
+          "causes": [
+            5
+          ],
+          "deleted": "",
+          "end": 4,
+          "i": 1,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 4,
+          "t": 783000,
+          "text": "iter"
+        },
+        {
+          "causes": [
+            8
+          ],
+          "deleted": "",
+          "end": 8,
+          "i": 2,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 8,
+          "t": 1087000,
+          "text": " con"
+        },
+        {
+          "causes": [
+            11
+          ],
+          "deleted": "",
+          "end": 12,
+          "i": 3,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 12,
+          "t": 1555000,
+          "text": "side"
+        },
+        {
+          "causes": [
+            14
+          ],
+          "deleted": "",
+          "end": 16,
+          "i": 4,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 16,
+          "t": 1951000,
+          "text": "rs a"
+        },
+        {
+          "causes": [
+            17
+          ],
+          "deleted": "",
+          "end": 20,
+          "i": 5,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 20,
+          "t": 2266000,
+          "text": " cla"
+        },
+        {
+          "causes": [
+            20
+          ],
+          "deleted": "",
+          "end": 24,
+          "i": 6,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 24,
+          "t": 2545000,
+          "text": "im, "
+        },
+        {
+          "causes": [
+            23
+          ],
+          "deleted": "",
+          "end": 28,
+          "i": 7,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 28,
+          "t": 2999000,
+          "text": "chan"
+        },
+        {
+          "causes": [
+            26
+          ],
+          "deleted": "",
+          "end": 32,
+          "i": 8,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 32,
+          "t": 3533000,
+          "text": "ges "
+        },
+        {
+          "causes": [
+            29
+          ],
+          "deleted": "",
+          "end": 36,
+          "i": 9,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 36,
+          "t": 4080000,
+          "text": "the "
+        },
+        {
+          "causes": [
+            32
+          ],
+          "deleted": "",
+          "end": 40,
+          "i": 10,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 40,
+          "t": 4510000,
+          "text": "word"
+        },
+        {
+          "causes": [
+            35
+          ],
+          "deleted": "",
+          "end": 44,
+          "i": 11,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 44,
+          "t": 4944000,
+          "text": "ing,"
+        },
+        {
+          "causes": [
+            38
+          ],
+          "deleted": "",
+          "end": 48,
+          "i": 12,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 48,
+          "t": 5230000,
+          "text": " and"
+        },
+        {
+          "causes": [
+            41
+          ],
+          "deleted": "",
+          "end": 52,
+          "i": 13,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 52,
+          "t": 5571000,
+          "text": " fol"
+        },
+        {
+          "causes": [
+            44
+          ],
+          "deleted": "",
+          "end": 56,
+          "i": 14,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 56,
+          "t": 5900000,
+          "text": "lows"
+        },
+        {
+          "causes": [
+            47
+          ],
+          "deleted": "",
+          "end": 60,
+          "i": 15,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 60,
+          "t": 6332000,
+          "text": " the"
+        },
+        {
+          "causes": [
+            50
+          ],
+          "deleted": "",
+          "end": 64,
+          "i": 16,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 64,
+          "t": 6879000,
+          "text": " con"
+        },
+        {
+          "causes": [
+            53
+          ],
+          "deleted": "",
+          "end": 68,
+          "i": 17,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 68,
+          "t": 7309000,
+          "text": "sequ"
+        },
+        {
+          "causes": [
+            56
+          ],
+          "deleted": "",
+          "end": 72,
+          "i": 18,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 72,
+          "t": 7928000,
+          "text": "ence"
+        },
+        {
+          "causes": [
+            59
+          ],
+          "deleted": "",
+          "end": 76,
+          "i": 19,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 76,
+          "t": 8313000,
+          "text": "s th"
+        },
+        {
+          "causes": [
+            62
+          ],
+          "deleted": "",
+          "end": 80,
+          "i": 20,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 80,
+          "t": 8656000,
+          "text": "roug"
+        },
+        {
+          "causes": [
+            65
+          ],
+          "deleted": "",
+          "end": 84,
+          "i": 21,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 84,
+          "t": 8916000,
+          "text": "h a "
+        },
+        {
+          "causes": [
+            68
+          ],
+          "deleted": "",
+          "end": 88,
+          "i": 22,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 88,
+          "t": 9399000,
+          "text": "long"
+        },
+        {
+          "causes": [
+            71
+          ],
+          "deleted": "",
+          "end": 92,
+          "i": 23,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 92,
+          "t": 9703000,
+          "text": "er a"
+        },
+        {
+          "causes": [
+            74
+          ],
+          "deleted": "",
+          "end": 96,
+          "i": 24,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 96,
+          "t": 10268000,
+          "text": "rgum"
+        },
+        {
+          "causes": [
+            77
+          ],
+          "deleted": "",
+          "end": 100,
+          "i": 25,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 100,
+          "t": 10721000,
+          "text": "ent."
+        },
+        {
+          "causes": [
+            80
+          ],
+          "deleted": "",
+          "end": 104,
+          "i": 26,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 104,
+          "t": 11016000,
+          "text": " Thi"
+        },
+        {
+          "causes": [
+            83
+          ],
+          "deleted": "",
+          "end": 108,
+          "i": 27,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 108,
+          "t": 11279000,
+          "text": "s sy"
+        },
+        {
+          "causes": [
+            86
+          ],
+          "deleted": "",
+          "end": 112,
+          "i": 28,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 112,
+          "t": 11700000,
+          "text": "nthe"
+        },
+        {
+          "causes": [
+            89
+          ],
+          "deleted": "",
+          "end": 116,
+          "i": 29,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 116,
+          "t": 12334000,
+          "text": "tic "
+        },
+        {
+          "causes": [
+            92
+          ],
+          "deleted": "",
+          "end": 120,
+          "i": 30,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 120,
+          "t": 12823000,
+          "text": "fixt"
+        },
+        {
+          "causes": [
+            95
+          ],
+          "deleted": "",
+          "end": 124,
+          "i": 31,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 124,
+          "t": 13135000,
+          "text": "ure "
+        },
+        {
+          "causes": [
+            98
+          ],
+          "deleted": "",
+          "end": 128,
+          "i": 32,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 128,
+          "t": 13417000,
+          "text": "prov"
+        },
+        {
+          "causes": [
+            101
+          ],
+          "deleted": "",
+          "end": 132,
+          "i": 33,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 132,
+          "t": 13724000,
+          "text": "es n"
+        },
+        {
+          "causes": [
+            104
+          ],
+          "deleted": "",
+          "end": 136,
+          "i": 34,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 136,
+          "t": 14325000,
+          "text": "o hu"
+        },
+        {
+          "causes": [
+            107
+          ],
+          "deleted": "",
+          "end": 140,
+          "i": 35,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 140,
+          "t": 14657000,
+          "text": "man "
+        },
+        {
+          "causes": [
+            110
+          ],
+          "deleted": "",
+          "end": 144,
+          "i": 36,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 144,
+          "t": 14981000,
+          "text": "auth"
+        },
+        {
+          "causes": [
+            113
+          ],
+          "deleted": "",
+          "end": 148,
+          "i": 37,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 148,
+          "t": 15251000,
+          "text": "orsh"
+        },
+        {
+          "causes": [
+            116
+          ],
+          "deleted": "",
+          "end": 152,
+          "i": 38,
+          "op": "splice",
+          "profile": "gesture",
+          "source": "direct",
+          "start": 152,
+          "t": 15660000,
+          "text": "ip. "
+        }
+      ]
+    }
+  ],
+  "target": "gesture",
+  "version": "hwp-a/0.2"
+}

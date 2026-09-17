@@ -1,0 +1,41 @@
+{
+  "algorithm": "hwp-a/0.2",
+  "approved_domains": [],
+  "approved_model_artifacts": [],
+  "standard_targets": {
+    "campaign_false_certification": 0.001,
+    "simultaneous_confidence": 0.95,
+    "complete_qualifying_cluster_coverage": 0.5
+  },
+  "mandatory_attack_families": [
+    "human_transcription",
+    "scripted_input",
+    "replay",
+    "staged_revision",
+    "adaptive_simulation",
+    "mixed_origin",
+    "lineage_laundering",
+    "capture_fabrication"
+  ],
+  "mandatory_complete_attempt_budgets": [
+    1,
+    100
+  ],
+  "false_certification_endpoint": "Any nonqualifying scalar returned HUMAN-WRITTEN anywhere in a campaign.",
+  "maximum_threshold_candidates": 32,
+  "feature_count": 179,
+  "model_heads": [
+    "transcription",
+    "automation",
+    "simulation",
+    "mixed"
+  ],
+  "model_rounds_per_head": 32,
+  "tree_depth": 2,
+  "model_q": 10000,
+  "positive_label": "HUMAN-WRITTEN",
+  "abstention_label": "NOT PROVABLE",
+  "unrestricted_adversary_guarantee": false,
+  "real_human_accuracy_established": false,
+  "capture_admission": "External prerequisite, never an author-controlled trace field."
+}

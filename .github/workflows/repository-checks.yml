@@ -1,0 +1,59 @@
+name: Repository checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Create isolated Python environment
+        run: python3 -m venv "$RUNNER_TEMP/nostr-writer-venv"
+
+      - name: Install frozen protocol requirements
+        run: >-
+          "$RUNNER_TEMP/nostr-writer-venv/bin/python" -m pip install
+          --disable-pip-version-check
+          -r protocol/v0/requirements.txt
+
+      - name: Test repository integrity tooling
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: >-
+          "$RUNNER_TEMP/nostr-writer-venv/bin/python" -m unittest discover
+          -s tools/tests -v
+
+      - name: Verify directly committed protocol
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: >-
+          "$RUNNER_TEMP/nostr-writer-venv/bin/python" tools/bootstrap_protocol.py
+
+      - name: Verify recovered preparation
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: >-
+          "$RUNNER_TEMP/nostr-writer-venv/bin/python" tools/check_preparation.py
+
+      - name: Run joined HWP v0 conformance suite
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        working-directory: protocol/v0
+        run: >-
+          "$RUNNER_TEMP/nostr-writer-venv/bin/python" run_checks.py
+
+      - name: Run independent Node verifier
+        working-directory: protocol/v0
+        run: node tools/check_interop.mjs

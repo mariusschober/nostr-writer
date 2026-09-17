@@ -1,0 +1,537 @@
+# Chat History with GPT 6 Astra Pro
+
+## Task 1
+
+Published to main in mariusschober/nostr-writer, commit a29313c. The repository contains the algorithm specification, cryptographic architecture, adversarial validation framework, primary-source research, executable checks, and their results. I verified the branch update and confirmed that the uploaded experimental files exactly match the files executed locally.
+
+The strongest defensible design is an authenticated writing-process record, a conservative composition detector, and an independently verifiable proof of the detector’s execution. None of those three can substitute for another.
+
+The working name is Human Writing Provenance—HWP. It is a research foundation, not yet a validated certification system.
+
+What the proof must actually establish
+
+Your distinction between composition and transcription is the right one. It also exposes the hardest problem: a person can physically type every character without composing anything, while another person can compose an entire sentence mentally and type it without a single correction.
+
+Consider two cases. In one, someone thinks through a sentence, pauses, types it, and revises a word. In another, someone follows a prepared script producing precisely the same observable actions. When the evidence is identical, a detector cannot recover the different hidden causes. A signature on that evidence cannot recover them either.
+
+The specification formalizes this boundary:
+
+$$ \text{false-certification rate} + \text{genuine-writing non-admission rate} \;\geq\; 1-\operatorname{TV}(P_{\text{composition}},P_{\text{attack}}) $$
+
+Here, total variation measures how distinguishable the two observation distributions are. When an attack closely reproduces the observable distribution of genuine composition, accepting genuine writers also means accepting that attack frequently.
+
+This does not establish that practical attackers can reproduce every useful signal. It establishes what the research needs to discover: which observations remain meaningfully different under deliberate imitation, and which independent capture mechanisms make those observations credible.
+
+Consequently, HUMAN-WRITTEN must mean that a precisely identified contribution satisfies an explicitly defined, evaluated assurance policy. It cannot honestly mean mathematical certainty about an unobservable mental process against every possible adversary.
+
+The algorithm: evaluate how writing decisions develop
+
+The proposed algorithm is specified in 02-algorithm.md. Its central hypothesis is:
+
+The useful signal lies in the relationships between writing, revision, navigation, and subsequent decisions—not merely in human-looking timing.
+
+For example, a writer changes a premise in an earlier paragraph, revisits a later argument, removes an incompatible example, and rewrites the conclusion. That sequence contains relationships between actions and the evolving text. Arbitrarily inserting pauses and backspaces does not reproduce those relationships.
+
+A sophisticated simulator might reproduce them. The algorithm therefore treats their usefulness as a hypothesis to test, not as an already-established human fingerprint.
+
+The processing chain is:
+
+Authenticated observations → exact text reconstruction → passage ancestry → process analysis → conservative acceptance.
+
+First, reconstruct what actually happened. The record contains both input observations and actual text mutations. A keypress is not automatically a character insertion; an unexplained insertion is not automatically typing. Every mutation must connect to its input episode or an explicitly recorded transformation.
+
+This matters particularly on touchscreen devices. Android input methods can commit text, maintain composing regions, and issue corrections rather than deliver one physical-key-style event per character. The design therefore uses explicit input capabilities and separate evaluation for different input modes—not a desktop classifier with missing mobile measurements filled in.
+
+Second, preserve the ancestry of the text. Every inserted text unit receives an origin identity. Moving a paragraph, cutting and pasting within a document, undoing a deletion, or replacing individual words does not erase its ancestry. Imported text remains attributable to its source or marked unsupported. A verified passage imported from another document can carry its existing proof, without becoming the importing author’s original composition.
+
+This prevents a major failure mode: pasting a paragraph, making enough superficial changes, and obtaining a fresh “human” label.
+
+At the same time, ancestry must not become permanent contamination by an idea. Reading an AI-generated argument and independently composing new wording remains permissible. The algorithm evaluates the new composition episode rather than declaring everything influenced by that argument nonhuman.
+
+Third, evaluate process evidence at the relevant passage. Candidate features include contextual pauses and bursts, revision distances, revisits to older text, restructuring, changes in writing behaviour, and dependencies between earlier revisions and later wording. The initial model should be interpretable; a more complex sequence model must demonstrate additional value on held-out adversarial tests.
+
+Acceptance requires adequate evidence, an admitted input mode, valid capture, and sufficiently strong performance against the specified nonqualifying-process families. Missing or ambiguous evidence produces NOT PROVABLE.
+
+There is no mandatory number of mistakes, pauses, or revisions. Such requirements would encourage people to perform the detector’s stereotype instead of writing naturally.
+
+Passage-level provenance without false precision
+
+Character-level origin bookkeeping is not character-level certainty about composition.
+
+The system can know exactly where three newly inserted words came from while lacking enough behavioural evidence to classify that episode. It must preserve that distinction.
+
+Likewise, a strong whole-document score cannot conceal an unsupported paragraph. Passage segmentation is fixed before acceptance is calculated, and a genuine introduction cannot supply “authenticity credit” to copied material elsewhere.
+
+Quotations are handled through explicit scope. The author’s contribution can receive HUMAN-WRITTEN while quoted ranges remain separately identified. That is not equivalent to an unqualified assertion that every word in the document was composed by that author. The signed scope map makes the difference independently checkable.
+
+Cryptographic proof: bind the evidence, not just the verdict
+
+The architecture is in 03-proof-system.md.
+
+The obvious implementation—“run a local classifier, then sign HUMAN-WRITTEN”—would be inadequate. Someone controlling that local software could fabricate the log or simply sign the desired result.
+
+The proposed architecture separates four obligations.
+
+Capture authenticity. An admissible capture source must bind the actual observed event sequence to the final document. A protected signing key is insufficient when untrusted software can ask it to sign any invented history. Likewise, attesting that an approved classifier ran does not establish that its input was genuine. This separation follows the attestation architecture’s distinction between evidence, appraisal, and the relying party’s trust decisions.
+
+Private, tamper-evident commitments. Events are committed into an ordered, salted Merkle tree. A final capture receipt binds the session, event count, root, exact document digest, and provenance state. Secret random salts prevent simple guessing of low-entropy events from exposed commitments. Detailed events, intermediate drafts, and deleted wording remain private.
+
+Correct computation on that same record. The proof must establish that the specified replay, provenance analysis, feature extraction, model, and acceptance policy all ran on the committed events—not on separately supplied favourable features.
+
+Exact content and scope binding. The signed statement identifies the exact document bytes, certified ranges, exclusions, model and policy versions, capture assumptions, and execution evidence. Changing the document, scope, or policy invalidates that binding or requires a new proof.
+
+The proposed detached envelope uses Ed25519 signatures, SHA-256 digests, constrained canonical serialization, and explicit separation between different types of signed messages. The specification also prevents circular dependencies between document hashes, execution proofs, signatures, and publication records.
+
+Keeping the behavioural history local
+
+The preferred privacy research target is zero-knowledge execution combined with authenticated capture.
+
+An independent verifier would check that a private event record matches the captured commitment, reconstructs the exact document, preserves the declared passage ancestry, and passes the pinned algorithm—without receiving the private writing history.
+
+Existing zero-knowledge virtual machines support proving execution of an identified program while exposing selected outputs. That supplies a relevant mechanism, but not an answer to whether the program’s input came from human writing.
+
+The crucial distinction is:
+
+A proof that some transcript passes the classifier is not a proof that the author performed that transcript.
+
+The capture receipt and the computation proof must bind to the same transcript. Otherwise, zero knowledge would merely make fabricated evidence privately verifiable.
+
+No HWP zero-knowledge implementation or performance benchmark has been produced here. Nor has this research established a generally available, protected end-to-end keyboard/touchscreen capture path. Those remain substantive requirements—not assumptions hidden beneath the cryptography.
+
+Nostr, C2PA, and timestamps have separate jobs
+
+I recommend making the HWP evidence bundle independent of its transport.
+
+Nostr can associate a pseudonymous author with a proof, announce it, and replicate references. For long-form content, the proof must bind to the exact article version and event ID—not merely an address that may later resolve to an edited article. NIP-23 explicitly supports editable, addressable long-form content.
+
+C2PA can carry an HWP assertion inside a compatible asset-provenance workflow. It should not become the source of the human-writing determination. Its manifests, assertions, and content bindings provide an interoperability framework; they do not remove the need to substantiate the underlying claim.
+
+OpenTimestamps can optionally anchor the completed proof’s prior existence through Bitcoin. This establishes an existence bound, not who composed the text, how long composition took, or whether the captured observations were genuine. No per-keystroke blockchain transactions are needed.
+
+Company-independent verification requires more than permanent signatures. The document, proof, verifier specification, required public keys, model and policy artifacts, and relevant attestation evidence must remain available. A hash can authenticate a surviving file; it cannot retrieve one that everyone has lost.
+
+Decentralization can remove dependence on the original company. It cannot remove the need to justify trust in the observations.
+
+What the research and executed checks establish
+
+There is empirical reason to pursue process-based detection. A 2024 study reported 99% accuracy distinguishing authentic essays from transcribed essays using keystroke-derived features. Its reported confusion matrix nevertheless admitted two transcribed essays as authentic. That is encouraging evidence of signal—not evidence of resistance to an adaptive adversary.
+
+There is also an important objective mismatch in some existing research: assisted paraphrasing is labelled nonqualifying in settings where your definition could permit genuine AI-informed composition. Importing those labels would risk building an anti-AI detector instead of the standard you intend.
+
+I executed and re-executed 33 synthetic assertion checks covering selected commitment and signature mechanics, exact-byte handling, range gaps and overlaps, substitution attacks, and statistical calculations. The script, deterministic vectors, and results are committed. These are not human-writing detection trials, a complete protocol verifier, or a security audit.
+
+Two calculations are especially consequential.
+
+To support a one-sided 95% upper false-certification bound of 0.1%, observing zero failures would require 2,995 independent trials from the specified, fixed attack distribution. Thousands of windows from one writer do not meet that requirement, and the result would not cover arbitrary adaptive attacks.
+
+Moreover, a 0.1% per-attempt success probability becomes approximately 63.2% probability of at least one success over 1,000 independent attempts. An open detector must therefore be evaluated against repeated attempts and deliberate optimization—not just random held-out examples. The executable results include both calculations.
+
+No human participant data was collected, no detector was trained, and no certification profile was approved. The research policy therefore authorizes no HUMAN-WRITTEN certificates. This prevents the experimental cryptography from being mistaken for an empirically supported authorship claim.
+
+The next decision-changing experiment is controlled genuine composition versus human transcription, including permitted AI-informed rewriting, matched timing/edit statistics, and adaptive staged histories. It should test whether the proposed relational signals retain useful discrimination under deliberate imitation.
+
+My recommendation is to pursue that experiment before building the writing application or optimizing a zero-knowledge circuit. The intellectual foundation is now explicit enough to falsify: the project succeeds by finding defensible process evidence and authenticating its origin—not by attaching stronger cryptography to an uncertain verdict.
+
+## Task 2
+
+Created HWP-A 0.2.0: a 43-file algorithm specification and executable reference package, with 179 precisely defined features and 76 passing tests.
+
+Download the complete packageReader · 
+Read the technical specification · Download the additive Git patch
+
+This iteration was not pushed to GitHub. The connector available in this session exposes reads but no repository-write action; direct Git access also failed because the execution environment could not resolve github.com. I verified that the patch applies to a clean Git repository, reran all 76 tests there, and checked that every resulting file matches the delivered package byte-for-byte. It adds algorithm/ without modifying the earlier research or cryptographic files.
+
+What is now specified and implemented
+
+The package fixes the decisions that the earlier research left open: telemetry fields, causal relationships, replay semantics, origin inheritance, segmentation, feature formulas, numerical precision, model fitting, support checks, threshold selection, passage aggregation, attack accounting and release eligibility.
+
+The algorithm follows:
+
+Validated observations → exact replay → origin graph → fixed evidence neighbourhoods → learned composition tests → calibrated binary decisions.
+
+Text ancestry is deterministic. Every inserted character receives an origin identity. Copies retain their original ancestry without creating new composition effort; moves preserve identity; undo and redo restore the original provenance. Unsupported material does not become supported merely through rearrangement. A narrowly bounded spelling exception preserves its dependencies, and the evaluation machinery tracks negatively labelled transformations rather than hiding them behind genuine parent text.
+
+Behavioural evidence is evaluated in four fixed views. The algorithm examines creation order, the creation order of surviving text, final document order, and the overall process. Local windows use explicit widths and overlaps, including end-aligned windows so awkward tails cannot disappear. Repeated copies cannot manufacture the required number of distinct origins. A strong introduction cannot compensate numerically for an unsupported passage.
+
+The minimum-evidence rules are explicit: at least 64 distinct origin roots per evaluated unit, together with profile-specific production-episode requirements. These are conservative engineering choices, not claims that 64 characters reveal cognition. Short or interrupted additions can remain NOT PROVABLE even when their provenance is known exactly.
+
+The detector is completely defined rather than delegated to an unspecified intelligence layer. It computes 179 fixed-point features covering contextual timing, actual input episodes, revision ages, navigation, operation sequences, cancellation, bounded lexical relationships between revisions, and changes within the writing process. It does not ask an external language model whether the final prose sounds human.
+
+Four learned heads evaluate composition against transcription, automation, simulation and mixed-origin examples. Each uses 32 depth-two trees, with fixed fitting rules and integer-valued inference. Their minimum margin supplies the behavioural score. Neither that margin nor the support diagnostic is presented as a probability that a document is human.
+
+Keyboard, touchscreen-tap, IME and gesture input have separate observation contracts and model domains. Missing input-method observations are not replaced with invented keystrokes. Native adapters and actual capture authenticity remain prerequisites; this package does not pretend that a plausible telemetry record authenticates itself.
+
+The acceptance rule is conservative—and experimentally accountable
+
+A character passes only when every required origin, capture, evidence and model condition passes. A whole-document HUMAN-WRITTEN result requires every required character to pass. Quotations can be excluded from a separately scoped contribution claim, but the exclusion remains explicit and does not produce an unqualified whole-document claim.
+
+The evaluation endpoint is deliberately strict: one falsely admitted character anywhere in an attack campaign counts as a false certification. It does not disappear into a high average accuracy or a mostly genuine document.
+
+Repeated attempts are counted together. The mandatory evaluation matrix covers eight attack families at budgets of one and 100 complete attempts for each proposed input/language domain. Overlapping windows and repeated queries are not counted as independent participants.
+
+Threshold selection is also implemented. Candidates are fixed using development data; calibration accounts for selection among those candidates and for multiple evaluation cells. Eligibility requires every registered attack cell to satisfy the specified risk bound and every required genuine-writing cell to satisfy the coverage requirement. Missing cells block eligibility.
+
+Importantly, eligibility decisions use exact rational binomial tests with integer arithmetic. Rounded confidence intervals cannot make a release pass. The numerical confidence bounds are displayed separately. The mathematical justification and its sampling assumptions are in 
+THEORY.md.
+
+What the tests establish—and what they do not
+
+The 76 tests passed with zero failures, errors or skips. They exercise replay, Unicode boundaries, ancestry preservation, input-cause reuse, IME accounting, all four input profiles, segmentation, fixed-point features, both conditional decision branches, learning, dataset leakage checks, calibration, campaign aggregation and adversarial fixtures. The complete 
+executed results are included.
+
+The package also supplies staged-transcription construction, timing variation and bounded adaptive timing search. Those are executable attack mechanisms, not evidence of resistance to the complete adversarial threat model.
+
+There are no real human participant sessions, no model trained on real human-writing traces, and no measured human-versus-transcription accuracy in this deliverable. The distributed model is an explicitly permissive test double used to exercise the pipeline and approval boundary. It cannot legitimately issue real HUMAN-WRITTEN results.
+
+The governing theoretical constraint is preserved: when genuine composition and a nonqualifying process produce identical admissible observations, an observer cannot distinguish their hidden causes. The specification derives that boundary and defines a conditional, falsifiable assurance claim instead of asserting universal cognitive proof.
+
+The computational algorithm and its evaluation machinery are implemented. Whether the specified false-certification target is achievable with useful genuine-writing coverage against adaptive transcription remains an empirical question. The package makes that question testable without leaving the implementation choices undefined or inventing favourable accuracy figures.
+
+## Task 3
+
+Completed the second adversarial pass as HWP-A 0.3.0. The revised specification, audit, telemetry schema, feature definitions, counterexamples and test results are published on main in commit 73679e0. I verified the branch update and the published files’ content identities.
+
+The executable source was not published to GitHub: both source-upload attempts were blocked by an indeterminate tool safety check. The repository explicitly records that limitation. The complete 38-file package, including the revised implementation and tests, is available here:
+
+Download HWP-A 0.3.0Reader · Technical specification · Adversarial audit
+
+The central conclusion is more demanding than “the algorithm passes its tests”: the evidence-processing and evaluation foundation is stronger, but the current behavioural feature representation must not yet be accepted as a demonstrated solution to composition-versus-imitation. The audit found both repairable defects and an exact representational blind spot.
+
+What the audit broke—and repaired
+
+The spelling exception could change a substantive claim while inheriting human provenance. I reproduced 100 → 900 receiving HUMAN-WRITTEN under the old conditional test setup. Small edit distance does not establish preservation of meaning or composition. The revised algorithm therefore grants no automatic human-origin inheritance to assisted replacement text. Directly typed replacements receive new origins and their own assessment. This deliberately sacrifices some harmless autocorrection coverage rather than granting an unjustified exception.
+
+Approval did not adequately identify what had been approved. A Boolean approval flag, threshold or model name could be reused with different model contents; a record ID could likewise refer to substituted observations. The revised entry point requires independently selected exact record and model snapshots, threshold, input-path domains, freshness conditions and claim semantics. Every model branch and numeric value is validated before inference, including branches that a particular example never visits. These are algorithmic equality and admission requirements—not a new cryptographic system.
+
+The observation record could be internally plausible without establishing the claimed causal sequence. Equal timestamps did not impose an unambiguous order across input and mutation streams. The revision introduces one total sequence and requires:
+
+Observed input cause → independently observed native text/edit delivery → authoritative mutation.
+
+Each delivery must match the exact operation and be consumed once. Future causes, reused causes, inconsistent input profiles, unaccounted deliveries and input crossing forbidden interruptions are rejected. I also reproduced and repaired a held-key repeat accepted outside focus. Crucially, manufacturing matching fields from the same submitted payload does not satisfy the independent-observation requirement.
+
+Preserved wording was being confused with fresh composition. The default claim is now explicitly fresh-composition. Copied occurrences cannot manufacture new composition credit. A separately identified wording-origin claim can preserve previously established ancestry, but cannot assert that the present assembler composed those words or the resulting argument. Both retain the binary verdict vocabulary; the claim identifier prevents two different propositions from hiding behind the same label.
+
+Source detection could operate backward in time. Adding an unrelated later source document could change the verdict on earlier writing. The source-reuse veto now uses earlier, same-record exposure and propagates through actual ancestry—not bundle order or invented knowledge of what the author read. Synthetic control operations and automated deletion also no longer inherit an accepted process merely because they manipulate previously supported wording.
+
+The statistical repair goes beyond confidence intervals
+
+The earlier exact binomial calculations were not enough. A mathematically correct bound calculated from selectively retained attempts is still misleading.
+
+The revised evaluation requires a frozen ledger accounting for every scheduled attack attempt and genuine-writing task. Missing attempts, pending results, incomplete labels, duplicated attempts and declared dependencies between supposedly independent blocks prevent eligibility. A claimed “100-attempt campaign” must actually contain the full registered budget.
+
+For attacks, one falsely admitted scalar anywhere in the campaign counts as a failure. For genuine-writing coverage, all required tasks within the participant block must pass. Windows and keystrokes never become independent participants merely because there are many of them.
+
+Ambiguous cases remain explicitly ambiguous. They count adversely when establishing release eligibility and cannot inflate genuine-writing coverage. AI-informed, fluent-expert, revision-heavy, interrupted, second-language and unaided composition have separate coverage requirements for each proposed input-path/language domain. This prevents an apparently successful detector from quietly excluding precisely the legitimate writing processes it is supposed to support.
+
+Threshold selection still uses exact rational tests with simultaneous correction across the frozen candidate thresholds and required evaluation cells. The specification now explicitly distinguishes calibration from a new, fixed-threshold final evaluation. It does not claim that ledger metadata proves actual independence, that two separate 95% statements automatically yield joint 95% confidence, or that measured finite-budget risk covers unlimited adaptive attempts.
+
+The finding that training alone cannot repair
+
+I constructed different meaningful wording that produces identical values for all 179 features in corresponding evidence units. This is an exact collision in the representation, not merely a suspicion that an attacker might imitate pauses. The regression remains in the package as a documented limitation.
+
+The consequence is precise: a deeper model trained on those same features cannot distinguish those examples. The missing information has already been discarded. This does not prove that every such example will pass a properly calibrated detector; it proves that the feature representation cannot separate them when their scores need to differ.
+
+Accordingly, the revised specification treats the 179-feature model as a fully executable baseline, not the theoretically optimal detector or an immutable definition of human composition. Collision attacks, meaningful staged revision and matched human transcription are mandatory evaluation cases. A release may discover that no threshold provides both the required false-certification bound and useful genuine-writing coverage.
+
+This representational limitation is distinct from the broader observation limit: even a richer representation cannot distinguish different hidden causes when their admissible observations are identical. The theory document separates those two boundaries and states exactly which statistical conclusions depend on which sampling assumptions.
+
+What is executable and verified
+
+The complete package implements telemetry validation, replay, origin inheritance, fixed evidence neighbourhoods, feature extraction, model fitting and integer inference, passage/document aggregation, dataset checks, attack construction, complete-campaign accounting and release eligibility.
+
+All 100 tests pass, with zero failures, errors or skips. They include four normalized input profiles and 2,000 randomized splice/replay comparisons inside one test. Separate Python processes produced byte-identical deterministic inference vectors. I also extracted the final ZIP into a clean directory and reran all 100 tests successfully. These are implementation and mathematical checks, not human-writing accuracy measurements.
+
+No human participant sessions were collected, no model was trained on real human-writing data, and no native capture path was validated. The positive-verdict tests use deliberately permissive synthetic models to test control flow. They do not certify the generated examples as human-written.
+
+The older implementation and research remain unchanged. Version 0.3 has its own directory and interpretation-bearing identifiers. New models can be evaluated later without changing what earlier assessments meant; changes to telemetry, features, segmentation, assistance rules or claim semantics require explicitly versioned computations. Missing observations in old records cannot be invented during migration.
+
+My recommendation is to accept the revised evidence, provenance, decision-interface and evaluation contract as the working foundation—not to freeze the current feature model as the standard. The next decisive experiment is matched genuine composition versus skilled human transcription and adaptive staged revision, including the demonstrated feature-collision family. That experiment can now invalidate or improve the empirical component without requiring the surrounding method to be reinvented.
+
+## Task 4
+
+Published HWP-C/1 — Human Writing Proof, Cryptographic Core 1, release candidate 1.0.0-candidate.1, to main in commit c53e794. All 22 files are published, including executable source, schemas, tests and interoperability vectors. I verified every uploaded file’s Git blob identity against the tested local package and confirmed the branch update. The behavioural algorithm and earlier research remain unchanged.
+
+Complete specification · Package and implementation guide · Download the complete packageReader
+
+The construction binds evidence, execution and scope—not merely an author’s assertion that a document is human-written. Its private verification mode is explicitly attestation-based. It does not disguise trust in a recorder or evaluator as a mathematical proof of cognition.
+
+What a Human Writing Proof establishes
+
+A proof binds the exact document bytes to one precisely identified positive HWP assessment. That assessment identifies the captured records, the specific target record, the algorithm specification, executable, model, decision policy, evidence adapter, output contract and certified ranges.
+
+Those are immutable content references, not mutable model names, repository branches or service URLs. Changing the document, threshold, evidence source, scope or interpretation requires a new assessment and new proof. The public verifier accepts only the signed result HUMAN-WRITTEN; a failed or nonqualifying assessment receives no HWP. Verification failure returns NO-VALID-HWP with no inference that the document is AI-generated.
+
+The evidence chain separates responsibilities:
+
+Capture authority. An admitted observation source signs the start of a session and, when complete, its finalized event commitment and event count. Its responsibility is to bind the actual observed process—not to sign an arbitrary transcript supplied by the writer.
+
+Evaluator. An independently authorized evaluator executes the exact approved HWP release on those same captured observations and signs the statement only when its exact scope qualifies. A configurable quorum can require multiple distinct evaluator keys, but distinct keys are not assumed to mean independent operators.
+
+Author, optionally. A separate author key can endorse the statement. That signature establishes a key association; it cannot substitute for capture or evaluation.
+
+This distinction follows the separation between attestation evidence, appraisal and relying-party trust in the IETF attestation architecture. A correctly verified signature does not, by itself, establish that its signer’s real-world assertion is true.
+
+The cryptographic construction
+
+The implementation uses deterministic CBOR, COSE_Sign1, Ed25519 and SHA-256, rather than inventing a signature scheme. COSE supplies the signed-envelope structure; the profile uses the fully specified Ed25519 identifier -19 registered by RFC 9864, not the older polymorphic identifier. Exact protected headers, authenticated context, public-key encoding and accepted signature encodings are fixed in the specification.
+
+The reference rejects alternative encodings that could create implementation disagreement: duplicate map keys, noncanonical serialization, unknown fields, unsupported algorithms, invalid Unicode, trailing data and ambiguous numeric types. It also checks canonical Ed25519 points and scalar values rather than leaving those acceptance details entirely to whichever cryptographic library an engineer selects.
+
+Private events are committed into an ordered, independently salted Merkle tree. Each leaf binds its event bytes, sequence index, secret random salt and the exact signed session start. The finalized receipt binds both the root and the number of events. The package implements root calculation, inclusion proofs, append-only consistency proofs and complete transcript opening.
+
+This supplies an important but bounded guarantee: altering, rearranging or truncating a history after an honest capture source has committed it is detectable. It cannot detect a history that a dishonest source fabricated before signing. Nor can it correct a behavioural algorithm that admits a sophisticated imitation. Those assumptions are explicit in the security contract.
+
+The proof bundle is a bounded collection of content-addressed objects. Verification performs no automatic network retrieval or execution of bundled programs. A proof also cannot approve itself: the relying party supplies a separately selected trust policy identifying acceptable releases, capture authorities, evaluators, quorum requirements and denied keys or artifacts.
+
+Privacy without overstating independence
+
+Two verification modes are implemented.
+
+Attested private verification allows detailed writing history to remain local. The public proof contains commitments and authorized capture/evaluation statements rather than raw drafts, deleted passages and keystroke timings. An independent verifier can check those statements offline without the original company’s infrastructure.
+
+The qualification matters: keeping evaluation local is credible only when the relying party has a defensible basis for trusting that local execution and observation boundary. Ordinary software fully controlled by an adversarial writer does not automatically become an admissible evaluator merely because it can sign its output.
+
+Disclosed recomputation additionally opens the complete committed histories and runs an independently installed implementation of the exact HWP release. The verifier checks the recomputed document, scope, lineage and positive result against the signed statement. It never downloads and executes a program merely because the proof contains a reference to it. An existing private proof can also undergo this stronger voluntary audit without changing its original signed statement or proof identity.
+
+Selective event disclosure is supported for inspection, but is not misrepresented as complete algorithm verification. Proving that a few events belong to a committed history does not prove that the entire history qualifies.
+
+No zero-knowledge proof suite is activated in this release. The package specifies the required public inputs, private witness, computation relation and activation conditions for a future suite. It does not label a placeholder, development receipt or generic zkVM recommendation an implemented proof. Unknown ZK modes fail rather than falling back to weaker verification.
+
+That leaves a complete attestation-based core available now, while preserving the requirement that any future ZK construction prove execution on the same authenticated history, not simply the existence of some transcript that passes.
+
+Passage provenance and author association
+
+The public scope is a complete partition of the exact UTF-8 document. Every range is explicitly observed, inherited from a verified parent proof, or excluded. Boundaries are byte offsets aligned to Unicode scalar boundaries; normalization or newline conversion changes the bound document.
+
+A selected-range proof cannot be presented as a whole-document proof. Inherited wording must match the parent’s exact certified bytes and is permitted only under the distinct wording-origin claim. It cannot become evidence that the recipient freshly composed the passage or assembled the resulting argument.
+
+I also resolved a subtle target ambiguity: two captured records can end with identical text. The statement therefore names the exact target capture, rather than asking implementations to infer the target by matching the final document.
+
+For an attributed proof, the author key is associated at session start, signs participation in that session and later endorses the final statement. That prevents an anonymous capture from being retrospectively relabelled simply by attaching an author signature.
+
+An optional trusted identity assertion can associate that key controller with an identified subject. Its meaning remains narrow: identity associated with the key is not independent proof of who physically typed. The protocol does not silently turn key ownership into verified physical authorship.
+
+Verification decades later
+
+The format separates three questions that are often conflated:
+
+Do the original bytes and signatures verify? Was the proof already in existence by a particular time? Is its trust policy acceptable now—or justified for a historical assessment?
+
+The package implements detached RFC 3161 timestamp verification, including the exact message imprint, external timestamp-authority trust anchors, policy identifiers, optional request nonce, signature and certificate-chain checks. It reports the timestamp’s declared accuracy and explicitly reports that revocation was not assessed. The timestamp is supporting existence evidence, not evidence of when composition began or how long a human spent writing.
+
+Long-term preservation requires retaining the actual document, proof objects, required release artifacts, verification specifications and trust evidence. A content hash cannot recover a file that has disappeared. Old assessments retain their original model, scope and interpretation; a later assessment produces a new proof rather than rewriting the old one.
+
+No signature algorithm is promised secure forever. The archival specification requires renewal before the relevant cryptographic protection becomes unsafe, using established evidence-record principles. It includes an executable SHA-512 inventory of actual archived bytes as input to renewal, but does not claim that this helper is a complete RFC 4998 evidence-renewal engine. Renewal must preserve the earlier evidence chain; hashing an already-untrustworthy digest cannot repair its history.
+
+The full procedure is in ARCHIVAL.md.
+
+Nostr remains optional. The interoperability specification defines discovery, exact article-version binding and optional association between a Nostr key and the HWP author key. C2PA, OpenTimestamps and transparency receipts have separately defined roles. None is allowed to replace a required HWP observation or evaluation statement. These adapter specifications are published; their execution is not included in the tested implementation.
+
+What was actually tested
+
+All 95 tests pass, with zero failures, errors or skips. I then extracted the final ZIP into a clean directory and reran the suite successfully. The tests cover signature and encoding attacks, document substitution, changed scopes, unsupported execution modes, capture participation, evaluator quorum, inherited provenance, incomplete disclosure, exact recomputation outputs and RFC 3161 token validation.
+
+A separately written JavaScript checker reproduced the CBOR encodings, content hashes, COSE signatures and Merkle vectors. Ed25519 signature cases were also cross-checked with libsodium. The interchange vectors were byte-identical across two separate Python processes. This is interoperability evidence—not a second complete HWP verifier or an independent security audit.
+
+The published package includes the normative specification, CDDL schema, Python creation/verification library, timestamp adapter, security and archival contracts, HWP-A/0.3 binding specification, test sources, vector generator, JavaScript checker and recorded results.
+
+No real Human Writing Proof was issued. The fixtures use public synthetic keys and synthetic evaluator outputs. There is no newly implemented behavioural detector, trusted native capture path, ZK prover, live revocation service or complete archival-renewal engine in this deliverable. Those boundaries are recorded in both the implementation guide and machine-readable results.
+
+The resulting foundation is an executable, versioned proof protocol with explicit trust and privacy semantics—not merely a signed badge. The next gate should be an independent cryptographic review of this pinned candidate before real-world issuance.
+
+## Task 5
+
+from pathlib import Path
+import json
+
+report_path = Path("/mnt/data/hwp-v0/protocol/v0/vectors/results.json")
+report = json.loads(report_path.read_text())
+print(f"Tests: {report['passed']}/{report['tests_run']} passed")
+print(f"Failures: {report['failures']}; errors: {report['errors']}; skipped: {report['skipped']}")
+print("Independent verifier:", report["independent_verifier"])
+print("Deterministic vectors:", report["vectors_equal_across_hashseed_0_987_and_frozen_file"])
+print("Protocol definition:", report["protocol_definition_sha256"])
+
+STDOUT/STDERR
+Tests: 174/174 passed
+Failures: 0; errors: 0; skipped: 0
+Independent verifier: {'canonical_cbor': 12, 'inclusion_paths': 4, 'lineage_commitments': 1, 'node': 'v22.16.0', 'normalized_records': 1, 'private_event_commitments': 1250, 'public_cases': 14, 'rejected_cbor': 7, 'scope': 'Independent class-V attestation verifier and binding-layer checks; no independent behavioural recomputation.', 'status': 'PASS'}
+Deterministic vectors: True
+Protocol definition: 559e025c88084de9a9923dcdc9a62a2964ec32a7bbe9892962431055590867bb
+
+
+Human Writing Protocol v0.0.0 is frozen locally as a conformance release. The 69-file package contains the consolidated specification, executable algorithm-to-proof binding, verifiers, schemas, adversarial regressions, interoperability vectors and immutable file inventory.
+
+It has not been published to GitHub. This session exposes no GitHub write action, and direct Git access failed because the runtime could not resolve github.com. No remote commit or freeze tag was created. The additive patch below adds only protocol/v0/, preserving the earlier algorithm and cryptographic versions.
+
+Complete frozen packageReader · 
+Normative specification · Git patch · 
+Freeze inventory · 
+Executed results
+
+The protocol-definition SHA-256 is:
+
+58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4
+
+“Frozen” identifies the exact interpretation and computation. It does not approve the behavioural detector for real-world certification.
+
+What changed during reconciliation
+
+The components were not compatible merely because their specifications referred to each other. The most consequential gap was that the cryptographic package had never executed the actual behavioural algorithm: its tests used a synthetic callback. V0 replaces that boundary with a closed, executable binding.
+
+The verifier now reconstructs the exact captured records, establishes their dependency order, selects the exact target capture, runs the pinned replay, features, model and decision rules, checks passage ancestry, and commits the complete deterministic assessment. It cannot substitute favourable feature vectors, select an arbitrary callback, or copy the expected statement into a purported computation result.
+
+Several additional corrections were necessary.
+
+The evaluation release is committed before capture. A signed capture-start now identifies the planned release, which fixes the model, threshold, claim and interpretation-bearing artifacts. A completed history cannot silently be assigned whichever later release happens to accept it. The signed capture-end also explicitly binds the final document, rather than leaving that relationship solely to an evaluator’s assertion.
+
+This does not prove global retry control. An adversary may still run many sessions or optimize attempts; those threats belong in the empirical evaluation, not in an exaggerated interpretation of precommitment.
+
+Empirical approval no longer creates a hash dependency cycle. A release containing its final evaluation reports cannot already be the release referenced by those reports’ experimental captures. V0 therefore fixes a conformance candidate before final trials. The later empirical release references that candidate and the resulting reports; the verifier requires identical operational artifacts, claim, capture profiles and protocol. Production captures must start the subsequently approved empirical release. Experimental captures cannot be retrospectively upgraded by changing a label.
+
+Inherited provenance follows actual origins, not matching wording. A parent passage must be certified, byte-identical, a planned captured source, and consistent with the target passage’s actual origin roots. An unrelated document containing the same words cannot be substituted as provenance. Internal duplication cannot create fresh-composition credit.
+
+Scope has one exact interpretation. Whole-document and selected-contribution claims remain distinct. Excluded quotations remain bound to the document without being certified. Changing exclusions cannot change the algorithm’s evidence neighbourhoods or manufacture a more favourable segmentation.
+
+Private disclosure is an interoperable format. Complete openings have a canonical, bounded transport with fixed-size chunks, sequence checks, exact counts and aggregate resource limits. Independent implementations no longer need to invent how to exchange a private transcript for recomputation.
+
+Conformance fixtures cannot become production certificates. The supplied synthetic examples may satisfy the conditional algorithm and signature checks, but their public result is TEST-ONLY / NOT PROVABLE. A production policy rejects their conformance releases and fixture capture profiles. Experiments must measure conditional candidate admissions—not falsely report perfect detection because this production safeguard rejects every test fixture.
+
+The audit also retained a negative finding about the audit itself: a suspected Unicode-whitespace mismatch did not reproduce against the original code. It is documented as a disproved suspicion, not counted as a repaired defect.
+
+What a verifier can legitimately conclude
+
+V0 preserves the two production outcomes: HUMAN-WRITTEN and NOT PROVABLE. No failed verification is interpreted as AI-generated text.
+
+A positive result is bound to its exact document, selected scope, claim, captured histories, model/release, evaluation mode and independently chosen trust policy. Two conforming verifiers given the same complete evidence and trust inputs must agree. Different relying-party policies may legitimately disagree about which authorities or empirical releases to admit.
+
+The distinction between evaluation modes is mandatory:
+
+Attested verification establishes that admitted capture sources and evaluators signed the required, mutually consistent assertions. Detailed writing history can remain local. Correct execution is an evaluator assertion, not something the public verifier independently recomputes.
+
+Disclosed recomputation additionally opens the complete committed histories and runs the actual pinned algorithm. The resulting document, scope, provenance and assessment must match the signed statement. A verifier that cannot perform a required recomputation must reject that proof; it cannot silently fall back to attestation.
+
+An adversarial regression makes this boundary concrete: a deliberately dishonest admitted evaluator signs a positive assertion about a pasted-history fixture. Public attestation accepts that assertion under the synthetic test policy; complete recomputation rejects it. The test remains in the package because removing it would conceal a trust assumption rather than repair one.
+
+Even recomputation does not establish that a dishonest capture source’s initially fabricated observations happened in reality. Cryptographic binding, correct computation and empirical validity are separate obligations.
+
+Optional author association remains equally bounded: participation and endorsement bind a key to the session and statement. An identity assertion can associate a subject with that key controller. Neither independently establishes who physically typed.
+
+What is frozen—and what must still earn approval
+
+The frozen contract fixes telemetry semantics, event ordering, text reconstruction, ancestry, evidence windows, feature arithmetic, model inference, scope aggregation, canonical encodings, signed objects, role separation, private openings, verification order and failure behaviour. It includes the source and normative dependencies required to interpret those rules without contacting the original company.
+
+New trained models and thresholds can create new immutable releases. Interpretation-bearing changes require a new protocol definition/version. Neither route rewrites what an older assessment meant.
+
+The empirical questions remain open and explicitly testable: whether genuine composition can be admitted with useful coverage while rejecting skilled transcription and adaptive simulation; whether a native capture path provides the observations its authority claims; and whether the study’s labels, sampling and attack budgets justify its reported bounds.
+
+The demonstrated collision in the 179-feature representation is retained. Different meaningful wording can yield identical feature vectors. Training a deeper classifier on those same vectors cannot recover discarded information. V0 freezes an executable baseline and its falsification contract, not an assertion that this representation is optimal.
+
+The statistical endpoint remains deliberately strict: one falsely admitted scalar in a registered attack campaign counts as a failure. Complete attempt accounting, ambiguity handling, input-path-specific evaluation, held-out testing and candidate-threshold correction remain required. A measured finite-budget bound is not a guarantee against unlimited adaptive attempts or a posterior probability that an individual document is human-written.
+
+The default production policy admits no releases. There is no supported basis yet for issuing real Human Writing Proofs.
+
+Executed verification
+
+All 178 tests pass, with zero failures, errors or skips. The suite exercises the actual joined pipeline—not just the two components separately.
+
+The separately written JavaScript verifier passes 16 public interoperability cases, including inherited provenance, author association, required-mode rejection, the dishonest-evaluator boundary and empirical-approval staging. Its binding checks also verify canonical encodings, 1,250 private event commitments, record reconstruction, inclusion paths and a lineage commitment. It is an independent public-attestation verifier, not a second independent implementation of behavioural classification.
+
+Fresh Python processes using two different hash seeds generated byte-identical vectors. I then extracted the final ZIP into a clean directory and reran the tests, independent verifier and freeze-inventory check. The Git patch passed git apply --check; after applying it in a clean repository, every delivered file matched the source and archive byte-for-byte. 
+Clean-extraction and patch verification
+
+There were zero real participant sessions, zero models trained on real human-writing data, zero evaluated native capture paths and zero real Human Writing Proofs issued. No ZK suite, universal imitation defence or indefinite cryptographic lifetime is claimed.
+
+The remaining publication step is to apply the patch in an authenticated checkout, run the included checks, commit protocol/v0/, and create the remote freeze tag without rebuilding the frozen manifests. The substantive next gate is independent review of this pinned protocol together with controlled adversarial validation—not Writer application development.
+
+## Task 6
+
+Prepared the Mac MVP handoff: eight detailed implementation PLANs, eight short START prompts, the product and interaction specifications, 60 mandatory acceptance criteria, and a tested Swift foundation package.
+
+GitHub publication is incomplete. Some supporting objects and documents were uploaded, but I did not complete the commit and branch update. The remote repository must not yet be treated as the completed handoff. The prepared files are available below.
+
+Implementation handoff index · 
+Product contract · 
+Native architecture · 
+Complete UX specificationReader
+
+The implementation sequence
+
+Each PLAN specifies prerequisites, concrete implementation work, interaction details, failure handling, tests, owned acceptance criteria, and the evidence required before the next stage starts. Each START merely launches its corresponding PLAN from the current accepted repository state.
+
+Stage	Implementation outcome	Detailed PLAN	Short START
+1. Foundation	Recover the exact frozen protocol; audit NostrShot reuse; create the native document app, packages, build configuration and test infrastructure.	
+PLAN 01	
+START 01
+2. Documents	Exact Markdown files, coordinated saves, encrypted recovery/history, selected cloud folders, conflict preservation and private archives.	
+PLAN 02	
+START 02
+3. Editor	The complete long-form writing experience: TextKit editing, outline, find/replace, focus, assistance attribution and passage inspection.	
+PLAN 03	
+START 03
+4. Human Writing Protocol	Actual native algorithm and proof execution, observation boundaries, policy handling, offline verification and truthful proof states.	
+PLAN 04	
+START 04
+5. Export	Shared document interpretation, polished paginated PDF, editable DOCX, preview and source-proof companions.	
+PLAN 05	
+START 05
+6. Nostr	Key management, durable publication, long-form revisions, Quick Post, encrypted NIP-37 drafts and relay failure recovery.	
+PLAN 06	
+START 06
+7. Discipline	Voluntary locked sessions, clipboard restrictions, multi-display shields, emergency release and local ambient audio.	
+PLAN 07	
+START 07
+8. Release	Integrated journeys, accessibility, performance, security review, signed/notarized distribution and final acceptance.	
+PLAN 08	
+START 08
+Decisions that remove implementation ambiguity
+
+The product is a native document editor, not an expanded menubar composer. The chosen foundation is AppKit’s document architecture and a TextKit 2 editing surface, with SwiftUI for supporting interface elements. NostrShot contributes relevant signing, key-management and relay work; its application shape is not retained. Quick Post becomes an optional, separately recovered panel.
+
+Documents remain ordinary Markdown files. Titles, publication metadata, history and provenance live in a private catalogue rather than being silently inserted into frontmatter. Local, iCloud Drive and Google Drive Desktop locations use the same user-selected filesystem workflow. The plans distinguish a successful file write from confirmed cloud replication and require preserving both versions before resolving conflicts. 
+Storage specification
+
+Assistance remains usable without receiving unearned provenance. Spellcheck, grammar changes, predictions, dictation and translated text have explicit origins. Their presence does not make the product “anti-AI”; equally, known provenance does not automatically make assisted wording fresh human composition. The frozen protocol’s current rules remain authoritative. 
+HWP integration contract
+
+Software-only Mac capture is not presented as independently trusted physical input. The application journal and the HWP-admissible observation record are separate. Agents must implement the actual native algorithm and joined proof verification, including positive conditional conformance cases—not an always-negative placeholder. Production approval remains empty until the necessary empirical and capture evidence exists. Consequently, the MVP can be a complete writing product without falsely claiming that real certification is already available.
+
+Locked writing is voluntary discipline, not device security. The specification requires public APIs, tested presentation restrictions, optional neutral shields on other displays, and a visible keyboard-accessible emergency release. It excludes privileged helpers, system-wide keylogging, killing other applications, or preventing Force Quit. Storage failure releases restrictions rather than trapping the writer with unsaved work. 
+Focus contract
+
+Exports share one semantic document model. PDF is selectable-text, paginated output; DOCX is genuine editable Office Open XML. The plans define templates, footnotes, tables, images, pagination, asset limits and actual Word/Pages checks. A source HWP is exported as a clearly explained companion—it does not silently certify the rendered PDF or DOCX. 
+Export specification
+
+Nostr publication is durable before it is fast. Publication intent is persisted before signing, and the exact signed event is persisted before transmission. Retries reuse identical bytes. Relay acceptance, partial failure and draft restoration have explicit states. Long-form article identity, encrypted draft identity and immutable event IDs remain distinct. 
+Nostr specification
+
+The NostrShot audit also identifies concrete changes agents must make: whole-URL lowercasing/query removal, an acknowledgement-registration race, Keychain errors treated as missing keys, and RAM-only pending publication behaviour. These are recorded as source-inspection findings with required regression tests, not claims that a native build was exercised here. 
+Repository audit
+
+Foundational work already executed
+
+The preparation includes a small WriterFoundation Swift package rather than a premature application implementation. It covers exact source-byte revisions, Unicode offset conversion, neutral proof-state presentation, relay URL preservation, replaceable-event ordering, NIP-44 length arithmetic and pure focus-session state.
+
+47 portable Swift tests pass. The preparation/bootstrap suite adds 10 passing tests. The frozen joined HWP input was recovered, its 178 tests were rerun successfully in bounded groups, its independent verifier passed, and regenerated interoperability vectors matched the frozen file exactly. 
+Preparation evidence · 
+Machine-readable results · 
+Foundation package guide
+
+A verified source transport and bootstrap were prepared because the remote repository did not contain the complete joined frozen v0 package. The bootstrap restores the original source and regenerates its deterministic vector without changing the freeze manifests. 
+Frozen-input instructions · 
+Bootstrap script
+
+No native Mac application build, AppKit interaction, VoiceOver session, actual cloud-provider conflict, Word/Pages export review, multi-display lock test or notarization was performed in this preparation. Those are mandatory implementation-stage gates, not inferred from portable tests.
+
+One definition of completion
+
+The Mac MVP is complete only when all 60 mandatory criteria pass on the same candidate commit, all eight stage handoffs contain actual execution evidence, and a Developer ID–signed, notarized, stapled DMG passes a clean-user installation and end-to-end Mac acceptance run.
+
+Missing signing credentials produce a blocked release—not a claim that an unsigned development ZIP is complete. Unvalidated HWP components cannot produce real certification; conversely, the empty production policy cannot excuse failure to implement and test the real verification paths.
+
+Definition of complete · 
+All 60 acceptance criteria · 
+Module interfaces · 
+Security requirements
+
+The remaining deficiency in this assignment is publication, not the preparation artifacts: the complete prepared tree still needs to be committed and attached to the repository branch before START 01 can be handed to an agent with the repository alone.

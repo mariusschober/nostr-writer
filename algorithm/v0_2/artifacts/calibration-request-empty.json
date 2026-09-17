@@ -1,0 +1,27 @@
+{
+  "records": [],
+  "candidates": [
+    0
+  ],
+  "required_cells": [
+    "keyboard/en/human_transcription/B1/any-false-scalar",
+    "keyboard/en/human_transcription/B100/any-false-scalar",
+    "keyboard/en/scripted_input/B1/any-false-scalar",
+    "keyboard/en/scripted_input/B100/any-false-scalar",
+    "keyboard/en/replay/B1/any-false-scalar",
+    "keyboard/en/replay/B100/any-false-scalar",
+    "keyboard/en/staged_revision/B1/any-false-scalar",
+    "keyboard/en/staged_revision/B100/any-false-scalar",
+    "keyboard/en/adaptive_simulation/B1/any-false-scalar",
+    "keyboard/en/adaptive_simulation/B100/any-false-scalar",
+    "keyboard/en/mixed_origin/B1/any-false-scalar",
+    "keyboard/en/mixed_origin/B100/any-false-scalar",
+    "keyboard/en/lineage_laundering/B1/any-false-scalar",
+    "keyboard/en/lineage_laundering/B100/any-false-scalar",
+    "keyboard/en/capture_fabrication/B1/any-false-scalar",
+    "keyboard/en/capture_fabrication/B100/any-false-scalar"
+  ],
+  "required_human_cells": [
+    "keyboard/en/all-qualifying-tasks"
+  ]
+}

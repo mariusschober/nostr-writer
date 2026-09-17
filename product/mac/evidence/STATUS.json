@@ -1,0 +1,368 @@
+{
+  "date": "2026-09-17",
+  "scope": "application-implementation",
+  "status": "NOT STARTED",
+  "note": "Recovery/reference checks do not accept any application stage. No native app exists in this checkout.",
+  "criteria": [
+    {
+      "id": "M01",
+      "stage": "01",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M02",
+      "stage": "01",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M03",
+      "stage": "01",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M04",
+      "stage": "01",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M05",
+      "stage": "01",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M06",
+      "stage": "01",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M07",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M08",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M09",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M10",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M11",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M12",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M13",
+      "stage": "02",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M14",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M15",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M16",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M17",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M18",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M19",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M20",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M21",
+      "stage": "03",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M22",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M23",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M24",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M25",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M26",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M27",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M28",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M29",
+      "stage": "04",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M30",
+      "stage": "05",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M31",
+      "stage": "05",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M32",
+      "stage": "05",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M33",
+      "stage": "05",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M34",
+      "stage": "05",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M35",
+      "stage": "05",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M36",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M37",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M38",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M39",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M40",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M41",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M42",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M43",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M44",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M45",
+      "stage": "06",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M46",
+      "stage": "07",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M47",
+      "stage": "07",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M48",
+      "stage": "07",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M49",
+      "stage": "07",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M50",
+      "stage": "07",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M51",
+      "stage": "07",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M52",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M53",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M54",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M55",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M56",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M57",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M58",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M59",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    },
+    {
+      "id": "M60",
+      "stage": "08",
+      "status": "NOT MEASURED",
+      "evidence": null
+    }
+  ]
+}

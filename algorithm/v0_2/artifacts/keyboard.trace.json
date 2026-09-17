@@ -1,0 +1,4696 @@
+{
+  "documents": [
+    {
+      "final_text": "A writer considers a claim, changes the wording, and follows the consequences through a longer argument. This synthetic fixture proves no human authorship. ",
+      "id": "keyboard",
+      "language": "en",
+      "observations": [
+        {
+          "i": 0,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 186000,
+          "token": "p0"
+        },
+        {
+          "i": 1,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 216000,
+          "token": "p0"
+        },
+        {
+          "i": 2,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 413000,
+          "token": "p2"
+        },
+        {
+          "i": 3,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 443000,
+          "token": "p2"
+        },
+        {
+          "i": 4,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 547000,
+          "token": "p4"
+        },
+        {
+          "i": 5,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 577000,
+          "token": "p4"
+        },
+        {
+          "i": 6,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 845000,
+          "token": "p6"
+        },
+        {
+          "i": 7,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 875000,
+          "token": "p6"
+        },
+        {
+          "i": 8,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1071000,
+          "token": "p8"
+        },
+        {
+          "i": 9,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1101000,
+          "token": "p8"
+        },
+        {
+          "i": 10,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1216000,
+          "token": "p10"
+        },
+        {
+          "i": 11,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1246000,
+          "token": "p10"
+        },
+        {
+          "i": 12,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1325000,
+          "token": "p12"
+        },
+        {
+          "i": 13,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1355000,
+          "token": "p12"
+        },
+        {
+          "i": 14,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1609000,
+          "token": "p14"
+        },
+        {
+          "i": 15,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1639000,
+          "token": "p14"
+        },
+        {
+          "i": 16,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 1973000,
+          "token": "p16"
+        },
+        {
+          "i": 17,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2003000,
+          "token": "p16"
+        },
+        {
+          "i": 18,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2350000,
+          "token": "p18"
+        },
+        {
+          "i": 19,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2380000,
+          "token": "p18"
+        },
+        {
+          "i": 20,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2610000,
+          "token": "p20"
+        },
+        {
+          "i": 21,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2640000,
+          "token": "p20"
+        },
+        {
+          "i": 22,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2874000,
+          "token": "p22"
+        },
+        {
+          "i": 23,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2904000,
+          "token": "p22"
+        },
+        {
+          "i": 24,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 2990000,
+          "token": "p24"
+        },
+        {
+          "i": 25,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3020000,
+          "token": "p24"
+        },
+        {
+          "i": 26,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3161000,
+          "token": "p26"
+        },
+        {
+          "i": 27,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3191000,
+          "token": "p26"
+        },
+        {
+          "i": 28,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3320000,
+          "token": "p28"
+        },
+        {
+          "i": 29,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3350000,
+          "token": "p28"
+        },
+        {
+          "i": 30,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3582000,
+          "token": "p30"
+        },
+        {
+          "i": 31,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3612000,
+          "token": "p30"
+        },
+        {
+          "i": 32,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3959000,
+          "token": "p32"
+        },
+        {
+          "i": 33,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 3989000,
+          "token": "p32"
+        },
+        {
+          "i": 34,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 4219000,
+          "token": "p34"
+        },
+        {
+          "i": 35,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 4249000,
+          "token": "p34"
+        },
+        {
+          "i": 36,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 4668000,
+          "token": "p36"
+        },
+        {
+          "i": 37,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 4698000,
+          "token": "p36"
+        },
+        {
+          "i": 38,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 4883000,
+          "token": "p38"
+        },
+        {
+          "i": 39,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 4913000,
+          "token": "p38"
+        },
+        {
+          "i": 40,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5056000,
+          "token": "p40"
+        },
+        {
+          "i": 41,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5086000,
+          "token": "p40"
+        },
+        {
+          "i": 42,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5146000,
+          "token": "p42"
+        },
+        {
+          "i": 43,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5176000,
+          "token": "p42"
+        },
+        {
+          "i": 44,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5459000,
+          "token": "p44"
+        },
+        {
+          "i": 45,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5489000,
+          "token": "p44"
+        },
+        {
+          "i": 46,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5593000,
+          "token": "p46"
+        },
+        {
+          "i": 47,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5623000,
+          "token": "p46"
+        },
+        {
+          "i": 48,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 5988000,
+          "token": "p48"
+        },
+        {
+          "i": 49,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6018000,
+          "token": "p48"
+        },
+        {
+          "i": 50,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6271000,
+          "token": "p50"
+        },
+        {
+          "i": 51,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6301000,
+          "token": "p50"
+        },
+        {
+          "i": 52,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6396000,
+          "token": "p52"
+        },
+        {
+          "i": 53,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6426000,
+          "token": "p52"
+        },
+        {
+          "i": 54,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6489000,
+          "token": "p54"
+        },
+        {
+          "i": 55,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6519000,
+          "token": "p54"
+        },
+        {
+          "i": 56,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6740000,
+          "token": "p56"
+        },
+        {
+          "i": 57,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 6770000,
+          "token": "p56"
+        },
+        {
+          "i": 58,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7204000,
+          "token": "p58"
+        },
+        {
+          "i": 59,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7234000,
+          "token": "p58"
+        },
+        {
+          "i": 60,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7523000,
+          "token": "p60"
+        },
+        {
+          "i": 61,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7553000,
+          "token": "p60"
+        },
+        {
+          "i": 62,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7665000,
+          "token": "p62"
+        },
+        {
+          "i": 63,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7695000,
+          "token": "p62"
+        },
+        {
+          "i": 64,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7777000,
+          "token": "p64"
+        },
+        {
+          "i": 65,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7807000,
+          "token": "p64"
+        },
+        {
+          "i": 66,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7914000,
+          "token": "p66"
+        },
+        {
+          "i": 67,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 7944000,
+          "token": "p66"
+        },
+        {
+          "i": 68,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8345000,
+          "token": "p68"
+        },
+        {
+          "i": 69,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8375000,
+          "token": "p68"
+        },
+        {
+          "i": 70,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8507000,
+          "token": "p70"
+        },
+        {
+          "i": 71,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8537000,
+          "token": "p70"
+        },
+        {
+          "i": 72,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8661000,
+          "token": "p72"
+        },
+        {
+          "i": 73,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8691000,
+          "token": "p72"
+        },
+        {
+          "i": 74,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8761000,
+          "token": "p74"
+        },
+        {
+          "i": 75,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 8791000,
+          "token": "p74"
+        },
+        {
+          "i": 76,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 9000000,
+          "token": "p76"
+        },
+        {
+          "i": 77,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 9030000,
+          "token": "p76"
+        },
+        {
+          "i": 78,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 9310000,
+          "token": "p78"
+        },
+        {
+          "i": 79,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 9340000,
+          "token": "p78"
+        },
+        {
+          "i": 80,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 9693000,
+          "token": "p80"
+        },
+        {
+          "i": 81,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 9723000,
+          "token": "p80"
+        },
+        {
+          "i": 82,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10027000,
+          "token": "p82"
+        },
+        {
+          "i": 83,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10057000,
+          "token": "p82"
+        },
+        {
+          "i": 84,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10252000,
+          "token": "p84"
+        },
+        {
+          "i": 85,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10282000,
+          "token": "p84"
+        },
+        {
+          "i": 86,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10582000,
+          "token": "p86"
+        },
+        {
+          "i": 87,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10612000,
+          "token": "p86"
+        },
+        {
+          "i": 88,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10690000,
+          "token": "p88"
+        },
+        {
+          "i": 89,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10720000,
+          "token": "p88"
+        },
+        {
+          "i": 90,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10936000,
+          "token": "p90"
+        },
+        {
+          "i": 91,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 10966000,
+          "token": "p90"
+        },
+        {
+          "i": 92,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 11201000,
+          "token": "p92"
+        },
+        {
+          "i": 93,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 11231000,
+          "token": "p92"
+        },
+        {
+          "i": 94,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 11558000,
+          "token": "p94"
+        },
+        {
+          "i": 95,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 11588000,
+          "token": "p94"
+        },
+        {
+          "i": 96,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 11895000,
+          "token": "p96"
+        },
+        {
+          "i": 97,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 11925000,
+          "token": "p96"
+        },
+        {
+          "i": 98,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 12090000,
+          "token": "p98"
+        },
+        {
+          "i": 99,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 12120000,
+          "token": "p98"
+        },
+        {
+          "i": 100,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 12491000,
+          "token": "p100"
+        },
+        {
+          "i": 101,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 12521000,
+          "token": "p100"
+        },
+        {
+          "i": 102,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 12908000,
+          "token": "p102"
+        },
+        {
+          "i": 103,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 12938000,
+          "token": "p102"
+        },
+        {
+          "i": 104,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13267000,
+          "token": "p104"
+        },
+        {
+          "i": 105,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13297000,
+          "token": "p104"
+        },
+        {
+          "i": 106,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13646000,
+          "token": "p106"
+        },
+        {
+          "i": 107,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13676000,
+          "token": "p106"
+        },
+        {
+          "i": 108,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13897000,
+          "token": "p108"
+        },
+        {
+          "i": 109,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13927000,
+          "token": "p108"
+        },
+        {
+          "i": 110,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 13993000,
+          "token": "p110"
+        },
+        {
+          "i": 111,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 14023000,
+          "token": "p110"
+        },
+        {
+          "i": 112,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 14286000,
+          "token": "p112"
+        },
+        {
+          "i": 113,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 14316000,
+          "token": "p112"
+        },
+        {
+          "i": 114,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 14706000,
+          "token": "p114"
+        },
+        {
+          "i": 115,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 14736000,
+          "token": "p114"
+        },
+        {
+          "i": 116,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 15058000,
+          "token": "p116"
+        },
+        {
+          "i": 117,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 15088000,
+          "token": "p116"
+        },
+        {
+          "i": 118,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 15370000,
+          "token": "p118"
+        },
+        {
+          "i": 119,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 15400000,
+          "token": "p118"
+        },
+        {
+          "i": 120,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 15810000,
+          "token": "p120"
+        },
+        {
+          "i": 121,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 15840000,
+          "token": "p120"
+        },
+        {
+          "i": 122,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 16175000,
+          "token": "p122"
+        },
+        {
+          "i": 123,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 16205000,
+          "token": "p122"
+        },
+        {
+          "i": 124,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 16591000,
+          "token": "p124"
+        },
+        {
+          "i": 125,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 16621000,
+          "token": "p124"
+        },
+        {
+          "i": 126,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 17022000,
+          "token": "p126"
+        },
+        {
+          "i": 127,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 17052000,
+          "token": "p126"
+        },
+        {
+          "i": 128,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 17417000,
+          "token": "p128"
+        },
+        {
+          "i": 129,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 17447000,
+          "token": "p128"
+        },
+        {
+          "i": 130,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 17755000,
+          "token": "p130"
+        },
+        {
+          "i": 131,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 17785000,
+          "token": "p130"
+        },
+        {
+          "i": 132,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 18111000,
+          "token": "p132"
+        },
+        {
+          "i": 133,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 18141000,
+          "token": "p132"
+        },
+        {
+          "i": 134,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 18543000,
+          "token": "p134"
+        },
+        {
+          "i": 135,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 18573000,
+          "token": "p134"
+        },
+        {
+          "i": 136,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 18847000,
+          "token": "p136"
+        },
+        {
+          "i": 137,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 18877000,
+          "token": "p136"
+        },
+        {
+          "i": 138,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 19128000,
+          "token": "p138"
+        },
+        {
+          "i": 139,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 19158000,
+          "token": "p138"
+        },
+        {
+          "i": 140,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 19479000,
+          "token": "p140"
+        },
+        {
+          "i": 141,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 19509000,
+          "token": "p140"
+        },
+        {
+          "i": 142,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 19585000,
+          "token": "p142"
+        },
+        {
+          "i": 143,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 19615000,
+          "token": "p142"
+        },
+        {
+          "i": 144,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 20061000,
+          "token": "p144"
+        },
+        {
+          "i": 145,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 20091000,
+          "token": "p144"
+        },
+        {
+          "i": 146,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 20481000,
+          "token": "p146"
+        },
+        {
+          "i": 147,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 20511000,
+          "token": "p146"
+        },
+        {
+          "i": 148,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 20663000,
+          "token": "p148"
+        },
+        {
+          "i": 149,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 20693000,
+          "token": "p148"
+        },
+        {
+          "i": 150,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 21124000,
+          "token": "p150"
+        },
+        {
+          "i": 151,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 21154000,
+          "token": "p150"
+        },
+        {
+          "i": 152,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 21256000,
+          "token": "p152"
+        },
+        {
+          "i": 153,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 21286000,
+          "token": "p152"
+        },
+        {
+          "i": 154,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 21595000,
+          "token": "p154"
+        },
+        {
+          "i": 155,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 21625000,
+          "token": "p154"
+        },
+        {
+          "i": 156,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22021000,
+          "token": "p156"
+        },
+        {
+          "i": 157,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22051000,
+          "token": "p156"
+        },
+        {
+          "i": 158,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22245000,
+          "token": "p158"
+        },
+        {
+          "i": 159,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22275000,
+          "token": "p158"
+        },
+        {
+          "i": 160,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22422000,
+          "token": "p160"
+        },
+        {
+          "i": 161,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22452000,
+          "token": "p160"
+        },
+        {
+          "i": 162,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22683000,
+          "token": "p162"
+        },
+        {
+          "i": 163,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22713000,
+          "token": "p162"
+        },
+        {
+          "i": 164,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22945000,
+          "token": "p164"
+        },
+        {
+          "i": 165,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 22975000,
+          "token": "p164"
+        },
+        {
+          "i": 166,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 23318000,
+          "token": "p166"
+        },
+        {
+          "i": 167,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 23348000,
+          "token": "p166"
+        },
+        {
+          "i": 168,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 23608000,
+          "token": "p168"
+        },
+        {
+          "i": 169,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 23638000,
+          "token": "p168"
+        },
+        {
+          "i": 170,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 23735000,
+          "token": "p170"
+        },
+        {
+          "i": 171,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 23765000,
+          "token": "p170"
+        },
+        {
+          "i": 172,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 24195000,
+          "token": "p172"
+        },
+        {
+          "i": 173,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 24225000,
+          "token": "p172"
+        },
+        {
+          "i": 174,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 24518000,
+          "token": "p174"
+        },
+        {
+          "i": 175,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 24548000,
+          "token": "p174"
+        },
+        {
+          "i": 176,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 24806000,
+          "token": "p176"
+        },
+        {
+          "i": 177,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 24836000,
+          "token": "p176"
+        },
+        {
+          "i": 178,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25189000,
+          "token": "p178"
+        },
+        {
+          "i": 179,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25219000,
+          "token": "p178"
+        },
+        {
+          "i": 180,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25451000,
+          "token": "p180"
+        },
+        {
+          "i": 181,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25481000,
+          "token": "p180"
+        },
+        {
+          "i": 182,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25549000,
+          "token": "p182"
+        },
+        {
+          "i": 183,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25579000,
+          "token": "p182"
+        },
+        {
+          "i": 184,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25735000,
+          "token": "p184"
+        },
+        {
+          "i": 185,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 25765000,
+          "token": "p184"
+        },
+        {
+          "i": 186,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26125000,
+          "token": "p186"
+        },
+        {
+          "i": 187,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26155000,
+          "token": "p186"
+        },
+        {
+          "i": 188,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26260000,
+          "token": "p188"
+        },
+        {
+          "i": 189,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26290000,
+          "token": "p188"
+        },
+        {
+          "i": 190,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26671000,
+          "token": "p190"
+        },
+        {
+          "i": 191,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26701000,
+          "token": "p190"
+        },
+        {
+          "i": 192,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26947000,
+          "token": "p192"
+        },
+        {
+          "i": 193,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 26977000,
+          "token": "p192"
+        },
+        {
+          "i": 194,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27043000,
+          "token": "p194"
+        },
+        {
+          "i": 195,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27073000,
+          "token": "p194"
+        },
+        {
+          "i": 196,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27313000,
+          "token": "p196"
+        },
+        {
+          "i": 197,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27343000,
+          "token": "p196"
+        },
+        {
+          "i": 198,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27520000,
+          "token": "p198"
+        },
+        {
+          "i": 199,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27550000,
+          "token": "p198"
+        },
+        {
+          "i": 200,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27817000,
+          "token": "p200"
+        },
+        {
+          "i": 201,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 27847000,
+          "token": "p200"
+        },
+        {
+          "i": 202,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 28179000,
+          "token": "p202"
+        },
+        {
+          "i": 203,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 28209000,
+          "token": "p202"
+        },
+        {
+          "i": 204,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 28525000,
+          "token": "p204"
+        },
+        {
+          "i": 205,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 28555000,
+          "token": "p204"
+        },
+        {
+          "i": 206,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 28985000,
+          "token": "p206"
+        },
+        {
+          "i": 207,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29015000,
+          "token": "p206"
+        },
+        {
+          "i": 208,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29105000,
+          "token": "p208"
+        },
+        {
+          "i": 209,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29135000,
+          "token": "p208"
+        },
+        {
+          "i": 210,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29522000,
+          "token": "p210"
+        },
+        {
+          "i": 211,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29552000,
+          "token": "p210"
+        },
+        {
+          "i": 212,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29759000,
+          "token": "p212"
+        },
+        {
+          "i": 213,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 29789000,
+          "token": "p212"
+        },
+        {
+          "i": 214,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 30102000,
+          "token": "p214"
+        },
+        {
+          "i": 215,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 30132000,
+          "token": "p214"
+        },
+        {
+          "i": 216,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 30514000,
+          "token": "p216"
+        },
+        {
+          "i": 217,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 30544000,
+          "token": "p216"
+        },
+        {
+          "i": 218,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 30972000,
+          "token": "p218"
+        },
+        {
+          "i": 219,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31002000,
+          "token": "p218"
+        },
+        {
+          "i": 220,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31181000,
+          "token": "p220"
+        },
+        {
+          "i": 221,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31211000,
+          "token": "p220"
+        },
+        {
+          "i": 222,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31549000,
+          "token": "p222"
+        },
+        {
+          "i": 223,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31579000,
+          "token": "p222"
+        },
+        {
+          "i": 224,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31886000,
+          "token": "p224"
+        },
+        {
+          "i": 225,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 31916000,
+          "token": "p224"
+        },
+        {
+          "i": 226,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32066000,
+          "token": "p226"
+        },
+        {
+          "i": 227,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32096000,
+          "token": "p226"
+        },
+        {
+          "i": 228,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32234000,
+          "token": "p228"
+        },
+        {
+          "i": 229,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32264000,
+          "token": "p228"
+        },
+        {
+          "i": 230,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32598000,
+          "token": "p230"
+        },
+        {
+          "i": 231,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32628000,
+          "token": "p230"
+        },
+        {
+          "i": 232,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32915000,
+          "token": "p232"
+        },
+        {
+          "i": 233,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 32945000,
+          "token": "p232"
+        },
+        {
+          "i": 234,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 33198000,
+          "token": "p234"
+        },
+        {
+          "i": 235,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 33228000,
+          "token": "p234"
+        },
+        {
+          "i": 236,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 33672000,
+          "token": "p236"
+        },
+        {
+          "i": 237,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 33702000,
+          "token": "p236"
+        },
+        {
+          "i": 238,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 33998000,
+          "token": "p238"
+        },
+        {
+          "i": 239,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34028000,
+          "token": "p238"
+        },
+        {
+          "i": 240,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34110000,
+          "token": "p240"
+        },
+        {
+          "i": 241,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34140000,
+          "token": "p240"
+        },
+        {
+          "i": 242,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34205000,
+          "token": "p242"
+        },
+        {
+          "i": 243,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34235000,
+          "token": "p242"
+        },
+        {
+          "i": 244,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34363000,
+          "token": "p244"
+        },
+        {
+          "i": 245,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34393000,
+          "token": "p244"
+        },
+        {
+          "i": 246,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34686000,
+          "token": "p246"
+        },
+        {
+          "i": 247,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34716000,
+          "token": "p246"
+        },
+        {
+          "i": 248,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34874000,
+          "token": "p248"
+        },
+        {
+          "i": 249,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34904000,
+          "token": "p248"
+        },
+        {
+          "i": 250,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 34974000,
+          "token": "p250"
+        },
+        {
+          "i": 251,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35004000,
+          "token": "p250"
+        },
+        {
+          "i": 252,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35195000,
+          "token": "p252"
+        },
+        {
+          "i": 253,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35225000,
+          "token": "p252"
+        },
+        {
+          "i": 254,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35465000,
+          "token": "p254"
+        },
+        {
+          "i": 255,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35495000,
+          "token": "p254"
+        },
+        {
+          "i": 256,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35905000,
+          "token": "p256"
+        },
+        {
+          "i": 257,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 35935000,
+          "token": "p256"
+        },
+        {
+          "i": 258,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 36134000,
+          "token": "p258"
+        },
+        {
+          "i": 259,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 36164000,
+          "token": "p258"
+        },
+        {
+          "i": 260,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 36446000,
+          "token": "p260"
+        },
+        {
+          "i": 261,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 36476000,
+          "token": "p260"
+        },
+        {
+          "i": 262,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 36860000,
+          "token": "p262"
+        },
+        {
+          "i": 263,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 36890000,
+          "token": "p262"
+        },
+        {
+          "i": 264,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37165000,
+          "token": "p264"
+        },
+        {
+          "i": 265,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37195000,
+          "token": "p264"
+        },
+        {
+          "i": 266,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37255000,
+          "token": "p266"
+        },
+        {
+          "i": 267,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37285000,
+          "token": "p266"
+        },
+        {
+          "i": 268,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37400000,
+          "token": "p268"
+        },
+        {
+          "i": 269,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37430000,
+          "token": "p268"
+        },
+        {
+          "i": 270,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37806000,
+          "token": "p270"
+        },
+        {
+          "i": 271,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37836000,
+          "token": "p270"
+        },
+        {
+          "i": 272,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37928000,
+          "token": "p272"
+        },
+        {
+          "i": 273,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 37958000,
+          "token": "p272"
+        },
+        {
+          "i": 274,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 38279000,
+          "token": "p274"
+        },
+        {
+          "i": 275,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 38309000,
+          "token": "p274"
+        },
+        {
+          "i": 276,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 38550000,
+          "token": "p276"
+        },
+        {
+          "i": 277,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 38580000,
+          "token": "p276"
+        },
+        {
+          "i": 278,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39002000,
+          "token": "p278"
+        },
+        {
+          "i": 279,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39032000,
+          "token": "p278"
+        },
+        {
+          "i": 280,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39137000,
+          "token": "p280"
+        },
+        {
+          "i": 281,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39167000,
+          "token": "p280"
+        },
+        {
+          "i": 282,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39269000,
+          "token": "p282"
+        },
+        {
+          "i": 283,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39299000,
+          "token": "p282"
+        },
+        {
+          "i": 284,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39580000,
+          "token": "p284"
+        },
+        {
+          "i": 285,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39610000,
+          "token": "p284"
+        },
+        {
+          "i": 286,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39674000,
+          "token": "p286"
+        },
+        {
+          "i": 287,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 39704000,
+          "token": "p286"
+        },
+        {
+          "i": 288,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40038000,
+          "token": "p288"
+        },
+        {
+          "i": 289,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40068000,
+          "token": "p288"
+        },
+        {
+          "i": 290,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40321000,
+          "token": "p290"
+        },
+        {
+          "i": 291,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40351000,
+          "token": "p290"
+        },
+        {
+          "i": 292,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40448000,
+          "token": "p292"
+        },
+        {
+          "i": 293,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40478000,
+          "token": "p292"
+        },
+        {
+          "i": 294,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40817000,
+          "token": "p294"
+        },
+        {
+          "i": 295,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 40847000,
+          "token": "p294"
+        },
+        {
+          "i": 296,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 41262000,
+          "token": "p296"
+        },
+        {
+          "i": 297,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 41292000,
+          "token": "p296"
+        },
+        {
+          "i": 298,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 41677000,
+          "token": "p298"
+        },
+        {
+          "i": 299,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 41707000,
+          "token": "p298"
+        },
+        {
+          "i": 300,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 41973000,
+          "token": "p300"
+        },
+        {
+          "i": 301,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42003000,
+          "token": "p300"
+        },
+        {
+          "i": 302,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42077000,
+          "token": "p302"
+        },
+        {
+          "i": 303,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42107000,
+          "token": "p302"
+        },
+        {
+          "i": 304,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42332000,
+          "token": "p304"
+        },
+        {
+          "i": 305,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42362000,
+          "token": "p304"
+        },
+        {
+          "i": 306,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42556000,
+          "token": "p306"
+        },
+        {
+          "i": 307,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42586000,
+          "token": "p306"
+        },
+        {
+          "i": 308,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42887000,
+          "token": "p308"
+        },
+        {
+          "i": 309,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42917000,
+          "token": "p308"
+        },
+        {
+          "i": 310,
+          "kind": "press",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 42993000,
+          "token": "p310"
+        },
+        {
+          "i": 311,
+          "kind": "release",
+          "profile": "keyboard",
+          "source": "device",
+          "t": 43023000,
+          "token": "p310"
+        }
+      ],
+      "resolution_us": 1000,
+      "transactions": [
+        {
+          "causes": [
+            0
+          ],
+          "deleted": "",
+          "end": 0,
+          "i": 0,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 0,
+          "t": 186000,
+          "text": "A"
+        },
+        {
+          "causes": [
+            2
+          ],
+          "deleted": "",
+          "end": 1,
+          "i": 1,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 1,
+          "t": 413000,
+          "text": " "
+        },
+        {
+          "causes": [
+            4
+          ],
+          "deleted": "",
+          "end": 2,
+          "i": 2,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 2,
+          "t": 547000,
+          "text": "w"
+        },
+        {
+          "causes": [
+            6
+          ],
+          "deleted": "",
+          "end": 3,
+          "i": 3,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 3,
+          "t": 845000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            8
+          ],
+          "deleted": "",
+          "end": 4,
+          "i": 4,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 4,
+          "t": 1071000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            10
+          ],
+          "deleted": "",
+          "end": 5,
+          "i": 5,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 5,
+          "t": 1216000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            12
+          ],
+          "deleted": "",
+          "end": 6,
+          "i": 6,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 6,
+          "t": 1325000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            14
+          ],
+          "deleted": "",
+          "end": 7,
+          "i": 7,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 7,
+          "t": 1609000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            16
+          ],
+          "deleted": "",
+          "end": 8,
+          "i": 8,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 8,
+          "t": 1973000,
+          "text": " "
+        },
+        {
+          "causes": [
+            18
+          ],
+          "deleted": "",
+          "end": 9,
+          "i": 9,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 9,
+          "t": 2350000,
+          "text": "c"
+        },
+        {
+          "causes": [
+            20
+          ],
+          "deleted": "",
+          "end": 10,
+          "i": 10,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 10,
+          "t": 2610000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            22
+          ],
+          "deleted": "",
+          "end": 11,
+          "i": 11,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 11,
+          "t": 2874000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            24
+          ],
+          "deleted": "",
+          "end": 12,
+          "i": 12,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 12,
+          "t": 2990000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            26
+          ],
+          "deleted": "",
+          "end": 13,
+          "i": 13,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 13,
+          "t": 3161000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            28
+          ],
+          "deleted": "",
+          "end": 14,
+          "i": 14,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 14,
+          "t": 3320000,
+          "text": "d"
+        },
+        {
+          "causes": [
+            30
+          ],
+          "deleted": "",
+          "end": 15,
+          "i": 15,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 15,
+          "t": 3582000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            32
+          ],
+          "deleted": "",
+          "end": 16,
+          "i": 16,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 16,
+          "t": 3959000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            34
+          ],
+          "deleted": "",
+          "end": 17,
+          "i": 17,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 17,
+          "t": 4219000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            36
+          ],
+          "deleted": "",
+          "end": 18,
+          "i": 18,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 18,
+          "t": 4668000,
+          "text": " "
+        },
+        {
+          "causes": [
+            38
+          ],
+          "deleted": "",
+          "end": 19,
+          "i": 19,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 19,
+          "t": 4883000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            40
+          ],
+          "deleted": "",
+          "end": 20,
+          "i": 20,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 20,
+          "t": 5056000,
+          "text": " "
+        },
+        {
+          "causes": [
+            42
+          ],
+          "deleted": "",
+          "end": 21,
+          "i": 21,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 21,
+          "t": 5146000,
+          "text": "c"
+        },
+        {
+          "causes": [
+            44
+          ],
+          "deleted": "",
+          "end": 22,
+          "i": 22,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 22,
+          "t": 5459000,
+          "text": "l"
+        },
+        {
+          "causes": [
+            46
+          ],
+          "deleted": "",
+          "end": 23,
+          "i": 23,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 23,
+          "t": 5593000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            48
+          ],
+          "deleted": "",
+          "end": 24,
+          "i": 24,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 24,
+          "t": 5988000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            50
+          ],
+          "deleted": "",
+          "end": 25,
+          "i": 25,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 25,
+          "t": 6271000,
+          "text": "m"
+        },
+        {
+          "causes": [
+            52
+          ],
+          "deleted": "",
+          "end": 26,
+          "i": 26,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 26,
+          "t": 6396000,
+          "text": ","
+        },
+        {
+          "causes": [
+            54
+          ],
+          "deleted": "",
+          "end": 27,
+          "i": 27,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 27,
+          "t": 6489000,
+          "text": " "
+        },
+        {
+          "causes": [
+            56
+          ],
+          "deleted": "",
+          "end": 28,
+          "i": 28,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 28,
+          "t": 6740000,
+          "text": "c"
+        },
+        {
+          "causes": [
+            58
+          ],
+          "deleted": "",
+          "end": 29,
+          "i": 29,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 29,
+          "t": 7204000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            60
+          ],
+          "deleted": "",
+          "end": 30,
+          "i": 30,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 30,
+          "t": 7523000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            62
+          ],
+          "deleted": "",
+          "end": 31,
+          "i": 31,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 31,
+          "t": 7665000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            64
+          ],
+          "deleted": "",
+          "end": 32,
+          "i": 32,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 32,
+          "t": 7777000,
+          "text": "g"
+        },
+        {
+          "causes": [
+            66
+          ],
+          "deleted": "",
+          "end": 33,
+          "i": 33,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 33,
+          "t": 7914000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            68
+          ],
+          "deleted": "",
+          "end": 34,
+          "i": 34,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 34,
+          "t": 8345000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            70
+          ],
+          "deleted": "",
+          "end": 35,
+          "i": 35,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 35,
+          "t": 8507000,
+          "text": " "
+        },
+        {
+          "causes": [
+            72
+          ],
+          "deleted": "",
+          "end": 36,
+          "i": 36,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 36,
+          "t": 8661000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            74
+          ],
+          "deleted": "",
+          "end": 37,
+          "i": 37,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 37,
+          "t": 8761000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            76
+          ],
+          "deleted": "",
+          "end": 38,
+          "i": 38,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 38,
+          "t": 9000000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            78
+          ],
+          "deleted": "",
+          "end": 39,
+          "i": 39,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 39,
+          "t": 9310000,
+          "text": " "
+        },
+        {
+          "causes": [
+            80
+          ],
+          "deleted": "",
+          "end": 40,
+          "i": 40,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 40,
+          "t": 9693000,
+          "text": "w"
+        },
+        {
+          "causes": [
+            82
+          ],
+          "deleted": "",
+          "end": 41,
+          "i": 41,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 41,
+          "t": 10027000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            84
+          ],
+          "deleted": "",
+          "end": 42,
+          "i": 42,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 42,
+          "t": 10252000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            86
+          ],
+          "deleted": "",
+          "end": 43,
+          "i": 43,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 43,
+          "t": 10582000,
+          "text": "d"
+        },
+        {
+          "causes": [
+            88
+          ],
+          "deleted": "",
+          "end": 44,
+          "i": 44,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 44,
+          "t": 10690000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            90
+          ],
+          "deleted": "",
+          "end": 45,
+          "i": 45,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 45,
+          "t": 10936000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            92
+          ],
+          "deleted": "",
+          "end": 46,
+          "i": 46,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 46,
+          "t": 11201000,
+          "text": "g"
+        },
+        {
+          "causes": [
+            94
+          ],
+          "deleted": "",
+          "end": 47,
+          "i": 47,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 47,
+          "t": 11558000,
+          "text": ","
+        },
+        {
+          "causes": [
+            96
+          ],
+          "deleted": "",
+          "end": 48,
+          "i": 48,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 48,
+          "t": 11895000,
+          "text": " "
+        },
+        {
+          "causes": [
+            98
+          ],
+          "deleted": "",
+          "end": 49,
+          "i": 49,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 49,
+          "t": 12090000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            100
+          ],
+          "deleted": "",
+          "end": 50,
+          "i": 50,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 50,
+          "t": 12491000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            102
+          ],
+          "deleted": "",
+          "end": 51,
+          "i": 51,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 51,
+          "t": 12908000,
+          "text": "d"
+        },
+        {
+          "causes": [
+            104
+          ],
+          "deleted": "",
+          "end": 52,
+          "i": 52,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 52,
+          "t": 13267000,
+          "text": " "
+        },
+        {
+          "causes": [
+            106
+          ],
+          "deleted": "",
+          "end": 53,
+          "i": 53,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 53,
+          "t": 13646000,
+          "text": "f"
+        },
+        {
+          "causes": [
+            108
+          ],
+          "deleted": "",
+          "end": 54,
+          "i": 54,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 54,
+          "t": 13897000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            110
+          ],
+          "deleted": "",
+          "end": 55,
+          "i": 55,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 55,
+          "t": 13993000,
+          "text": "l"
+        },
+        {
+          "causes": [
+            112
+          ],
+          "deleted": "",
+          "end": 56,
+          "i": 56,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 56,
+          "t": 14286000,
+          "text": "l"
+        },
+        {
+          "causes": [
+            114
+          ],
+          "deleted": "",
+          "end": 57,
+          "i": 57,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 57,
+          "t": 14706000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            116
+          ],
+          "deleted": "",
+          "end": 58,
+          "i": 58,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 58,
+          "t": 15058000,
+          "text": "w"
+        },
+        {
+          "causes": [
+            118
+          ],
+          "deleted": "",
+          "end": 59,
+          "i": 59,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 59,
+          "t": 15370000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            120
+          ],
+          "deleted": "",
+          "end": 60,
+          "i": 60,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 60,
+          "t": 15810000,
+          "text": " "
+        },
+        {
+          "causes": [
+            122
+          ],
+          "deleted": "",
+          "end": 61,
+          "i": 61,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 61,
+          "t": 16175000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            124
+          ],
+          "deleted": "",
+          "end": 62,
+          "i": 62,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 62,
+          "t": 16591000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            126
+          ],
+          "deleted": "",
+          "end": 63,
+          "i": 63,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 63,
+          "t": 17022000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            128
+          ],
+          "deleted": "",
+          "end": 64,
+          "i": 64,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 64,
+          "t": 17417000,
+          "text": " "
+        },
+        {
+          "causes": [
+            130
+          ],
+          "deleted": "",
+          "end": 65,
+          "i": 65,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 65,
+          "t": 17755000,
+          "text": "c"
+        },
+        {
+          "causes": [
+            132
+          ],
+          "deleted": "",
+          "end": 66,
+          "i": 66,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 66,
+          "t": 18111000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            134
+          ],
+          "deleted": "",
+          "end": 67,
+          "i": 67,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 67,
+          "t": 18543000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            136
+          ],
+          "deleted": "",
+          "end": 68,
+          "i": 68,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 68,
+          "t": 18847000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            138
+          ],
+          "deleted": "",
+          "end": 69,
+          "i": 69,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 69,
+          "t": 19128000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            140
+          ],
+          "deleted": "",
+          "end": 70,
+          "i": 70,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 70,
+          "t": 19479000,
+          "text": "q"
+        },
+        {
+          "causes": [
+            142
+          ],
+          "deleted": "",
+          "end": 71,
+          "i": 71,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 71,
+          "t": 19585000,
+          "text": "u"
+        },
+        {
+          "causes": [
+            144
+          ],
+          "deleted": "",
+          "end": 72,
+          "i": 72,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 72,
+          "t": 20061000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            146
+          ],
+          "deleted": "",
+          "end": 73,
+          "i": 73,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 73,
+          "t": 20481000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            148
+          ],
+          "deleted": "",
+          "end": 74,
+          "i": 74,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 74,
+          "t": 20663000,
+          "text": "c"
+        },
+        {
+          "causes": [
+            150
+          ],
+          "deleted": "",
+          "end": 75,
+          "i": 75,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 75,
+          "t": 21124000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            152
+          ],
+          "deleted": "",
+          "end": 76,
+          "i": 76,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 76,
+          "t": 21256000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            154
+          ],
+          "deleted": "",
+          "end": 77,
+          "i": 77,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 77,
+          "t": 21595000,
+          "text": " "
+        },
+        {
+          "causes": [
+            156
+          ],
+          "deleted": "",
+          "end": 78,
+          "i": 78,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 78,
+          "t": 22021000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            158
+          ],
+          "deleted": "",
+          "end": 79,
+          "i": 79,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 79,
+          "t": 22245000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            160
+          ],
+          "deleted": "",
+          "end": 80,
+          "i": 80,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 80,
+          "t": 22422000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            162
+          ],
+          "deleted": "",
+          "end": 81,
+          "i": 81,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 81,
+          "t": 22683000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            164
+          ],
+          "deleted": "",
+          "end": 82,
+          "i": 82,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 82,
+          "t": 22945000,
+          "text": "u"
+        },
+        {
+          "causes": [
+            166
+          ],
+          "deleted": "",
+          "end": 83,
+          "i": 83,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 83,
+          "t": 23318000,
+          "text": "g"
+        },
+        {
+          "causes": [
+            168
+          ],
+          "deleted": "",
+          "end": 84,
+          "i": 84,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 84,
+          "t": 23608000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            170
+          ],
+          "deleted": "",
+          "end": 85,
+          "i": 85,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 85,
+          "t": 23735000,
+          "text": " "
+        },
+        {
+          "causes": [
+            172
+          ],
+          "deleted": "",
+          "end": 86,
+          "i": 86,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 86,
+          "t": 24195000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            174
+          ],
+          "deleted": "",
+          "end": 87,
+          "i": 87,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 87,
+          "t": 24518000,
+          "text": " "
+        },
+        {
+          "causes": [
+            176
+          ],
+          "deleted": "",
+          "end": 88,
+          "i": 88,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 88,
+          "t": 24806000,
+          "text": "l"
+        },
+        {
+          "causes": [
+            178
+          ],
+          "deleted": "",
+          "end": 89,
+          "i": 89,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 89,
+          "t": 25189000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            180
+          ],
+          "deleted": "",
+          "end": 90,
+          "i": 90,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 90,
+          "t": 25451000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            182
+          ],
+          "deleted": "",
+          "end": 91,
+          "i": 91,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 91,
+          "t": 25549000,
+          "text": "g"
+        },
+        {
+          "causes": [
+            184
+          ],
+          "deleted": "",
+          "end": 92,
+          "i": 92,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 92,
+          "t": 25735000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            186
+          ],
+          "deleted": "",
+          "end": 93,
+          "i": 93,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 93,
+          "t": 26125000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            188
+          ],
+          "deleted": "",
+          "end": 94,
+          "i": 94,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 94,
+          "t": 26260000,
+          "text": " "
+        },
+        {
+          "causes": [
+            190
+          ],
+          "deleted": "",
+          "end": 95,
+          "i": 95,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 95,
+          "t": 26671000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            192
+          ],
+          "deleted": "",
+          "end": 96,
+          "i": 96,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 96,
+          "t": 26947000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            194
+          ],
+          "deleted": "",
+          "end": 97,
+          "i": 97,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 97,
+          "t": 27043000,
+          "text": "g"
+        },
+        {
+          "causes": [
+            196
+          ],
+          "deleted": "",
+          "end": 98,
+          "i": 98,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 98,
+          "t": 27313000,
+          "text": "u"
+        },
+        {
+          "causes": [
+            198
+          ],
+          "deleted": "",
+          "end": 99,
+          "i": 99,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 99,
+          "t": 27520000,
+          "text": "m"
+        },
+        {
+          "causes": [
+            200
+          ],
+          "deleted": "",
+          "end": 100,
+          "i": 100,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 100,
+          "t": 27817000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            202
+          ],
+          "deleted": "",
+          "end": 101,
+          "i": 101,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 101,
+          "t": 28179000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            204
+          ],
+          "deleted": "",
+          "end": 102,
+          "i": 102,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 102,
+          "t": 28525000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            206
+          ],
+          "deleted": "",
+          "end": 103,
+          "i": 103,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 103,
+          "t": 28985000,
+          "text": "."
+        },
+        {
+          "causes": [
+            208
+          ],
+          "deleted": "",
+          "end": 104,
+          "i": 104,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 104,
+          "t": 29105000,
+          "text": " "
+        },
+        {
+          "causes": [
+            210
+          ],
+          "deleted": "",
+          "end": 105,
+          "i": 105,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 105,
+          "t": 29522000,
+          "text": "T"
+        },
+        {
+          "causes": [
+            212
+          ],
+          "deleted": "",
+          "end": 106,
+          "i": 106,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 106,
+          "t": 29759000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            214
+          ],
+          "deleted": "",
+          "end": 107,
+          "i": 107,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 107,
+          "t": 30102000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            216
+          ],
+          "deleted": "",
+          "end": 108,
+          "i": 108,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 108,
+          "t": 30514000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            218
+          ],
+          "deleted": "",
+          "end": 109,
+          "i": 109,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 109,
+          "t": 30972000,
+          "text": " "
+        },
+        {
+          "causes": [
+            220
+          ],
+          "deleted": "",
+          "end": 110,
+          "i": 110,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 110,
+          "t": 31181000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            222
+          ],
+          "deleted": "",
+          "end": 111,
+          "i": 111,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 111,
+          "t": 31549000,
+          "text": "y"
+        },
+        {
+          "causes": [
+            224
+          ],
+          "deleted": "",
+          "end": 112,
+          "i": 112,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 112,
+          "t": 31886000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            226
+          ],
+          "deleted": "",
+          "end": 113,
+          "i": 113,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 113,
+          "t": 32066000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            228
+          ],
+          "deleted": "",
+          "end": 114,
+          "i": 114,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 114,
+          "t": 32234000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            230
+          ],
+          "deleted": "",
+          "end": 115,
+          "i": 115,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 115,
+          "t": 32598000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            232
+          ],
+          "deleted": "",
+          "end": 116,
+          "i": 116,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 116,
+          "t": 32915000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            234
+          ],
+          "deleted": "",
+          "end": 117,
+          "i": 117,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 117,
+          "t": 33198000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            236
+          ],
+          "deleted": "",
+          "end": 118,
+          "i": 118,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 118,
+          "t": 33672000,
+          "text": "c"
+        },
+        {
+          "causes": [
+            238
+          ],
+          "deleted": "",
+          "end": 119,
+          "i": 119,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 119,
+          "t": 33998000,
+          "text": " "
+        },
+        {
+          "causes": [
+            240
+          ],
+          "deleted": "",
+          "end": 120,
+          "i": 120,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 120,
+          "t": 34110000,
+          "text": "f"
+        },
+        {
+          "causes": [
+            242
+          ],
+          "deleted": "",
+          "end": 121,
+          "i": 121,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 121,
+          "t": 34205000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            244
+          ],
+          "deleted": "",
+          "end": 122,
+          "i": 122,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 122,
+          "t": 34363000,
+          "text": "x"
+        },
+        {
+          "causes": [
+            246
+          ],
+          "deleted": "",
+          "end": 123,
+          "i": 123,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 123,
+          "t": 34686000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            248
+          ],
+          "deleted": "",
+          "end": 124,
+          "i": 124,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 124,
+          "t": 34874000,
+          "text": "u"
+        },
+        {
+          "causes": [
+            250
+          ],
+          "deleted": "",
+          "end": 125,
+          "i": 125,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 125,
+          "t": 34974000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            252
+          ],
+          "deleted": "",
+          "end": 126,
+          "i": 126,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 126,
+          "t": 35195000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            254
+          ],
+          "deleted": "",
+          "end": 127,
+          "i": 127,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 127,
+          "t": 35465000,
+          "text": " "
+        },
+        {
+          "causes": [
+            256
+          ],
+          "deleted": "",
+          "end": 128,
+          "i": 128,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 128,
+          "t": 35905000,
+          "text": "p"
+        },
+        {
+          "causes": [
+            258
+          ],
+          "deleted": "",
+          "end": 129,
+          "i": 129,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 129,
+          "t": 36134000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            260
+          ],
+          "deleted": "",
+          "end": 130,
+          "i": 130,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 130,
+          "t": 36446000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            262
+          ],
+          "deleted": "",
+          "end": 131,
+          "i": 131,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 131,
+          "t": 36860000,
+          "text": "v"
+        },
+        {
+          "causes": [
+            264
+          ],
+          "deleted": "",
+          "end": 132,
+          "i": 132,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 132,
+          "t": 37165000,
+          "text": "e"
+        },
+        {
+          "causes": [
+            266
+          ],
+          "deleted": "",
+          "end": 133,
+          "i": 133,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 133,
+          "t": 37255000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            268
+          ],
+          "deleted": "",
+          "end": 134,
+          "i": 134,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 134,
+          "t": 37400000,
+          "text": " "
+        },
+        {
+          "causes": [
+            270
+          ],
+          "deleted": "",
+          "end": 135,
+          "i": 135,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 135,
+          "t": 37806000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            272
+          ],
+          "deleted": "",
+          "end": 136,
+          "i": 136,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 136,
+          "t": 37928000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            274
+          ],
+          "deleted": "",
+          "end": 137,
+          "i": 137,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 137,
+          "t": 38279000,
+          "text": " "
+        },
+        {
+          "causes": [
+            276
+          ],
+          "deleted": "",
+          "end": 138,
+          "i": 138,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 138,
+          "t": 38550000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            278
+          ],
+          "deleted": "",
+          "end": 139,
+          "i": 139,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 139,
+          "t": 39002000,
+          "text": "u"
+        },
+        {
+          "causes": [
+            280
+          ],
+          "deleted": "",
+          "end": 140,
+          "i": 140,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 140,
+          "t": 39137000,
+          "text": "m"
+        },
+        {
+          "causes": [
+            282
+          ],
+          "deleted": "",
+          "end": 141,
+          "i": 141,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 141,
+          "t": 39269000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            284
+          ],
+          "deleted": "",
+          "end": 142,
+          "i": 142,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 142,
+          "t": 39580000,
+          "text": "n"
+        },
+        {
+          "causes": [
+            286
+          ],
+          "deleted": "",
+          "end": 143,
+          "i": 143,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 143,
+          "t": 39674000,
+          "text": " "
+        },
+        {
+          "causes": [
+            288
+          ],
+          "deleted": "",
+          "end": 144,
+          "i": 144,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 144,
+          "t": 40038000,
+          "text": "a"
+        },
+        {
+          "causes": [
+            290
+          ],
+          "deleted": "",
+          "end": 145,
+          "i": 145,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 145,
+          "t": 40321000,
+          "text": "u"
+        },
+        {
+          "causes": [
+            292
+          ],
+          "deleted": "",
+          "end": 146,
+          "i": 146,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 146,
+          "t": 40448000,
+          "text": "t"
+        },
+        {
+          "causes": [
+            294
+          ],
+          "deleted": "",
+          "end": 147,
+          "i": 147,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 147,
+          "t": 40817000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            296
+          ],
+          "deleted": "",
+          "end": 148,
+          "i": 148,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 148,
+          "t": 41262000,
+          "text": "o"
+        },
+        {
+          "causes": [
+            298
+          ],
+          "deleted": "",
+          "end": 149,
+          "i": 149,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 149,
+          "t": 41677000,
+          "text": "r"
+        },
+        {
+          "causes": [
+            300
+          ],
+          "deleted": "",
+          "end": 150,
+          "i": 150,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 150,
+          "t": 41973000,
+          "text": "s"
+        },
+        {
+          "causes": [
+            302
+          ],
+          "deleted": "",
+          "end": 151,
+          "i": 151,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 151,
+          "t": 42077000,
+          "text": "h"
+        },
+        {
+          "causes": [
+            304
+          ],
+          "deleted": "",
+          "end": 152,
+          "i": 152,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 152,
+          "t": 42332000,
+          "text": "i"
+        },
+        {
+          "causes": [
+            306
+          ],
+          "deleted": "",
+          "end": 153,
+          "i": 153,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 153,
+          "t": 42556000,
+          "text": "p"
+        },
+        {
+          "causes": [
+            308
+          ],
+          "deleted": "",
+          "end": 154,
+          "i": 154,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 154,
+          "t": 42887000,
+          "text": "."
+        },
+        {
+          "causes": [
+            310
+          ],
+          "deleted": "",
+          "end": 155,
+          "i": 155,
+          "op": "splice",
+          "profile": "keyboard",
+          "source": "direct",
+          "start": 155,
+          "t": 42993000,
+          "text": " "
+        }
+      ]
+    }
+  ],
+  "target": "keyboard",
+  "version": "hwp-a/0.2"
+}

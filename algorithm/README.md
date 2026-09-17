@@ -1,7 +1,9 @@
-# Human-writing verification algorithm
+# Historical algorithm versions
 
-**Repository availability:** source-file uploads were blocked. The specification and permitted results are published here; the complete tested reference implementation is delivered separately as `HWP-A-0.3.0.zip`. Commands below apply to the complete package. See [publication status](v0_3/PUBLICATION.md).
+Product implementation uses the [joined frozen protocol](../protocol/v0/README.md).
 
-The strengthened, separately versioned algorithm foundation is [HWP-A 0.3.0](v0_3/README.md). Start with its [consolidated specification](v0_3/SPECIFICATION.md), [adversarial audit](v0_3/AUDIT.md), and [executed results](v0_3/RESULTS.md).
+- [HWP-A 0.3](v0_3/README.md): complete recovered reference/audit/tests. Its publication note describes the original upload failure.
+- [HWP-A 0.2](v0_2/README.md): exact earlier package relocated here to avoid collisions.
+- Source files directly here: original A1 implementation, unchanged.
 
-The files directly in this directory are the earlier A1 implementation. They remain unchanged for historical interpretation and are **not** the current reference implementation. Run the new code and tests from `algorithm/v0_3`, not from this directory. No version supplied in this repository is an empirically validated or approved real-world human-writing certification release.
+Run each version from its own directory: 0.2 and 0.3 both use package name hwp_a. None is an empirically approved production detector. [Reconciliation](../RECONCILIATION.md).

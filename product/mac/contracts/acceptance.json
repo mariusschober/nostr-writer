@@ -1,0 +1,427 @@
+{
+  "version": "nostr-writer-mac-mvp/1",
+  "prepared": "2026-09-16",
+  "completion": "all_mandatory_pass_same_release_commit",
+  "criteria": [
+    {
+      "id": "M01",
+      "stage": "01",
+      "mandatory": true,
+      "requirement": "Frozen protocol bytes and deterministic vectors hydrate and match original inventory; all 178 protocol tests and independent checker pass.",
+      "evidence": "Freeze check and protocol logs"
+    },
+    {
+      "id": "M02",
+      "stage": "01",
+      "mandatory": true,
+      "requirement": "Native Xcode document app builds with shared schemes, strict Swift 6 and declared macOS 14+ deployment/architectures.",
+      "evidence": "Xcode build logs and Mach-O inspection"
+    },
+    {
+      "id": "M03",
+      "stage": "01",
+      "mandatory": true,
+      "requirement": "First launch reaches writing without identity/account; explicit recording consent and no pre-opt-in network.",
+      "evidence": "Clean-user UI run and network log"
+    },
+    {
+      "id": "M04",
+      "stage": "01",
+      "mandatory": true,
+      "requirement": "Sandbox/hardened-runtime/least-privilege settings are present in built app, with no forbidden privileges.",
+      "evidence": "Entitlement inspection"
+    },
+    {
+      "id": "M05",
+      "stage": "01",
+      "mandatory": true,
+      "requirement": "Dependency revisions/licenses, environment, CI and native/portable test scripts are locked and reproducible.",
+      "evidence": "Lockfiles, notices, CI logs"
+    },
+    {
+      "id": "M06",
+      "stage": "01",
+      "mandatory": true,
+      "requirement": "Prepared Foundation tests, immutable revision interfaces and native shell keyboard/accessibility states pass.",
+      "evidence": "Swift tests and Mac shell screenshots"
+    },
+    {
+      "id": "M07",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "New/Open/Save/Save As/Duplicate/Revert preserve exact source bytes and correct identity/revision state.",
+      "evidence": "Round-trip tests"
+    },
+    {
+      "id": "M08",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "Recovery encrypted at rest; crash/disk-full/keychain/partial-write tests preserve durable text without false Saved state.",
+      "evidence": "Fault-injection logs"
+    },
+    {
+      "id": "M09",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "Real iCloud Drive open/save/offline/reconnect/eviction/conflict lifecycle works with native coordination.",
+      "evidence": "Actual provider session evidence"
+    },
+    {
+      "id": "M10",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "Real Google Drive for desktop lifecycle works without custom API or hardcoded provider paths.",
+      "evidence": "Actual provider session evidence"
+    },
+    {
+      "id": "M11",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "Dirty external conflicts preserve both complete versions and never merge provenance automatically.",
+      "evidence": "Conflict tests and screenshots"
+    },
+    {
+      "id": "M12",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "Bookmarks, permission loss, rename/move, owned assets and duplicate-window coordination are safe.",
+      "evidence": "File lifecycle tests"
+    },
+    {
+      "id": "M13",
+      "stage": "02",
+      "mandatory": true,
+      "requirement": "Local library/recent/search/unsaved-recovery flows and limits are usable offline and accessible.",
+      "evidence": "Mac interaction and storage-limit tests"
+    },
+    {
+      "id": "M14",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "Finished TextKit 2 long editor, typography, chrome, focus/typewriter options and outline work.",
+      "evidence": "Actual light/dark/narrow screenshots"
+    },
+    {
+      "id": "M15",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "Markdown editing/find/replace/format/undo preserve source and responsive caret/selection.",
+      "evidence": "Editor UI and randomized edit tests"
+    },
+    {
+      "id": "M16",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "IME/dead-key/emoji/RTL/Unicode offsets work without synthetic capture invention.",
+      "evidence": "Native input matrix and replay checks"
+    },
+    {
+      "id": "M17",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "All app mutation routes use one revision/cause gateway; unexplained input marks a gap rather than physical typing.",
+      "evidence": "Mutation/capture adversarial tests"
+    },
+    {
+      "id": "M18",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "Spelling/grammar/controlled system assistance remains usable with exact assisted/unknown provenance.",
+      "evidence": "Native assistance tests"
+    },
+    {
+      "id": "M19",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "Optional on-device dictation is range-anchored, permission-aware and cancellation-safe with no silent cloud fallback.",
+      "evidence": "Native dictation/error tests"
+    },
+    {
+      "id": "M20",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "Quote/external-source annotations and passage inspector preserve exact boundaries and do not imply human certainty.",
+      "evidence": "Scope/editor tests"
+    },
+    {
+      "id": "M21",
+      "stage": "03",
+      "mandatory": true,
+      "requirement": "Consent changes, capture gaps/resources and stale async rendering are handled without losing writing.",
+      "evidence": "Fault/race tests and UI states"
+    },
+    {
+      "id": "M22",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Full native deterministic HWP replay/features/model/support/scope binding agrees with frozen oracle.",
+      "evidence": "Cross-language assessment vectors"
+    },
+    {
+      "id": "M23",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Native strict CBOR/COSE/Ed25519/Merkle/parent/target/release checks match positive and negative vectors.",
+      "evidence": "Bidirectional crypto/protocol vectors"
+    },
+    {
+      "id": "M24",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Actual producer, V and R verification work; missing R evidence never falls back to V.",
+      "evidence": "Complete pipeline tests"
+    },
+    {
+      "id": "M25",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Production starts with empty approval set, returns NOT PROVABLE and issues no HWP; fixtures never grant production status.",
+      "evidence": "Release resource scan and negative issuance tests"
+    },
+    {
+      "id": "M26",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Revision-bound proof UI distinguishes contribution/whole/stale, attested/recomputed and unsupported capture.",
+      "evidence": "Mac proof UX and substitution tests"
+    },
+    {
+      "id": "M27",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Complete private evidence export/import/recomputation and voluntary audit preserve exact input/output binding.",
+      "evidence": "Disclosure round-trip and tamper tests"
+    },
+    {
+      "id": "M28",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Release precommit, planned parents, identity participation, policy pin and future approval staging remain frozen.",
+      "evidence": "Adversarial policy/release tests"
+    },
+    {
+      "id": "M29",
+      "stage": "04",
+      "mandatory": true,
+      "requirement": "Standalone native offline hwp-verify works without application servers, Python runtime or arbitrary bundled code execution.",
+      "evidence": "Fresh-user CLI run and unsafe-input tests"
+    },
+    {
+      "id": "M30",
+      "stage": "05",
+      "mandatory": true,
+      "requirement": "One semantic parse produces faithful safe preview/PDF/DOCX for the required Markdown subset.",
+      "evidence": "Content/AST fixtures"
+    },
+    {
+      "id": "M31",
+      "stage": "05",
+      "mandatory": true,
+      "requirement": "Both PDF templates/paper sizes are polished, selectable, paginated and visually inspected on every torture-fixture page.",
+      "evidence": "Rendered page images and inspection log"
+    },
+    {
+      "id": "M32",
+      "stage": "05",
+      "mandatory": true,
+      "requirement": "Real DOCX opens without repair and remains semantically editable in Word and Pages.",
+      "evidence": "OOXML checks and actual client screenshots"
+    },
+    {
+      "id": "M33",
+      "stage": "05",
+      "mandatory": true,
+      "requirement": "Preview/print/export cancellation/provider errors/stale snapshots are correct and responsive.",
+      "evidence": "Mac interaction/race tests"
+    },
+    {
+      "id": "M34",
+      "stage": "05",
+      "mandatory": true,
+      "requirement": "Source/document archives restore assets/text, exclude secrets/history by default and resist unsafe extraction.",
+      "evidence": "Archive round-trip/security tests"
+    },
+    {
+      "id": "M35",
+      "stage": "05",
+      "mandatory": true,
+      "requirement": "Proof companions bind exact source only; formatted-output manifests do not masquerade as HWP render certification.",
+      "evidence": "Source/proof/output mutation tests"
+    },
+    {
+      "id": "M36",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Nostr identity generation/import/read-only/removal/errors protect keys and separate identities/outbox jobs.",
+      "evidence": "Keychain/identity tests"
+    },
+    {
+      "id": "M37",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "NIP01/BIP340/NIP19 and NIP44 extended-length encrypt/decrypt match independent official vectors.",
+      "evidence": "Protocol vectors including 65535/65536/65537"
+    },
+    {
+      "id": "M38",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Durable outbox signs once, retries exact IDs, survives process death and reports per-relay outcomes honestly.",
+      "evidence": "Crash/ACK/cancel/race tests"
+    },
+    {
+      "id": "M39",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Relay subscriptions/AUTH/EOSE/cancellation/generations/bounds/URL identity are correct.",
+      "evidence": "Deterministic relay-harness logs"
+    },
+    {
+      "id": "M40",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Long-form30023 create/revise/title/d/published_at/links and optional one-click publish are complete.",
+      "evidence": "Actual test-client interoperability"
+    },
+    {
+      "id": "M41",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Quick Post shortcut/menu panel preserves fast publication and durable independent draft recovery.",
+      "evidence": "Mac panel and outbox tests"
+    },
+    {
+      "id": "M42",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "NIP37 31234 drafts and10013 private relay lists are encrypted/self-restorable with explicit relay opt-in.",
+      "evidence": "Independent decrypt/relay checks"
+    },
+    {
+      "id": "M43",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Remote draft ordering/conflicts/offline/debounce/expiration/tombstone/oversize behaviour never loses local text.",
+      "evidence": "Draft concurrency/negative tests"
+    },
+    {
+      "id": "M44",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "No private history/plaintext draft/key leaks to relays, logs or public proof association.",
+      "evidence": "Network/serialization audit"
+    },
+    {
+      "id": "M45",
+      "stage": "06",
+      "mandatory": true,
+      "requirement": "Optional Nostr/HWP association binds exact article event/source/proof with separate keys and no badge promotion.",
+      "evidence": "Cross-version and signature distinction tests"
+    },
+    {
+      "id": "M46",
+      "stage": "07",
+      "mandatory": true,
+      "requirement": "Time/word locked-session goals, monotonic active-time and eligible new-word accounting behave as specified.",
+      "evidence": "Pure reducer and native session tests"
+    },
+    {
+      "id": "M47",
+      "stage": "07",
+      "mandatory": true,
+      "requirement": "All copy/paste/external injection paths are covered while native IME and safe editing remain usable.",
+      "evidence": "Input-route matrix"
+    },
+    {
+      "id": "M48",
+      "stage": "07",
+      "mandatory": true,
+      "requirement": "Optional app/window/display restrictions use public APIs and accurately disclose/handle escape limitations.",
+      "evidence": "Multiple-display/Space/Stage Manager evidence"
+    },
+    {
+      "id": "M49",
+      "stage": "07",
+      "mandatory": true,
+      "requirement": "Always-reachable emergency exit, termination/crash/sleep/permission failure release restrictions safely.",
+      "evidence": "Exception injection and accessibility video"
+    },
+    {
+      "id": "M50",
+      "stage": "07",
+      "mandatory": true,
+      "requirement": "Four offline soundscapes work with licensed/generated assets, volume/fades and audio interruption handling.",
+      "evidence": "Audio QA and asset-license manifest"
+    },
+    {
+      "id": "M51",
+      "stage": "07",
+      "mandatory": true,
+      "requirement": "Focus never implies HWP, changes source behind user, damages data or requests prohibited privilege.",
+      "evidence": "Signed-build security/interaction audit"
+    },
+    {
+      "id": "M52",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "All end-to-end journeys and all M01–M60 pass against one release commit.",
+      "evidence": "Release matrix with actual evidence"
+    },
+    {
+      "id": "M53",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "All U01–U15 screens pass real Mac visual, keyboard, VoiceOver, dark/light/contrast/motion/input QA.",
+      "evidence": "Screen/accessibility matrix"
+    },
+    {
+      "id": "M54",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Performance/energy/cancellation thresholds pass on named baseline hardware and declared fixture sizes.",
+      "evidence": "Measured performance traces"
+    },
+    {
+      "id": "M55",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Security/privacy/parser/fault-injection review finds no unresolved data-loss, key-leak or false-proof critical issue.",
+      "evidence": "Review and adversarial logs"
+    },
+    {
+      "id": "M56",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Supported OS/architecture/runtime matrix passes, including minimum/current OS and Intel-compatible version.",
+      "evidence": "Runtime/build matrix"
+    },
+    {
+      "id": "M57",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Developer ID signed, hardened, sandboxed, notarized and stapled app/DMG validates on clean quarantined installation.",
+      "evidence": "Signing/notary/stapler/spctl evidence"
+    },
+    {
+      "id": "M58",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Release resources contain no fixture authority keys, unsafe bypass, proprietary font or unlicensed audio.",
+      "evidence": "Archive scan and notices/SBOM"
+    },
+    {
+      "id": "M59",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Help/backup/restore/privacy/proof limits/emergency exit/update/uninstall documentation matches actual release behaviour.",
+      "evidence": "Help journey and recovery review"
+    },
+    {
+      "id": "M60",
+      "stage": "08",
+      "mandatory": true,
+      "requirement": "Release report, checksums, exact commits/artifacts and all mandatory evidence are reproducible and published.",
+      "evidence": "RELEASE.md/json and distribution artifact"
+    }
+  ]
+}

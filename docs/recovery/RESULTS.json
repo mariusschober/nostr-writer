@@ -1,0 +1,40 @@
+{
+  "date": "2026-09-17",
+  "repository_base": "262cb213cda8e533a958fe21915a2406138b6f9c",
+  "frozen_commit": "df574612a0101150e2259dc80019058d0b4b5d6b",
+  "counts": {
+    "a02": {
+      "passed": 76,
+      "errors": 0
+    },
+    "a03": {
+      "passed": 100,
+      "errors": 0
+    },
+    "joined_v0_openssl3": {
+      "passed": 178,
+      "errors": 0
+    },
+    "legacy_a1": {
+      "passed": 53,
+      "errors": 0
+    },
+    "foundation_assertions": {
+      "passed": 33,
+      "errors": 0
+    },
+    "legacy_c1": {
+      "passed": 94,
+      "errors": 1,
+      "reason": "Native libsodium is absent; cross-backend test cannot load sodium_init."
+    }
+  },
+  "joined_v0_node": "PASS",
+  "joined_v0_determinism": "PASS",
+  "c1_node": "PASS",
+  "originals_preserved": 47,
+  "frozen_files": 69,
+  "mac_application_acceptance": "NOT MEASURED",
+  "writer_foundation_original_source": "NOT PROVIDED",
+  "production_hwp_approvals": 0
+}
