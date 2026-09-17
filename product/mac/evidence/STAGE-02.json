@@ -3,23 +3,27 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "2517ab4835548f329b2d582c9e7a6be42127bc93",
+  "source_commit": "ae698abad229b6cdc68a5f5f107f82ffc4a054d0",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "First integrated document/recovery checkpoint; not stage acceptance. No Stage 03 start.",
+  "source_state": "Integrated persistent catalog/library and bounded recovery lifecycle checkpoint; stage is not accepted.",
   "criteria": [
     {
       "id": "M07",
       "status": "NOT MEASURED",
-      "reason": "One native round-trip check passes exact Save/Revert/Duplicate/Save As bytes and in-session identities. Persistent identity/derivation, save races, loss-preserving Revert, close/quit and restart still incomplete.",
+      "reason": "Native exact-byte lifecycle, preserve-before-Revert, persistent identity/derivation and coalesced rapid-save checks pass. Full dirty close/quit, crash restart and final UI lifecycle acceptance remain unobserved.",
       "evidence": [
-        "product/mac/evidence/logs/stage-02/native-lifecycle.log"
+        "product/mac/evidence/logs/stage-02/boundaries-native.log",
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
       ]
     },
     {
       "id": "M08",
       "status": "NOT MEASURED",
-      "reason": "Encrypted components and six new bootstrap checks pass within recorded scope. App recovery attachment compiles; actual Keychain access, close/sleep boundaries and crash-reopen flow not observed. Ad-hoc signing has no usable recovery access group.",
-      "evidence": []
+      "reason": "Encrypted catalog/recovery and native close boundary pass with synthetic keys. Save/resign/close/sleep requests are wired with a five-second waiting deadline; real Keychain, system sleep and graceful quit/crash observation remain unmeasured. Ad-hoc app lacks legitimate signing access group.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/boundaries-native.log",
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+      ]
     },
     {
       "id": "M09",
@@ -36,20 +40,26 @@
     {
       "id": "M11",
       "status": "NOT MEASURED",
-      "reason": "Preserve-both conflict integration and interaction are not implemented.",
+      "reason": "Preserve-both external conflict integration and interaction are not implemented.",
       "evidence": []
     },
     {
       "id": "M12",
       "status": "NOT MEASURED",
-      "reason": "Coordinated file/bookmark components have separate evidence; app bookmark catalog, permission loss, move/assets and duplicate-window flow remain incomplete.",
-      "evidence": []
+      "reason": "Persistent file bookmarks and permission-renewal opening path implemented. Permission-loss observation, coordinated move/assets, and full duplicate-window routing acceptance remain incomplete.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/boundaries-native.log",
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+      ]
     },
     {
       "id": "M13",
       "status": "NOT MEASURED",
-      "reason": "Local library, recent/search and recovered-unsaved document flows not implemented.",
-      "evidence": []
+      "reason": "Recent, current-text search and recovered-entry UI implemented; actual local save/reopen/Recent row observed. Selected-folder library, reference removal and real encrypted-recovery UI remain incomplete.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/boundaries-native.log",
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+      ]
     }
   ],
   "checks": {
@@ -68,14 +78,40 @@
     "frozen_inputs": "PASS: 69 files",
     "recovery_snapshot": "PASS: 326 pinned files",
     "acceptance_definitions": "PASS: 60 retained",
-    "current_ui_observation": "NOT MEASURED",
+    "current_ui_observation": "PASS limited local-file/sidebar scope; predates lifecycle changes. See binary-scoped observation JSON.",
     "real_keychain": "NOT MEASURED: requires legitimate signed app identity/access group",
-    "actual_providers": "NOT MEASURED"
+    "actual_providers": "NOT MEASURED",
+    "native_boundaries": {
+      "status": "PASS",
+      "tests": 3,
+      "failed": 0,
+      "seconds": 1.175,
+      "scope": "Temporary files/SQLite, synthetic key; exact Revert preservation, Save As/Duplicate identity, persistent reopen, three queued save callers, native canClose callback and latest durability."
+    },
+    "catalog_schema": {
+      "status": "PASS",
+      "tests": 17,
+      "seconds": 0.21
+    },
+    "catalog_budget_after_change": {
+      "status": "PASS",
+      "tests": 3,
+      "seconds": 0.058
+    },
+    "current_native_compile": "PASS arm64 app and hostless native test targets compiled by boundaries invocation.",
+    "final_lifecycle_gui": "NOT MEASURED",
+    "prior_catalog_native": {
+      "status": "PASS",
+      "tests": 2,
+      "seconds": 0.992,
+      "scope": "Before later library and lifecycle changes; superseded for lifecycle by three-check run."
+    }
   },
   "next_work": [
-    "Persistent document/bookmark/derivation catalog and unsaved recovery entries",
-    "Finish recovery boundaries and preserve-before-Revert/Save As",
-    "Coalesced save requests, external conflicts, library UI, real provider observations"
+    "External file notifications, own-save echo suppression, and preserve-both conflict UI",
+    "Selected-folder library and remaining file/bookmark/assets lifecycle",
+    "Legitimate signing, actual recovery/crash/sleep/quit and iCloud/Google Drive observations"
   ],
-  "historical_evidence_used_as_current_pass": false
+  "historical_evidence_used_as_current_pass": false,
+  "previous_source_commit": "2517ab4835548f329b2d582c9e7a6be42127bc93"
 }

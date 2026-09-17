@@ -1,0 +1,16 @@
+{
+  "environment_attempt": {
+    "result": "BLOCKED before compilation",
+    "reason": "Sandbox denied Xcode/Swift manifest and module caches. Authorized native-build access resolved this."
+  },
+  "compile_attempt": {
+    "result": "FAIL",
+    "reason": "Swift does not support super in a closure explicitly capturing self. A synchronous helper now invokes the native close negotiation."
+  },
+  "final_attempt": {
+    "result": "PASS",
+    "tests": 3,
+    "seconds": 1.175
+  },
+  "repeated_passing_checks": false
+}

@@ -1,0 +1,21 @@
+{
+  "status": "PASS within limited local-file scope",
+  "source_scope": "Library implementation included in ae698abad229b6cdc68a5f5f107f82ffc4a054d0; observation predates added lifecycle/save-queue changes. Those later changes have native checks, not final GUI observation.",
+  "binary_sha256": "287d566099243423cbd428a343ea0709394328370b7f062f0bcda058b69ccdba",
+  "fixture": "/private/tmp/nostr-writer-stage02-ui-20260918/Stage02-Synthetic.md",
+  "fixture_bytes": 63,
+  "fixture_sha256": "18646268690acbc7509ad32893bbc8d189298bf5254da69a0ba3054f4235d7a1",
+  "observed": [
+    "Typed synthetic text in native editor, saved through native panel, closed, reopened exact source; first library binary bdf75adbc2abc7c4fd633e0c4da94e2b2128847c75c48949cb9b46048ee1a641.",
+    "Final Recent fix binary: file row Stage02-Synthetic.md visible alongside exact two-line editor text and Saved to nostr-writer-stage02-ui-20260918.",
+    "Recovery unavailable and Retry Recovery visible; writing and file saving remained available."
+  ],
+  "correction": "Initial Recent list omitted the temporary file. Added explicit in-session recent tracking and merged native/catalog references; final row observed.",
+  "not_measured": [
+    "Light/narrow/accessibility acceptance for this stage",
+    "Real encrypted recovery",
+    "Actual provider operations",
+    "Final lifecycle GUI flows"
+  ],
+  "screenshots": "Inline CUA observations only; no screenshot file claimed. Open-panel account labels excluded from repository evidence."
+}

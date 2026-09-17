@@ -1,72 +1,88 @@
 # Stage 02 — document integration in progress
 
-**Not accepted.** Predecessor Stage 01 is accepted at `1fb8625`; current source is
-`2517ab4835548f329b2d582c9e7a6be42127bc93` on `implementation/stage-02`. M07–M13 remain open.
-All 60 mandatory acceptance rows are unchanged. No Stage 03 acceptance is implied.
+**Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
+`ae698abad229b6cdc68a5f5f107f82ffc4a054d0` on `implementation/stage-02`, following
+`2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
 
-Imported only WriterStorage and its preparation evidence from `3cd49d6`:
-AES-GCM encrypted SQLite recovery, explicit migrations/integrity/budgets, coordinated
-source files and bookmarks, one-second recovery scheduling, load-only scoped Keychain
-access, and new installation bootstrap. HWP preparation stays separate.
+WriterStorage provides AES-GCM encrypted SQLite recovery, a bounded rolling journal,
+migrations, integrity checks, coordinated source files/bookmarks, one-second scheduling,
+load-only scoped Keychain access, and installation bootstrap. Bootstrap creates a key
+only for an exclusively leased, new empty installation; inaccessible existing keys never
+cause replacement. Private plaintext AppKit draft autosaves remain disabled. Ordinary
+source saving remains available when private recovery fails.
 
-Bootstrap acquires an exclusive installation lease, commits a versioned preparing
-marker before adding a key, requires an empty new installation for creation, validates
-readback, then commits ready state before opening SQLite. A ready store with a missing
-or denied key never creates a replacement. Six focused synthetic-Keychain/temporary-file
-checks passed; actual Keychain access and bootstrap power-loss observation are not claimed.
+Schema 2 adds a bounded catalog of document UUIDs, source locations, bookmarks, saved
+revisions/digests and derivation links. Migration from version 1 backs up first. Recovery
+bodies remain encrypted; title/bookmark/activity metadata is not anonymous. Reopening
+an edited file retains its UUID and preserves a different unsaved recovery as a separate
+entry before replacing its current checkpoint. Orphan recovery checkpoints remain visible.
 
-Document windows now attach an app-owned recovery service with a bounded ordered
-checkpoint handoff, pending/durable/error state and explicit retry. Ad-hoc builds without
-legitimate access-group entitlement refuse key provisioning and retain ordinary source
-saving. Private plaintext AppKit draft autosaves are disabled. This is recovery source
-storage, not detailed consented writing history or HWP observation.
+The native sidebar now exposes New/Open, Recent, current-title/body Search, Recovered
+drafts and recovery failure. Search reads current encrypted snapshots transiently; it
+never indexes deleted history or keys. Recovered file-bound text opens as a new derived
+copy rather than overwriting the file. Bookmark renewal requires an explicit selection.
+Selected-folder library and several file actions remain unfinished.
 
-Native asynchronous saves use a locked immutable snapshot and its native change-count
-token; file status is separate from recovery. Revert refreshes the live editor through
-the mutation gateway. Duplicate uses an in-memory copy with a new UUID, and Save As
-creates a new UUID with an in-memory derivation link. Persistent catalog/derivation and
-preserve-before-Revert/Save As remain unfinished; current code is a development checkpoint.
+Native saves use immutable byte snapshots and matching change-count tokens. A bounded
+queue serializes physical writes and coalesces consecutive requests for the same target;
+a save of an earlier revision cannot mark later edits saved. Save As creates a new UUID
+and durable derivation metadata; Duplicate starts from an in-memory copy.
+
+Revert now first writes an independent encrypted recovery copy; failure leaves current
+text open. Direct unpreserved Revert is refused. Recovery flush requests are attached to
+Save, native close negotiation, window/app deactivation and system sleep notification.
+Waiting for recovery is capped at five seconds without claiming unfinished commits as
+durable. Native Save/Discard/Cancel remains in control of close negotiation. Full normal
+quit and real system-sleep behavior have not been observed or accepted.
 
 ## Actual bounded verification
 
-- One native lifecycle check **PASS** (1.069 seconds): exact BOM/decomposed Unicode/CRLF/
-  whitespace bytes after Save, Revert and Save As; duplicate source/identity and live
-  editor refresh. It uses only temporary synthetic files, not provider storage.
-- Six bootstrap checks **PASS** (0.046 seconds), recorded in
-  `preparation/keychain-bootstrap/results.json`; no real Keychain item touched.
-- Preparation and frozen checks **PASS**: 69 frozen files, 326 recovery-manifest files,
-  all 60 criteria unchanged. Existing passing component suites were not rerun.
-- Final app and hostless native-test sources compile for arm64 in the focused native
-  invocation. The earlier ordinary-app build predates the final save fix and is not
-  presented as an observed final UI artifact. New window UI is **NOT MEASURED**.
+- **PASS:** 17 catalog/schema checks, 0.210 s. After adding the aggregate metadata bound,
+  only the three affected catalog checks ran again: **PASS**, 0.058 s.
+- **PASS:** final three native lifecycle checks, 1.175 s. Exact BOM/decomposed Unicode/
+  CRLF/whitespace source after Save/Revert/Save As; pre-Revert text retained separately;
+  Duplicate and Save As identity/derivation; persistent reopen with separate unsaved
+  recovery; three overlapping save callers writing the latest exact bytes; native
+  `canClose` callback only after latest recovery is durable. Real temporary SQLite/files
+  and synthetic key only. The full app and native test target compile for arm64.
+- **PASS within scope:** actual native typing → Save panel → close → Open panel → same
+  exact 63-byte synthetic source. Initial Recent omission was fixed; the final Recent row,
+  exact editor text and “Saved to…” state were observed. Recovery unavailable/Retry also
+  appeared, while editing and file saving worked. Binary hashes and limitations are in
+  `logs/stage-02/library-ui-observation.json`. This GUI observation predates the later
+  lifecycle/save-queue changes; those changes are not claimed visually verified.
+- **PASS:** read-only preparation/protocol checks: 69 frozen files, 326 pinned recovery
+  files, all 60 criteria retained. No protocol or historical original was rewritten.
+- Prior six bootstrap checks and earlier component evidence retain their original scopes.
+  Existing passing broad suites and VoiceOver were not repeated.
 
-The first native attempt lacked document-type registration in its hostless test setup.
-The next attempt exposed an actual asynchronous-save actor-isolation crash. The retained
-crash-symbol extract identifies `WriterDocument.data(ofType:)` called from AppKit's
-background writer. The fix hands over immutable bytes and a matching change-count token.
-A compiler-required immutable closure capture was corrected before the final successful
-run. No passing check was repeated after that success. Failures are retained, not counted
-as passes.
+The first boundary build was blocked before compilation by sandbox cache access. The
+native build then exposed a Swift restriction on `super` in an explicitly capturing
+closure; a synchronous callback helper fixed it. The next focused run passed. Earlier
+catalog compile/setup corrections and the original asynchronous-save actor isolation
+fix are not counted as successful tests. No test was rerun after its final passing
+result without a relevant code change. This checkpoint does not use a test loop.
 
-Commands:
+Commands (logs in `logs/stage-02/`):
 
 ```sh
-swift test --package-path mac/Packages/WriterStorage --filter RecoveryBootstrapTests
-xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -only-testing:NostrWriterTests/ShellTests/testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity test
+swift test --package-path mac/Packages/WriterStorage --filter 'DocumentCatalogTests|SchemaRetentionFaultTests'
+swift test --package-path mac/Packages/WriterStorage --filter DocumentCatalogTests
+xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -only-testing:NostrWriterTests/ShellTests/testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity -only-testing:NostrWriterTests/ShellTests/testQueuedSavesAndCloseBoundaryPreserveLatestRevision -only-testing:NostrWriterTests/ShellTests/testPersistentIdentityReopenPreservesDifferentUnsavedRecovery test
 python3 tools/check_preparation.py
 python3 tools/bootstrap_protocol.py
 ```
 
 ## Remaining required work
 
-Persistent UUID/bookmark/derivation catalog, recovery entries after restart, safe close/
-quit/sleep flushes, preserve-before-Revert and Save As, coalesced concurrent saves,
-provider conflict copies, local library/search, rename/move/assets and real iCloud/Google
-Drive observation remain. Live data-protection Keychain acceptance needs legitimate app
-signing/provisioning; no fabricated team ID or legacy Keychain fallback is permitted.
+External notifications/own-save echoes, preserve-both conflict UI, selected-folder library,
+Locate/Remove references, coordinated rename/move/assets, full close/quit/crash recovery,
+and actual iCloud/Google Drive lifecycles remain. Real encrypted-recovery acceptance needs
+legitimate application signing and Keychain access; an owner signing-team question is
+pending. No fabricated team ID or legacy Keychain fallback is permitted.
 
-M07–M13 are individually **NOT MEASURED** with exact reasons in `STAGE-02.json`.
-Earlier storage component evidence is not a substitute for these app/provider criteria.
-Next work is persistence and recovery lifecycle integration, not another broad test pass.
+Every M07–M13 row is **NOT MEASURED** with its precise outstanding scope in `STAGE-02.json`.
+No Stage 03 start or acceptance is implied. Next implementation work is external-change
+preservation and conflict handling, not another broad verification pass.

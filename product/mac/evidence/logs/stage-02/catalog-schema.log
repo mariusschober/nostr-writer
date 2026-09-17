@@ -1,0 +1,61 @@
+[0/1] Planning build
+Building for debugging...
+[0/4] Write sources
+[1/4] Write swift-version--58304C5D6DBC2206.txt
+[3/6] Compiling WriterStorageTests SchemaRetentionFaultTests.swift
+[4/6] Emitting module WriterStorageTests
+[5/8] Compiling WriterStoragePackageTests runner.swift
+[6/8] Emitting module WriterStoragePackageTests
+[6/8] Write Objects.LinkFileList
+[7/8] Linking WriterStoragePackageTests
+Build complete! (3.51s)
+Test Suite 'Selected tests' started at 2026-09-18 00:15:42.921.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-18 00:15:42.922.
+Test Suite 'DocumentCatalogTests' started at 2026-09-18 00:15:42.922.
+Test Case '-[WriterStorageTests.DocumentCatalogTests testDuplicateLocationAndMalformedMetadataDoNotReplaceExistingRecord]' started.
+Test Case '-[WriterStorageTests.DocumentCatalogTests testDuplicateLocationAndMalformedMetadataDoNotReplaceExistingRecord]' passed (0.016 seconds).
+Test Case '-[WriterStorageTests.DocumentCatalogTests testLocationIdentityAndDerivationSurviveReopenWithoutIndexingBody]' started.
+Test Case '-[WriterStorageTests.DocumentCatalogTests testLocationIdentityAndDerivationSurviveReopenWithoutIndexingBody]' passed (0.016 seconds).
+Test Case '-[WriterStorageTests.DocumentCatalogTests testVersionOneRecoveryMigratesWithVerifiedBackup]' started.
+Test Case '-[WriterStorageTests.DocumentCatalogTests testVersionOneRecoveryMigratesWithVerifiedBackup]' passed (0.023 seconds).
+Test Suite 'DocumentCatalogTests' passed at 2026-09-18 00:15:42.977.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.055 (0.055) seconds
+Test Suite 'SchemaRetentionFaultTests' started at 2026-09-18 00:15:42.977.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testBackupRefusesAnExistingDestinationWithoutReplacingIt]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testBackupRefusesAnExistingDestinationWithoutReplacingIt]' passed (0.002 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIdenticalWritesProduceExactlyOneSnapshot]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIdenticalWritesProduceExactlyOneSnapshot]' passed (0.008 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIncreasingWritesKeepTheHighestRevision]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testConcurrentIncreasingWritesKeepTheHighestRevision]' passed (0.017 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testCorruptDatabaseFileIsRejectedWithATypedError]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testCorruptDatabaseFileIsRejectedWithATypedError]' passed (0.001 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testCurrentSchemaIsCreatedOnceAndReopensCleanly]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testCurrentSchemaIsCreatedOnceAndReopensCleanly]' passed (0.009 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFailedSyntheticMigrationRollsBackAndLeavesVersionOneUsable]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFailedSyntheticMigrationRollsBackAndLeavesVersionOneUsable]' passed (0.011 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultAfterCommitLeavesTheRevisionDurableAndRecoverable]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultAfterCommitLeavesTheRevisionDurableAndRecoverable]' passed (0.009 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultsBeforeInsertAndBeforeCommitRollBackCompletely]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testFaultsBeforeInsertAndBeforeCommitRollBackCompletely]' passed (0.013 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testMissingMigrationStepIsReportedInsteadOfInventingASchema]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testMissingMigrationStepIsReportedInsteadOfInventingASchema]' passed (0.006 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testPruningRollsBackWhenCommitFails]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testPruningRollsBackWhenCommitFails]' passed (0.010 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRealSQLiteFullIsReportedAsDiskFullAndRollsBack]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRealSQLiteFullIsReportedAsDiskFullAndRollsBack]' passed (0.013 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRollingRecoveryStaysBoundedAndBudgetFailurePreservesBothDocuments]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testRollingRecoveryStaysBoundedAndBudgetFailurePreservesBothDocuments]' passed (0.030 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testSyntheticMigrationBacksUpFirstThenApplies]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testSyntheticMigrationBacksUpFirstThenApplies]' passed (0.015 seconds).
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testUnsupportedHigherSchemaVersionIsRejectedWithoutChange]' started.
+Test Case '-[WriterStorageTests.SchemaRetentionFaultTests testUnsupportedHigherSchemaVersionIsRejectedWithoutChange]' passed (0.011 seconds).
+Test Suite 'SchemaRetentionFaultTests' passed at 2026-09-18 00:15:43.134.
+	 Executed 14 tests, with 0 failures (0 unexpected) in 0.155 (0.156) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-18 00:15:43.134.
+	 Executed 17 tests, with 0 failures (0 unexpected) in 0.210 (0.212) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 00:15:43.134.
+	 Executed 17 tests, with 0 failures (0 unexpected) in 0.210 (0.213) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
