@@ -21,6 +21,9 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         window.tabbingMode = .preferred
         super.init(window: window)
         setupContent(window)
+        // AppKit chooses the initial key view when ordering the window. Setting
+        // only firstResponder in showWindow can be overwritten by that step.
+        window.initialFirstResponder = editor
         let toolbar = NSToolbar(identifier: "WriterToolbar")
         toolbar.delegate = self; toolbar.displayMode = .iconOnly
         window.toolbar = toolbar; window.toolbarStyle = .unified
@@ -36,16 +39,18 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
             ])
         }
         window.setFrame(NSRect(origin: window.frame.origin, size: NSSize(width: 1120, height: 760)), display: false)
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["NW_TEST_WINDOW_SIZE"] == "narrow" {
-            window.setFrame(NSRect(x: 0, y: 0, width: 760, height: 520), display: false)
-        }
-        #endif
     }
     required init?(coder: NSCoder) { nil }
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
+        #if DEBUG
+        // NSDocument's first presentation may restore/cascade the frame. Apply
+        // the isolated UI test's requested geometry after that native work.
+        if ProcessInfo.processInfo.environment["NW_TEST_WINDOW_SIZE"] == "narrow", let window {
+            window.setFrame(NSRect(origin: window.frame.origin, size: NSSize(width: 760, height: 520)), display: true)
+        }
+        #endif
         window?.makeFirstResponder(editor)
         if !consent.hasChosen { showRecordingConsent() }
     }
