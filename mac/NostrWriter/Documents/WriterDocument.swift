@@ -30,6 +30,8 @@ final class WriterDocument: NSDocument {
     private var writeSnapshot: SourceSnapshot?
     private var saveChangeToken: Any?
     private nonisolated let writingBytes = OSAllocatedUnfairLock<SourceSnapshot?>(initialState: nil)
+    private nonisolated let expectedDiskBytes = OSAllocatedUnfairLock<(URL, Data)?>(initialState: nil)
+    lazy var fileLifecycle = DocumentFileLifecycle(document: self)
     private struct QueuedSave {
         let url: URL
         let type: String
@@ -39,6 +41,8 @@ final class WriterDocument: NSDocument {
     private var queuedSaves: [QueuedSave] = []
     private var saveWaiters: [CheckedContinuation<Void, Never>] = []
     private var lifecycleBusy = false
+    private var lifecycleWaiters: [CheckedContinuation<Void, Never>] = []
+    var isLifecycleTransitionActive: Bool { lifecycleBusy }
     private var preservedRevertSource: SourceSnapshot?
     private var interruptionFlush: Task<Void, Never>?
     var sourceBytes: Data { session?.snapshot.utf8 ?? loadedBytes.withLock { $0 } }
@@ -77,6 +81,9 @@ final class WriterDocument: NSDocument {
 
     override func save(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType,
                        completionHandler: @escaping (Error?) -> Void) {
+        if saveOperation == .saveOperation, fileLifecycle.conflict != nil, !fileLifecycle.isResolving {
+            completionHandler(DocumentConflictError.needsReview); return
+        }
         guard !isSavingSource else {
             // One physical writer, with the newest live revision captured when
             // its turn starts. Distinct destinations retain their order.
@@ -94,6 +101,13 @@ final class WriterDocument: NSDocument {
         saveChangeToken = super.changeCountToken(for: saveOperation)
         let sourceToWrite = writeSnapshot
         writingBytes.withLock { $0 = sourceToWrite }
+        let expected: Data?
+        if let authorized = fileLifecycle.authorizedSave, authorized.url.standardizedFileURL == url.standardizedFileURL {
+            expected = authorized.bytes
+        } else if let savedFile, savedFile.url.standardizedFileURL == url.standardizedFileURL {
+            expected = savedFile.source.utf8
+        } else { expected = nil }
+        expectedDiskBytes.withLock { $0 = expected.map { (url.standardizedFileURL, $0) } }
         refreshWindows()
         Task { [self] in
             // Recovery failure must never prevent an emergency ordinary source
@@ -101,6 +115,19 @@ final class WriterDocument: NSDocument {
             do { try await flushRecovery(at: .save) } catch { }
             performNativeSave(to: url, ofType: typeName, for: saveOperation, completionHandler: completionHandler)
         }
+    }
+
+    nonisolated override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
+        if let (_, expected) = expectedDiskBytes.withLock({ $0 }) {
+            guard try CoordinatedSourceFiles.readInsideNativeAccessor(url) == expected else { throw DocumentConflictError.changedAgain }
+        }
+        try super.writeSafely(to: url, ofType: typeName, for: saveOperation)
+    }
+
+    nonisolated override func presentedItemDidChange() {
+        // Do not let AppKit reload directly into the live editor. Reconcile on
+        // the main actor after leaving the presenter callback/coordination.
+        Task { @MainActor [weak self] in self?.fileLifecycle.scheduleCheck() }
     }
 
     private func performNativeSave(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType,
@@ -130,6 +157,7 @@ final class WriterDocument: NSDocument {
                 }
                 let saved = SavedFileRevision(source: savedSource, url: url)
                 self.savedFile = saved
+                if saveOperation == .saveAsOperation { self.fileLifecycle.didSaveAs() }
                 (NSApp.delegate as? AppDelegate)?.libraryModel.noteRecent(url)
                 self.recovery?.acknowledgeSave(saved, parent: self.derivedFrom)
             }
@@ -137,6 +165,7 @@ final class WriterDocument: NSDocument {
             self.writingBytes.withLock { $0 = nil }
             self.applyPreparedRecovery(); self.refreshWindows(); completionHandler(error)
             self.startNextSave()
+            if error != nil { self.fileLifecycle.scheduleCheck() }
         }
     }
 
@@ -175,6 +204,7 @@ final class WriterDocument: NSDocument {
         recovery?.observe(session.snapshot)
         for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.reloadSource() }
         refreshWindows()
+        fileLifecycle.scheduleCheck()
     }
 
     func revertPreservingRecovery(to url: URL, ofType typeName: String) async throws {
@@ -214,9 +244,13 @@ final class WriterDocument: NSDocument {
         return super.validateUserInterfaceItem(item)
     }
 
-    private func setLifecycleBusy(_ busy: Bool) {
+    func setLifecycleBusy(_ busy: Bool) {
         lifecycleBusy = busy
         for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.editor.isEditable = !busy }
+        if !busy {
+            let waiters = lifecycleWaiters; lifecycleWaiters.removeAll()
+            for waiter in waiters { waiter.resume() }
+        }
     }
 
     func flushRecovery(at boundary: ObservationBoundary) async throws {
@@ -242,6 +276,7 @@ final class WriterDocument: NSDocument {
         // This path also participates in NSDocumentController's ordinary quit
         // negotiation. Keep AppKit's Save/Discard/Cancel decision intact.
         Task { [self] in
+            if lifecycleBusy { await withCheckedContinuation { lifecycleWaiters.append($0) } }
             await awaitSourceSaves()
             setLifecycleBusy(true)
             do { try await flushRecovery(at: .close) } catch { }
@@ -255,6 +290,7 @@ final class WriterDocument: NSDocument {
     }
 
     override func close() {
+        fileLifecycle.stop()
         interruptionFlush?.cancel(); recovery?.stop(); recoveryAttachment?.cancel()
         if let id = session?.snapshot.documentID, let library = recoveryLibrary {
             Task { try? await library.markClosed(id) }
@@ -286,6 +322,22 @@ final class WriterDocument: NSDocument {
     }
 
     func retainSelectedScope(_ lease: SelectedSourceLease) { selectedScope = lease }
+
+    func applyExternalSource(_ external: SourceFileRead) throws {
+        guard let session else { throw CocoaError(.fileReadUnknown) }
+        try session.apply(EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
+            range: try ByteRange(lowerBound: 0, upperBound: session.snapshot.byteCount),
+            replacement: external.bytes, origin: .externalReload, undoGroup: UUID()))
+        let bytes = external.bytes; loadedBytes.withLock { $0 = bytes }
+        savedFile = SavedFileRevision(source: session.snapshot, url: external.url)
+        fileModificationDate = external.modificationDate
+        updateChangeCount(.changeCleared)
+        undoManager?.removeAllActions()
+        recovery?.observe(session.snapshot)
+        if let savedFile { recovery?.acknowledgeSave(savedFile, parent: derivedFrom) }
+        for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.reloadSource() }
+        refreshWindows()
+    }
 
     func refreshWindows() {
         for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.refreshStatus() }

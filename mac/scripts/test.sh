@@ -7,6 +7,11 @@ WRITER_DERIVED_DATA="${WRITER_TEST_DERIVED_DATA:-$WRITER_MAC_ROOT/.build/NativeT
 "$DEVELOPER_DIR/usr/bin/xcodebuild" -project "$WRITER_MAC_ROOT/NostrWriter.xcodeproj" \
   -scheme NostrWriter -derivedDataPath "$WRITER_DERIVED_DATA" -resolvePackageDependencies
 python3 "$WRITER_MAC_ROOT/scripts/verify_build_plugin.py" "$WRITER_DERIVED_DATA"
+mkdir -p "$WRITER_MAC_ROOT/.build/TestTools"
+export NW_COORDINATED_WRITER="$WRITER_MAC_ROOT/.build/TestTools/coordinated-writer"
+"$DEVELOPER_DIR/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc" \
+  "$WRITER_MAC_ROOT/Packages/WriterStorage/Tools/coordinated_writer.swift" -o "$NW_COORDINATED_WRITER"
+export TEST_RUNNER_NW_COORDINATED_WRITER="$NW_COORDINATED_WRITER"
 for package in "$WRITER_MAC_ROOT"/Packages/*; do
   [[ -f "$package/Package.swift" ]] || continue
   if [[ -d "$package/Tests" ]]; then

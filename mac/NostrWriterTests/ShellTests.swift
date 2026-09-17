@@ -177,6 +177,92 @@ final class ShellTests: XCTestCase {
         reopened.recovery?.stop(); reopened.close(); try await store.close()
     }
 
+    func testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave() async throws {
+        _ = NSApplication.shared
+        guard let writer = ProcessInfo.processInfo.environment["NW_COORDINATED_WRITER"] else {
+            throw XCTSkip("Set NW_COORDINATED_WRITER to the compiled test-only coordinated_writer.swift helper.")
+        }
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-conflict-\(UUID())")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let url = root.appendingPathComponent("source.md")
+        let original = Data("original\r\n".utf8)
+        try original.write(to: url)
+        let store = try DocumentStore(configuration: .init(databaseURL: root.appendingPathComponent("recovery.sqlite")), keyProvider: SyntheticNativeRecoveryKey())
+        let library = RecoveryLibrary(store: store)
+        let document = WriterDocument(); document.recoveryLibrary = library
+        document.fileURL = url; document.fileType = "net.daringfireball.markdown"
+        try document.read(from: original, ofType: document.fileType!)
+        document.makeWindowControllers(); await document.awaitRecoveryAttachment()
+        try document.acceptScratchEdit("local Cafe\u{301}\r\n")
+        let local = try XCTUnwrap(document.session?.snapshot)
+        let external = Data("external CAFÉ\r\n".utf8)
+        try await Self.externalWrite(external, to: url, executable: writer)
+        do {
+            try await document.save(to: url, ofType: document.fileType!, for: .saveOperation)
+            XCTFail("An unseen external file was overwritten")
+        } catch { }
+        XCTAssertEqual(try Data(contentsOf: url), external)
+        XCTAssertEqual(document.sourceBytes, local.utf8)
+        try await document.fileLifecycle.checkForChanges()
+        XCTAssertNotNil(document.fileLifecycle.conflict)
+        let externalCopyResult = try await document.fileLifecycle.resolve(.openExternalCopy, displayCopies: false)
+        let externalCopy = try XCTUnwrap(externalCopyResult)
+        XCTAssertEqual(externalCopy.sourceBytes, external)
+        XCTAssertNil(externalCopy.fileURL)
+        XCTAssertEqual(document.sourceBytes, local.utf8)
+        await externalCopy.awaitRecoveryAttachment(); try await externalCopy.flushRecovery(at: .close); externalCopy.close()
+        let copyURL = root.appendingPathComponent("source (Conflict).md")
+        let localCopyResult = try await document.fileLifecycle.resolve(.keepBoth, copyURL: copyURL, displayCopies: false)
+        let localCopy = try XCTUnwrap(localCopyResult)
+        XCTAssertEqual(try Data(contentsOf: copyURL), local.utf8)
+        XCTAssertEqual(try Data(contentsOf: url), external)
+        XCTAssertEqual(document.sourceBytes, external)
+        XCTAssertEqual(document.session?.lastMutation?.command.origin, .externalReload)
+        XCTAssertEqual(localCopy.derivedFrom, local)
+        XCTAssertNotEqual(localCopy.session?.snapshot.documentID, local.documentID)
+        await localCopy.awaitRecoveryAttachment(); try await localCopy.flushRecovery(at: .close); localCopy.close()
+
+        try document.acceptScratchEdit("chosen local\r\n")
+        let chosen = document.sourceBytes
+        let externalTwo = Data("external two\r\n".utf8)
+        try await Self.externalWrite(externalTwo, to: url, executable: writer)
+        try await document.fileLifecycle.checkForChanges()
+        try await document.fileLifecycle.resolve(.keepLocal, displayCopies: false)
+        XCTAssertEqual(try Data(contentsOf: url), chosen)
+        XCTAssertNil(document.fileLifecycle.conflict)
+        let records = try await library.recoveredEntries()
+        var recoveredBodies: [Data] = []
+        for record in records { recoveredBodies.append(try await library.recoveredSource(record.documentID).utf8) }
+        XCTAssertTrue(recoveredBodies.contains(local.utf8))
+        XCTAssertTrue(recoveredBodies.contains(external))
+        XCTAssertTrue(recoveredBodies.contains(externalTwo))
+
+        try document.acceptScratchEdit("dirty after own save")
+        let dirty = document.sourceBytes
+        try await document.fileLifecycle.checkForChanges()
+        XCTAssertNil(document.fileLifecycle.conflict, "Own-save echoes must not conflict with later typing")
+        XCTAssertEqual(document.sourceBytes, dirty)
+        try await document.save(to: url, ofType: document.fileType!, for: .saveOperation)
+        let cleanExternal = Data("external change to clean document\r\n".utf8)
+        try await Self.externalWrite(cleanExternal, to: url, executable: writer)
+        try await document.fileLifecycle.checkForChanges()
+        XCTAssertEqual(document.sourceBytes, cleanExternal)
+        XCTAssertNil(document.fileLifecycle.conflict)
+        XCTAssertEqual(document.savedFile?.source, document.session?.snapshot)
+        try await document.flushRecovery(at: .close)
+        document.close(); try await store.close()
+    }
+
+    private static func externalWrite(_ bytes: Data, to url: URL, executable: String) async throws {
+        let status = try await Task.detached {
+            let process = Process(); process.executableURL = URL(fileURLWithPath: executable)
+            process.arguments = [url.path, bytes.base64EncodedString()]
+            try process.run(); process.waitUntilExit(); return process.terminationStatus
+        }.value
+        XCTAssertEqual(status, 0)
+    }
+
 }
 
 

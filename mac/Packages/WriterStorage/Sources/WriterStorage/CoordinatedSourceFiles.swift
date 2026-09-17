@@ -17,8 +17,13 @@ public struct SourceFileRead: Sendable, Equatable {
     public let url: URL
     public let bytes: Data
     public let digest: Data
+    /// Presentation metadata only, never an ordering/conflict decision.
+    public let modificationDate: Date?
     public var byteCount: Int { bytes.count }
-    init(url: URL, bytes: Data) { self.url = url; self.bytes = bytes; self.digest = SourceSnapshot.sha256(bytes) }
+    init(url: URL, bytes: Data) {
+        self.url = url; self.bytes = bytes; self.digest = SourceSnapshot.sha256(bytes)
+        self.modificationDate = try? url.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
+    }
 }
 
 public struct SourceFileWrite: Sendable {
@@ -38,7 +43,8 @@ public struct NoSourceFileFault: SourceFileFaultInjecting {
 /// immediately. Only this operation-local cancellation handle crosses executors;
 /// the coordinator's configuration/accessor work stays on its owning actor.
 private final class FileCoordinationCancellation: @unchecked Sendable {
-    let coordinator = NSFileCoordinator(filePresenter: nil)
+    let coordinator: NSFileCoordinator
+    init(presenter: (any NSFilePresenter & Sendable)? = nil) { coordinator = NSFileCoordinator(filePresenter: presenter) }
     func cancel() { coordinator.cancel() }
 }
 
@@ -53,14 +59,21 @@ public actor CoordinatedSourceFiles {
     private let faults: any SourceFileFaultInjecting
     public init(faults: any SourceFileFaultInjecting = NoSourceFileFault()) { self.faults = faults }
 
-    public func read(_ url: URL) async throws -> SourceFileRead {
+    public func read(_ url: URL, excluding presenter: (any NSFilePresenter & Sendable)? = nil) async throws -> SourceFileRead {
         try Self.validate(url)
         try Task.checkCancellation(); try Self.preflight(url, mustBeNew: false)
-        let cancellation = FileCoordinationCancellation()
+        let cancellation = FileCoordinationCancellation(presenter: presenter)
         let coordinator = cancellation.coordinator
         return try await withTaskCancellationHandler {
             try coordinatedRead(url, coordinator: coordinator)
         } onCancel: { cancellation.cancel() }
+    }
+
+    /// Only for a native document writer already inside its coordinated file
+    /// accessor. Adding another coordinator there would risk recursive access.
+    public nonisolated static func readInsideNativeAccessor(_ url: URL) throws -> Data {
+        try validate(url)
+        return try readExact(url)
     }
 
     private func coordinatedRead(_ url: URL, coordinator: NSFileCoordinator) throws -> SourceFileRead {

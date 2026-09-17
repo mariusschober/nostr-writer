@@ -10,6 +10,7 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
     private let wordCount = NSTextField(labelWithString: "0 words")
     private let recoveryWarning = NSTextField(labelWithString: "")
     private let retryRecovery = NSButton(title: "Retry Recovery", target: nil, action: nil)
+    private let reviewChanges = NSButton(title: "Review Changes", target: nil, action: nil)
     private let history = NSTextField(labelWithString: "Recording off")
     private let consent = RecordingConsent()
     private let placeholder = NSTextField(labelWithString: "Write what you think.")
@@ -101,7 +102,9 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         writing.addSubview(placeholder)
         retryRecovery.target = writerDocument; retryRecovery.action = #selector(WriterDocument.retryRecovery(_:))
         retryRecovery.bezelStyle = .inline; retryRecovery.isHidden = true
-        let status = NSStackView(views: [wordCount, NSView(), retryRecovery, history])
+        reviewChanges.target = self; reviewChanges.action = #selector(reviewExternalChanges(_:))
+        reviewChanges.bezelStyle = .inline; reviewChanges.isHidden = true
+        let status = NSStackView(views: [wordCount, NSView(), reviewChanges, retryRecovery, history])
         status.orientation = .horizontal; status.spacing = 16; status.translatesAutoresizingMaskIntoConstraints = false
         wordCount.font = .systemFont(ofSize: 12); wordCount.textColor = .secondaryLabelColor
         history.font = .systemFont(ofSize: 12); history.textColor = .secondaryLabelColor
@@ -156,7 +159,8 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
     func refreshStatus() {
         let words = editor.string.split(whereSeparator: \.isWhitespace).count
         let fileState: String
-        if writerDocument.isSavingSource { fileState = "Saving…" }
+        if writerDocument.fileLifecycle.conflict != nil { fileState = "External changes need review" }
+        else if writerDocument.isSavingSource { fileState = "Saving…" }
         else if writerDocument.saveFailed { fileState = "Save failed" }
         else if let saved = writerDocument.savedFile, saved.source == writerDocument.session?.snapshot {
             fileState = "Saved to \(saved.url.deletingLastPathComponent().lastPathComponent)"
@@ -165,13 +169,16 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         wordCount.toolTip = writerDocument.recovery?.message
         let recoveryFailed = writerDocument.recovery?.hasFailure == true || writerDocument.recoveryPreparationError != nil
         retryRecovery.isHidden = !recoveryFailed
+        reviewChanges.isHidden = writerDocument.fileLifecycle.conflict == nil
         retryRecovery.toolTip = writerDocument.recovery?.message
-        recoveryWarning.stringValue = recoveryFailed
-            ? "Recovery unavailable. Save your document to a file; your text is still editable." : ""
+        recoveryWarning.stringValue = writerDocument.fileLifecycle.issue ?? (recoveryFailed
+            ? "Recovery unavailable. Save your document to a file; your text is still editable." : "")
         recoveryWarning.toolTip = writerDocument.recovery?.message
         history.stringValue = consent.choice == .off ? "Recording off" : "Recording requested · unavailable in this shell"
         placeholder.isHidden = !editor.string.isEmpty
     }
+
+    @objc private func reviewExternalChanges(_ sender: Any?) { writerDocument.fileLifecycle.presentReview() }
 
     private func showRecordingConsent() {
         guard let window, window.attachedSheet == nil else { return }
