@@ -44,13 +44,6 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
-        #if DEBUG
-        // NSDocument's first presentation may restore/cascade the frame. Apply
-        // the isolated UI test's requested geometry after that native work.
-        if ProcessInfo.processInfo.environment["NW_TEST_WINDOW_SIZE"] == "narrow", let window {
-            window.setFrame(NSRect(origin: window.frame.origin, size: NSSize(width: 760, height: 520)), display: true)
-        }
-        #endif
         window?.makeFirstResponder(editor)
         if !consent.hasChosen { showRecordingConsent() }
     }

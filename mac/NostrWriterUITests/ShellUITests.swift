@@ -51,10 +51,26 @@ final class ShellUITests: XCTestCase {
             app.launchArguments = ["-recordingChoice", "off"]
             app.launchEnvironment["NW_TEST_DEFAULTS"] = "com.mariusschober.nostrwriter.tests.\(UUID())"
             app.launchEnvironment["NW_TEST_APPEARANCE"] = appearance
-            app.launchEnvironment["NW_TEST_WINDOW_SIZE"] = size
             app.launch()
             let editor = app.textViews["markdown-editor"]
             XCTAssertTrue(editor.waitForExistence(timeout: 10))
+            if size == "narrow" {
+                // Exercise the real resize handle instead of a startup override
+                // that AppKit's document presentation can subsequently replace.
+                let window = app.windows.firstMatch
+                // The rounded bottom-right corner is transparent. Resize on
+                // the straight edges so the gesture actually hits the window.
+                let rightEdge = window.coordinate(withNormalizedOffset: CGVector(dx: 1, dy: 0.5))
+                    .withOffset(CGVector(dx: -1, dy: 0))
+                let narrower = window.coordinate(withNormalizedOffset: .zero)
+                    .withOffset(CGVector(dx: 759, dy: window.frame.height / 2))
+                rightEdge.press(forDuration: 0.2, thenDragTo: narrower)
+                let bottomEdge = window.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 1))
+                    .withOffset(CGVector(dx: 0, dy: -1))
+                let shorter = window.coordinate(withNormalizedOffset: .zero)
+                    .withOffset(CGVector(dx: window.frame.width / 2, dy: 519))
+                bottomEdge.press(forDuration: 0.2, thenDragTo: shorter)
+            }
             editor.click(); editor.typeText("# A quiet place to write\n\nSynthetic interface fixture. Writing stays available without an account.")
             let frame = app.windows.firstMatch.frame
             XCTAssertEqual(frame.width, size == "narrow" ? 760 : 1120, accuracy: 1)
