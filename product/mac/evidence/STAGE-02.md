@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`f4799ac6de24ec361baaad6f2871705326ed4d0c` on `implementation/stage-02`, following
+`477d5b954a98af250c3c2207bdb996fe8009a186` on `implementation/stage-02`, following
 `2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
@@ -166,14 +166,42 @@ swift test --package-path mac/Packages/WriterStorage --filter TextImportTests
 xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build
 ```
 
+## Managed-image checkpoint
+
+Format → Insert Image copies selected PNG/JPEG bytes into a granted sibling asset folder,
+then inserts a Markdown link through the native text editor. Metadata records exact image
+hashes and ownership; recovery copies and duplicates retain these records. Source insertion
+waits for ownership persistence and uses formatting origin, never a direct-input claim.
+The 20 MiB/image, 100 MiB total, 50 MP and collision/path bounds are enforced.
+
+Save As scans actual Markdown image nodes, selects only app-owned referenced files, and
+asks before copying to a different granted folder. Relative paths remain stable, so no
+source rewrite is necessary. Code examples, ordinary links and remote URLs do not authorize
+file copying. Occupied destinations and changed asset hashes fail closed. Unrelated files
+are never swept. Failed multi-file copies can leave completed new image copies; no cleanup
+claim is made. Existing managed images in the original folder remain intact.
+
+Two storage/import checks **PASS** (0.052 s). The native integration check completed with
+one **FAIL** (1.328 s): direct native undo changed the editor but left the source snapshot
+stale. All other assertions completed without additional failures. A separate focused fix
+observes UndoManager completion and synchronizes exact source bytes; its isolated undo/redo
+check **PASS** (0.471 s). The full flow was not repeated after this fix. The ordinary arm64
+app build **PASS**. The earlier stalled run was sampled once, identifying an unnecessary
+same-folder copy dialog caused by URL directory hints; canonical path comparison fixes it.
+Compile API-name corrections and all attempts are retained in `logs/stage-02/assets-results.json`.
+
+Actual image/consent/Save As UI remains **NOT MEASURED**. Native checks used synthetic
+recovery keys and injected grants, not production Keychain access. Frozen preparation
+checks were not repeated because this checkpoint changed no frozen or historical files.
+
 ## Remaining required work
 
-Coordinated rename/move/assets/Trash, actual close/quit/crash recovery,
+Coordinated rename/move/Trash, actual close/quit/crash recovery,
 final import/folder/conflict UI observation,
 and actual iCloud/Google Drive lifecycles remain. Real encrypted-recovery acceptance needs
 legitimate application signing and Keychain access; an owner signing-team question is
 pending. No fabricated team ID or legacy Keychain fallback is permitted.
 
 Every M07–M13 row is **NOT MEASURED** with its precise outstanding scope in `STAGE-02.json`.
-No Stage 03 start or acceptance is implied. Next implementation work is the remaining source import/file lifecycle; no broad
+No Stage 03 start or acceptance is implied. Next implementation work is coordinated rename/move and source Trash; no broad
 verification pass is planned.

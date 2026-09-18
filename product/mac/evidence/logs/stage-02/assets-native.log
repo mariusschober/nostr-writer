@@ -1,0 +1,13 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-assets-native.log
+Test Suite 'Selected tests' started at 2026-09-18 01:39:59.976.
+Test Suite 'NostrWriterTests.xctest' started at 2026-09-18 01:39:59.977.
+Test Suite 'ShellTests' started at 2026-09-18 01:39:59.977.
+Test Case '-[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy]' started.
+Test Case '-[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy]' failed (1.328 seconds).
+Test Suite 'ShellTests' failed at 2026-09-18 01:40:01.306.
+	 Executed 1 test, with 1 failure (0 unexpected) in 1.328 (1.329) seconds
+Test Suite 'NostrWriterTests.xctest' failed at 2026-09-18 01:40:01.306.
+	 Executed 1 test, with 1 failure (0 unexpected) in 1.328 (1.329) seconds
+Test Suite 'Selected tests' failed at 2026-09-18 01:40:01.306.
+	 Executed 1 test, with 1 failure (0 unexpected) in 1.328 (1.330) seconds
+** TEST FAILED **

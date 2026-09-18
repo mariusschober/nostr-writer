@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "f4799ac6de24ec361baaad6f2871705326ed4d0c",
+  "source_commit": "477d5b954a98af250c3c2207bdb996fe8009a186",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Document/recovery/library/conflicts plus explicit text import and native quit negotiation; stage not accepted.",
+  "source_state": "Managed-image insertion and ownership, Save As referenced assets, exact native undo synchronization integrated; stage not accepted.",
   "criteria": [
     {
       "id": "M07",
@@ -50,10 +50,11 @@
     {
       "id": "M12",
       "status": "NOT MEASURED",
-      "reason": "Persistent scoped bookmarks, selected-folder boundaries, reference-only removal, Locate and Reveal in Finder are implemented. Native moves/rename, managed assets, Trash, permission-loss/multiwindow observation remain incomplete.",
+      "reason": "Scoped bookmarks, Locate/Remove, managed-image insertion and referenced-asset copying with exact-byte checks are implemented. Native undo synchronization fix passes an isolated check; ordinary app builds. Rename/move/Trash, actual permission grants and UI/provider observations remain incomplete.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
-        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json",
+        "product/mac/evidence/logs/stage-02/assets-results.json"
       ]
     },
     {
@@ -206,6 +207,58 @@
       "quit_behavior": "COMPILED, NOT MEASURED: AppDelegate now uses terminateLater, native closeAllDocuments negotiation and reply after completion. Per-document save/recovery flush and Save/Discard/Cancel are retained. Actual multi-document/Cancel/quit still requires observation.",
       "frozen_inputs": "PASS: 69 protocol files, 326 pinned recovery files, all 60 criteria retained",
       "repeated_passing_tests": false
+    },
+    "managed_images": {
+      "source_commit": "477d5b954a98af250c3c2207bdb996fe8009a186",
+      "status": "NOT MEASURED",
+      "scope": "Managed-image implementation checkpoint; not Stage 02 acceptance.",
+      "storage": {
+        "status": "PASS",
+        "tests": 2,
+        "seconds": 0.052,
+        "command": "swift test --package-path mac/Packages/WriterStorage --filter 'ManagedAssetsTests|TextImportTests'",
+        "evidence": "assets-storage.log"
+      },
+      "native_flow": {
+        "status": "FAIL",
+        "tests": 1,
+        "seconds": 1.328,
+        "failures": 1,
+        "reason": "Undo changed NSTextView but did not synchronously update document source. All subsequent insertion, Save As metadata, derivation, duplicate ownership, referenced-copy and Markdown filtering assertions completed without additional failures. Full flow was not repeated after the isolated fix.",
+        "evidence": "assets-native.log"
+      },
+      "isolated_undo_fix": {
+        "status": "PASS",
+        "tests": 1,
+        "seconds": 0.471,
+        "reason": "Observe document UndoManager completion and synchronize exact editor bytes once. Native undo/redo and document snapshot both match.",
+        "evidence": "assets-undo.log"
+      },
+      "attempts": [
+        "Initial compile found Image.destination API mismatch; corrected to installed swift-markdown Image.source.",
+        "First native run found stale document source after undo and waited on an unnecessary same-folder copy alert. One process sample located the alert; test and build runner stopped. Canonical folder comparison now uses paths rather than URL directory hints.",
+        "Second native run completed in 1.328 seconds with only the undo-source assertion failing. Stopped repeating the combined flow and isolated undo synchronization.",
+        "Isolated check initially failed compilation on notification names; installed Foundation headers resolved names. Corrected isolated check passed."
+      ],
+      "app_build": {
+        "status": "PASS",
+        "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build",
+        "binary_sha256": "824c3d39388ac4fa84ece3240ab0edc988c452dab72f592088c8f6d7f473e535",
+        "evidence": "assets-app.log"
+      },
+      "native_commands": [
+        "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test -only-testing:NostrWriterTests/ShellTests/testManagedImageInsertionUndoDerivationAndReferencedCopy -test-timeouts-enabled YES -default-test-execution-time-allowance 30 -maximum-test-execution-time-allowance 30",
+        "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test -only-testing:NostrWriterTests/ShellTests/testNativeUndoSynchronizesExactDocumentSource -test-timeouts-enabled YES -default-test-execution-time-allowance 30 -maximum-test-execution-time-allowance 30"
+      ],
+      "limitations": [
+        "Native UI not observed; last computer-use result was locked Mac.",
+        "Native test injects synthetic recovery key and folder grants; it is not real Keychain or sandbox-permission evidence.",
+        "Cross-folder copy adapter checked with explicit synthetic grant; native consent panel and cross-folder Save As not observed.",
+        "Rename/move/Trash not implemented at this checkpoint.",
+        "Partial destination image copies may remain after a failed operation; occupied paths are not adopted or overwritten.",
+        "Frozen protocol checks not repeated: no frozen/historical files changed.",
+        "All M07-M13 remain unaccepted; M01-M60 definitions unchanged."
+      ]
     }
   },
   "next_work": [
@@ -213,5 +266,5 @@
     "Owner unlock/signing access and actual import/library/conflict/quit/crash/sleep/provider observations"
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0"
+  "previous_source_commit": "f4799ac6de24ec361baaad6f2871705326ed4d0c"
 }

@@ -1,0 +1,8 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-assets-undo-initial.log
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:31:34: error: type 'UndoManager' has no member 'didUndoChangeNotification'
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:31:73: error: type 'UndoManager' has no member 'didRedoChangeNotification'
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:31:34: error: type 'UndoManager' has no member 'didUndoChangeNotification'
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:31:73: error: type 'UndoManager' has no member 'didRedoChangeNotification'
+Testing failed:
+	Testing cancelled because the build failed.
+** TEST FAILED **

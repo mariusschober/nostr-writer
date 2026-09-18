@@ -1,0 +1,13 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-assets-undo.log
+Test Suite 'Selected tests' started at 2026-09-18 01:41:54.272.
+Test Suite 'NostrWriterTests.xctest' started at 2026-09-18 01:41:54.272.
+Test Suite 'ShellTests' started at 2026-09-18 01:41:54.272.
+Test Case '-[NostrWriterTests.ShellTests testNativeUndoSynchronizesExactDocumentSource]' started.
+Test Case '-[NostrWriterTests.ShellTests testNativeUndoSynchronizesExactDocumentSource]' passed (0.471 seconds).
+Test Suite 'ShellTests' passed at 2026-09-18 01:41:54.744.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.471 (0.472) seconds
+Test Suite 'NostrWriterTests.xctest' passed at 2026-09-18 01:41:54.745.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.471 (0.473) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 01:41:54.745.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.471 (0.474) seconds
+** TEST SUCCEEDED **

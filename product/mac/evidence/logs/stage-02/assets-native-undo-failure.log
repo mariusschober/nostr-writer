@@ -1,0 +1,5 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-assets-native-undo-failure.log
+Test Suite 'Selected tests' started at 2026-09-18 01:37:20.078.
+Test Suite 'NostrWriterTests.xctest' started at 2026-09-18 01:37:20.078.
+Test Suite 'ShellTests' started at 2026-09-18 01:37:20.078.
+Test Case '-[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy]' started.

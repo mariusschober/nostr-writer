@@ -1,0 +1,5 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-assets-native-initial.log
+/Users/schober/Projects/Nostr Writer/mac/Packages/WriterExport/Sources/WriterExport/MarkdownAssetReferences.swift:14:68: error: value of type 'Image' has no member 'destination'
+Testing failed:
+	Testing cancelled because the build failed.
+** TEST FAILED **

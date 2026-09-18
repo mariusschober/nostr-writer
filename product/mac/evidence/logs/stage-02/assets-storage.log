@@ -1,0 +1,18 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-assets-storage.log
+Build complete! (4.36s)
+Test Suite 'Selected tests' started at 2026-09-18 01:35:06.927.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-18 01:35:06.929.
+Test Suite 'ManagedAssetsTests' started at 2026-09-18 01:35:06.929.
+Test Case '-[WriterStorageTests.ManagedAssetsTests testImageImportCopiesExactBytesAndNeverOverwritesOrFollowsLinks]' started.
+Test Case '-[WriterStorageTests.ManagedAssetsTests testImageImportCopiesExactBytesAndNeverOverwritesOrFollowsLinks]' passed (0.039 seconds).
+Test Suite 'ManagedAssetsTests' passed at 2026-09-18 01:35:06.969.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.039 (0.040) seconds
+Test Suite 'TextImportTests' started at 2026-09-18 01:35:06.969.
+Test Case '-[WriterStorageTests.TextImportTests testExplicitImportPreservesOriginalAndRejectsMalformedText]' started.
+Test Case '-[WriterStorageTests.TextImportTests testExplicitImportPreservesOriginalAndRejectsMalformedText]' passed (0.013 seconds).
+Test Suite 'TextImportTests' passed at 2026-09-18 01:35:06.982.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.013 (0.013) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-18 01:35:06.982.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.052 (0.053) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 01:35:06.982.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.052 (0.055) seconds
