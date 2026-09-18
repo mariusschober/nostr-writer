@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "220dc09f6ad4b96d0218896ec395929b66bc0bc3",
+  "source_commit": "e08935a8924e2796f9deaa9e4e807077766cfba4",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Signed durable document app with actual Drive outage/restart, remote conflict and provider rename fixes; provider acceptance remains open.",
+  "source_state": "Signed provider-verified document app with metadata-only pinning, observed library actions, light/dark inspection and one passing real-volume move check. Sleep/wake observation pending.",
   "criteria": [
     {
       "id": "M07",
@@ -22,7 +22,7 @@
     {
       "id": "M08",
       "status": "NOT MEASURED",
-      "reason": "Encrypted fault-injection components pass in recorded scopes. Real signed Keychain recovery, owner-performed crash/restart, and saved multi-document quit observed; actual sleep and key-unavailable/retry observation remain outstanding.",
+      "reason": "Recorded encrypted fault-injection, actual signed recovery, owner crash/restart and native quit evidence pass in their scopes. Required actual system sleep/wake observation awaits owner availability.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
@@ -59,8 +59,8 @@
     },
     {
       "id": "M12",
-      "status": "NOT MEASURED",
-      "reason": "Bookmarks and identity lifecycle components pass. Actual rename/move, managed-image grant denial/acceptance, permission-loss/retry, same-file open and Trash/recovery now observed. Cross-volume/provider path remains unmeasured.",
+      "status": "PASS",
+      "reason": "Recorded native bookmark/permission/move/owned-image/Trash/same-file flows plus actual provider rename and real mounted-volume exact move check pass. Cross-volume native chooser attempt was cancelled; adapter operation is explicitly scoped.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
@@ -68,19 +68,21 @@
         "product/mac/evidence/logs/stage-02/relocate-results.json",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
         "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
-        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json",
+        "product/mac/evidence/logs/stage-02/library-final-observation.json"
       ]
     },
     {
       "id": "M13",
-      "status": "NOT MEASURED",
-      "reason": "Actual Recent/recovery/current-body search/selected-folder listing and folder persistence after restart pass. Remaining reference actions and expanded accessibility observation remain open.",
+      "status": "PASS",
+      "reason": "Actual Recent, folder persistence, current-body search, recovered drafts, missing-reference Locate/Remove, persisted pin and closed-file Pin/Unpin observed. Light/dark layout and native accessibility controls inspected; bounded storage/search checks retained. No new aural VoiceOver claim.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
         "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
-        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json",
+        "product/mac/evidence/logs/stage-02/library-final-observation.json"
       ]
     }
   ],
@@ -120,7 +122,7 @@
       "tests": 3,
       "seconds": 0.058
     },
-    "current_native_compile": "PASS: universal signed development app, Xcode 27, source 220dc09; actual provider rename observed.",
+    "current_native_compile": "PASS: universal signed development app c3864b9, unchanged app source in e08935a test-only commit.",
     "final_lifecycle_gui": "PASS limited signed Save As/Duplicate/Cancel Quit/saved normal Quit/recovered draft/Recent; remaining Stage 02 interactions NOT MEASURED.",
     "prior_catalog_native": {
       "status": "PASS",
@@ -393,12 +395,18 @@
       "status": "PASS",
       "scope": "Observed actual iCloud and Google Drive provider lifecycles; Stage 02 still awaits remaining recovery/library scope.",
       "evidence": "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
+    },
+    "library_final_observation": {
+      "status": "PASS",
+      "evidence": "product/mac/evidence/logs/stage-02/library-final-observation.json",
+      "scope": "Listed library and mounted-volume operations; actual sleep pending."
     }
   },
   "next_work": [
-    "Complete remaining Stage 02 recovery/library observations and final acceptance review; no repeated passing suites.",
-    "After Stage 02 passes, record and push evidence, then pause before Stage 03 as requested."
+    "Await owner readiness; perform one approved actual sleep/wake recovery observation, preserving synthetic text.",
+    "Final Stage 02 acceptance review must not invent missing observations; record actual result and push.",
+    "After Stage 02 passes, pause the active goal before Stage 03 as requested."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "7308ad41f30acbbd7ce0e3ceffa2094d49d9c492"
+  "previous_source_commit": "220dc09f6ad4b96d0218896ec395929b66bc0bc3"
 }

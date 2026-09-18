@@ -1,0 +1,71 @@
+{
+  "observed_date": "2026-09-18",
+  "source_commit": "e08935a8924e2796f9deaa9e4e807077766cfba4",
+  "app_source_commit": "c3864b9f25dcdeb4d32795cd22b7b71480cc7775",
+  "binary_sha256": "f1536ac09da2359974060355e99adf9016a6d66bf0c27fa8df67634670b47e03",
+  "build": {
+    "status": "PASS",
+    "scope": "Universal signed Debug app, one build after library metadata fix",
+    "log": "/private/tmp/nostr-writer-stage02-library-metadata-build.log"
+  },
+  "library": {
+    "missing_reference": {
+      "status": "PASS",
+      "observed": "Selecting a stale synthetic reference displayed This document is unavailable with Locate, Remove Reference and Cancel; no blank replacement document appeared."
+    },
+    "locate": {
+      "status": "PASS",
+      "observed": "Locate opened a native selection panel. Selecting the renamed synthetic Drive source downloaded and opened all existing text; stale reference was absent after Refresh.",
+      "followup": "Metadata hide completion now schedules refresh so the caller does not need to refresh manually."
+    },
+    "remove_reference": {
+      "status": "PASS",
+      "observed": "Remove Reference removed only the obsolete synthetic row. Current source/editor and private recovery entries remained available; no source deletion action occurred."
+    },
+    "pin_unpin": {
+      "status": "PASS",
+      "initial_failure": "Pinning a closed provider reference failed because it tried to create a fresh security bookmark. Opening restored access and the next pin persisted through restart, but pinning should not itself require reading a source file.",
+      "fix": "Retain any existing bookmark while changing only isPinned/isVisible metadata; a missing or stale grant is handled separately by Open/Locate. Clear a prior pin error on success.",
+      "observed": "On c3864b9, persisted pin shown after launch; Unpin removed Pinned section. Pinning the same closed provider source while a separate local document was active recreated Pinned with no error."
+    },
+    "appearance": {
+      "status": "PASS",
+      "observed": "Current library, editor, source/recovery status and native tabs inspected in light and dark appearances. Auto appearance selected before and restored afterward. Controls and source remained legible."
+    },
+    "accessibility": {
+      "status": "PASS",
+      "scope": "Native accessibility-tree inspection and actual menu/panel/field actions, combined with recorded current-body search/folder/recovery interactions and storage-limit checks. Named New/Open/Add Folder/Search/Refresh, document rows, file actions, conflict versions/buttons and editor/status exposed.",
+      "voiceover_limit": "Owner previously accepted the foundation VoiceOver observation. No new aural VoiceOver pass is invented for added Stage 02 controls. Expanded release accessibility acceptance remains Stage 08 work."
+    }
+  },
+  "cross_volume": {
+    "status": "PASS",
+    "scope": "Actual mounted-volume storage operation; not a completed native Move panel interaction across volumes.",
+    "test": "CoordinatedSourceFilesTests/testMoveAcrossMountedVolumesPreservesExactBytesAndMetadata",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "test_seconds": 0.027,
+    "command": "NW_CROSS_VOLUME_DIRECTORY=<explicit-disposable-mounted-volume> swift test --package-path mac/Packages/WriterStorage --filter CoordinatedSourceFilesTests/testMoveAcrossMountedVolumesPreservesExactBytesAndMetadata",
+    "setup": "hdiutil create -size 32m -fs HFS+ -volname WriterStage02 <temporary-image>; hdiutil attach <temporary-image> -mountpoint <temporary-mount> -nobrowse",
+    "proved": [
+      "Source and destination st_dev differ, exercising EXDEV path",
+      "BOM/decomposed Unicode/emoji/CRLF bytes remain exact",
+      "Returned source bytes and physical destination agree",
+      "Permission mode 0640 retained",
+      "Durable completion reported and source removed only after destination creation",
+      "No atomic temporary files remain"
+    ],
+    "native_attempt": "Native Move destination Go To field did not respond consistently to automation. Cancelled without moving the source and changed approach to one focused real-volume check. No repeated passing suite.",
+    "warning": "Foundation emitted a related-item sandbox extension warning in the nonsandboxed package test. Operation and all assertions passed; this is not new sandbox-grant evidence.",
+    "cleanup": "Test-owned directory removed by test; disposable image unmounted successfully; image retained. Native synthetic source unchanged."
+  },
+  "unchanged_inputs": "git diff --name-only 1fb8625 HEAD -- protocol/v0 history product/mac/contracts/acceptance.json returned no changes. All 60 criteria retained.",
+  "sleep": {
+    "status": "BLOCKED",
+    "reason": "Owner availability to wake and unlock Mac is pending. Attempt to schedule one named automatic wake with sudo -n was refused because a password is required. No wake event added and no password requested. Mac has not been put to sleep.",
+    "pending_question": "Can the owner wake and unlock the Mac about 20 seconds after the approved sleep check begins?"
+  },
+  "stage_accepted": false,
+  "stop_boundary": "Finish Stage 02, record/push acceptance, then pause before Stage 03."
+}

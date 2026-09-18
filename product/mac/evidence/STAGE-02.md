@@ -1,8 +1,8 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`220dc09f6ad4b96d0218896ec395929b66bc0bc3` on `implementation/stage-02`.
-M07, M09, M10 and M11 now pass; M08/M12–M13 remain open. All 60 definitions are unchanged.
+`e08935a8924e2796f9deaa9e4e807077766cfba4` on `implementation/stage-02`.
+M07 and M09–M13 now pass in the recorded scopes; M08 remains open for sleep/wake observation. All 60 definitions are unchanged.
 Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
 ## Implemented checkpoint
@@ -368,3 +368,28 @@ conflict is claimed. Both sync providers and Wi-Fi are running again.
 The detailed report retains unsuccessful tool attempts and the uncompleted iCloud
 Keep Both folder selection. It claims only observed outcomes. No app source or
 automated tests changed during this provider completion checkpoint.
+
+## Library and final file-lifecycle checkpoint
+
+M12 and M13 now **PASS** in the scopes detailed in
+[library-final-observation.json](logs/stage-02/library-final-observation.json).
+Actual missing references offered Locate/Remove/Cancel without creating empty files.
+Locate restored the renamed provider source; Remove deleted only the reference.
+A pin survived restart. The observed closed-provider pin failure was corrected in
+`c3864b9`: pinning now changes metadata without renewing source-file access. On the
+resulting signed build, closed-file Unpin and Pin worked. Light/dark library and
+editor/status controls were inspected; Auto appearance was restored. Existing
+owner VoiceOver acceptance remains scoped to the foundation; no new aural result
+is invented for Stage 02 controls.
+
+One new mounted-volume check **PASS**, 0.027 s, proves actual cross-device exact-byte
+move, mode retention, durable completion and source removal. The native chooser
+was unreliable under automation; that attempt was cancelled and is not a UI pass.
+The focused adapter check used a disposable HFS+ disk image, which is now unmounted.
+No passing suite was rerun. App code remains unchanged by the test-only `e08935a`.
+
+**Remaining gate:** actual sleep/wake recovery. Owner readiness to wake/unlock the
+Mac is requested. Noninteractive automatic wake scheduling required a password,
+so no event was added and the Mac has not been put to sleep. Stage 02 remains
+unaccepted, and Stage 03 must not begin. After Stage 02 passes, push evidence and
+pause the active goal at the owner's explicit boundary.

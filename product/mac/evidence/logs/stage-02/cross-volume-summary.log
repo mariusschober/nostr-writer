@@ -1,0 +1,12 @@
+Test Suite 'Selected tests' started at 2026-09-18 13:11:30.640.
+Test Suite 'WriterStorageTests.xctest' started at 2026-09-18 13:11:30.643.
+Test Suite 'CoordinatedSourceFilesTests' started at 2026-09-18 13:11:30.643.
+Test Case '-[WriterStorageTests.CoordinatedSourceFilesTests testMoveAcrossMountedVolumesPreservesExactBytesAndMetadata]' started.
+2026-09-18 13:11:30.657 xctest[94249:6789659] NSFileSandboxingRequestRelatedItemExtension: Failed to issue extension for <disposable-test-volume>/nw-cross-volume-94A7E495-2E57-409B-A57C-A63A46C5C43C/moved.md because: Error Domain=NSPOSIXErrorDomain Code=1 "Operation not permitted"
+Test Case '-[WriterStorageTests.CoordinatedSourceFilesTests testMoveAcrossMountedVolumesPreservesExactBytesAndMetadata]' passed (0.027 seconds).
+Test Suite 'CoordinatedSourceFilesTests' passed at 2026-09-18 13:11:30.671.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.027 (0.028) seconds
+Test Suite 'WriterStorageTests.xctest' passed at 2026-09-18 13:11:30.671.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.027 (0.028) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 13:11:30.671.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.027 (0.031) seconds
