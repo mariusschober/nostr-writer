@@ -26,7 +26,7 @@ import WriterFoundation
 public actor DocumentStore: DocumentPersistence {
 
     /// Schema version this build writes and understands.
-    public static let currentSchemaVersion = 2
+    public static let currentSchemaVersion = 3
 
     /// Metadata key holding the installation key check value.
     static let keyCheckValueKey = "key_check_value"

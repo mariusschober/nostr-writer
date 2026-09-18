@@ -66,18 +66,27 @@ final class DocumentCatalogTests: XCTestCase {
         let source = try makeSnapshot(DocumentID(), 4, "preserved migration fixture")
         let initial = try makeStore(workspace)
         _ = try await initial.persist(batch(source)); try await initial.close()
-        // Version 2 only adds document_catalog; this recreates the exact version
-        // 1 schema around an authentic encrypted recovery fixture.
+        // Recreate an authentic version 1 schema around an encrypted recovery
+        // fixture: drop every object a later schema version adds, then declare
+        // version 1. Version 2 adds document_catalog; version 3 adds the local
+        // history journal tables.
         let connection = try SQLiteConnection(path: workspace.databaseURL.path, busyTimeoutMilliseconds: 1000)
         try connection.execute("DROP TABLE document_catalog")
+        for table in ["history_records", "history_gaps", "history_annotations", "history_epochs"] {
+            try connection.execute("DROP TABLE \(table)")
+        }
         try connection.setUserVersion(1); try connection.checkpointAndClose()
         let migrated = try makeStore(workspace)
         guard case .complete(let recovered) = try await migrated.recover(source.documentID) else { return XCTFail("Recovery lost during migration") }
         XCTAssertEqual(recovered.source, source)
         let records = try await migrated.catalogRecords(); XCTAssertTrue(records.isEmpty)
         let backups = backupFiles(in: workspace.root)
-        XCTAssertEqual(backups.count, 1)
-        XCTAssertEqual(try SQLiteConnection.readUserVersion(at: XCTUnwrap(backups.first).path), 1)
+        // One verified pre-migration backup per forward step (v1→v2, then v2→v3).
+        XCTAssertEqual(backups.count, 2)
+        let versionOne = try XCTUnwrap(backups.first { $0.lastPathComponent.contains(".backup-v1-") })
+        let versionTwo = try XCTUnwrap(backups.first { $0.lastPathComponent.contains(".backup-v2-") })
+        XCTAssertEqual(try SQLiteConnection.readUserVersion(at: versionOne.path), 1)
+        XCTAssertEqual(try SQLiteConnection.readUserVersion(at: versionTwo.path), 2)
         try await migrated.close()
     }
 }

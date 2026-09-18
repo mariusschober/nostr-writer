@@ -16,11 +16,87 @@ struct SchemaMigration {
     let steps: [Step]
     let supportedVersion: Int
 
-    /// Version 2 adds bounded document-location metadata. Existing version 1
-    /// recovery is backed up by the common migration path before any change.
+    /// Version 2 adds bounded document-location metadata. Version 3 adds the
+    /// separately-owned encrypted local writing-history journal (epochs, ordered
+    /// edit records, gaps and annotations). Existing recovery is backed up by the
+    /// common migration path before any change; the new journal never participates
+    /// in recovery retention or pruning.
     static var standard: SchemaMigration {
-        SchemaMigration(steps: [Step(fromVersion: 1, toVersion: 2, apply: createCatalog)], supportedVersion: DocumentStore.currentSchemaVersion)
+        SchemaMigration(steps: [
+            Step(fromVersion: 1, toVersion: 2, apply: createCatalog),
+            Step(fromVersion: 2, toVersion: 3, apply: createHistoryJournal)
+        ], supportedVersion: DocumentStore.currentSchemaVersion)
     }
+
+    /// Schema version 3: the consented, separately-versioned local history
+    /// journal. All sensitive writing bytes live in `sealed`/`nonce` columns and
+    /// are AES-GCM authenticated before they reach SQLite, exactly like recovery.
+    private static func createHistoryJournal(on database: SQLiteConnection) throws {
+        for statement in historyVersion3Statements {
+            try database.execute(statement)
+        }
+    }
+
+    private static let historyVersion3Statements = [
+        """
+        CREATE TABLE history_epochs (
+            epoch_id TEXT PRIMARY KEY,
+            document_id TEXT NOT NULL,
+            recording_id TEXT NOT NULL,
+            began_revision INTEGER NOT NULL,
+            began_at REAL NOT NULL,
+            ended_at REAL,
+            prior_completeness TEXT NOT NULL,
+            gap_reason TEXT,
+            ciphertext_bytes INTEGER NOT NULL DEFAULT 0
+        )
+        """,
+        """
+        CREATE TABLE history_records (
+            record_id TEXT PRIMARY KEY,
+            epoch_id TEXT NOT NULL,
+            document_id TEXT NOT NULL,
+            chunk_index INTEGER NOT NULL,
+            source_revision INTEGER NOT NULL,
+            range_lower INTEGER NOT NULL,
+            range_upper INTEGER NOT NULL,
+            origin TEXT NOT NULL,
+            assistance TEXT,
+            post_digest BLOB NOT NULL,
+            nonce BLOB NOT NULL,
+            sealed BLOB NOT NULL,
+            chunk_ref BLOB NOT NULL,
+            recorded_at REAL NOT NULL,
+            UNIQUE (document_id, chunk_index)
+        )
+        """,
+        "CREATE UNIQUE INDEX history_records_nonce ON history_records(nonce)",
+        """
+        CREATE TABLE history_gaps (
+            gap_id TEXT PRIMARY KEY,
+            document_id TEXT NOT NULL,
+            epoch_id TEXT NOT NULL,
+            reason TEXT NOT NULL,
+            revision INTEGER NOT NULL,
+            recorded_at REAL NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE history_annotations (
+            annotation_id TEXT PRIMARY KEY,
+            document_id TEXT NOT NULL,
+            kind TEXT NOT NULL,
+            range_lower INTEGER NOT NULL,
+            range_upper INTEGER NOT NULL,
+            revision INTEGER NOT NULL,
+            is_stale INTEGER NOT NULL,
+            nonce BLOB NOT NULL,
+            sealed BLOB NOT NULL,
+            updated_at REAL NOT NULL
+        )
+        """,
+        "CREATE UNIQUE INDEX history_annotations_nonce ON history_annotations(nonce)"
+    ]
 
     func run(
         on database: SQLiteConnection,
