@@ -1,0 +1,13 @@
+Observed log excerpt; compiler/test status only. Original: /private/tmp/nostr-writer-stage02-relocate-native.log
+Test Suite 'Selected tests' started at 2026-09-18 01:51:33.085.
+Test Suite 'NostrWriterTests.xctest' started at 2026-09-18 01:51:33.085.
+Test Suite 'ShellTests' started at 2026-09-18 01:51:33.085.
+Test Case '-[NostrWriterTests.ShellTests testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages]' started.
+Test Case '-[NostrWriterTests.ShellTests testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages]' passed (1.118 seconds).
+Test Suite 'ShellTests' passed at 2026-09-18 01:51:34.204.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1.118 (1.118) seconds
+Test Suite 'NostrWriterTests.xctest' passed at 2026-09-18 01:51:34.204.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1.118 (1.119) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 01:51:34.204.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1.118 (1.119) seconds
+** TEST SUCCEEDED **

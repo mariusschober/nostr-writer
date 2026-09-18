@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "477d5b954a98af250c3c2207bdb996fe8009a186",
+  "source_commit": "f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Managed-image insertion and ownership, Save As referenced assets, exact native undo synchronization integrated; stage not accepted.",
+  "source_state": "Document lifecycle, library, conflicts, import, managed images, identity-preserving rename/move and recovery-preserving Trash integrated; external acceptance gates remain open.",
   "criteria": [
     {
       "id": "M07",
@@ -50,11 +50,12 @@
     {
       "id": "M12",
       "status": "NOT MEASURED",
-      "reason": "Scoped bookmarks, Locate/Remove, managed-image insertion and referenced-asset copying with exact-byte checks are implemented. Native undo synchronization fix passes an isolated check; ordinary app builds. Rename/move/Trash, actual permission grants and UI/provider observations remain incomplete.",
+      "reason": "Scoped bookmarks, Locate/Remove, managed images, identity-preserving rename/move and recovery-preserving platform Trash are implemented. One native lifecycle check passes; final ordinary app builds. Actual permission loss, duplicate-window/menu UI, provider behavior and cross-volume path remain unobserved.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
-        "product/mac/evidence/logs/stage-02/assets-results.json"
+        "product/mac/evidence/logs/stage-02/assets-results.json",
+        "product/mac/evidence/logs/stage-02/relocate-results.json"
       ]
     },
     {
@@ -259,6 +260,49 @@
         "Frozen protocol checks not repeated: no frozen/historical files changed.",
         "All M07-M13 remain unaccepted; M01-M60 definitions unchanged."
       ]
+    },
+    "rename_move_trash": {
+      "source_commit": "f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5",
+      "status": "PASS",
+      "scope": "One native synthetic-file lifecycle check plus ordinary app compilation; Stage 02 not accepted.",
+      "native": {
+        "status": "PASS",
+        "tests": 1,
+        "failures": 0,
+        "seconds": 1.118,
+        "attempts": 1,
+        "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test -only-testing:NostrWriterTests/ShellTests/testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages -test-timeouts-enabled YES -default-test-execution-time-allowance 30 -maximum-test-execution-time-allowance 30",
+        "proved": [
+          "Native NSDocument move override routes rename; identity and both saved/current revisions remain exact.",
+          "Move to another local folder retains unsaved writing and moves the saved source bytes.",
+          "Only app-owned referenced images are copied; original image copies remain.",
+          "An occupied source destination is refused without modifying it.",
+          "Platform Trash receives exact saved bytes after a separate encrypted recovery of unsaved writing.",
+          "Neighbor source and image files remain intact; private catalog retains source identity and assets after Trash."
+        ],
+        "later_changes": "After the passing check: added safe file-error messages, allowed a successful Trash operation to return no location without falsely reporting failure, and re-queued saved-location metadata on Retry Recovery. Final app compilation passes; the native flow was not repeated."
+      },
+      "app_build": {
+        "status": "PASS",
+        "binary_sha256": "6093642264042e6705f1806b45d950355b4674eba21a0f4d07163a4e87ee673c",
+        "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build"
+      },
+      "ui": {
+        "status": "BLOCKED",
+        "reason": "2026-09-18: CUA selecting the ordinary built app returned: The Mac is locked and automatic unlock could not unlock it. The existing unlock request remains pending. No UI pass is claimed."
+      },
+      "unmeasured": [
+        "Actual native menu/panel, permission loss and duplicate-window UI.",
+        "Real iCloud Drive and Google Drive provider transitions.",
+        "Cross-volume copy-before-removal branch and its partial-failure recovery.",
+        "Real signed Keychain access, app crash/restart, system sleep and multi-document quit.",
+        "Cross-folder image consent panel; the native test supplied a synthetic explicit folder grant."
+      ],
+      "unchanged": [
+        "Frozen protocol and historical inputs were not rebuilt or retested.",
+        "M01-M60 definitions unchanged.",
+        "Production HWP approval set remains empty."
+      ]
     }
   },
   "next_work": [
@@ -266,5 +310,5 @@
     "Owner unlock/signing access and actual import/library/conflict/quit/crash/sleep/provider observations"
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "f4799ac6de24ec361baaad6f2871705326ed4d0c"
+  "previous_source_commit": "477d5b954a98af250c3c2207bdb996fe8009a186"
 }

@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`477d5b954a98af250c3c2207bdb996fe8009a186` on `implementation/stage-02`, following
+`f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5` on `implementation/stage-02`, following
 `2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
@@ -194,14 +194,45 @@ Actual image/consent/Save As UI remains **NOT MEASURED**. Native checks used syn
 recovery keys and injected grants, not production Keychain access. Frozen preparation
 checks were not repeated because this checkpoint changed no frozen or historical files.
 
+## Rename, move and Trash checkpoint
+
+Native Rename/Move menu actions now route through the NSDocument move override.
+The coordinated operation compares exact saved bytes, refuses occupied destinations,
+preserves document UUID and unsaved revision, and updates source location/bookmarks.
+A move copies only owned images referenced by either current text or the last saved text;
+relative links remain unchanged. Other image copies remain available to earlier documents.
+File-presenter checks defer while a lifecycle transition owns the document.
+
+Same-volume source moves use exclusive atomic rename. The cross-volume path copies native
+metadata into a temporary file, verifies and synchronizes the new bytes before removing
+an unchanged original, and reports partial completion explicitly. Cross-volume execution
+is **NOT MEASURED**. A completed physical move is adopted even if later directory or
+private-metadata persistence fails; Retry Recovery re-queues saved-location metadata.
+
+Move to Trash explicitly confirms preservation of current writing, including unsaved text,
+in a separate encrypted recovery copy. Only the source file enters platform Trash; image
+files and private history remain intact. If catalog update fails after Trash, an editable
+unsaved document stays open with an accurate message.
+
+One focused native synthetic-file check **PASS** on its first attempt (1.118 s), covering
+rename, same-volume folder move, stable identity/current-vs-saved state, owned-image copying,
+occupied destination refusal, exact platform Trash bytes and encrypted recovery of dirty
+text. Its exact synthetic Trash artifact was removed by test cleanup. Final ordinary app
+build **PASS**. Safe error messages, optional returned Trash location and Retry Recovery
+metadata handling were added after that check and compiled, without repeating the passing
+flow. See `logs/stage-02/relocate-results.json` for commands and limits.
+
+A fresh CUA attempt to select the built app still returned a locked Mac. No menu/panel,
+permission, provider, signed Keychain or cross-volume UI observation is claimed.
+
 ## Remaining required work
 
-Coordinated rename/move/Trash, actual close/quit/crash recovery,
+Actual close/quit/crash recovery,
 final import/folder/conflict UI observation,
 and actual iCloud/Google Drive lifecycles remain. Real encrypted-recovery acceptance needs
 legitimate application signing and Keychain access; an owner signing-team question is
 pending. No fabricated team ID or legacy Keychain fallback is permitted.
 
 Every M07–M13 row is **NOT MEASURED** with its precise outstanding scope in `STAGE-02.json`.
-No Stage 03 start or acceptance is implied. Next implementation work is coordinated rename/move and source Trash; no broad
-verification pass is planned.
+No Stage 03 start or acceptance is implied. The remaining stage gates are the real storage/provider and native lifecycle observations;
+no broad verification pass is planned.
