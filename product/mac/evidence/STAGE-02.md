@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`7308ad41f30acbbd7ce0e3ceffa2094d49d9c492` on `implementation/stage-02`.
+`220dc09f6ad4b96d0218896ec395929b66bc0bc3` on `implementation/stage-02`.
 M07 and M11 now pass; M08–M10/M12–M13 remain open. All 60 definitions are unchanged.
 Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
@@ -329,3 +329,26 @@ fault checks retain their scopes. M07 and M11 now **PASS**. Provider, remaining 
 accessibility and sleep observations remain open; Stage 02 is not accepted. The owner
 authorized isolated synthetic iCloud and selected Google Drive checks and brief sync/sleep
 interruptions. No real writing or account credentials enter the fixtures or reports.
+
+## Actual cloud-provider checkpoint — 18 September
+
+The owner authorized synthetic files in iCloud and the connected Google Drive account.
+Native Drive Save, client outage/restart, remote dirty conflict with Keep Both, and
+remote rename are observed. Raw remote downloads match the two retained conflict
+versions exactly (96 and 77 bytes). Drive desktop is 124.0.3 and running again.
+Native iCloud Save As also passes exact local-byte readback. This does not establish
+server upload or the still-unobserved provider lifecycle cases.
+
+Real provider use exposed two defects: Keep Both needed an explicit parent-folder
+grant for atomic sibling creation, and the sidebar missed provider renames because
+AppKit could adopt the URL after the presenter callback. Commits `b93b0a5` and
+`220dc09` correct these. The first callback-only rename correction `9919ccf` failed
+the actual observation; it is not counted as a pass. Final signed build and only
+the affected native operations were checked. No broad suites were repeated.
+
+Full scope, exact hashes, failed attempts, commands and remaining gaps are in
+[provider-lifecycle-observation.json](logs/stage-02/provider-lifecycle-observation.json).
+M09/M10 remain NOT MEASURED overall. Stage 02 remains unaccepted.
+
+**Owner stop boundary:** finish Stage 02 acceptance, record and push evidence, then
+pause before Stage 03. The full eight-stage goal remains unfinished.

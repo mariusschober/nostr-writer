@@ -1,0 +1,80 @@
+{
+  "observed_date": "2026-09-18",
+  "status": "NOT MEASURED",
+  "scope": "Actual provider checkpoint; Stage 02 remains unaccepted.",
+  "source_commit": "220dc09f6ad4b96d0218896ec395929b66bc0bc3",
+  "binary_sha256": "bfc167244ad4ac19ca8fdbc78d82792a4f32fe5ba98226d7e8a0fc7f0985c888",
+  "build": {
+    "status": "PASS",
+    "toolchain": "Xcode 27.0 (27A266a)",
+    "configuration": "Universal Apple Development signed Debug, sandbox enabled; owner credentials excluded",
+    "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination platform=macOS -skipPackagePluginValidation DEVELOPMENT_TEAM=<owner-selected-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY=AppleDevelopment WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build",
+    "log": "/private/tmp/nostr-writer-stage02-adopted-url-build.log",
+    "note": "Only whitespace indentation changed between compilation and commit."
+  },
+  "authorization": "Owner approved isolated synthetic folders in both providers and brief provider/sleep interruptions. Final account selection was the connected business account. No personal documents or other account modified.",
+  "google_drive": {
+    "desktop_version": "124.0.3",
+    "account": "Owner-selected connected account; identifier redacted",
+    "native_save": {
+      "status": "PASS",
+      "bytes": 76,
+      "sha256": "5780e4e79d811831a0d30f6e8cd3e7eeda6c36b1da5fc8699d1d4f09be1c4567",
+      "observed": "Native Save As to selected provider folder; remote metadata confirmed the file."
+    },
+    "client_outage_restart": {
+      "status": "PASS",
+      "observed": "Quit desktop client through its menu; process absence verified. Edited downloaded source and saved in Writer. Remote metadata remained 76 bytes while client stopped. Relaunched client; remote raw download then matched the 103-byte expected fixture exactly.",
+      "sha256": "47af4c72c2206504f67d8c7999d10d492943984ef65b83f807413e1ad4890bc6",
+      "limit": "Actual desktop-client outage, not network disconnection. Client running at end."
+    },
+    "dirty_remote_conflict": {
+      "status": "PASS",
+      "initial_failure": "On source 7308ad4, native Keep Both destination selection alone did not grant access to atomic-write temporary siblings in the provider folder. Writer kept local text, external text and encrypted recovery. An exact local safety copy was saved before rebuilding.",
+      "fix_commit": "b93b0a5c25eae75a3915f976729c55c16cbc34cb",
+      "fix": "Keep Both requests explicit destination-parent folder access and retains the security scope through atomic creation and resulting document.",
+      "observed": "With local unsaved edits, the connector replaced only the approved synthetic remote source. Native external-change review retained both complete versions. Keep Both and explicit folder selection created a separate local copy. Connector downloads proved both remote files byte-for-byte.",
+      "local_bytes": 96,
+      "local_sha256": "aef187e07d714dcc056cfc93e722979983838d4b9a3bb3af7a10c33a226d0ced",
+      "external_bytes": 77,
+      "external_sha256": "24476862dae1996ee90f785c4f40588c58fb527f56eb6beca2921ccf42ef32b3",
+      "privacy": "Both files remained private; recording off. No history merge or sharing change."
+    },
+    "remote_rename": {
+      "status": "PASS",
+      "initial_failure": "Window and tab adopted remote name while Open/Recent retained the former name. First callback-only correction at 9919ccf compiled but did not fix actual provider behavior.",
+      "correction": "Observe actual NSDocument fileURL adoption; update saved-location recovery before removing the old reference.",
+      "observed": "On candidate 220dc09 the connector renamed the synthetic file. Window, tab, Open and Recent all changed, the previous current reference disappeared, editor text remained and recovery became up to date. Older stale references from preceding candidates are retained for reference-removal checks."
+    },
+    "eviction_download": {
+      "status": "NOT MEASURED"
+    },
+    "network_offline_reconnect": {
+      "status": "NOT MEASURED"
+    },
+    "tool_limits": "Drive window stayed Loading your account with Pause disabled; initial app selection took about 11 minutes. No retry loop. One relaunch reported a tool timeout but process and successful remote sync proved launch. Direct CLI provider-file reads were denied by macOS privacy; used native grants and connector raw downloads, without changing security settings."
+  },
+  "icloud": {
+    "native_save": {
+      "status": "PASS",
+      "bytes": 76,
+      "sha256": "5780e4e79d811831a0d30f6e8cd3e7eeda6c36b1da5fc8699d1d4f09be1c4567",
+      "observed": "Created approved synthetic folder in Finder. Native Save As succeeded with recovery up to date. Exact local source bytes read back.",
+      "limit": "This proves native save, not server upload."
+    },
+    "remaining": [
+      "offline/reconnect",
+      "evict/download",
+      "rename",
+      "dirty conflict",
+      "provider restart"
+    ]
+  },
+  "verification_policy": "No automated suites rerun for this checkpoint. Each source correction compiled; only affected native cloud behavior repeated. Failed first rename approach retained as evidence.",
+  "remaining": [
+    "Complete provider lifecycle observations",
+    "Actual sleep recovery boundary",
+    "Remaining library reference/accessibility observations and cross-volume scope"
+  ],
+  "user_stop_boundary": "After Stage 02 passes, record/push evidence and pause before Stage 03."
+}

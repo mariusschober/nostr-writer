@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "7308ad41f30acbbd7ce0e3ceffa2094d49d9c492",
+  "source_commit": "220dc09f6ad4b96d0218896ec395929b66bc0bc3",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Signed durable document app with observed native import/conflict/permission/asset/move/Trash flows and file-specific Trash confirmation. Provider acceptance underway.",
+  "source_state": "Signed durable document app with actual Drive outage/restart, remote conflict and provider rename fixes; provider acceptance remains open.",
   "criteria": [
     {
       "id": "M07",
@@ -32,14 +32,18 @@
     {
       "id": "M09",
       "status": "NOT MEASURED",
-      "reason": "Actual iCloud Drive lifecycle not observed.",
-      "evidence": []
+      "reason": "Actual native iCloud Save As and exact local bytes pass; offline/reconnect, eviction/download, rename, conflict and provider restart remain unobserved.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
+      ]
     },
     {
       "id": "M10",
       "status": "NOT MEASURED",
-      "reason": "Actual Google Drive for desktop lifecycle not observed.",
-      "evidence": []
+      "reason": "Actual native Save, client outage/restart with exact remote bytes, remote dirty conflict/Keep Both with exact remote copies, and remote rename pass. Eviction/download and network offline/reconnect remain unobserved.",
+      "evidence": [
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
+      ]
     },
     {
       "id": "M11",
@@ -49,7 +53,8 @@
         "product/mac/evidence/logs/stage-02/conflict-results.json",
         "product/mac/evidence/logs/stage-02/conflicts-native.log",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
-        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
       ]
     },
     {
@@ -62,7 +67,8 @@
         "product/mac/evidence/logs/stage-02/assets-results.json",
         "product/mac/evidence/logs/stage-02/relocate-results.json",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
-        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
       ]
     },
     {
@@ -73,7 +79,8 @@
         "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
-        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
       ]
     }
   ],
@@ -95,7 +102,7 @@
     "acceptance_definitions": "PASS: 60 retained",
     "current_ui_observation": "PASS limited local-file/sidebar scope; predates lifecycle changes. See binary-scoped observation JSON.",
     "real_keychain": "PASS scoped signed runtime: durable recovery shown, owner force quit, recovered exact 54-byte draft after restart; no secret exported.",
-    "actual_providers": "NOT MEASURED",
+    "actual_providers": "PARTIAL: see provider_lifecycle_observation; M09/M10 remain NOT MEASURED overall.",
     "native_boundaries": {
       "status": "PASS",
       "tests": 3,
@@ -113,7 +120,7 @@
       "tests": 3,
       "seconds": 0.058
     },
-    "current_native_compile": "PASS: universal signed development app, Xcode 27, source 7308ad4; only changed Trash wording observed after rebuild.",
+    "current_native_compile": "PASS: universal signed development app, Xcode 27, source 220dc09; actual provider rename observed.",
     "final_lifecycle_gui": "PASS limited signed Save As/Duplicate/Cancel Quit/saved normal Quit/recovered draft/Recent; remaining Stage 02 interactions NOT MEASURED.",
     "prior_catalog_native": {
       "status": "PASS",
@@ -381,13 +388,17 @@
       "status": "PASS",
       "scope": "Listed signed native flows; not full Stage 02 acceptance",
       "evidence": "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
+    },
+    "provider_lifecycle_observation": {
+      "status": "NOT MEASURED",
+      "scope": "Actual provider checkpoint; Stage 02 remains unaccepted.",
+      "evidence": "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
     }
   },
   "next_work": [
-    "Owner authorized synthetic iCloud Drive and selected Google Drive account checks, including brief sync/sleep interruptions. Run actual provider lifecycles.",
-    "Remaining library reference/accessibility observations and system sleep boundary; avoid repeating passing checks.",
-    "Keep Stage 03 gated until all M07-M13 pass."
+    "Complete outstanding Stage 02 provider lifecycle and library/recovery observations; do not repeat passing suites.",
+    "Owner requires pause after Stage 02 passes; do not start Stage 03."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "32048befffaa8d0ebc930993c98c366293add590"
+  "previous_source_commit": "7308ad41f30acbbd7ce0e3ceffa2094d49d9c492"
 }
