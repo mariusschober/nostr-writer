@@ -252,6 +252,9 @@ final class DocumentFileLifecycle {
             scroll.widthAnchor.constraint(equalToConstant: 260).isActive = true
             scroll.heightAnchor.constraint(equalToConstant: 180).isActive = true
         }
+        // NSAlert sizes an accessory from its frame, not just the stack's
+        // constraints. A zero frame leaves both accessible text panes hidden.
+        stack.setFrameSize(stack.fittingSize)
         return stack
     }
 
