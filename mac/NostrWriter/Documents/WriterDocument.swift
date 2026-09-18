@@ -193,6 +193,14 @@ final class WriterDocument: NSDocument {
             self.recovery?.acknowledgeSave(self.savedFile!, parent: self.derivedFrom,
                 assets: self.assets.records, assetFolderBookmark: self.assets.folderBookmark)
             self.fileLifecycle.scheduleCheck(); self.refreshWindows()
+            let model = (NSApp.delegate as? AppDelegate)?.libraryModel
+            model?.noteRecent(newURL)
+            // Finish the location update before hiding the old reference: its
+            // catalog record still belongs to this document until then.
+            do { try await self.flushRecovery(at: .save) }
+            catch { return }
+            guard self.fileURL == newURL else { return }
+            model?.removeRecent(saved.url); model?.refresh()
         }
     }
 
