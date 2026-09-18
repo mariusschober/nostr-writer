@@ -1,0 +1,60 @@
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/10] Emitting module WriterStorage
+[5/10] Compiling WriterStorage CoordinatedSourceFiles.swift
+[6/10] Compiling WriterStorage DocumentCatalog.swift
+[7/10] Compiling WriterStorage LibraryFolders.swift
+[8/10] Compiling WriterStorage RecoveryCoordinator.swift
+[9/11] Compiling WriterStorage ScopedSourceFiles.swift
+[10/24] Compiling WriterStorageTests SchemaRetentionFaultTests.swift
+[11/24] Emitting module WriterStorageTests
+[12/24] Compiling WriterStorageTests RecoveryCoordinatorTests.swift
+/Users/schober/Projects/Nostr Writer/mac/Packages/WriterStorage/Tests/WriterStorageTests/RecoveryCoordinatorTests.swift:961:13: warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 959 |         XCTAssertEqual(attempts, 1, "A failure must not start an unattended retry loop.")
+ 960 | 
+ 961 |         var state = await coordinator.state()
+     |             `- warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 962 |         XCTAssertTrue(state.isPausedForRetry)
+ 963 |         XCTAssertEqual(state.lastFailure, .persistence(.diskFull("no space")))
+[13/24] Compiling WriterStorageTests LibraryFoldersTests.swift
+[14/24] Compiling WriterStorageTests RecoveryBootstrapTests.swift
+[15/24] Compiling WriterStorageTests ScopedSourceFilesTests.swift
+[16/24] Compiling WriterStorageTests CoordinatedSourceFilesTests.swift
+[17/24] Compiling WriterStorageTests DocumentCatalogTests.swift
+[18/24] Compiling WriterStorageTests StorageCoreTests.swift
+[19/24] Compiling WriterStorageTests DurabilityAndBoundsTests.swift
+[20/24] Compiling WriterStorageTests DurabilityFileIntegrationTests.swift
+[21/24] Compiling WriterStorageTests EncryptionTests.swift
+[22/24] Compiling WriterStorageTests KeychainRecoveryKeyTests.swift
+[23/25] Compiling WriterStorageTests TestSupport.swift
+[23/25] Write Objects.LinkFileList
+[24/25] Linking WriterStoragePackageTests
+Build complete! (3.83s)
+Test Suite 'Selected tests' started at 2026-09-18 01:02:37.307.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-18 01:02:37.308.
+Test Suite 'DocumentCatalogTests' started at 2026-09-18 01:02:37.308.
+Test Case '-[WriterStorageTests.DocumentCatalogTests testOptionalFolderMetadataReadsOlderRecordsAndRejectsSourceHistory]' started.
+Test Case '-[WriterStorageTests.DocumentCatalogTests testOptionalFolderMetadataReadsOlderRecordsAndRejectsSourceHistory]' passed (0.013 seconds).
+Test Suite 'DocumentCatalogTests' passed at 2026-09-18 01:02:37.322.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.013 (0.014) seconds
+Test Suite 'LibraryFoldersTests' started at 2026-09-18 01:02:37.322.
+Test Case '-[WriterStorageTests.LibraryFoldersTests testListsOnlySelectedSourceFilesAndRejectsSymlinkEscape]' started.
+/Users/schober/Projects/Nostr Writer/mac/Packages/WriterStorage/Tests/WriterStorageTests/LibraryFoldersTests.swift:30: error: -[WriterStorageTests.LibraryFoldersTests testListsOnlySelectedSourceFilesAndRejectsSymlinkEscape] : XCTAssertEqual failed: ("["elected/A.md"]") is not equal to ("["A.md", "sub/B.txt"]")
+Test Case '-[WriterStorageTests.LibraryFoldersTests testListsOnlySelectedSourceFilesAndRejectsSymlinkEscape]' failed (0.110 seconds).
+Test Case '-[WriterStorageTests.LibraryFoldersTests testSearchReadsCurrentBytesAndReportsDepthLimit]' started.
+/Users/schober/Projects/Nostr Writer/mac/Packages/WriterStorage/Tests/WriterStorageTests/LibraryFoldersTests.swift:50: error: -[WriterStorageTests.LibraryFoldersTests testSearchReadsCurrentBytesAndReportsDepthLimit] : XCTAssertEqual failed: ("["A15272A/Current.md"]") is not equal to ("["Current.md"]")
+Test Case '-[WriterStorageTests.LibraryFoldersTests testSearchReadsCurrentBytesAndReportsDepthLimit]' failed (0.010 seconds).
+Test Case '-[WriterStorageTests.LibraryFoldersTests testStaleOrDeniedGrantNeverListsAndNeverRenews]' started.
+Test Case '-[WriterStorageTests.LibraryFoldersTests testStaleOrDeniedGrantNeverListsAndNeverRenews]' passed (0.000 seconds).
+Test Suite 'LibraryFoldersTests' failed at 2026-09-18 01:02:37.443.
+	 Executed 3 tests, with 2 failures (0 unexpected) in 0.121 (0.121) seconds
+Test Suite 'WriterStoragePackageTests.xctest' failed at 2026-09-18 01:02:37.443.
+	 Executed 4 tests, with 2 failures (0 unexpected) in 0.134 (0.135) seconds
+Test Suite 'Selected tests' failed at 2026-09-18 01:02:37.443.
+	 Executed 4 tests, with 2 failures (0 unexpected) in 0.134 (0.136) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

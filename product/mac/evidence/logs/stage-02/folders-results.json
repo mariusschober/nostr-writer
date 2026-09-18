@@ -1,0 +1,41 @@
+{
+  "source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0",
+  "folder_checks": {
+    "status": "PASS",
+    "tests": 3,
+    "seconds": 0.022,
+    "scope": "Synthetic selected folders, current body search, symlink and sibling-prefix refusal, depth limits, stale/denied bookmark refusal and balanced grants."
+  },
+  "metadata_check": {
+    "status": "PASS",
+    "tests": 1,
+    "seconds": 0.013,
+    "scope": "Old optional metadata decodes; folder metadata cannot contain document history."
+  },
+  "initial_attempt": {
+    "status": "FAIL",
+    "tests": 4,
+    "failed": 2,
+    "reason": "DirectoryEnumerator /private/var aliases corrupted relative labels; skipDescendants on non-directories hid a sibling subtree."
+  },
+  "correction": "Standardize enumerated URLs, derive relative paths by components, skip descendants only for actual directories. Only the three affected folder checks were rerun.",
+  "app_build": {
+    "status": "PASS",
+    "architecture": "arm64",
+    "binary_sha256": "b72c9bfe98a6351411e1550dc491a7a2819968cee080cdcf92b376677027292f"
+  },
+  "ui_observation": {
+    "status": "NOT MEASURED",
+    "reason": "Last verified computer-use state was locked; owner unlock request remains pending. No repeated screen attempts."
+  },
+  "provider_checks": "NOT MEASURED",
+  "real_keychain": "NOT MEASURED; requires legitimate signing/access group",
+  "limits": {
+    "selected_folders": 16,
+    "visited_entries_per_folder": 4096,
+    "directory_depth": 8,
+    "body_search_bytes_per_folder": 67108864
+  },
+  "privacy": "Only explicitly selected folders; no persistent plaintext body index. Skips hidden files, symlinks and known unmaterialized cloud files during body search. Removing a reference never deletes source or recovery.",
+  "frozen_inputs": "PASS: 69 protocol files, 326 pinned recovery files, 60 retained criteria"
+}

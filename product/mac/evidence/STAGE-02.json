@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "78606bfad0659d3e56239d71b381aacb5afe93c4",
+  "source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Persistent document/library/recovery checkpoint plus external conflict handling; stage not accepted.",
+  "source_state": "Catalog/recovery/conflicts plus scoped folder library and reference actions; Stage 02 remains unaccepted.",
   "criteria": [
     {
       "id": "M07",
@@ -49,7 +49,7 @@
     {
       "id": "M12",
       "status": "NOT MEASURED",
-      "reason": "Persistent file bookmarks and permission-renewal opening path implemented. Permission-loss observation, coordinated move/assets, and full duplicate-window routing acceptance remain incomplete.",
+      "reason": "Persistent scoped bookmarks, selected-folder boundaries, reference-only removal, Locate and Reveal in Finder are implemented. Native moves/rename, managed assets, Trash, permission-loss/multiwindow observation remain incomplete.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json"
@@ -58,9 +58,9 @@
     {
       "id": "M13",
       "status": "NOT MEASURED",
-      "reason": "Recent, current-text search and recovered-entry UI implemented; actual local save/reopen/Recent row observed. Selected-folder library, reference removal and real encrypted-recovery UI remain incomplete.",
+      "reason": "Open/Recent/Pinned, selected-folder listing, current body/title search, Locate/Remove references and recovered entries are implemented. Four focused folder/metadata checks pass within scope; final native UI and real provider/recovery library behavior remain unobserved.",
       "evidence": [
-        "product/mac/evidence/logs/stage-02/boundaries-native.log",
+        "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json"
       ]
     }
@@ -138,13 +138,54 @@
     "conflict_ui": {
       "status": "BLOCKED",
       "reason": "CUA reported that the Mac is locked and automatic unlock failed. No new screen was observed. Owner unlock requested; no repeated attempts."
+    },
+    "library_folders": {
+      "source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0",
+      "folder_checks": {
+        "status": "PASS",
+        "tests": 3,
+        "seconds": 0.022,
+        "scope": "Synthetic selected folders, current body search, symlink and sibling-prefix refusal, depth limits, stale/denied bookmark refusal and balanced grants."
+      },
+      "metadata_check": {
+        "status": "PASS",
+        "tests": 1,
+        "seconds": 0.013,
+        "scope": "Old optional metadata decodes; folder metadata cannot contain document history."
+      },
+      "initial_attempt": {
+        "status": "FAIL",
+        "tests": 4,
+        "failed": 2,
+        "reason": "DirectoryEnumerator /private/var aliases corrupted relative labels; skipDescendants on non-directories hid a sibling subtree."
+      },
+      "correction": "Standardize enumerated URLs, derive relative paths by components, skip descendants only for actual directories. Only the three affected folder checks were rerun.",
+      "app_build": {
+        "status": "PASS",
+        "architecture": "arm64",
+        "binary_sha256": "b72c9bfe98a6351411e1550dc491a7a2819968cee080cdcf92b376677027292f"
+      },
+      "ui_observation": {
+        "status": "NOT MEASURED",
+        "reason": "Last verified computer-use state was locked; owner unlock request remains pending. No repeated screen attempts."
+      },
+      "provider_checks": "NOT MEASURED",
+      "real_keychain": "NOT MEASURED; requires legitimate signing/access group",
+      "limits": {
+        "selected_folders": 16,
+        "visited_entries_per_folder": 4096,
+        "directory_depth": 8,
+        "body_search_bytes_per_folder": 67108864
+      },
+      "privacy": "Only explicitly selected folders; no persistent plaintext body index. Skips hidden files, symlinks and known unmaterialized cloud files during body search. Removing a reference never deletes source or recovery.",
+      "frozen_inputs": "PASS: 69 protocol files, 326 pinned recovery files, 60 retained criteria"
     }
   },
   "next_work": [
-    "Selected-folder library, Locate/Remove references and file actions",
-    "Coordinated move/assets and remaining recovery lifecycle gaps",
-    "Owner unlock/signing access, actual conflict/recovery/crash/sleep/quit and iCloud/Google Drive observations"
+    "Explicit invalid-UTF-8 import copy and remaining rename/move/assets/Trash workflows",
+    "Graceful quit and remaining recovery lifecycle gaps",
+    "Owner unlock/signing access and actual UI/crash/sleep/provider observations"
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "ae698abad229b6cdc68a5f5f107f82ffc4a054d0"
+  "previous_source_commit": "78606bfad0659d3e56239d71b381aacb5afe93c4"
 }

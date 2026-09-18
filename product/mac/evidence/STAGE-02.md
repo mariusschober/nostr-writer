@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`78606bfad0659d3e56239d71b381aacb5afe93c4` on `implementation/stage-02`, following
+`636684f0954ef35d2b36444ce306dbc4b981e2e0` on `implementation/stage-02`, following
 `2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
@@ -23,7 +23,7 @@ The native sidebar now exposes New/Open, Recent, current-title/body Search, Reco
 drafts and recovery failure. Search reads current encrypted snapshots transiently; it
 never indexes deleted history or keys. Recovered file-bound text opens as a new derived
 copy rather than overwriting the file. Bookmark renewal requires an explicit selection.
-Selected-folder library and several file actions remain unfinished.
+Selected folders and reference actions are now implemented below; coordinated move/assets/Trash remain unfinished.
 
 Native saves use immutable byte snapshots and matching change-count tokens. A bounded
 queue serializes physical writes and coalesces consecutive requests for the same target;
@@ -109,14 +109,44 @@ xcrun swiftc mac/Packages/WriterStorage/Tools/coordinated_writer.swift -o /priva
 NW_COORDINATED_WRITER=/private/tmp/nostr-writer-coordinated-writer-stage02 TEST_RUNNER_NW_COORDINATED_WRITER=/private/tmp/nostr-writer-coordinated-writer-stage02 xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES -only-testing:NostrWriterTests/ShellTests/testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave -only-testing:NostrWriterTests/ShellTests/testQueuedSavesAndCloseBoundaryPreserveLatestRevision test
 ```
 
+## Selected-folder library checkpoint
+
+The sidebar now includes Open, Pinned and explicitly selected library folders, plus
+Locate/Remove actions for unavailable references and Reveal in Finder. Folder bookmarks
+and optional pin/folder metadata remain private; existing catalog records still decode.
+Removing a reference never deletes source or hides independently recoverable unsaved text.
+Bookmark-resolved moved locations update catalog identity before reopening where possible.
+
+Folder scans use only the selected grant, reject symlinks/escaped paths, skip hidden files
+and packages, and list Markdown/text files. Body search reads current locally materialized
+source, not private history or a persistent plaintext body index. Known cloud placeholders
+are left for explicit native Open. Caps are disclosed through limited/unavailable messages:
+16 folders, 4096 visited entries and depth 8 per folder, 64 MiB searched bytes per folder.
+If private metadata is unavailable, a newly selected folder is explicitly session-only.
+
+Three affected folder checks **PASS**, 0.022 seconds; one backward-compatible metadata
+check **PASS**, 0.013 seconds. The initial run exposed two real defects: `/private/var`
+aliases corrupted relative names, and skipping descendants on a non-directory omitted a
+nested sibling. A small synthetic URL diagnostic identified the cause; standardization
+and directory-only skipping fixed it. Only the affected folder checks ran again, once.
+The final ordinary arm64 app build **PASS**. Native UI and provider use are **NOT MEASURED**;
+the last computer-use result was a locked Mac and the unlock request is still pending.
+See `logs/stage-02/folders-results.json` for exact scope, binary hash and limitations.
+
+```sh
+swift test --package-path mac/Packages/WriterStorage --filter 'LibraryFoldersTests|DocumentCatalogTests/testOptionalFolderMetadataReadsOlderRecordsAndRejectsSourceHistory'
+swift test --package-path mac/Packages/WriterStorage --filter LibraryFoldersTests
+xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build
+```
+
 ## Remaining required work
 
-Selected-folder library, Locate/Remove references, coordinated rename/move/assets,
-full close/quit/crash recovery, final conflict UI observation,
+Explicit invalid-UTF-8 import copies, coordinated rename/move/assets/Trash,
+full close/quit/crash recovery, final folder/conflict UI observation,
 and actual iCloud/Google Drive lifecycles remain. Real encrypted-recovery acceptance needs
 legitimate application signing and Keychain access; an owner signing-team question is
 pending. No fabricated team ID or legacy Keychain fallback is permitted.
 
 Every M07–M13 row is **NOT MEASURED** with its precise outstanding scope in `STAGE-02.json`.
-No Stage 03 start or acceptance is implied. Next implementation work is selected-folder library and remaining file actions; no broad
+No Stage 03 start or acceptance is implied. Next implementation work is the remaining source import/file lifecycle; no broad
 verification pass is planned.
