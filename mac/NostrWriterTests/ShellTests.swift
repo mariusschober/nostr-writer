@@ -128,6 +128,70 @@ final class ShellTests: XCTestCase {
         try await store.close()
     }
 
+    func testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks() async throws {
+        _ = NSApplication.shared
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-timing-\(UUID())")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let store = try DocumentStore(configuration: .init(databaseURL: root.appendingPathComponent("recovery.sqlite")), keyProvider: SyntheticNativeRecoveryKey())
+        let document = WriterDocument()
+        document.recoveryLibrary = RecoveryLibrary(store: store)
+        document.fileType = "net.daringfireball.markdown"
+        let original = Data(String(repeating: "Synthetic timing paragraph.\n", count: 2048).utf8)
+        try document.read(from: original, ofType: document.fileType!)
+        document.makeWindowControllers()
+        await document.awaitRecoveryAttachment()
+        defer { document.recovery?.stop(); document.close() }
+        try await document.save(to: root.appendingPathComponent("timing.md"), ofType: document.fileType!, for: .saveOperation)
+        try await document.flushRecovery(at: .save)
+        let editor = try XCTUnwrap((document.windowControllers.first as? WriterWindowController)?.editor)
+        let clock = ContinuousClock()
+        func milliseconds(_ elapsed: Duration) -> Double {
+            Double(elapsed.components.seconds) * 1000 + Double(elapsed.components.attoseconds) / 1e15
+        }
+        func awaitExactRecovery(_ source: SourceSnapshot) async throws -> Bool {
+            let deadline = clock.now.advanced(by: .seconds(2))
+            while clock.now < deadline {
+                if case .complete(let recovered) = try await store.recover(source.documentID), recovered.source == source { return true }
+                try await Task.sleep(for: .milliseconds(20))
+            }
+            return false
+        }
+
+        // Use the production scheduler and real encrypted SQLite, not a virtual
+        // clock or explicit flush, to measure the ordinary typing checkpoint.
+        let firstStart = clock.now
+        editor.insertText("x", replacementRange: NSRange(location: editor.string.utf16.count, length: 0))
+        let firstSource = try XCTUnwrap(document.session?.snapshot)
+        XCTAssertEqual(document.recovery?.message, "Recovery pending")
+        let firstRecovered = try await awaitExactRecovery(firstSource)
+        let firstRecoveryMS = milliseconds(firstStart.duration(to: clock.now))
+        XCTAssertTrue(firstRecovered)
+
+        var editMS: [Double] = []
+        for index in 0..<40 {
+            let start = clock.now
+            editor.insertText("x", replacementRange: NSRange(location: editor.string.utf16.count, length: 0))
+            editMS.append(milliseconds(start.duration(to: clock.now)))
+            if index.isMultiple(of: 4) { document.presentedItemDidChange() }
+            try await Task.sleep(for: .milliseconds(30))
+        }
+        let latest = try XCTUnwrap(document.session?.snapshot)
+        let finalRecovered = try await awaitExactRecovery(latest)
+        XCTAssertTrue(finalRecovered)
+        XCTAssertEqual(latest.utf8, original + Data(String(repeating: "x", count: 41).utf8))
+        XCTAssertEqual(Data(editor.string.utf8), latest.utf8)
+        XCTAssertEqual(try Data(contentsOf: XCTUnwrap(document.fileURL)), original)
+        XCTAssertNil(document.fileLifecycle.conflict)
+        XCTAssertTrue(document.isDocumentEdited)
+        editMS.sort()
+        print("STAGE02_TIMING bytes=\(original.count) edits=40 presenterCallbacks=10 recoveryMS=\(firstRecoveryMS) editP95MS=\(editMS[37]) editMaxMS=\(editMS[39])")
+        XCTAssertLessThanOrEqual(firstRecoveryMS, 1000, "The native recovery checkpoint exceeded the one-second product bound")
+        document.recovery?.stop()
+        document.close()
+        try await store.close()
+    }
+
     func testQueuedSavesAndCloseBoundaryPreserveLatestRevision() async throws {
         _ = NSApplication.shared
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-save-queue-\(UUID())")

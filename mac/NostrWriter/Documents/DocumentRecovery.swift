@@ -265,7 +265,11 @@ final class DocumentRecovery {
 
     func observe(_ source: SourceSnapshot) {
         guard !stopped, source.documentID == documentID else { return }
+        let changed = source != latest
         latest = source; pending = source
+        if changed, !hasFailure {
+            message = "Recovery pending"; didChange?()
+        }
         drain()
     }
 
@@ -282,7 +286,10 @@ final class DocumentRecovery {
                 let store = try await library.store(retry: retry)
                 guard let self, !self.stopped, !Task.isCancelled, current == self.generation else { return }
                 if self.coordinator == nil {
-                    self.coordinator = try RecoveryCoordinator(documentID: self.documentID, persistence: store)
+                    // Start before the one-second durability bound, leaving
+                    // time for encryption, SQLite commit and disk flushing.
+                    self.coordinator = try RecoveryCoordinator(documentID: self.documentID, persistence: store,
+                                                               checkpointInterval: .milliseconds(500))
                 }
                 if retry { await self.coordinator?.retry() }
                 guard !self.stopped, !Task.isCancelled, current == self.generation else { return }
@@ -325,7 +332,9 @@ final class DocumentRecovery {
                 if let error = state.lastFailure { self?.fail(error) }
                 else {
                     self?.hasFailure = false
-                    self?.message = state.isDurablyRecovered ? "Recovery up to date" : "Recovery pending"
+                    let currentIsDurable = state.isDurablyRecovered && state.memoryRevision == self?.latest.revision
+                        && state.memoryDigest == self?.latest.digest
+                    self?.message = currentIsDurable ? "Recovery up to date" : "Recovery pending"
                     self?.didChange?()
                 }
                 do { try await Task.sleep(for: .seconds(1)) } catch { return }
