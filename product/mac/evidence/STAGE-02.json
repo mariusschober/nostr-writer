@@ -3,19 +3,20 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "32048befffaa8d0ebc930993c98c366293add590",
+  "source_commit": "7308ad41f30acbbd7ce0e3ceffa2094d49d9c492",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Signed development app running with real Keychain recovery; native Save As/Duplicate/Recent and cancelled-recovery quit defects fixed. Stage acceptance remains open.",
+  "source_state": "Signed durable document app with observed native import/conflict/permission/asset/move/Trash flows and file-specific Trash confirmation. Provider acceptance underway.",
   "criteria": [
     {
       "id": "M07",
-      "status": "NOT MEASURED",
-      "reason": "Exact-byte lifecycle and identity checks pass in recorded scopes. Actual signed Save As, Duplicate, Cancel Quit and saved normal Quit observed; explicit import and remaining lifecycle UI outstanding.",
+      "status": "PASS",
+      "reason": "Recorded exact-byte/identity native checks plus actual signed New/Open/Save/Save As/Duplicate/Revert/import/quit flows pass.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/text-import-results.json",
-        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
       ]
     },
     {
@@ -42,34 +43,37 @@
     },
     {
       "id": "M11",
-      "status": "NOT MEASURED",
-      "reason": "Preserve-both conflict paths and coordinated second-process checks pass in recorded scope. Actual conflict UI and provider flows remain outstanding.",
+      "status": "PASS",
+      "reason": "All three conflict resolutions and no provenance merge pass native checks; actual signed dirty external-write review and Keep Both preserve exact files. Actual cloud providers remain separately gated by M09/M10.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/conflict-results.json",
         "product/mac/evidence/logs/stage-02/conflicts-native.log",
-        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
       ]
     },
     {
       "id": "M12",
       "status": "NOT MEASURED",
-      "reason": "Bookmarks, owned assets and coordinated lifecycle checks pass in recorded scope. Actual Duplicate menu observed. Permission loss, owned-image consent, rename/move/Trash UI and cross-volume path remain outstanding.",
+      "reason": "Bookmarks and identity lifecycle components pass. Actual rename/move, managed-image grant denial/acceptance, permission-loss/retry, same-file open and Trash/recovery now observed. Cross-volume/provider path remains unmeasured.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/assets-results.json",
         "product/mac/evidence/logs/stage-02/relocate-results.json",
-        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
       ]
     },
     {
       "id": "M13",
       "status": "NOT MEASURED",
-      "reason": "Library/current-text search/folder components pass in recorded scope. Actual recovered draft, Recent reopen and canonical deduplication observed. Remaining folder, search and accessibility interactions outstanding.",
+      "reason": "Actual Recent/recovery/current-body search/selected-folder listing and folder persistence after restart pass. Remaining reference actions and expanded accessibility observation remain open.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
-        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
+        "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
       ]
     }
   ],
@@ -109,7 +113,7 @@
       "tests": 3,
       "seconds": 0.058
     },
-    "current_native_compile": "PASS: universal signed development app, Xcode 27, source 32048be.",
+    "current_native_compile": "PASS: universal signed development app, Xcode 27, source 7308ad4; only changed Trash wording observed after rebuild.",
     "final_lifecycle_gui": "PASS limited signed Save As/Duplicate/Cancel Quit/saved normal Quit/recovered draft/Recent; remaining Stage 02 interactions NOT MEASURED.",
     "prior_catalog_native": {
       "status": "PASS",
@@ -144,8 +148,9 @@
       "binary_sha256": "3b9d72b354c76941dabd1a7e9778a10b8d9fa0a775e500adaf1fedb7b4b4c435"
     },
     "conflict_ui": {
-      "status": "BLOCKED",
-      "reason": "CUA reported that the Mac is locked and automatic unlock failed. No new screen was observed. Owner unlock requested; no repeated attempts."
+      "status": "PASS",
+      "evidence": "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
+      "scope": "Real second-process dirty edit, review controls and Keep Both; not actual cloud lifecycle."
     },
     "library_folders": {
       "source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0",
@@ -371,13 +376,18 @@
       "status": "PASS",
       "scope": "Real signed recovery and corrected native quit; not full Stage 02 acceptance.",
       "evidence": "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
+    },
+    "native_lifecycle_observation": {
+      "status": "PASS",
+      "scope": "Listed signed native flows; not full Stage 02 acceptance",
+      "evidence": "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
     }
   },
   "next_work": [
-    "Complete remaining native import, conflict, permission, owned-image, library and file lifecycle observations without repeating unchanged passing checks.",
-    "Actual iCloud Drive and Google Drive provider lifecycle acceptance; system sleep and unavailable/retry observations remain open.",
+    "Owner authorized synthetic iCloud Drive and selected Google Drive account checks, including brief sync/sleep interruptions. Run actual provider lifecycles.",
+    "Remaining library reference/accessibility observations and system sleep boundary; avoid repeating passing checks.",
     "Keep Stage 03 gated until all M07-M13 pass."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "94a0d638d11ebafb8152f2cb9e7d82225626f049"
+  "previous_source_commit": "32048befffaa8d0ebc930993c98c366293add590"
 }

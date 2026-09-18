@@ -1,8 +1,9 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`94a0d638d11ebafb8152f2cb9e7d82225626f049` on `implementation/stage-02`, following
-`2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
+`7308ad41f30acbbd7ce0e3ceffa2094d49d9c492` on `implementation/stage-02`.
+M07 and M11 now pass; M08–M10/M12–M13 remain open. All 60 definitions are unchanged.
+Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
 ## Implemented checkpoint
 
@@ -310,3 +311,21 @@ Commands, candidate scope, earlier failure and subsequent results are recorded i
 M07–M13 remain **NOT MEASURED** overall: remaining import/permission/assets/library/lifecycle
 interactions, actual provider lifecycles, sleep and unavailable-key observations are open.
 Stage 03 remains gated. Frozen protocol, historical originals and all 60 criteria are unchanged.
+
+## Native lifecycle observation — 18 September 2026
+
+[Signed native observation](logs/stage-02/native-lifecycle-observation.json) records actual
+explicit UTF-16 import, unchanged original, exact conversion, body search, selected-folder
+listing/persistence, external conflict review and Keep Both, rename, image-grant denial and
+acceptance, move with owned image, Revert, permission error/retry, same-file open, and
+Trash/recovered-source saving. Each listed flow **PASS** in its recorded local scope.
+The 61-byte local conflict and 36-byte external original were retained exactly. The
+187-byte pre-Trash source was recovered exactly, with the owned image retained.
+
+A small observed confirmation gap was fixed in `7308ad4`: Trash now names the specific
+file. Universal signed build **PASS**; actual rebuilt prompt observed and cancelled.
+No automated tests were added or rerun for this wording fix. Earlier native identity and
+fault checks retain their scopes. M07 and M11 now **PASS**. Provider, remaining library/
+accessibility and sleep observations remain open; Stage 02 is not accepted. The owner
+authorized isolated synthetic iCloud and selected Google Drive checks and brief sync/sleep
+interruptions. No real writing or account credentials enter the fixtures or reports.

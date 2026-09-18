@@ -1,0 +1,95 @@
+{
+  "observed_utc": "2026-09-18T11:00:35.564567+00:00",
+  "source_commit": "32048befffaa8d0ebc930993c98c366293add590",
+  "binary_sha256": "2364b2db7bb0a8ae3d371dfcdb388ae3a257f53d790ddfc225c30a96858d3545",
+  "scope": "Actual ordinary signed app, native controls and isolated synthetic files. No automated suite rerun.",
+  "results": [
+    {
+      "status": "PASS",
+      "flow": "Explicit UTF-16 import",
+      "detail": "Selected explicit UTF-16 LE, reviewed preview (60 original bytes to 36 UTF-8 bytes), created unsaved imported copy and saved separately. Original SHA unchanged; conversion byte-exact.",
+      "original": {
+        "bytes": 60,
+        "sha256": "008a0adf9321a7acfc07249c97ac4430b7c1f702e8d221cc4be3c4a82f79ed57"
+      },
+      "converted": {
+        "bytes": 36,
+        "sha256": "2d7cc5d5197821b129e6713841c6bd305c8beafb1db5c5ce4a16dca3fd6d2887"
+      }
+    },
+    {
+      "status": "PASS",
+      "flow": "Library current-body search and selected folder",
+      "detail": "Searching Synthetic import found saved/imported entries. Native Add Library Folder granted only fixture folder, displayed its files; persisted folder and entries observed again after normal restart."
+    },
+    {
+      "status": "PASS",
+      "flow": "Actual dirty external conflict",
+      "detail": "Second coordinated local process replaced the file while local editor was dirty. App showed External changes need review without replacing editor. Review exposed both exact texts and all three choices. Keep Both wrote 61-byte local copy and retained 36-byte external original. Both compared exactly to independent safety fixtures; original reloaded external source.",
+      "external": {
+        "bytes": 36,
+        "sha256": "72eef5784b20c1422b0936b6e00f2919a133d3197584fc1cedf662b69c303675"
+      },
+      "local": {
+        "bytes": 61,
+        "sha256": "0cab35d38d7b1abf77a9e52bf2d078232c1e598461a6d9e2c86746f8e6de071c"
+      }
+    },
+    {
+      "status": "PASS",
+      "flow": "Rename and owned image consent",
+      "detail": "Native rename updated filename/tab/sidebar. Cancelled image folder grant left source unchanged. Repeated insertion with explicit grant added managed PNG reference. Actual bytes matched original 2x2 synthetic PNG."
+    },
+    {
+      "status": "PASS",
+      "flow": "Move with owned image",
+      "detail": "Native Move to selected Moved folder asked Copy Images then folder grant. Source moved, owned image copied exactly, original image retained. Markdown relative link unchanged. Same volume only.",
+      "source_before_later_edit": {
+        "bytes": 141,
+        "sha256": "e96b89b3733f28b392cc8db77bde436520f41bec3b4dad9ec74efd6f3490cd66"
+      }
+    },
+    {
+      "status": "PASS",
+      "flow": "Revert",
+      "detail": "Prompt explicitly preserved current writing first. Revert restored saved editor text; Before Revert recovery entry appeared. Exact immutable identity/recovery semantics remain covered by prior native tests."
+    },
+    {
+      "status": "PASS",
+      "flow": "Permission loss and retry",
+      "detail": "Only synthetic source and parent temporarily made read-only. Save showed permission error and Save failed, retained current editable source and Recovery up to date. Disk retained previous source. Restored original permissions; retry saved all 187 bytes exactly."
+    },
+    {
+      "status": "PASS",
+      "flow": "Same-file open",
+      "detail": "Native Open of already-open file focused existing document; tab count stayed three and source remained exact."
+    },
+    {
+      "status": "PASS",
+      "flow": "Trash and source recovery",
+      "detail": "Pre-Trash source safety copy preserved. Native Trash removed only selected synthetic source; owned image remained. Before Trash recovered entry opened and saved exact 187-byte source beside original retained image folder. No private history deletion or Trash purge.",
+      "recovered": {
+        "bytes": 187,
+        "sha256": "8726033ddc580ad83c3c76097368c475b8a844582171ce653b680161f2966915"
+      }
+    }
+  ],
+  "confirmation_fix": {
+    "source_commit": "7308ad41f30acbbd7ce0e3ceffa2094d49d9c492",
+    "binary_sha256": "0f9b0c336eacbc949ab7f2710721d0ea9da61f600d291226e2e75100915675b0",
+    "build": "PASS: universal signed Debug",
+    "observation": "PASS: dialog names Empty Synthetic Document.md; cancelled without deleting it. Only affected prompt observed after rebuild.",
+    "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation DEVELOPMENT_TEAM=<owner-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY='Apple Development' WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build"
+  },
+  "tool_limits": [
+    "Open-panel AX snapshot temporarily reported disabled Open after selection; fresh app binding reflected enabled button. No import product defect was established.",
+    "Changing import encoding retained its preview but tool selected main window; File Import Text Copy brought preview forward.",
+    "Modal transition capture sometimes failed after successful action; refreshed binding before proceeding.",
+    "Read-only process lookup for restart was blocked by tool sandbox; no process-query result claimed at that checkpoint."
+  ],
+  "not_measured": [
+    "Actual provider lifecycle remains separate.",
+    "System sleep boundary and remaining library/accessibility interactions.",
+    "Cross-volume move branch."
+  ]
+}
