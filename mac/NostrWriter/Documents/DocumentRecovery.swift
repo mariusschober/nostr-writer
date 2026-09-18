@@ -141,6 +141,15 @@ actor RecoveryLibrary {
         try await store.saveCatalogRecord(record)
     }
 
+    func recordTrashed(_ id: DocumentID) async throws {
+        let store = try await store()
+        guard var record = try await store.catalogRecord(for: id) else { throw SourceAccessError.unavailable }
+        record.location = nil; record.bookmark = nil; record.isOpen = false; record.isVisible = false
+        record.isPinned = false; record.updatedAt = Date().timeIntervalSince1970
+        // Retain source, image ownership and historical saved revision metadata.
+        try await store.saveCatalogRecord(record)
+    }
+
     func markClosed(_ id: DocumentID) async throws {
         let store = try await store()
         guard var record = try await store.catalogRecord(for: id) else { return }

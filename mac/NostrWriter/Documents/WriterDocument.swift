@@ -86,6 +86,7 @@ final class WriterDocument: NSDocument {
 
     override func save(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType,
                        completionHandler: @escaping (Error?) -> Void) {
+        guard !lifecycleBusy || fileLifecycle.isResolving else { completionHandler(CocoaError(.userCancelled)); return }
         if saveOperation == .saveOperation, fileLifecycle.conflict != nil, !fileLifecycle.isResolving {
             completionHandler(DocumentConflictError.needsReview); return
         }
@@ -142,6 +143,102 @@ final class WriterDocument: NSDocument {
         // Do not let AppKit reload directly into the live editor. Reconcile on
         // the main actor after leaving the presenter callback/coordination.
         Task { @MainActor [weak self] in self?.fileLifecycle.scheduleCheck() }
+    }
+
+    override func move(to url: URL, completionHandler: ((Error?) -> Void)?) {
+        guard fileURL != nil else { super.move(to: url, completionHandler: completionHandler); return }
+        Task {
+            do { try await movePreservingSource(to: url); completionHandler?(nil) }
+            catch { completionHandler?(error) }
+        }
+    }
+
+    func movePreservingSource(to destination: URL, grantedAssetFolder: URL? = nil) async throws {
+        guard !lifecycleBusy, !isSavingSource, let oldURL = fileURL else { throw CocoaError(.userCancelled) }
+        if oldURL.standardizedFileURL.path == destination.standardizedFileURL.path { return }
+        setLifecycleBusy(true)
+        defer { setLifecycleBusy(false); refreshWindows() }
+        try await flushRecovery(at: .save)
+        guard fileURL == oldURL, let current = session?.snapshot, let saved = savedFile,
+              fileLifecycle.conflict == nil else { throw DocumentConflictError.needsReview }
+        let files = CoordinatedSourceFiles()
+        let observed = try await files.read(oldURL, excluding: self)
+        guard observed.bytes == saved.source.utf8 else { throw DocumentConflictError.changedAgain }
+        let copiedAssets = try await assets.prepareDestination(destination, source: current,
+            additionalSources: [saved.source], grantedFolder: grantedAssetFolder)
+        let moved = try await files.move(observed, to: destination, excluding: self)
+        // The physical move has completed. Adopt its location even when later
+        // metadata/directory durability fails; never claim the old path remains.
+        fileURL = moved.file.url; fileModificationDate = moved.file.modificationDate
+        savedFile = SavedFileRevision(source: saved.source, url: moved.file.url)
+        assets.apply(copiedAssets)
+        if let savedFile {
+            recovery?.acknowledgeSave(savedFile, parent: derivedFrom, assets: assets.records, assetFolderBookmark: assets.folderBookmark)
+        }
+        do { try await flushRecovery(at: .save) }
+        catch { recoveryPreparationError = "The file moved, but its private recovery location could not be updated. Keep this document open and retry recovery." }
+        if !moved.durabilityConfirmed {
+            recoveryPreparationError = "The file moved, but the destination could not confirm durable storage. Keep this document open and save another copy."
+        }
+        if let model = (NSApp.delegate as? AppDelegate)?.libraryModel {
+            model.removeRecent(oldURL); model.noteRecent(moved.file.url); model.refresh()
+        }
+    }
+
+    nonisolated override func presentedItemDidMove(to newURL: URL) {
+        super.presentedItemDidMove(to: newURL)
+        Task { @MainActor [weak self] in
+            guard let self, let saved = self.savedFile, self.fileURL == newURL else { return }
+            self.savedFile = SavedFileRevision(source: saved.source, url: newURL)
+            self.recovery?.acknowledgeSave(self.savedFile!, parent: self.derivedFrom,
+                assets: self.assets.records, assetFolderBookmark: self.assets.folderBookmark)
+            self.fileLifecycle.scheduleCheck(); self.refreshWindows()
+        }
+    }
+
+    @objc func moveSourceToTrash(_ sender: Any?) {
+        guard fileURL != nil, !lifecycleBusy, !isSavingSource else { return }
+        let alert = NSAlert(); alert.messageText = "Move this document to Trash?"
+        alert.informativeText = "Your current writing, including unsaved changes, will first be preserved in Recovered drafts. Image files and private history will remain where they are."
+        alert.addButton(withTitle: "Cancel"); alert.addButton(withTitle: "Move to Trash")
+        guard alert.runModal() == .alertSecondButtonReturn else { return }
+        Task {
+            do { _ = try await trashPreservingRecovery() }
+            catch {
+                let failure = NSAlert(); failure.messageText = "The document was kept open"
+                failure.informativeText = "The file or its recovery could not be safely moved to Trash. Review external changes or save a separate copy, then try again."
+                failure.addButton(withTitle: "Back to Writing"); failure.runModal()
+            }
+        }
+    }
+
+    @discardableResult
+    func trashPreservingRecovery() async throws -> URL? {
+        guard !lifecycleBusy, !isSavingSource, let originalURL = fileURL, let library = recoveryLibrary else { throw SourceAccessError.unavailable }
+        setLifecycleBusy(true)
+        defer { setLifecycleBusy(false) }
+        try await flushRecovery(at: .close)
+        guard fileURL == originalURL, let source = session?.snapshot, let saved = savedFile,
+              fileLifecycle.conflict == nil else { throw DocumentConflictError.needsReview }
+        let files = CoordinatedSourceFiles()
+        let observed = try await files.read(originalURL, excluding: self)
+        guard observed.bytes == saved.source.utf8 else { throw DocumentConflictError.changedAgain }
+        try await RecoveryDeadline.run { try await library.preserveCopy(source, title: "Before Trash — \(self.displayName ?? "Untitled")") }
+        let trashed = try await files.trash(observed, excluding: self)
+        fileURL = nil; savedFile = nil
+        do {
+            try await library.recordTrashed(source.documentID)
+            updateChangeCount(.changeCleared)
+            if let model = (NSApp.delegate as? AppDelegate)?.libraryModel { model.removeRecent(originalURL); model.refresh() }
+            close()
+        } catch {
+            // Trash already succeeded; leave an editable unsaved document when
+            // catalog updates fail, and never report the physical move as undone.
+            updateChangeCount(.changeDone)
+            recoveryPreparationError = "The source file is in Trash. Your writing is still open because its private library entry could not be updated."
+            refreshWindows()
+        }
+        return trashed
     }
 
     private func performNativeSave(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType,
@@ -261,6 +358,9 @@ final class WriterDocument: NSDocument {
     }
 
     override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if [Selector(("renameDocument:")), Selector(("moveDocument:")), #selector(moveSourceToTrash(_:))].contains(item.action) {
+            return fileURL != nil && !lifecycleBusy && !isSavingSource
+        }
         if item.action == #selector(revertPreservingChanges(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
         if item.action == #selector(insertImage(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
         if item.action == #selector(revealInFinder(_:)) { return fileURL != nil }
@@ -277,6 +377,7 @@ final class WriterDocument: NSDocument {
         lifecycleBusy = busy
         for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.editor.isEditable = !busy }
         if !busy {
+            fileLifecycle.resumeAfterTransition()
             let waiters = lifecycleWaiters; lifecycleWaiters.removeAll()
             for waiter in waiters { waiter.resume() }
         }
@@ -374,7 +475,13 @@ final class WriterDocument: NSDocument {
     }
 
     @objc func retryRecovery(_ sender: Any?) {
-        if let recovery { recovery.retry() } else { attachRecovery(retry: true) }
+        recoveryPreparationError = nil
+        if let recovery {
+            recovery.retry()
+            if let savedFile {
+                recovery.acknowledgeSave(savedFile, parent: derivedFrom, assets: assets.records, assetFolderBookmark: assets.folderBookmark)
+            }
+        } else { attachRecovery(retry: true) }
     }
 
     func awaitRecoveryAttachment() async { await recoveryAttachment?.value }

@@ -47,6 +47,7 @@ final class DocumentFileLifecycle {
         checkTask = Task { [weak self] in
             guard let self else { return }
             while self.needsCheck, !Task.isCancelled, !self.stopped {
+                guard self.document?.isLifecycleTransitionActive != true else { break }
                 self.needsCheck = false
                 do { try await self.checkForChanges() }
                 catch { self.issue = Self.message(for: error); self.document?.refreshWindows() }
@@ -55,12 +56,16 @@ final class DocumentFileLifecycle {
         }
     }
 
+    func resumeAfterTransition() { if needsCheck { scheduleCheck() } }
+
     func checkForChanges() async throws {
         guard let document, !stopped, !isResolving else { return }
         await document.awaitSourceSaves()
+        guard !document.isLifecycleTransitionActive else { needsCheck = true; return }
         guard let url = document.fileURL else { return }
         let external = try await files.read(url, excluding: document)
         guard !stopped, document.fileURL == url, let current = document.session?.snapshot else { return }
+        guard !document.isLifecycleTransitionActive else { needsCheck = true; return }
         issue = nil
         // Byte comparison, not notification timing or Unicode string equality:
         // providers may deliver our own notification after a later local edit.
@@ -72,7 +77,7 @@ final class DocumentFileLifecycle {
            let library = document.recoveryLibrary {
             do {
                 try await RecoveryDeadline.run { try await library.preserveCopy(current, title: "Before External Change — \(document.displayName ?? "Untitled")") }
-                if document.session?.snapshot == current, !document.isSavingSource, !stopped {
+                if document.session?.snapshot == current, !document.isSavingSource, !document.isLifecycleTransitionActive, !stopped {
                     try document.applyExternalSource(external)
                     document.refreshWindows(); return
                 }

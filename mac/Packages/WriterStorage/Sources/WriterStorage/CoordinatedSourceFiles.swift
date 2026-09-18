@@ -4,13 +4,31 @@ import WriterFoundation
 
 /// Safe, actionable categories only: underlying paths, contents and provider
 /// error descriptions must not leak into logs or UI diagnostics.
-public enum SourceFileError: Error, Equatable, Sendable {
+public enum SourceFileError: LocalizedError, Equatable, Sendable {
     case invalidLocation, missing, permissionDenied, unavailable, notRegularFile
     case sourceTooLarge, invalidUTF8, changedDuringRead, externalChange
-    case alreadyExists, diskFull, cancelled, ioFailure, durabilityUnavailable
+    case alreadyExists, diskFull, cancelled, ioFailure, durabilityUnavailable, partialMove
     /// Replacement completed but final directory synchronization failed. The
     /// caller must reread/reconcile; it must not retry with an old expected source.
     case replacementDurabilityUncertain
+
+    public var errorDescription: String? {
+        switch self {
+        case .invalidLocation: "This file location is not supported. Choose another location."
+        case .missing, .unavailable: "The file is unavailable. Locate it or save a separate copy."
+        case .permissionDenied: "Access to the file was denied. Select it again to renew access."
+        case .notRegularFile, .invalidUTF8: "The selected file is not supported source data."
+        case .sourceTooLarge: "The selected data exceeds the supported size or image limits."
+        case .changedDuringRead, .externalChange: "The file changed outside Nostr Writer. Review it before trying again."
+        case .alreadyExists: "A file already exists at the destination. Choose a new name; the existing file was kept."
+        case .diskFull: "Storage is full. Free space or save a separate copy elsewhere."
+        case .cancelled: "The file operation was cancelled."
+        case .ioFailure: "The file operation could not finish. Keep your writing open and choose another location."
+        case .durabilityUnavailable: "Storage could not confirm durable writing. Keep the document open and save a copy elsewhere."
+        case .replacementDurabilityUncertain: "The file was replaced, but durable storage was not confirmed. Keep your writing open and check the saved file."
+        case .partialMove: "A destination copy was created, but the original could not be safely removed. Review both locations before trying again."
+        }
+    }
 }
 
 public struct SourceFileRead: Sendable, Equatable {
@@ -30,6 +48,12 @@ public struct SourceFileWrite: Sendable {
     public let saved: SavedFileRevision
     /// Local coordinated replacement only, never remote upload confirmation.
     public let localVersion: SourceFileRead
+}
+
+public struct SourceFileMove: Sendable {
+    public let file: SourceFileRead
+    /// False means the path changed, but directory synchronization failed.
+    public let durabilityConfirmed: Bool
 }
 
 public enum SourceFileFaultPoint: Sendable { case beforeWrite, beforeSync, beforeReplace, afterReplace }
@@ -100,6 +124,78 @@ public actor CoordinatedSourceFiles {
         }
         if let coordinationError { throw Self.safe(coordinationError) }
         guard let result else { throw SourceFileError.unavailable }; try result.get()
+    }
+
+    /// Called by NSDocument's move override, outside its read/write accessors.
+    /// Exclude that document's presenter; it adopts the returned location itself.
+    public func move(_ previous: SourceFileRead, to destination: URL,
+                     excluding presenter: (any NSFilePresenter & Sendable)? = nil) throws -> SourceFileMove {
+        try Self.validate(previous.url); try Self.validate(destination)
+        try Self.preflight(previous.url, mustBeNew: false); try Self.preflight(destination, mustBeNew: true)
+        let coordinator = NSFileCoordinator(filePresenter: presenter)
+        var error: NSError?, result: Result<SourceFileMove, Error>?
+        coordinator.coordinate(writingItemAt: previous.url, options: .forMoving,
+                               writingItemAt: destination, options: .forReplacing, error: &error) { source, target in
+            result = Result {
+                guard try Self.readExact(source) == previous.bytes else { throw SourceFileError.externalChange }
+                try Self.preflight(target, mustBeNew: true); try Task.checkCancellation()
+                coordinator.item(at: source, willMoveTo: target)
+                if renamex_np(source.path, target.path, UInt32(RENAME_EXCL)) != 0 {
+                    guard errno == EXDEV else { throw Self.posix() }
+                    // Cross-volume: preserve native metadata, make a durable new
+                    // file first, then remove only the still-matching original.
+                    let temporary = target.deletingLastPathComponent().appendingPathComponent(".nostr-writer-move-\(UUID()).tmp")
+                    defer { try? FileManager.default.removeItem(at: temporary) }
+                    try FileManager.default.copyItem(at: source, to: temporary)
+                    guard try Self.readExact(temporary) == previous.bytes else { throw SourceFileError.externalChange }
+                    let fd = Darwin.open(temporary.path, O_RDONLY | O_NOFOLLOW | O_CLOEXEC)
+                    guard fd >= 0 else { throw Self.posix() }; defer { Darwin.close(fd) }
+                    try Self.syncFile(fd)
+                    guard renamex_np(temporary.path, target.path, UInt32(RENAME_EXCL)) == 0 else { throw Self.posix() }
+                    do {
+                        try Self.syncDirectory(target.deletingLastPathComponent())
+                        guard try Self.readExact(source) == previous.bytes else { throw SourceFileError.externalChange }
+                        guard unlink(source.path) == 0 else { throw Self.posix() }
+                    } catch { throw SourceFileError.partialMove } // Both paths retained; do not retry blindly.
+                }
+                coordinator.item(at: source, didMoveTo: target)
+                let durable: Bool
+                do {
+                    try Self.syncDirectory(target.deletingLastPathComponent())
+                    try Self.syncDirectory(source.deletingLastPathComponent()); durable = true
+                } catch { durable = false }
+                return SourceFileMove(file: SourceFileRead(url: target, bytes: previous.bytes), durabilityConfirmed: durable)
+            }
+        }
+        if let error { throw Self.safe(error) }
+        guard let result else { throw SourceFileError.unavailable }; return try result.get()
+    }
+
+    /// Only the explicitly confirmed source goes to platform Trash. Assets and
+    /// private recovery are separate ownership domains and are never swept.
+    public func trash(_ previous: SourceFileRead,
+                      excluding presenter: (any NSFilePresenter & Sendable)? = nil) throws -> URL? {
+        try Self.validate(previous.url); try Self.preflight(previous.url, mustBeNew: false)
+        var error: NSError?, result: Result<URL?, Error>?
+        NSFileCoordinator(filePresenter: presenter).coordinate(writingItemAt: previous.url, options: .forDeleting, error: &error) { source in
+            result = Result {
+                guard try Self.readExact(source) == previous.bytes else { throw SourceFileError.externalChange }
+                try Task.checkCancellation()
+                var trashed: NSURL?
+                try FileManager.default.trashItem(at: source, resultingItemURL: &trashed)
+                // FileManager already confirmed success. A missing returned
+                // location does not mean the original file stayed in place.
+                return trashed as URL?
+            }
+        }
+        if let error { throw Self.safe(error) }
+        guard let result else { throw SourceFileError.unavailable }; return try result.get()
+    }
+
+    private static func syncDirectory(_ url: URL) throws {
+        let fd = Darwin.open(url.path, O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+        guard fd >= 0 else { throw posix() }; defer { Darwin.close(fd) }
+        guard fsync(fd) == 0 else { throw SourceFileError.durabilityUnavailable }
     }
 
     /// Only for a native document writer already inside its coordinated file

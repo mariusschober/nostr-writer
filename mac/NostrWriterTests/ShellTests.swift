@@ -257,6 +257,75 @@ final class ShellTests: XCTestCase {
         document.close(); try await store.close()
     }
 
+    func testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages() async throws {
+        _ = NSApplication.shared
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-relocate-\(UUID())")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        var trashURL: URL?
+        defer {
+            if let trashURL { try? FileManager.default.removeItem(at: trashURL) }
+            try? FileManager.default.removeItem(at: root)
+        }
+        let store = try DocumentStore(configuration: .init(databaseURL: root.appendingPathComponent("recovery.sqlite")), keyProvider: SyntheticNativeRecoveryKey())
+        let library = RecoveryLibrary(store: store)
+        let document = WriterDocument(); document.recoveryLibrary = library
+        document.assets = DocumentAssets(document: document, bookmarks: SyntheticAssetBookmarks())
+        document.fileType = "net.daringfireball.markdown"
+        try document.read(from: Data("Cafe\u{301} 😀\r\n".utf8), ofType: document.fileType!)
+        document.makeWindowControllers()
+        let first = root.appendingPathComponent("Original.md")
+        try await document.save(to: first, ofType: document.fileType!, for: .saveOperation)
+        let pixels = try XCTUnwrap(CGContext(data: nil, width: 2, height: 2, bitsPerComponent: 8, bytesPerRow: 8,
+            space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+        let imageBytes = NSMutableData(), image = try XCTUnwrap(pixels.makeImage())
+        let encoder = try XCTUnwrap(CGImageDestinationCreateWithData(imageBytes, UTType.png.identifier as CFString, 1, nil))
+        CGImageDestinationAddImage(encoder, image, nil); XCTAssertTrue(CGImageDestinationFinalize(encoder))
+        let selected = root.appendingPathComponent("input.png"); try (imageBytes as Data).write(to: selected)
+        try await document.assets.insertImage(selected, grantedFolder: root)
+        try await document.save(to: first, ofType: document.fileType!, for: .saveOperation)
+        let saved = try XCTUnwrap(document.savedFile?.source), asset = try XCTUnwrap(document.assets.records.first)
+        try document.acceptScratchEdit(saved.string + "\r\nunsaved writing")
+        let dirty = try XCTUnwrap(document.session?.snapshot)
+        let renamed = root.appendingPathComponent("Renamed.md")
+        try await document.move(to: renamed)
+        XCTAssertEqual(document.session?.snapshot, dirty)
+        XCTAssertEqual(document.savedFile?.source, saved)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: first.path))
+        XCTAssertEqual(try Data(contentsOf: renamed), saved.utf8)
+        let destination = root.appendingPathComponent("destination")
+        try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: false)
+        let moved = destination.appendingPathComponent("Moved-\(UUID()).md")
+        try await document.movePreservingSource(to: moved, grantedAssetFolder: destination)
+        XCTAssertEqual(document.session?.snapshot, dirty)
+        XCTAssertEqual(document.savedFile?.source, saved)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: renamed.path))
+        XCTAssertEqual(try Data(contentsOf: moved), saved.utf8)
+        XCTAssertEqual(try Data(contentsOf: destination.appendingPathComponent(asset.relativePath)), imageBytes as Data)
+        XCTAssertEqual(try Data(contentsOf: root.appendingPathComponent(asset.relativePath)), imageBytes as Data)
+        let metadata = try await store.catalogRecord(for: dirty.documentID)
+        XCTAssertEqual(metadata?.location, moved.standardizedFileURL.resolvingSymlinksInPath().absoluteString)
+        XCTAssertEqual(metadata?.managedAssets, [asset])
+        let neighbor = destination.appendingPathComponent("occupied.md"), neighborBytes = Data("unrelated".utf8)
+        try neighborBytes.write(to: neighbor)
+        do { try await document.movePreservingSource(to: neighbor); XCTFail("Move must refuse an occupied target") }
+        catch { XCTAssertEqual(error as? SourceFileError, .alreadyExists) }
+        XCTAssertEqual(try Data(contentsOf: neighbor), neighborBytes)
+        XCTAssertEqual(document.fileURL, moved)
+        trashURL = try await document.trashPreservingRecovery()
+        XCTAssertFalse(FileManager.default.fileExists(atPath: moved.path))
+        XCTAssertEqual(try Data(contentsOf: XCTUnwrap(trashURL)), saved.utf8)
+        XCTAssertEqual(try Data(contentsOf: neighbor), neighborBytes)
+        XCTAssertEqual(try Data(contentsOf: destination.appendingPathComponent(asset.relativePath)), imageBytes as Data)
+        let entries = try await library.recoveredEntries()
+        let preserved = try XCTUnwrap(entries.first { $0.parentDigest == dirty.digest })
+        let recovered = try await library.recoveredSource(preserved.documentID)
+        XCTAssertEqual(recovered.utf8, dirty.utf8)
+        XCTAssertEqual(preserved.managedAssets, [asset])
+        let trashedRecord = try await store.catalogRecord(for: dirty.documentID)
+        XCTAssertNil(trashedRecord?.location); XCTAssertEqual(trashedRecord?.isVisible, false)
+        try await store.close()
+    }
+
     func testNativeUndoSynchronizesExactDocumentSource() throws {
         _ = NSApplication.shared
         let document = WriterDocument(), original = Data("Cafe\u{301} 😀\r\n".utf8)

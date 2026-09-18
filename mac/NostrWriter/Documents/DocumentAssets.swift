@@ -57,7 +57,7 @@ final class DocumentAssets {
         // not retain a second lease after stop. Existing document scope survives.
         let imageAccess = bookmarks.start(selected)
         defer { if imageAccess { bookmarks.stop(selected) } }
-        guard document.session?.snapshot == source else { throw CocoaError(.userCancelled) }
+        guard document.session?.snapshot == source, document.fileURL == sourceURL, !document.isSavingSource, !document.isLifecycleTransitionActive else { throw CocoaError(.userCancelled) }
         document.setLifecycleBusy(true)
         defer { document.setLifecycleBusy(false) }
         let asset = try await files.importImage(selected, documentName: sourceURL.lastPathComponent, into: folder.url, existing: records)
@@ -70,10 +70,14 @@ final class DocumentAssets {
         try document.insertManagedImageLink("![Image](\(asset.markdownPath))", at: selection, expecting: source)
     }
 
-    func prepareDestination(_ url: URL, source: SourceSnapshot, grantedFolder: URL? = nil) async throws -> PreparedSave {
+    func prepareDestination(_ url: URL, source: SourceSnapshot, additionalSources: [SourceSnapshot] = [], grantedFolder: URL? = nil) async throws -> PreparedSave {
         guard !records.isEmpty else { return PreparedSave(records: [], folderBookmark: nil) }
         guard let folderBookmark else { throw SourceAccessError.invalidBookmark }
-        let referenced = try await Task.detached { try MarkdownAssetReferences.relativeImagePaths(in: source) }.value
+        let referenced = try await Task.detached {
+            try ([source] + additionalSources).reduce(into: Set<String>()) { result, snapshot in
+                result.formUnion(try MarkdownAssetReferences.relativeImagePaths(in: snapshot))
+            }
+        }.value
         let selected = records.filter { referenced.contains($0.relativePath) }
         guard !selected.isEmpty else { return PreparedSave(records: [], folderBookmark: nil) }
         let original = try bookmarks.resolve(folderBookmark)
