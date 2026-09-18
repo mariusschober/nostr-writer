@@ -197,8 +197,8 @@ final class WriterDocument: NSDocument {
     }
 
     @objc func moveSourceToTrash(_ sender: Any?) {
-        guard fileURL != nil, !lifecycleBusy, !isSavingSource else { return }
-        let alert = NSAlert(); alert.messageText = "Move this document to Trash?"
+        guard let fileURL, !lifecycleBusy, !isSavingSource else { return }
+        let alert = NSAlert(); alert.messageText = "Move “\(fileURL.lastPathComponent)” to Trash?"
         alert.informativeText = "Your current writing, including unsaved changes, will first be preserved in Recovered drafts. Image files and private history will remain where they are."
         alert.addButton(withTitle: "Cancel"); alert.addButton(withTitle: "Move to Trash")
         guard alert.runModal() == .alertSecondButtonReturn else { return }
