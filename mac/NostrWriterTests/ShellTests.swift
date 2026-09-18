@@ -110,6 +110,24 @@ final class ShellTests: XCTestCase {
         try await store.close()
     }
 
+    func testStoppedRecoveryRejectsLateBoundary() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-stopped-recovery-\(UUID())")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let store = try DocumentStore(configuration: .init(databaseURL: root.appendingPathComponent("recovery.sqlite")), keyProvider: SyntheticNativeRecoveryKey())
+        let source = try SourceSnapshot(documentID: DocumentID(), revision: Revision(0), utf8: Data("synthetic closed draft".utf8))
+        let recovery = DocumentRecovery(source: source, library: RecoveryLibrary(store: store))
+        // Native close can retire recovery before its queued attachment starts,
+        // then deliver a late window-resign boundary. It must not spin on the
+        // completed/cancelled attachment task and starve the five-second timer.
+        recovery.stop()
+        do {
+            try await RecoveryDeadline.run { try await recovery.flush(source, boundary: .interruption) }
+            XCTFail("A stopped recovery session accepted a late boundary")
+        } catch is CancellationError { }
+        try await store.close()
+    }
+
     func testQueuedSavesAndCloseBoundaryPreserveLatestRevision() async throws {
         _ = NSApplication.shared
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-save-queue-\(UUID())")

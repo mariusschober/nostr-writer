@@ -363,6 +363,7 @@ final class WriterDocument: NSDocument {
         }
         if item.action == #selector(revertPreservingChanges(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
         if item.action == #selector(insertImage(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
+        if item.action == #selector(duplicateWriting(_:)) { return session != nil && !lifecycleBusy }
         if item.action == #selector(revealInFinder(_:)) { return fileURL != nil }
         return super.validateUserInterfaceItem(item)
     }
@@ -426,6 +427,17 @@ final class WriterDocument: NSDocument {
             Task { try? await library.markClosed(id) }
         }
         super.close()
+    }
+
+    // AppKit hides its standard Duplicate action when autosavesInPlace is off.
+    // This app uses encrypted private recovery instead of plaintext autosaving.
+    @objc func duplicateWriting(_ sender: Any?) {
+        guard session != nil, !lifecycleBusy else { return }
+        do {
+            let copy = try duplicate()
+            copy.makeWindowControllers()
+            copy.showWindows()
+        } catch { presentError(error) }
     }
 
     override func duplicate() throws -> NSDocument {

@@ -248,9 +248,11 @@ final class DocumentRecovery {
     private var latest: SourceSnapshot
     private var pending: SourceSnapshot?
     private var handoff: Task<Void, Never>?
+    private var handoffID: UUID?
     private var monitor: Task<Void, Never>?
     private var metadataHandoff: Task<Void, Never>?
     private var generation = UUID()
+    private var stopped = false
     private(set) var message = "Preparing recovery…"
     private(set) var hasFailure = false
     var didChange: (() -> Void)?
@@ -261,7 +263,7 @@ final class DocumentRecovery {
     }
 
     func observe(_ source: SourceSnapshot) {
-        guard source.documentID == documentID else { return }
+        guard !stopped, source.documentID == documentID else { return }
         latest = source; pending = source
         drain()
     }
@@ -269,38 +271,47 @@ final class DocumentRecovery {
     func retry() { attach(retry: true) }
 
     private func attach(retry: Bool) {
+        guard !stopped else { return }
         let current = UUID(); generation = current
         monitor?.cancel(); handoff?.cancel()
+        let token = UUID(); handoffID = token
         hasFailure = false; message = "Preparing recovery…"; didChange?()
         handoff = Task { [weak self, library] in
             do {
                 let store = try await library.store(retry: retry)
-                guard let self, current == self.generation else { return }
+                guard let self, !self.stopped, !Task.isCancelled, current == self.generation else { return }
                 if self.coordinator == nil {
                     self.coordinator = try RecoveryCoordinator(documentID: self.documentID, persistence: store)
                 }
-                self.pending = self.latest
-                self.handoff = nil
                 if retry { await self.coordinator?.retry() }
+                guard !self.stopped, !Task.isCancelled, current == self.generation else { return }
+                self.pending = self.latest
+                self.finishHandoff(token)
                 self.drain()
                 self.startMonitor()
             } catch {
                 guard let self, current == self.generation else { return }
-                self.handoff = nil; self.fail(error)
+                self.finishHandoff(token)
+                if !self.stopped, !Task.isCancelled { self.fail(error) }
             }
         }
     }
 
     private func drain() {
-        guard handoff == nil, let coordinator else { return }
+        guard !stopped, handoff == nil, let coordinator else { return }
+        let token = UUID(), current = generation
+        handoffID = token
         handoff = Task { [weak self] in
             guard let self else { return }
-            while let source = self.pending, !Task.isCancelled {
+            while let source = self.pending, !Task.isCancelled, !self.stopped, current == self.generation {
                 self.pending = nil
                 do { try await coordinator.observe(source) }
-                catch { self.fail(error); break }
+                catch {
+                    if !self.stopped, !Task.isCancelled, current == self.generation { self.fail(error) }
+                    break
+                }
             }
-            self.handoff = nil
+            self.finishHandoff(token)
         }
     }
 
@@ -309,6 +320,7 @@ final class DocumentRecovery {
             while !Task.isCancelled {
                 guard let coordinator = self?.coordinator else { return }
                 let state = await coordinator.state()
+                guard !Task.isCancelled else { return }
                 if let error = state.lastFailure { self?.fail(error) }
                 else {
                     self?.hasFailure = false
@@ -321,10 +333,11 @@ final class DocumentRecovery {
     }
 
     func flush(_ source: SourceSnapshot, boundary: ObservationBoundary) async throws {
+        guard !stopped else { throw CancellationError() }
         // An earlier boundary must not replace a newer pending edit while the
         // store is opening. The actor flushes its latest admitted revision.
         if source.revision >= latest.revision { observe(source) }
-        await waitForHandoff()
+        try await waitForHandoff()
         guard let coordinator else { throw RecoveryKeyError.unavailable(message) }
         do { _ = try await coordinator.flushLatest(atBoundary: boundary) }
         catch { fail(error); throw error }
@@ -332,26 +345,46 @@ final class DocumentRecovery {
     }
 
     func acknowledgeSave(_ saved: SavedFileRevision, parent: SourceSnapshot?, assets: [ManagedAsset]? = nil, assetFolderBookmark: Data? = nil) {
+        guard !stopped else { return }
         // Save status belongs to WriterDocument. A recovery failure cannot turn
         // a completed ordinary file save into an unsaved-file claim.
         let previous = metadataHandoff
         metadataHandoff = Task { [weak self] in
             guard let self else { return }
             await previous?.value
-            await self.waitForHandoff()
             do {
+                try await self.waitForHandoff()
                 _ = try await self.coordinator?.acknowledgeSavedFile(saved)
                 try await self.library.recordSave(saved, parent: parent, assets: assets, assetFolderBookmark: assetFolderBookmark)
             }
-            catch { self.fail(error) }
+            catch { if !self.stopped { self.fail(error) } }
         }
     }
 
-    private func waitForHandoff() async {
-        while let pendingHandoff = handoff { await pendingHandoff.value }
+    private func finishHandoff(_ token: UUID) {
+        guard handoffID == token else { return }
+        handoff = nil; handoffID = nil
     }
 
-    func stop() { generation = UUID(); monitor?.cancel(); handoff?.cancel() }
+    private func waitForHandoff() async throws {
+        let current = generation
+        while let pendingHandoff = handoff, let token = handoffID {
+            try Task.checkCancellation()
+            guard !stopped, current == generation else { throw CancellationError() }
+            await pendingHandoff.value
+            try Task.checkCancellation()
+            guard !stopped, current == generation else { throw CancellationError() }
+            // Awaiting an already-completed task need not yield the main actor.
+            // Retire exactly that task instead of spinning on a stale reference.
+            finishHandoff(token)
+        }
+    }
+
+    func stop() {
+        stopped = true; generation = UUID(); pending = nil
+        monitor?.cancel(); monitor = nil
+        handoff?.cancel(); handoff = nil; handoffID = nil
+    }
     deinit { monitor?.cancel(); handoff?.cancel() }
 
     private func fail(_ error: Error) {

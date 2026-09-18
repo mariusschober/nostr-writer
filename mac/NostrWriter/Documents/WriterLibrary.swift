@@ -11,6 +11,11 @@ final class SelectedSourceLease: Sendable {
 
 @MainActor
 final class WriterLibraryModel: ObservableObject {
+    struct OpenDocument: Identifiable {
+        let document: WriterDocument
+        let title: String
+        var id: ObjectIdentifier { ObjectIdentifier(document) }
+    }
     struct Folder: Identifiable {
         var record: DocumentCatalogRecord
         var entries: [LibraryFileEntry] = []
@@ -39,19 +44,26 @@ final class WriterLibraryModel: ObservableObject {
     private var hiddenLocations: Set<String> = []
     private let folderAccess = LibraryFolders()
 
-    var openDocuments: [WriterDocument] { NSDocumentController.shared.documents.compactMap { $0 as? WriterDocument } }
+    // Snapshot presentation values so SwiftUI can see a title change even when
+    // NSDocument keeps the same object identity through Save As or a move.
+    var openDocuments: [OpenDocument] {
+        NSDocumentController.shared.documents.compactMap { document in
+            guard let document = document as? WriterDocument else { return nil }
+            return OpenDocument(document: document, title: document.displayName ?? "Untitled")
+        }
+    }
 
     init(recovery: RecoveryLibrary) { self.recovery = recovery }
 
     func noteRecent(_ url: URL) {
         hiddenLocations.remove(Self.location(url))
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
-        recent = Array(([url] + recent.filter { $0 != url }).prefix(40))
+        recent = uniqueRecent([url] + recent)
     }
 
     func refresh() {
         let nativeRecent = NSDocumentController.shared.recentDocumentURLs
-        recent = Array((recent + nativeRecent.filter { !recent.contains($0) }).filter { !hiddenLocations.contains(Self.location($0)) }.prefix(40))
+        recent = uniqueRecent(recent + nativeRecent)
         refreshTask?.cancel()
         refreshTask = Task { [weak self, recovery] in
             do {
@@ -61,7 +73,7 @@ final class WriterLibraryModel: ObservableObject {
                 self.catalog = catalog
                 self.hiddenLocations = Set(catalog.filter { !$0.isVisible }.compactMap(\.location))
                 let savedURLs = catalog.filter { $0.isVisible && $0.isFolder != true }.compactMap { $0.location.flatMap(URL.init(string:)) }
-                self.recent = Array((self.recent + savedURLs.filter { !self.recent.contains($0) }).filter { !self.hiddenLocations.contains(Self.location($0)) }.prefix(40))
+                self.recent = self.uniqueRecent(self.recent + savedURLs)
                 self.pinned = catalog.filter { $0.isVisible && $0.isPinned == true && $0.isFolder != true }.compactMap { $0.location.flatMap(URL.init(string:)) }
                 for record in catalog where record.isFolder == true && record.isVisible { self.loadFolder(record) }
                 self.recovered = entries; self.recoveryUnavailable = false
@@ -215,6 +227,16 @@ final class WriterLibraryModel: ObservableObject {
         } catch { libraryNotice = "Folder access changed. Locate the folder again; the file was not opened." }
     }
 
+    private func uniqueRecent(_ urls: [URL]) -> [URL] {
+        var seen = hiddenLocations
+        var result: [URL] = []
+        for url in urls where seen.insert(Self.location(url)).inserted {
+            result.append(url)
+            if result.count == 40 { break }
+        }
+        return result
+    }
+
     private static func location(_ url: URL) -> String { url.standardizedFileURL.resolvingSymlinksInPath().absoluteString }
 
     func open(_ record: DocumentCatalogRecord, recovering: Bool = false) {
@@ -276,8 +298,8 @@ struct WriterLibrarySidebar: View {
             List {
                 if model.query.isEmpty, !model.openDocuments.isEmpty {
                     Section("Open") {
-                        ForEach(model.openDocuments, id: \.self) { document in
-                            Button { document.showWindows() } label: { Label(document.displayName ?? "Untitled", systemImage: "doc.text") }
+                        ForEach(model.openDocuments) { entry in
+                            Button { entry.document.showWindows() } label: { Label(entry.title, systemImage: "doc.text") }
                         }
                     }
                 }

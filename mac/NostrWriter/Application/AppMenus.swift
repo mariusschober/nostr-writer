@@ -30,7 +30,7 @@ enum AppMenus {
         item(file, "Close", #selector(NSWindow.performClose(_:)), "w")
         item(file, "Save…", #selector(NSDocument.save(_:)), "s")
         item(file, "Save As…", #selector(NSDocument.saveAs(_:)), "s", [.command, .shift])
-        item(file, "Duplicate", #selector(NSDocument.duplicate(_:)))
+        item(file, "Duplicate", #selector(WriterDocument.duplicateWriting(_:)))
         item(file, "Revert to Saved…", #selector(WriterDocument.revertPreservingChanges(_:)))
         item(file, "Rename…", Selector(("renameDocument:")))
         item(file, "Move To…", Selector(("moveDocument:")))
