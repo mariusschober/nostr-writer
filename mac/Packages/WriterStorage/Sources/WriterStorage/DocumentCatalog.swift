@@ -20,6 +20,8 @@ public struct DocumentCatalogRecord: Codable, Sendable, Equatable, Identifiable 
     public var isFolder: Bool?
     public var isPinned: Bool?
     public var textImport: TextImportReceipt?
+    public var managedAssets: [ManagedAsset]?
+    public var assetFolderBookmark: Data?
     public var documentID: DocumentID { DocumentID(rawValue: id) }
 
     public init(documentID: DocumentID, title: String = "Untitled", location: String? = nil,
@@ -31,6 +33,9 @@ public struct DocumentCatalogRecord: Codable, Sendable, Equatable, Identifiable 
 
     func validate() throws {
         try textImport?.validate()
+        try ManagedAsset.validateSet(managedAssets ?? [])
+        guard (assetFolderBookmark?.count ?? 0) <= ScopedSourceFiles.maximumBookmarkBytes,
+              managedAssets?.isEmpty != false || assetFolderBookmark != nil else { throw SourceAccessError.invalidBookmark }
         guard title.utf8.count <= 4096, (bookmark?.count ?? 0) <= ScopedSourceFiles.maximumBookmarkBytes,
               (location?.utf8.count ?? 0) <= 8192, updatedAt.isFinite,
               savedDigest == nil || savedDigest?.count == 32,
@@ -40,7 +45,7 @@ public struct DocumentCatalogRecord: Codable, Sendable, Equatable, Identifiable 
               parentID != id else {
             throw StorageError.invariantViolation("Document metadata is malformed or exceeds its bounds.")
         }
-        if isFolder == true, location == nil || bookmark == nil || savedDigest != nil || parentID != nil || textImport != nil {
+        if isFolder == true, location == nil || bookmark == nil || savedDigest != nil || parentID != nil || textImport != nil || managedAssets?.isEmpty == false {
             throw StorageError.invariantViolation("A library folder must be a selected location without document history.")
         }
         if let location {

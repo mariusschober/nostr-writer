@@ -44,6 +44,7 @@ enum AppMenus {
         item(edit, "Find…", #selector(NSTextView.performFindPanelAction(_:)), "f")
         edit.items.last?.tag = NSTextFinder.Action.showFindInterface.rawValue
         let format = menu("Format")
+        item(format, "Insert Image…", #selector(WriterDocument.insertImage(_:)))
         item(format, "Show Fonts", #selector(NSFontManager.orderFrontFontPanel(_:)))
         let view = menu("View")
         item(view, "Toggle Sidebar", #selector(WriterWindowController.toggleSidebar(_:)), "s", [.command, .control])

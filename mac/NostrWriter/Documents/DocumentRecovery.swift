@@ -16,7 +16,7 @@ actor RecoveryLibrary {
         let record: DocumentCatalogRecord
     }
 
-    func prepare(_ source: SourceSnapshot, url: URL?, parent: SourceSnapshot?, textImport: TextImportReceipt? = nil, title: String? = nil) async throws -> Prepared {
+    func prepare(_ source: SourceSnapshot, url: URL?, parent: SourceSnapshot?, textImport: TextImportReceipt? = nil, title: String? = nil, assets: [ManagedAsset]? = nil, assetFolderBookmark: Data? = nil) async throws -> Prepared {
         let store = try await store()
         let location = url?.standardizedFileURL.resolvingSymlinksInPath().absoluteString
         var record: DocumentCatalogRecord
@@ -35,6 +35,7 @@ actor RecoveryLibrary {
                         _ = try await store.persist(RecoveryBatch(source: copy, receipts: []))
                         var recovered = DocumentCatalogRecord(documentID: copy.documentID,
                             title: "Recovered \(existing.title)", parent: durable.source)
+                        recovered.managedAssets = existing.managedAssets; recovered.assetFolderBookmark = existing.assetFolderBookmark
                         recovered.isOpen = false
                         try await store.saveCatalogRecord(recovered)
                     }
@@ -60,12 +61,13 @@ actor RecoveryLibrary {
         }
         record.isOpen = true; record.isVisible = true; record.updatedAt = Date().timeIntervalSince1970
         if let textImport { record.textImport = textImport }
+        if let assets { record.managedAssets = assets; record.assetFolderBookmark = assetFolderBookmark }
         _ = try await store.persist(RecoveryBatch(source: prepared, receipts: []))
         try await store.saveCatalogRecord(record)
         return Prepared(source: prepared, record: record)
     }
 
-    func recordSave(_ saved: SavedFileRevision, parent: SourceSnapshot?) async throws {
+    func recordSave(_ saved: SavedFileRevision, parent: SourceSnapshot?, assets: [ManagedAsset]? = nil, assetFolderBookmark: Data? = nil) async throws {
         let store = try await store()
         var record = try await store.catalogRecord(for: saved.source.documentID)
             ?? DocumentCatalogRecord(documentID: saved.source.documentID, parent: parent)
@@ -76,6 +78,14 @@ actor RecoveryLibrary {
         record.title = saved.url.lastPathComponent
         record.savedRevision = saved.source.revision.rawValue; record.savedDigest = saved.source.digest
         record.isOpen = true; record.updatedAt = Date().timeIntervalSince1970
+        if let assets { record.managedAssets = assets; record.assetFolderBookmark = assetFolderBookmark }
+        try await store.saveCatalogRecord(record)
+    }
+
+    func recordAssets(_ id: DocumentID, assets: [ManagedAsset], folderBookmark: Data) async throws {
+        let store = try await store()
+        guard var record = try await store.catalogRecord(for: id) else { throw SourceAccessError.unavailable }
+        record.managedAssets = assets; record.assetFolderBookmark = folderBookmark
         try await store.saveCatalogRecord(record)
     }
 
@@ -124,6 +134,9 @@ actor RecoveryLibrary {
         let copy = try SourceSnapshot(documentID: DocumentID(), revision: Revision(0), utf8: source.utf8)
         _ = try await store.persist(RecoveryBatch(source: copy, receipts: []))
         var record = DocumentCatalogRecord(documentID: copy.documentID, title: title, parent: source)
+        if let original = try await store.catalogRecord(for: source.documentID) {
+            record.managedAssets = original.managedAssets; record.assetFolderBookmark = original.assetFolderBookmark
+        }
         record.isOpen = false
         try await store.saveCatalogRecord(record)
     }
@@ -309,7 +322,7 @@ final class DocumentRecovery {
         await metadataHandoff?.value
     }
 
-    func acknowledgeSave(_ saved: SavedFileRevision, parent: SourceSnapshot?) {
+    func acknowledgeSave(_ saved: SavedFileRevision, parent: SourceSnapshot?, assets: [ManagedAsset]? = nil, assetFolderBookmark: Data? = nil) {
         // Save status belongs to WriterDocument. A recovery failure cannot turn
         // a completed ordinary file save into an unsaved-file claim.
         let previous = metadataHandoff
@@ -319,7 +332,7 @@ final class DocumentRecovery {
             await self.waitForHandoff()
             do {
                 _ = try await self.coordinator?.acknowledgeSavedFile(saved)
-                try await self.library.recordSave(saved, parent: parent)
+                try await self.library.recordSave(saved, parent: parent, assets: assets, assetFolderBookmark: assetFolderBookmark)
             }
             catch { self.fail(error) }
         }

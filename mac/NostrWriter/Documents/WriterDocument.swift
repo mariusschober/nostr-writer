@@ -33,6 +33,10 @@ final class WriterDocument: NSDocument {
     private nonisolated let writingBytes = OSAllocatedUnfairLock<SourceSnapshot?>(initialState: nil)
     private nonisolated let expectedDiskBytes = OSAllocatedUnfairLock<(URL, Data)?>(initialState: nil)
     lazy var fileLifecycle = DocumentFileLifecycle(document: self)
+    lazy var assets = DocumentAssets(document: self)
+    private var preparedAssets: DocumentAssets.PreparedSave?
+    private var savePausedEditing = false
+    private var programmaticOrigin: EditOrigin?
     private struct QueuedSave {
         let url: URL
         let type: String
@@ -101,6 +105,8 @@ final class WriterDocument: NSDocument {
         writeSnapshot = session?.snapshot
         saveChangeToken = super.changeCountToken(for: saveOperation)
         let sourceToWrite = writeSnapshot
+        let relocatesAssets = !assets.records.isEmpty && (saveOperation == .saveAsOperation || fileURL == nil)
+        if relocatesAssets { savePausedEditing = true; setLifecycleBusy(true) }
         writingBytes.withLock { $0 = sourceToWrite }
         let expected: Data?
         if let authorized = fileLifecycle.authorizedSave, authorized.url.standardizedFileURL == url.standardizedFileURL {
@@ -111,6 +117,13 @@ final class WriterDocument: NSDocument {
         expectedDiskBytes.withLock { $0 = expected.map { (url.standardizedFileURL, $0) } }
         refreshWindows()
         Task { [self] in
+            if relocatesAssets, let sourceToWrite {
+                do { preparedAssets = try await assets.prepareDestination(url, source: sourceToWrite) }
+                catch {
+                    finishSaveState(error: error)
+                    completionHandler(error); startNextSave(); return
+                }
+            }
             // Recovery failure must never prevent an emergency ordinary source
             // save. The recovery warning remains separate from file status.
             do { try await flushRecovery(at: .save) } catch { }
@@ -151,23 +164,30 @@ final class WriterDocument: NSDocument {
                             self.recovery?.didChange = { [weak self] in self?.refreshWindows() }
                         }
                     } catch {
-                        self.isSavingSource = false; self.saveFailed = true; self.writeSnapshot = nil; self.saveChangeToken = nil
-                        self.writingBytes.withLock { $0 = nil }
-                        self.applyPreparedRecovery(); self.refreshWindows(); completionHandler(error); self.startNextSave(); return
+                        self.finishSaveState(error: error)
+                        completionHandler(error); self.startNextSave(); return
                     }
                 }
+                if let preparedAssets = self.preparedAssets { self.assets.apply(preparedAssets) }
                 let saved = SavedFileRevision(source: savedSource, url: url)
                 self.savedFile = saved
                 if saveOperation == .saveAsOperation { self.fileLifecycle.didSaveAs() }
                 (NSApp.delegate as? AppDelegate)?.libraryModel.noteRecent(url)
-                self.recovery?.acknowledgeSave(saved, parent: self.derivedFrom)
+                self.recovery?.acknowledgeSave(saved, parent: self.derivedFrom, assets: self.assets.records, assetFolderBookmark: self.assets.folderBookmark)
             }
-            self.isSavingSource = false; self.saveFailed = error != nil; self.writeSnapshot = nil; self.saveChangeToken = nil
-            self.writingBytes.withLock { $0 = nil }
-            self.applyPreparedRecovery(); self.refreshWindows(); completionHandler(error)
+            self.finishSaveState(error: error)
+            completionHandler(error)
             self.startNextSave()
             if error != nil { self.fileLifecycle.scheduleCheck() }
         }
+    }
+
+    private func finishSaveState(error: Error?) {
+        isSavingSource = false; saveFailed = error != nil; writeSnapshot = nil; saveChangeToken = nil
+        writingBytes.withLock { $0 = nil }; expectedDiskBytes.withLock { $0 = nil }
+        preparedAssets = nil
+        if savePausedEditing { savePausedEditing = false; setLifecycleBusy(false) }
+        applyPreparedRecovery(); refreshWindows()
     }
 
     private func startNextSave() {
@@ -242,9 +262,12 @@ final class WriterDocument: NSDocument {
 
     override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         if item.action == #selector(revertPreservingChanges(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
+        if item.action == #selector(insertImage(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
         if item.action == #selector(revealInFinder(_:)) { return fileURL != nil }
         return super.validateUserInterfaceItem(item)
     }
+
+    @objc func insertImage(_ sender: Any?) { assets.chooseImage() }
 
     @objc func revealInFinder(_ sender: Any?) {
         if let fileURL { NSWorkspace.shared.activateFileViewerSelecting([fileURL]) }
@@ -310,6 +333,7 @@ final class WriterDocument: NSDocument {
         try copy.read(from: sourceBytes, ofType: fileType ?? "net.daringfireball.markdown")
         copy.derivedFrom = session?.snapshot
         copy.recoveryLibrary = recoveryLibrary
+        copy.assets.inherit(from: assets)
         copy.updateChangeCount(.changeDone)
         NSDocumentController.shared.addDocument(copy)
         NSFileCoordinator.addFilePresenter(copy)
@@ -340,7 +364,7 @@ final class WriterDocument: NSDocument {
         updateChangeCount(.changeCleared)
         undoManager?.removeAllActions()
         recovery?.observe(session.snapshot)
-        if let savedFile { recovery?.acknowledgeSave(savedFile, parent: derivedFrom) }
+        if let savedFile { recovery?.acknowledgeSave(savedFile, parent: derivedFrom, assets: assets.records, assetFolderBookmark: assets.folderBookmark) }
         for controller in windowControllers.compactMap({ $0 as? WriterWindowController }) { controller.reloadSource() }
         refreshWindows()
     }
@@ -360,10 +384,11 @@ final class WriterDocument: NSDocument {
         recoveryAttachment?.cancel()
         recoveryPreparationError = nil
         let url = fileURL, parent = derivedFrom, textImport = textImport, title = displayName
+        let initialAssets = assets.records.isEmpty ? nil : assets.records, initialAssetBookmark = assets.folderBookmark
         recoveryAttachment = Task { [weak self] in
             do {
                 if retry { _ = try await library.store(retry: true) }
-                let prepared = try await library.prepare(initial, url: url, parent: parent, textImport: textImport, title: title)
+                let prepared = try await library.prepare(initial, url: url, parent: parent, textImport: textImport, title: title, assets: initialAssets, assetFolderBookmark: initialAssetBookmark)
                 guard let self, !Task.isCancelled else { return }
                 self.pendingPreparation = (prepared, initial)
                 self.applyPreparedRecovery()
@@ -397,9 +422,10 @@ final class WriterDocument: NSDocument {
                 savedFile = SavedFileRevision(source: try SourceSnapshot(documentID: documentID,
                     revision: Revision(savedRevision), utf8: saved.source.utf8), url: saved.url)
             }
+            assets.restore(prepared.record)
             recovery = DocumentRecovery(source: rebound, library: library)
             recovery?.didChange = { [weak self] in self?.refreshWindows() }
-            if let savedFile { recovery?.acknowledgeSave(savedFile, parent: derivedFrom) }
+            if let savedFile { recovery?.acknowledgeSave(savedFile, parent: derivedFrom, assets: assets.records, assetFolderBookmark: assets.folderBookmark) }
             recoveryPreparationError = nil
         } catch { recoveryPreparationError = "Recovery could not attach safely. Save your document to a file." }
         refreshWindows()
@@ -417,6 +443,17 @@ final class WriterDocument: NSDocument {
         loadedBytes.withLock { $0 = data }
     }
 
+    func insertManagedImageLink(_ link: String, at selection: NSRange, expecting source: SourceSnapshot) throws {
+        guard !lifecycleBusy, session?.snapshot == source,
+              let editor = (windowControllers.first as? WriterWindowController)?.editor else { throw CocoaError(.userCancelled) }
+        _ = try source.byteRange(for: NativeRange(location: selection.location, length: selection.length))
+        editor.breakUndoCoalescing()
+        programmaticOrigin = .formatting
+        defer { programmaticOrigin = nil; editor.breakUndoCoalescing() }
+        editor.insertText(link, replacementRange: selection)
+        guard session?.snapshot != source else { throw CocoaError(.userCancelled) }
+    }
+
     func acceptScratchEdit(_ text: String) throws {
         guard !lifecycleBusy else { throw CocoaError(.userCancelled) }
         // This stage-local scratch adapter is replaced by the attributed gateway in Stage 03.
@@ -425,7 +462,7 @@ final class WriterDocument: NSDocument {
         guard let session else { throw ContractError.unsupported("The document session has not opened.") }
         let command = EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
                                   range: try ByteRange(lowerBound: 0, upperBound: session.snapshot.byteCount),
-                                  replacement: next, origin: .unknown, undoGroup: UUID())
+                                  replacement: next, origin: programmaticOrigin ?? .unknown, undoGroup: UUID())
         try session.apply(command)
         loadedBytes.withLock { $0 = next }
         updateChangeCount(.changeDone)

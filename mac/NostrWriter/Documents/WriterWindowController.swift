@@ -28,6 +28,9 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         super.init(window: window)
         window.delegate = self
         setupContent(window)
+        for name in [Notification.Name.NSUndoManagerDidUndoChange, Notification.Name.NSUndoManagerDidRedoChange] {
+            NotificationCenter.default.addObserver(self, selector: #selector(nativeUndoCompleted(_:)), name: name, object: writerDocument.undoManager)
+        }
         // AppKit chooses the initial key view when ordering the window. Setting
         // only firstResponder in showWindow can be overwritten by that step.
         window.initialFirstResponder = editor
@@ -48,6 +51,7 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         window.setFrame(NSRect(origin: window.frame.origin, size: NSSize(width: 1120, height: 760)), display: false)
     }
     required init?(coder: NSCoder) { nil }
+    deinit { NotificationCenter.default.removeObserver(self) }
 
     func windowDidResignKey(_ notification: Notification) { writerDocument.checkpointForInterruption(.interruption) }
 
@@ -135,6 +139,17 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         preferredSidebar.isActive = true
         refreshStatus()
     }
+
+    @objc private func nativeUndoCompleted(_ notification: Notification) {
+        // Direct UndoManager invocations can update NSTextView without its
+        // textDidChange callback. Admit the resulting exact bytes once; the
+        // usual callback is harmless because identical bytes do not mutate.
+        do { try writerDocument.acceptScratchEdit(editor.string) }
+        catch { window?.presentError(error) }
+        refreshStatus()
+    }
+
+    func undoManager(for view: NSTextView) -> UndoManager? { writerDocument.undoManager }
 
     func textDidChange(_ notification: Notification) {
         do { try writerDocument.acceptScratchEdit(editor.string) }

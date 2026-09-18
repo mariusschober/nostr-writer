@@ -72,17 +72,34 @@ public actor CoordinatedSourceFiles {
     /// Explicit import reads bounded original bytes before the person selects
     /// their encoding. Ordinary source reads still require strict UTF-8.
     public func readForTextImport(_ url: URL) async throws -> Data {
-        try Self.validate(url); try Self.preflight(url, mustBeNew: false)
+        try await readBinaryInput(url, maximumBytes: Self.maximumBytes)
+    }
+
+    public func readBinaryInput(_ url: URL, maximumBytes readLimit: Int) async throws -> Data {
+        guard readLimit > 0, readLimit <= 20 * 1024 * 1024 else { throw SourceFileError.sourceTooLarge }
+        try Self.validate(url); try Self.preflight(url, mustBeNew: false, readLimit: readLimit)
         let cancellation = FileCoordinationCancellation()
         return try await withTaskCancellationHandler {
             var coordinationError: NSError?, result: Result<Data, Error>?
             cancellation.coordinator.coordinate(readingItemAt: url, options: [], error: &coordinationError) { target in
-                result = Result { try Self.readExact(target, requireUTF8: false) }
+                result = Result { try Self.readExact(target, requireUTF8: false, readLimit: readLimit) }
             }
             if let coordinationError { throw Self.safe(coordinationError) }
             guard let result else { throw SourceFileError.unavailable }
             return try result.get()
         } onCancel: { cancellation.cancel() }
+    }
+
+    /// New, validated image bytes only. Never replaces an existing path.
+    public func createAssetBytes(_ bytes: Data, at url: URL) throws {
+        guard bytes.count <= 20 * 1024 * 1024 else { throw SourceFileError.sourceTooLarge }
+        try Self.validate(url); try Self.preflight(url, mustBeNew: true)
+        var coordinationError: NSError?, result: Result<Void, Error>?
+        NSFileCoordinator(filePresenter: nil).coordinate(writingItemAt: url, options: [], error: &coordinationError) { target in
+            result = Result { try Self.atomicWrite(bytes, at: target, expected: nil, faults: self.faults) }
+        }
+        if let coordinationError { throw Self.safe(coordinationError) }
+        guard let result else { throw SourceFileError.unavailable }; try result.get()
     }
 
     /// Only for a native document writer already inside its coordinated file
@@ -151,11 +168,11 @@ public actor CoordinatedSourceFiles {
     /// reject FIFOs/devices/symlinks here so that its open cannot block on them.
     /// Missing paths are left to coordination (providers may materialize them).
     /// Accessor checks remain mandatory for changes after this advisory preflight.
-    private static func preflight(_ url: URL, mustBeNew: Bool) throws {
+    private static func preflight(_ url: URL, mustBeNew: Bool, readLimit: Int = maximumBytes) throws {
         var info = stat()
         if lstat(url.path, &info) == 0 {
             if mustBeNew { throw SourceFileError.alreadyExists }
-            try regular(info)
+            try regular(info, readLimit: readLimit)
         } else if errno != ENOENT { throw posix() }
     }
 
@@ -188,19 +205,19 @@ public actor CoordinatedSourceFiles {
         default: return .ioFailure
         }
     }
-    private static func regular(_ stat: stat) throws {
+    private static func regular(_ stat: stat, readLimit: Int = maximumBytes) throws {
         guard stat.st_mode & S_IFMT == S_IFREG else { throw SourceFileError.notRegularFile }
-        guard stat.st_size >= 0, stat.st_size <= maximumBytes else { throw SourceFileError.sourceTooLarge }
+        guard stat.st_size >= 0, stat.st_size <= readLimit else { throw SourceFileError.sourceTooLarge }
     }
     private static func sameVersion(_ a: stat, _ b: stat) -> Bool {
         a.st_dev == b.st_dev && a.st_ino == b.st_ino && a.st_size == b.st_size &&
         a.st_mtimespec.tv_sec == b.st_mtimespec.tv_sec && a.st_mtimespec.tv_nsec == b.st_mtimespec.tv_nsec &&
         a.st_ctimespec.tv_sec == b.st_ctimespec.tv_sec && a.st_ctimespec.tv_nsec == b.st_ctimespec.tv_nsec
     }
-    private static func readExact(_ url: URL, requireUTF8: Bool = true) throws -> Data {
+    private static func readExact(_ url: URL, requireUTF8: Bool = true, readLimit: Int = maximumBytes) throws -> Data {
         let fd = Darwin.open(url.path, O_RDONLY | O_NONBLOCK | O_NOFOLLOW | O_CLOEXEC)
         guard fd >= 0 else { throw posix() }; defer { Darwin.close(fd) }
-        var before = stat(); guard fstat(fd, &before) == 0 else { throw posix() }; try regular(before)
+        var before = stat(); guard fstat(fd, &before) == 0 else { throw posix() }; try regular(before, readLimit: readLimit)
         var bytes = Data(), buffer = [UInt8](repeating: 0, count: 65536)
         bytes.reserveCapacity(Int(before.st_size))
         while true {
@@ -208,7 +225,7 @@ public actor CoordinatedSourceFiles {
             let count = buffer.withUnsafeMutableBytes { Darwin.read(fd, $0.baseAddress, $0.count) }
             if count == 0 { break }
             if count < 0 { if errno == EINTR { continue }; throw posix() }
-            guard count <= maximumBytes - bytes.count else { throw SourceFileError.sourceTooLarge }
+            guard count <= readLimit - bytes.count else { throw SourceFileError.sourceTooLarge }
             bytes.append(contentsOf: buffer.prefix(count))
         }
         var after = stat(), pathNow = stat()

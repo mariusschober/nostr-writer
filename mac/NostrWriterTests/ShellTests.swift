@@ -3,6 +3,9 @@ import AppKit
 import WriterFoundation
 import WriterStorage
 import CryptoKit
+import WriterExport
+import ImageIO
+import UniformTypeIdentifiers
 
 @MainActor
 final class ShellTests: XCTestCase {
@@ -254,6 +257,87 @@ final class ShellTests: XCTestCase {
         document.close(); try await store.close()
     }
 
+    func testNativeUndoSynchronizesExactDocumentSource() throws {
+        _ = NSApplication.shared
+        let document = WriterDocument(), original = Data("Cafe\u{301} 😀\r\n".utf8)
+        try document.read(from: original, ofType: "net.daringfireball.markdown")
+        document.makeWindowControllers()
+        let editor = try XCTUnwrap((document.windowControllers.first as? WriterWindowController)?.editor)
+        let undo = try XCTUnwrap(editor.undoManager)
+        let source = try XCTUnwrap(document.session?.snapshot)
+        undo.beginUndoGrouping()
+        try document.insertManagedImageLink("![image](owned.assets/a.png)", at: NSRange(location: editor.string.utf16.count, length: 0), expecting: source)
+        undo.endUndoGrouping()
+        let inserted = document.sourceBytes
+        undo.undo()
+        XCTAssertEqual(Data(editor.string.utf8), original); XCTAssertEqual(document.sourceBytes, original)
+        undo.redo()
+        XCTAssertEqual(Data(editor.string.utf8), inserted); XCTAssertEqual(document.sourceBytes, inserted)
+        document.close()
+    }
+
+    func testManagedImageInsertionUndoDerivationAndReferencedCopy() async throws {
+        _ = NSApplication.shared
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("writer-native-assets-\(UUID())")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let store = try DocumentStore(configuration: .init(databaseURL: root.appendingPathComponent("recovery.sqlite")), keyProvider: SyntheticNativeRecoveryKey())
+        let document = WriterDocument(); document.recoveryLibrary = RecoveryLibrary(store: store)
+        document.assets = DocumentAssets(document: document, bookmarks: SyntheticAssetBookmarks())
+        document.fileType = "net.daringfireball.markdown"
+        let original = Data("Cafe\u{301} 😀\r\n".utf8)
+        try document.read(from: original, ofType: document.fileType!)
+        document.makeWindowControllers()
+        let first = root.appendingPathComponent("Original.md")
+        try await document.save(to: first, ofType: document.fileType!, for: .saveOperation)
+        let pixels = try XCTUnwrap(CGContext(data: nil, width: 2, height: 2, bitsPerComponent: 8, bytesPerRow: 8,
+            space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+        let imageBytes = NSMutableData(), image = try XCTUnwrap(pixels.makeImage())
+        let encoder = try XCTUnwrap(CGImageDestinationCreateWithData(imageBytes, UTType.png.identifier as CFString, 1, nil))
+        CGImageDestinationAddImage(encoder, image, nil); XCTAssertTrue(CGImageDestinationFinalize(encoder))
+        let selected = root.appendingPathComponent("input.png"); try (imageBytes as Data).write(to: selected)
+        let editor = try XCTUnwrap((document.windowControllers.first as? WriterWindowController)?.editor)
+        editor.setSelectedRange(NSRange(location: editor.string.utf16.count, length: 0))
+        let undo = try XCTUnwrap(editor.undoManager)
+        undo.beginUndoGrouping()
+        try await document.assets.insertImage(selected, grantedFolder: root)
+        undo.endUndoGrouping()
+        let asset = try XCTUnwrap(document.assets.records.first)
+        let withImage = original + Data("![Image](\(asset.markdownPath))".utf8)
+        XCTAssertEqual(document.sourceBytes, withImage)
+        XCTAssertEqual(document.session?.lastMutation?.command.origin, .formatting)
+        undo.undo(); XCTAssertEqual(Data(editor.string.utf8), original, "Native editor undo result")
+        XCTAssertEqual(document.sourceBytes, original, "Document receives native undo notification")
+        undo.redo(); XCTAssertEqual(document.sourceBytes, withImage)
+        let id = try XCTUnwrap(document.session?.snapshot.documentID)
+        let second = root.appendingPathComponent("Copy.md")
+        try await document.save(to: second, ofType: document.fileType!, for: .saveAsOperation)
+        try await document.flushRecovery(at: .save)
+        let nextID = try XCTUnwrap(document.session?.snapshot.documentID)
+        XCTAssertNotEqual(nextID, id); XCTAssertEqual(document.derivedFrom?.documentID, id)
+        XCTAssertEqual(try Data(contentsOf: second), withImage)
+        XCTAssertEqual(try Data(contentsOf: first), original)
+        let record = try await store.catalogRecord(for: nextID)
+        XCTAssertEqual(record?.managedAssets, [asset]); XCTAssertNotNil(record?.assetFolderBookmark)
+        let copy = try XCTUnwrap(try document.duplicate() as? WriterDocument)
+        copy.makeWindowControllers(); await copy.awaitRecoveryAttachment()
+        XCTAssertEqual(copy.assets.records, [asset]); XCTAssertNil(copy.fileURL)
+        let duplicateID = try XCTUnwrap(copy.session?.snapshot.documentID)
+        let duplicateRecord = try await store.catalogRecord(for: duplicateID)
+        XCTAssertEqual(duplicateRecord?.managedAssets, [asset])
+        copy.close()
+        let destination = root.appendingPathComponent("destination")
+        try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: false)
+        let prepared = try await document.assets.prepareDestination(destination.appendingPathComponent("moved.md"),
+            source: XCTUnwrap(document.session?.snapshot), grantedFolder: destination)
+        XCTAssertEqual(prepared.records, [asset]); XCTAssertEqual(document.assets.folderBookmark, record?.assetFolderBookmark)
+        XCTAssertEqual(try Data(contentsOf: destination.appendingPathComponent(asset.relativePath)), imageBytes as Data)
+        let markdown = "![owned](\(asset.markdownPath))\n```\n![code](code.assets/x.png)\n```\n[link](link.assets/x.png)\n![remote](https://example.com/x.png)\n![escape](../x.png)"
+        let source = try SourceSnapshot(documentID: DocumentID(), revision: Revision(0), utf8: Data(markdown.utf8))
+        XCTAssertEqual(try MarkdownAssetReferences.relativeImagePaths(in: source), [asset.relativePath])
+        document.close(); try await store.close()
+    }
+
     private static func externalWrite(_ bytes: Data, to url: URL, executable: String) async throws {
         let status = try await Task.detached {
             let process = Process(); process.executableURL = URL(fileURLWithPath: executable)
@@ -276,4 +360,14 @@ private final class NativeCloseProbe: NSObject {
     @objc func document(_ document: NSDocument, shouldClose: Bool, contextInfo: UnsafeMutableRawPointer?) {
         completion?(shouldClose)
     }
+}
+
+private struct SyntheticAssetBookmarks: SourceBookmarkProviding {
+    func create(for url: URL) throws -> Data { Data(url.absoluteString.utf8) }
+    func resolve(_ bookmark: Data) throws -> ResolvedSourceBookmark {
+        guard let url = URL(string: String(decoding: bookmark, as: UTF8.self)) else { throw SourceAccessError.invalidBookmark }
+        return ResolvedSourceBookmark(url: url, isStale: false)
+    }
+    func start(_ url: URL) -> Bool { true }
+    func stop(_ url: URL) {}
 }
