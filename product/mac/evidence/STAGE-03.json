@@ -9,16 +9,22 @@
   "branch": "implementation/stage-03",
   "implementation_commits": [
     "e96e72d67288fe74d0517da285c2684e1fdb3947",
-    "17cb7523eaab35697e911be4b3bc895da37a857b"
+    "17cb7523eaab35697e911be4b3bc895da37a857b",
+    "3f35d6df1c773483c21a51ab5fe8bf97e0f3762e",
+    "b77a0bba410845738af1fb1fb954c8307d08967b",
+    "61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc"
   ],
-  "evidence_commit": "the commit adding this file; the implementation hashes above are the authoritative source identity",
+  "evidence_commits": [
+    "4ae1454015a60cc15a654a89557771f0b3e57856",
+    "the commit adding this revision"
+  ],
   "candidate": {
     "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
-    "executable_sha256": "e7673cf3437b47482363fdf23b0faccc7fc2e35a0c23f034b6545c1bcb7c42b4",
+    "executable_sha256": "95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f",
     "architecture": "arm64",
     "signature": "ad-hoc (Sign to Run Locally)",
     "bundle_identifier": "com.mariusschober.nostrwriter.development",
-    "built": "2026-09-18 16:41:49 +0100",
+    "built": "2026-09-18 17:41:08 +0100",
     "entitlements": [
       "com.apple.security.app-sandbox",
       "com.apple.security.device.audio-input",
@@ -48,27 +54,34 @@
       "status": "PASS",
       "detail": "git status for protocol/ and history/ is empty"
     },
+    "writer_storage": {
+      "status": "PASS",
+      "tests": 126,
+      "failed": 0,
+      "skipped": 2,
+      "detail": "includes the two new interpretation-tamper tests"
+    },
+    "stage03_editor_native": {
+      "status": "PASS",
+      "tests": 13,
+      "failed": 0,
+      "detail": "Stage03EditorTests plus ShellTests: 26 tests, 1 skipped, 0 failures (skip needs NW_COORDINATED_WRITER)"
+    },
+    "candidate_build": {
+      "status": "PASS",
+      "detail": "BUILD SUCCEEDED, arm64 Debug, ad-hoc sign, only pre-existing #selector-style warnings",
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-candidate-build-61d3dbd.log"
+    },
     "writer_foundation": {
       "status": "PASS",
       "tests": 135,
       "failed": 0,
-      "replay": "STAGE03_REPLAY seed=1592591107 operations=1000 finalBytes=420",
-      "log": "product/mac/evidence/logs/stage-03/xcodebuild-stage03-tests.log"
-    },
-    "writer_storage": {
-      "status": "PASS",
-      "tests": 122,
-      "failed": 0,
-      "skipped": 2
-    },
-    "stage03_editor_native": {
-      "status": "PASS",
-      "tests": 9,
-      "failed": 0,
-      "log": "product/mac/evidence/logs/stage-03/xcodebuild-stage03-tests.log"
+      "detail": "last run at e96e72d; package untouched by the later Stage 03 commits, so not re-run",
+      "replay": "STAGE03_REPLAY seed=1592591107 operations=1000 finalBytes=420"
     },
     "stage03_performance": {
       "status": "PASS",
+      "detail": "recorded at the first run; no code on that path changed",
       "fixture_words": 100008,
       "fixture_bytes": 540600,
       "outline_ms": 27.0,
@@ -76,45 +89,24 @@
       "edit_max_ms": 45.8,
       "log": "product/mac/evidence/logs/stage-03/measurements.txt"
     },
-    "native_shell_regression": {
-      "status": "PASS",
-      "tests": 13,
-      "failed": 0,
-      "skipped": 1,
-      "skip_reason": "testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave needs NW_COORDINATED_WRITER",
-      "log": "product/mac/evidence/logs/stage-03/xcodebuild-shelltests.log"
-    },
     "conflict_regression_with_helper": {
       "status": "PASS",
-      "tests": 1,
-      "failed": 0,
-      "detail": "external-change path modified by Stage 03 is not regressed",
+      "detail": "recorded at the first run; external-change path unchanged since, so not re-run",
       "log": "product/mac/evidence/logs/stage-03/xcodebuild-conflict-regression.log"
     },
-    "candidate_build": {
+    "native_window_launch_final_candidate": {
       "status": "PASS",
-      "detail": "BUILD SUCCEEDED, arm64 Debug, only pre-existing #selector-style warnings",
-      "log": "product/mac/evidence/logs/stage-03/xcodebuild-candidate-build.log"
+      "detail": "final candidate launched with the fixture; real window titled editor-fixture.md at 1120x760 (origin 304,195); instance quit afterwards"
     },
-    "native_ui_light_1120x760": {
-      "status": "PASS",
-      "detail": "real window, exact source, typography, measure, syntax emphasis, sidebar/tab/toolbar/status, no clipping",
-      "artifact": "product/mac/evidence/logs/stage-03/editor-1120x760-light.png"
-    },
-    "native_ui_dark_1120x760": {
-      "status": "PASS",
-      "detail": "same content in dark appearance with legible contrast",
-      "artifact": "product/mac/evidence/logs/stage-03/editor-1120x760-dark.png"
-    },
-    "native_ui_narrow": {
-      "status": "PASS",
-      "detail": "760 pt window width; measure narrows and wraps without clipping",
-      "artifact": "product/mac/evidence/logs/stage-03/editor-760x556-light.png"
-    },
-    "native_real_typing": {
-      "status": "PASS",
-      "detail": "system key events inserted text; word count 41 to 46 and dirty state observed",
-      "artifact": "product/mac/evidence/logs/stage-03/editor-native-input-light.png"
+    "native_ui_screenshots": {
+      "status": "NOT MEASURED",
+      "reason": "the four recorded screenshots were captured against predecessor candidate e7673cf3 at 16:52 and are partial layout evidence only; current-build pixel capture is blocked because the capturing process lacks Screen Recording permission",
+      "artifacts": [
+        "product/mac/evidence/logs/stage-03/editor-1120x760-light.png",
+        "product/mac/evidence/logs/stage-03/editor-1120x760-dark.png",
+        "product/mac/evidence/logs/stage-03/editor-760x556-light.png",
+        "product/mac/evidence/logs/stage-03/editor-native-input-light.png"
+      ]
     },
     "native_ui_preferences_and_reduce_motion": {
       "status": "NOT MEASURED",
@@ -145,23 +137,32 @@
       "reason": "not attempted in this session"
     }
   },
+  "repair_at_61d3dbd": [
+    "history AAD version 2 authenticates record interpretation (range, origin, assistance, post-digest)",
+    "annotation AAD binds id, kind, range and staleness",
+    "annotation staleness is sticky and split fragments get distinct ids",
+    "two tamper tests assert rewriting origin or annotation range breaks decryption",
+    "removed the unreferenced, ungenerated EditorStatus.swift"
+  ],
   "criteria": [
     {
       "id": "M14",
       "status": "BLOCKED",
-      "reason": "Observed real window, typography, chrome, measure and contrast at 1120x760 light/dark and 760 pt width with real native typing. Settings preferences, Reduce Motion, focus/typewriter interaction, outline navigation and the full keyboard matrix remain unobserved and need an interactive owner-visible GUI session.",
+      "reason": "Partial: real window, typography, chrome, measure and contrast observed on the predecessor candidate at 1120x760 light/dark and 760 pt width with real native typing; the final candidate is confirmed to open a real 1120x760 window, but pixel capture is blocked and Settings preferences, Reduce Motion, focus/typewriter, outline navigation and the full keyboard matrix remain unobserved. Needs an interactive owner-visible GUI session.",
       "observed_artifacts": [
         "logs/stage-03/editor-1120x760-light.png",
         "logs/stage-03/editor-1120x760-dark.png",
         "logs/stage-03/editor-760x556-light.png",
         "logs/stage-03/editor-native-input-light.png"
       ],
+      "artifact_candidate": "e7673cf3 (predecessor, 16:41:49)",
       "not_measured": [
         "Settings preferences window",
         "Reduce Motion behaviour",
         "focus mode and typewriter scrolling",
         "outline popup navigation",
-        "full keyboard matrix"
+        "full keyboard matrix",
+        "current-build pixel capture (needs Screen Recording permission)"
       ]
     },
     {
@@ -213,7 +214,7 @@
     {
       "id": "M20",
       "status": "BLOCKED",
-      "reason": "Annotation lineage is verified deterministically (exact shift, stale-on-replacement, removal keeps source), but the inspector UI and an actual annotation interaction were not captured.",
+      "reason": "Annotation lineage is verified deterministically (exact shift, stale-on-replacement, removal keeps source, sticky staleness, distinct split ids), but the inspector UI and an actual annotation interaction were not captured.",
       "evidence": [
         "Stage03EditorTests.testAnnotationsShiftThroughEditsAndRemovalKeepsSource"
       ],
@@ -222,10 +223,10 @@
     {
       "id": "M21",
       "status": "BLOCKED",
-      "reason": "Consent-boundary logic and the encrypted HistoryJournal behaviour pass deterministically, but the live off/on/pause persistence check could not run because the ad-hoc candidate has no keychain access group.",
+      "reason": "Consent-boundary logic and the encrypted HistoryJournal behaviour pass deterministically, including the new interpretation-tamper cases, but the live off/on/pause persistence check could not run because the ad-hoc candidate has no keychain access group.",
       "evidence": [
         "Stage03EditorTests.testObservationHandleHonoursConsentBoundaries",
-        "WriterStorageTests.HistoryJournalTests (5 tests)"
+        "WriterStorageTests.HistoryJournalTests (7 tests)"
       ],
       "needs": "properly signed candidate with keychain access"
     }
@@ -245,6 +246,11 @@
       "blocks": ["M21 live history", "any recovery claim in this build"]
     },
     {
+      "id": "screen_recording_permission",
+      "detail": "the capturing process cannot take screen images (screencapture: could not create image from display), so M14 current-build pixel evidence cannot be produced",
+      "blocks": ["M14 current-build screenshots"]
+    },
+    {
       "id": "interactive_gui",
       "detail": "owner-visible session needed for M14 preferences/Reduce Motion/focus/keyboard and M20 annotation interaction"
     },
@@ -262,7 +268,7 @@
     }
   ],
   "stage04_handoff": {
-    "descriptive_journal_schema": "HistoryJournal schema v3",
+    "descriptive_journal_schema": "HistoryJournal schema v3, AAD version 2",
     "pure_interfaces": ["LocalEditRecord", "CaptureEpoch", "CaptureGap", "SourceLineage", "SourceAnnotation"],
     "unchanged_production_approval_state": "empty",
     "unfinished_here": ["live consented-history round trip", "every owner-observed input method"]
