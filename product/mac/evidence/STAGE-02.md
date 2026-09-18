@@ -1,8 +1,8 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`e08935a8924e2796f9deaa9e4e807077766cfba4` on `implementation/stage-02`.
-M07 and M09–M13 now pass in the recorded scopes; M08 remains open for sleep/wake observation. All 60 definitions are unchanged.
+`1333b4cb31bcbdd7c786096cff0b97432b6f348a` on `implementation/stage-02`.
+M07 and M09–M12 pass in their recorded scopes. M08 awaits sleep/wake; final contract review reopened M13 for missing Stage 02 accessibility/appearance observations. All 60 definitions are unchanged.
 Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
 ## Implemented checkpoint
@@ -393,3 +393,38 @@ Mac is requested. Noninteractive automatic wake scheduling required a password,
 so no event was added and the Mac has not been put to sleep. Stage 02 remains
 unaccepted, and Stage 03 must not begin. After Stage 02 passes, push evidence and
 pause the active goal at the owner's explicit boundary.
+
+## Final contract review and recovery timing correction
+
+This checkpoint corrects the earlier statement that sleep was the only remaining
+requirement. PLAN 02 also explicitly calls for measured typing during recovery and
+provider callbacks, plus VoiceOver and light/dark observation of the library,
+unsaved document, permission error and conflict flow. Foundation VoiceOver
+acceptance and named accessibility controls do not establish the added controls'
+spoken behavior. M13 is therefore **NOT MEASURED** until those observations exist;
+this work cannot simply be deferred to Stage 08. Earlier scoped observations stay
+valid and their unsuccessful attempts remain recorded.
+
+One new native measurement found **FAIL**: a settled edit took 1,049.59 ms to reach
+encrypted durable recovery because the write began at the one-second deadline.
+The app now starts at 500 ms to allow encryption and commit time. Edits also mark
+recovery pending immediately, and monitor updates compare current revision/digest.
+Only the affected measurement ran again: **1 PASS**, 4.306 s, recovery observed at
+563.73 ms. Forty native insertions into 57,344 bytes ran alongside ten file-presenter
+callbacks and real encrypted recovery; insertion p95 was 41.69 ms, maximum 53.39 ms.
+Exact current/editor/recovery bytes and the unchanged saved source passed. These
+are measured values for this fixture, not a worst-case or remote-provider promise.
+
+Source `1333b4c` and the universal signed build pass. The rebuilt app was observed
+at a blank document with recording off and recovery up to date. Full commands,
+initial failure, corrected metrics and binary hash are in
+[recovery-timing-results.json](logs/stage-02/recovery-timing-results.json) and
+[the bounded check output](logs/stage-02/recovery-timing-summary.log).
+
+The VoiceOver observation did not complete: opening VoiceOver Utility stalled in
+the native-control tool for 1,721 seconds, and the next control call failed with
+ScreenCaptureKit error -3812. UI attempts stopped; no speech observation is claimed.
+Process inspection afterward found the utility but no running VoiceOver speech
+process. Sleep still awaits owner availability to wake/unlock. No new tests will
+run solely while waiting, and Stage 03 remains prohibited by the owner's stop
+boundary until Stage 02 passes and the goal is paused.

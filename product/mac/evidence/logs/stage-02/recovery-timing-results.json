@@ -1,0 +1,50 @@
+{
+  "observed_date": "2026-09-18",
+  "source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a",
+  "status": "PASS",
+  "reason_for_check": "PLAN 02 requires measured typing during encryption and provider callbacks. Earlier virtual-clock tests explicitly did not provide this measurement.",
+  "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test -only-testing:NostrWriterTests/ShellTests/testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks -test-timeouts-enabled YES -default-test-execution-time-allowance 30 -maximum-test-execution-time-allowance 30",
+  "first_attempt": {
+    "status": "FAIL",
+    "recovery_ms": 1049.587334,
+    "edit_p95_ms": 22.678,
+    "edit_max_ms": 24.627333,
+    "duration_seconds": 5.925,
+    "reason": "The production integration started its write at one second, leaving no encryption/commit time inside the durability bound."
+  },
+  "correction": "The app schedules recovery at 500 ms, retaining the same bounded/coalescing actor. New edits immediately mark recovery pending; asynchronous status updates compare the exact current revision and digest before claiming it is current.",
+  "verification": {
+    "status": "PASS",
+    "tests": 1,
+    "failures": 0,
+    "duration_seconds": 4.306,
+    "recovery_ms": 563.726292,
+    "edit_p95_ms": 41.685958,
+    "edit_max_ms": 53.391666,
+    "source_bytes": 57344,
+    "native_insertions": 41,
+    "measured_burst_insertions": 40,
+    "presenter_callbacks": 10,
+    "recovery_poll_ms": 20
+  },
+  "scope": [
+    "Native NSTextView insertion and WriterDocument mutation route, production monotonic scheduler, real AES-GCM and temporary SQLite with synthetic key.",
+    "One settled edit reaches exact durable recovery without explicit flush; burst edits run while native presentedItemDidChange callbacks read the saved synthetic local file.",
+    "Exact final editor/recovery bytes; disk retains saved original; document remains dirty; no spurious conflict.",
+    "Timing includes fixture overhead and recovery polling. This is one observation on this Mac, not a worst-case latency guarantee or a remote-provider speed measurement."
+  ],
+  "signed_build": {
+    "status": "PASS",
+    "binary_sha256": "4f0973a8388b118c6b236f44add943829d46cffb00e74e8e8ec1d3737990a91c",
+    "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation DEVELOPMENT_TEAM=<owner-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY='Apple Development' WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build",
+    "observation": "Previous app quit normally and its process was absent. Rebuilt signed app launched to a blank document with recording off and Recovery up to date. No broader new UI pass is claimed."
+  },
+  "remaining_observation": {
+    "status": "BLOCKED",
+    "sleep": "Owner availability to wake/unlock remains pending. No sleep performed.",
+    "accessibility": "Final contract review found Stage 02 VoiceOver and the complete requested light/dark screen capture matrix were not established by foundation owner acceptance or AX inspection. They must not be deferred to Stage 08 as if already satisfied.",
+    "tool_failure": "VoiceOver Utility opening stalled for 1721.385 seconds. The next native control call failed with ScreenCaptureKit invalid parameter -3812. UI attempts stopped. Process inspection showed the utility running but no VoiceOver speech process. No new spoken-output acceptance claimed."
+  },
+  "unchanged": "Frozen protocol, historical originals and all 60 acceptance definitions unchanged; no passing storage/provider suite repeated.",
+  "stop_boundary": "Finish Stage 02 acceptance, then pause before Stage 03 as requested."
+}

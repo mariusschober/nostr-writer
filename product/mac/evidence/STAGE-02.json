@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "e08935a8924e2796f9deaa9e4e807077766cfba4",
+  "source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Signed provider-verified document app with metadata-only pinning, observed library actions, light/dark inspection and one passing real-volume move check. Sleep/wake observation pending.",
+  "source_state": "Signed candidate with measured recovery deadline fix. Stage 02 remains unaccepted for actual sleep/wake and the missing Stage 02 accessibility/appearance observations identified at final review.",
   "criteria": [
     {
       "id": "M07",
@@ -22,11 +22,12 @@
     {
       "id": "M08",
       "status": "NOT MEASURED",
-      "reason": "Recorded encrypted fault-injection, actual signed recovery, owner crash/restart and native quit evidence pass in their scopes. Required actual system sleep/wake observation awaits owner availability.",
+      "reason": "Encrypted fault-injection, signed recovery, crash/restart and corrected native production-clock measurement pass within recorded scopes. Actual sleep/wake observation still awaits owner readiness.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
-        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
+        "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
       ]
     },
     {
@@ -74,15 +75,16 @@
     },
     {
       "id": "M13",
-      "status": "PASS",
-      "reason": "Actual Recent, folder persistence, current-body search, recovered drafts, missing-reference Locate/Remove, persisted pin and closed-file Pin/Unpin observed. Light/dark layout and native accessibility controls inspected; bounded storage/search checks retained. No new aural VoiceOver claim.",
+      "status": "NOT MEASURED",
+      "reason": "Recorded library actions, limits, AX exposure and library/editor light-dark inspection pass within scope. Final PLAN 02 review found no complete Stage 02 VoiceOver or requested light/dark screen matrix evidence. Prior foundation acceptance cannot establish these new controls; native capture tools failed during the remaining observation.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
         "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
         "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json",
-        "product/mac/evidence/logs/stage-02/library-final-observation.json"
+        "product/mac/evidence/logs/stage-02/library-final-observation.json",
+        "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
       ]
     }
   ],
@@ -122,7 +124,7 @@
       "tests": 3,
       "seconds": 0.058
     },
-    "current_native_compile": "PASS: universal signed development app c3864b9, unchanged app source in e08935a test-only commit.",
+    "current_native_compile": "PASS: universal signed development candidate 1333b4c, binary SHA-256 recorded in recovery-timing-results.json.",
     "final_lifecycle_gui": "PASS limited signed Save As/Duplicate/Cancel Quit/saved normal Quit/recovered draft/Recent; remaining Stage 02 interactions NOT MEASURED.",
     "prior_catalog_native": {
       "status": "PASS",
@@ -400,13 +402,17 @@
       "status": "PASS",
       "evidence": "product/mac/evidence/logs/stage-02/library-final-observation.json",
       "scope": "Listed library and mounted-volume operations; actual sleep pending."
+    },
+    "native_recovery_timing": {
+      "status": "PASS",
+      "evidence": "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
     }
   },
   "next_work": [
-    "Await owner readiness; perform one approved actual sleep/wake recovery observation, preserving synthetic text.",
-    "Final Stage 02 acceptance review must not invent missing observations; record actual result and push.",
-    "After Stage 02 passes, pause the active goal before Stage 03 as requested."
+    "Complete only the missing Stage 02 VoiceOver and requested light/dark screen observations once native capture works; retain prior passing component/provider evidence.",
+    "Perform one approved actual sleep/wake recovery observation when the owner is available to wake/unlock.",
+    "Review final M07-M13 evidence, commit/push acceptance, then pause the active goal before Stage 03."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "220dc09f6ad4b96d0218896ec395929b66bc0bc3"
+  "previous_source_commit": "e08935a8924e2796f9deaa9e4e807077766cfba4"
 }

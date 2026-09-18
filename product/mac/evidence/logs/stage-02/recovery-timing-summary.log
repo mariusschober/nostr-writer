@@ -1,0 +1,14 @@
+BEFORE FIX
+STAGE02_TIMING bytes=57344 edits=40 presenterCallbacks=10 recoveryMS=1049.587334 editP95MS=22.678 editMaxMS=24.627333
+Test Case '-[NostrWriterTests.ShellTests testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks]' failed (5.925 seconds).
+	 Executed 1 test, with 1 failure (0 unexpected) in 5.925 (5.926) seconds
+	 Executed 1 test, with 1 failure (0 unexpected) in 5.925 (5.926) seconds
+	 Executed 1 test, with 1 failure (0 unexpected) in 5.925 (5.927) seconds
+** TEST FAILED **
+AFTER FIX
+STAGE02_TIMING bytes=57344 edits=40 presenterCallbacks=10 recoveryMS=563.726292 editP95MS=41.685958 editMaxMS=53.391666
+Test Case '-[NostrWriterTests.ShellTests testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks]' passed (4.306 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 4.306 (4.307) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 4.306 (4.307) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 4.306 (4.308) seconds
+** TEST SUCCEEDED **
