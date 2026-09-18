@@ -185,13 +185,38 @@ final class DocumentFileLifecycle {
         panel.message = "Choose a new file for your local writing. The externally changed file stays in place."
         panel.beginSheetModal(for: window) { [weak self] response in
             guard response == .OK, let url = panel.url else { return }
-            self?.perform(.keepBoth, copyURL: url)
+            self?.chooseCopyFolder(for: url)
         }
     }
 
-    private func perform(_ choice: Resolution, copyURL: URL? = nil) {
+    private func chooseCopyFolder(for destination: URL) {
+        // Our no-overwrite atomic copy creates a temporary sibling before
+        // installing the new file. A Save-panel grant covers the selected file,
+        // not arbitrary siblings in a sandboxed File Provider folder.
+        let folder = destination.deletingLastPathComponent()
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true; panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false; panel.directoryURL = folder
+        panel.title = "Allow Conflict Copy in Folder"
+        panel.message = "Select the destination folder to safely create “\(destination.lastPathComponent)”. Both existing versions remain unchanged if you cancel."
+        panel.begin { [weak self] response in
+            guard response == .OK, let selected = panel.url, let self else { return }
+            guard selected.standardizedFileURL.resolvingSymlinksInPath().path == folder.standardizedFileURL.resolvingSymlinksInPath().path else {
+                NSApp.presentError(SourceFileError.permissionDenied); return
+            }
+            let lease = selected.startAccessingSecurityScopedResource() ? SelectedSourceLease(acquired: selected) : nil
+            self.perform(.keepBoth, copyURL: destination, destinationLease: lease)
+        }
+    }
+
+    private func perform(_ choice: Resolution, copyURL: URL? = nil, destinationLease: SelectedSourceLease? = nil) {
         Task {
-            do { try await resolve(choice, copyURL: copyURL) }
+            do {
+                let copy = try await resolve(choice, copyURL: copyURL)
+                // Keep the explicit grant through asynchronous bookmark setup
+                // and the resulting document session; its close releases it.
+                if let destinationLease { copy?.retainSelectedScope(destinationLease) }
+            }
             catch {
                 let alert = NSAlert(); alert.messageText = "Your writing was kept open"
                 alert.informativeText = (error as? DocumentConflictError)?.errorDescription ?? Self.message(for: error)
