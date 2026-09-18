@@ -13,9 +13,10 @@ outstanding). `accepted: false`.
 | Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc` |
 | Evidence commits | `4ae1454015a60cc15a654a89557771f0b3e57856` (first M14-M21 record and logs) and the commit adding this revision |
 | Candidate executable | `mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter` |
-| Candidate SHA-256 | `95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f` |
+| Candidate SHA-256 (current) | `89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529` |
+| Candidate SHA-256 (earlier) | `95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f` |
 | Candidate arch / signature | arm64, ad-hoc ("Sign to Run Locally"), identifier `com.mariusschober.nostrwriter.development` |
-| Candidate build time | 2026-09-18 17:41:08 +0100 |
+| Candidate build times | current 2026-09-18 18:01:13 +0100 (settings fix); earlier 17:41:08 +0100 |
 
 Environment: macOS 26.6.2 (25G83), Xcode 27.0 (27A266a), Swift 6.4, arm64.
 `security find-identity -v -p codesigning` returned **0 valid identities**, so the
@@ -88,6 +89,18 @@ Stage 03 and unreleased, so no migration path is required; a database written by
 the earlier Stage 03 code is now correctly reported as corrupt rather than
 silently reinterpreted.
 
+### Defect found and fixed: the Settings window collapsed to 180x64
+
+Opening Settings (Cmd+,) in the running candidate produced a window of
+180x64 pt instead of the intended 540x470, so the preferences were unusable.
+Assigning an `NSHostingController` as the window's `contentViewController` let
+AppKit resize the window down to the SwiftUI view's intrinsic size. Setting
+`host.sizingOptions = []` and re-applying `setContentSize` restores the panel;
+System Events then measured the Settings window at 540x502 (titlebar included).
+This is a real Stage 03 defect that the first evidence pass had recorded only as
+"not observed", so it is fixed rather than deferred. The candidate was rebuilt
+after the fix (`logs/stage-03/xcodebuild-candidate-build-9b4a18d-settings.log`).
+
 ### M17 route inventory (each route to its gateway entry)
 
 | Observed route | Delivery observed | Recorded cause |
@@ -145,6 +158,17 @@ loaded, and the annotated span was exercised live:
 | `editor-inspector-open.jpeg` | The passage inspector toggled open: RECORDING "Recording off / No detailed revisions or deleted text are stored" with Pause/Resume and Delete Local History; DICTATION Off; SELECTED PASSAGE with Category (Quotation), Source description, Optional URL and "This material is not claimed as freshly composed."; MARKED SPANS "No marked spans."; HUMAN WRITING PROOF "NOT PROVABLE - no approved Mac capture profile and model are installed. This is not a judgment about who wrote your text." |
 | `editor-inspector-marked-span.jpeg` | The blockquote passage was selected and marked as an external source (Quotation, description "Unattributed quotation for the Stage 03 fixture."). MARKED SPANS then read "Unattributed quotation for the Stage 03 fixture. / Quotation - bytes 109-147" with a remove control. |
 | `editor-inspector-marked-span-after-edit.jpeg` | One character typed at the document start re-mapped the marked span to "Quotation - bytes 110-148" (an exact +1 shift), and the status changed to "41 words - Unsaved". |
+| `settings-window-fixed.jpeg` | The Settings panel after the fix, measured at 540x502: Editor section with Typeface "System Mono", Size 18 pt, Measure 72 chars, a Focus segmented control (Off/Sentence/Paragraph), Typewriter scrolling off, and the note "Presentation only. The exact source bytes are never rewritten by these preferences."; Recording & Privacy with "Store writing history on this Mac" off and its explanation. |
+
+Outline navigation was exercised live: the toolbar Headings menu listed
+"Stage 03 Fixture" with nested "Section One" and "Section Two" (each exposing
+`navigateToHeading:`), and choosing "Section Two" moved the caret to that heading
+without changing the document (the status stayed "41 words - Saved to
+stage-03"). Focus Writing (Cmd+Shift+F) collapsed the sidebar and toolbar to a
+full-width editor while keeping the status line and recovery banner; the
+accessibility tree for that state contains only the editor split group. Those two
+observations are recorded from the accessibility tree because the computer-use
+runtime prunes its temporary screenshots.
 
 The earlier recorded screenshots were captured at 16:52 against the predecessor
 candidate `e7673cf3...` (built 16:41:49) and are retained as partial evidence
@@ -158,7 +182,7 @@ only, not as current-build observations: `editor-1120x760-light.png` and
 
 | ID | Status | Evidence and exact gap |
 | --- | --- | --- |
-| M14 | **BLOCKED** | Partial, now against the final candidate: a real 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line was captured (`editor-1120x760-light-candidate.jpeg`), and the passage inspector was opened and used. Still not observed: dark appearance on this build, Reduce Motion behaviour, focus mode and typewriter scrolling interaction, outline-popup navigation, the Settings preferences window and the full keyboard matrix. These need an owner-visible interactive session; dark appearance also needs a system-appearance change. |
+| M14 | **BLOCKED** | Observed live on the candidate: a 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the passage inspector; the Settings panel (after fixing a real 180x64 collapse defect); outline-popup navigation that moved the caret to the chosen heading; and Focus Writing, which collapsed the sidebar and toolbar to a full-width editor. Still not observed: dark appearance on this build, Reduce Motion behaviour, the typewriter-scrolling interaction, and the full keyboard matrix. These need an owner-visible interactive session; dark appearance also needs a system-appearance change. |
 | M15 | **PASS** | `testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes`, `testOneTypedMutationProducesExactlyOneRevision` and `testMarkedTextIsNotCommittedAsARevision` pass; the 1,000-operation Unicode replay (`seed=1592591107`, final 420 bytes, byte-equality after every operation) passes; the ShellTests undo paths still pass; the 100,008-word / 540,600-byte fixture measured outline 27.0 ms, edit p95 45.7 ms, max 45.8 ms; real typing preserved exact source. |
 | M16 | **BLOCKED** | The composition unit path passes (`testMarkedTextIsNotCommittedAsARevision`: marked text publishes no revision, the commit is classified `nativeIMECommit`, and the case reports BLOCKED when the headless host has no marked-text support). The required real input matrix - US and German layouts, dead keys, at least one real IME, emoji and RTL - was not performed. Needs an owner-visible session with the German and CJK input sources enabled. |
 | M17 | **PASS** | The route inventory above is tied to implementation; `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText` covers every delivery including `unknown`; `testOneTypedMutationProducesExactlyOneRevision` proves a duplicate delegate callback publishes no second revision; `testInputPolicyRefusesExternalInsertionLocally` proves the Stage 07 seam refuses external insertion without global interception. |

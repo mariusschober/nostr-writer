@@ -7,7 +7,13 @@ final class SettingsWindowController: NSWindowController {
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 540, height: 470),
                               styleMask: [.titled, .closable], backing: .buffered, defer: false)
         window.title = "Settings"
-        window.contentViewController = NSHostingController(rootView: SettingsView().defaultAppStorage(ApplicationEnvironment.defaults))
+        let host = NSHostingController(rootView: SettingsView().defaultAppStorage(ApplicationEnvironment.defaults))
+        // Without this, AppKit resizes the window down to the SwiftUI view's
+        // intrinsic size and the preferences collapse into a tiny sliver
+        // instead of the 540x470 panel the window is created with.
+        host.sizingOptions = []
+        window.contentViewController = host
+        window.setContentSize(NSSize(width: 540, height: 470))
         super.init(window: window)
         window.center()
     }

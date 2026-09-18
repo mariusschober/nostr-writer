@@ -20,11 +20,13 @@
   ],
   "candidate": {
     "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
-    "executable_sha256": "95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f",
+    "executable_sha256": "89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529",
+    "executable_sha256_earlier": "95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f",
     "architecture": "arm64",
     "signature": "ad-hoc (Sign to Run Locally)",
     "bundle_identifier": "com.mariusschober.nostrwriter.development",
-    "built": "2026-09-18 17:41:08 +0100",
+    "built": "2026-09-18 18:01:13 +0100",
+    "built_earlier": "2026-09-18 17:41:08 +0100",
     "entitlements": [
       "com.apple.security.app-sandbox",
       "com.apple.security.device.audio-input",
@@ -69,8 +71,8 @@
     },
     "candidate_build": {
       "status": "PASS",
-      "detail": "BUILD SUCCEEDED, arm64 Debug, ad-hoc sign, only pre-existing #selector-style warnings",
-      "log": "product/mac/evidence/logs/stage-03/xcodebuild-candidate-build-61d3dbd.log"
+      "detail": "BUILD SUCCEEDED, arm64 Debug, ad-hoc sign, only pre-existing #selector-style warnings; rebuilt after the Settings-window fix",
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-candidate-build-9b4a18d-settings.log"
     },
     "writer_foundation": {
       "status": "PASS",
@@ -139,8 +141,13 @@
       "reason": "needs microphone, spoken audio and speech-recognition permission"
     },
     "native_inspector_annotation_interaction": {
-      "status": "NOT MEASURED",
-      "reason": "the agent could not open the inspector in this session"
+      "status": "PASS",
+      "reason": "superseded by native_annotation_interaction: the inspector opened on the current candidate and the blockquote was marked and re-mapped after an edit",
+      "artifacts": [
+        "product/mac/evidence/logs/stage-03/editor-inspector-open.jpeg",
+        "product/mac/evidence/logs/stage-03/editor-inspector-marked-span.jpeg",
+        "product/mac/evidence/logs/stage-03/editor-inspector-marked-span-after-edit.jpeg"
+      ]
     },
     "live_consented_history": {
       "status": "BLOCKED",
@@ -162,21 +169,22 @@
     {
       "id": "M14",
       "status": "BLOCKED",
-      "reason": "Partial, now against the final candidate: a real 1120x760 light window with exact source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line was captured, and the passage inspector was opened and used. Dark appearance on this build, Reduce Motion, focus/typewriter, outline navigation, the Settings window and the full keyboard matrix remain unobserved and need an owner-visible session.",
+      "reason": "Observed live on the candidate: a 1120x760 light window with exact source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the passage inspector; the Settings panel at 540x502 after fixing a real 180x64 collapse defect; outline-popup navigation that moved the caret to the chosen heading; and Focus Writing, which collapsed the sidebar and toolbar to a full-width editor. Dark appearance on this build, Reduce Motion, the typewriter-scrolling interaction and the full keyboard matrix remain unobserved and need an owner-visible session.",
       "observed_artifacts": [
         "logs/stage-03/editor-1120x760-light-candidate.jpeg",
         "logs/stage-03/editor-inspector-open.jpeg",
+        "logs/stage-03/editor-inspector-marked-span.jpeg",
+        "logs/stage-03/editor-inspector-marked-span-after-edit.jpeg",
+        "logs/stage-03/settings-window-fixed.jpeg",
         "logs/stage-03/editor-1120x760-light.png",
         "logs/stage-03/editor-1120x760-dark.png",
         "logs/stage-03/editor-760x556-light.png",
         "logs/stage-03/editor-native-input-light.png"
       ],
-      "artifact_candidate": "95efbeca (current) plus e7673cf3 (predecessor, 16:41:49)",
+      "artifact_candidate": "89313db3 (current) plus 95efbeca (earlier Stage 03 candidate) plus e7673cf3 (predecessor, 16:41:49)",
       "not_measured": [
-        "Settings preferences window",
         "Reduce Motion behaviour",
-        "focus mode and typewriter scrolling",
-        "outline popup navigation",
+        "typewriter scrolling",
         "full keyboard matrix",
         "dark appearance on the current candidate"
       ]
