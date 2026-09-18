@@ -170,4 +170,59 @@ final class HistoryJournalTests: XCTestCase {
         }
         await other.close()
     }
+
+    /// Stage 03 repair: a restarted recording opens a *new* epoch. The app now
+    /// calls `beginEpoch` on every (re)start instead of `resumeOrOpenEpoch`, so
+    /// a paused or restarted session can never be presented as continuous.
+    func testBeginEpochAfterEndNeverReusesTheClosedEpoch() async throws {
+        let workspace = try TempWorkspace(); defer { workspace.remove() }
+        let id = DocumentID()
+        let journal = try makeJournal(workspace)
+        let initial = try makeSnapshot(id, 0, "opening")
+        let first = try await journal.beginEpoch(documentID: id, atRevision: initial.revision,
+                                                 priorTextCompleteness: .descriptiveOnly)
+        try await journal.append([try insertRecord(epoch: first, source: initial, text: " one")])
+        try await journal.endEpoch(first.id)
+        let closed = try await journal.openEpoch(documentID: id)
+        XCTAssertNil(closed, "Ending an epoch must close it")
+
+        let second = try await journal.beginEpoch(documentID: id, atRevision: Revision(1),
+                                                  priorTextCompleteness: .descriptiveOnly, gapReason: .resumed)
+        XCTAssertNotEqual(second.id, first.id, "A restarted recording must be a distinct epoch")
+        let reopened = try await journal.openEpoch(documentID: id)
+        XCTAssertEqual(reopened?.id, second.id)
+        let gaps = try await journal.gaps(documentID: id)
+        XCTAssertEqual(gaps.map(\.reason), [.resumed])
+        await journal.close()
+    }
+
+    /// Stage 03 repair: one shared journal serves several documents, and
+    /// deleting one document's history must not touch another's.
+    func testOneJournalKeepsDocumentsIndependentWhenOneIsDeleted() async throws {
+        let workspace = try TempWorkspace(); defer { workspace.remove() }
+        let journal = try makeJournal(workspace)
+        let first = DocumentID(), second = DocumentID()
+        let firstSource = try makeSnapshot(first, 0, "first body")
+        let secondSource = try makeSnapshot(second, 0, "second body")
+        let firstEpoch = try await journal.beginEpoch(documentID: first, atRevision: firstSource.revision,
+                                                      priorTextCompleteness: .descriptiveOnly)
+        let secondEpoch = try await journal.beginEpoch(documentID: second, atRevision: secondSource.revision,
+                                                       priorTextCompleteness: .descriptiveOnly)
+        try await journal.append([try insertRecord(epoch: firstEpoch, source: firstSource, text: " alpha")])
+        try await journal.append([try insertRecord(epoch: secondEpoch, source: secondSource, text: " beta")])
+
+        let firstBefore = try await journal.records(documentID: first)
+        let secondBefore = try await journal.records(documentID: second)
+        XCTAssertEqual(firstBefore.count, 1)
+        XCTAssertEqual(secondBefore.count, 1)
+
+        try await journal.deleteLocalHistory(documentID: first)
+        let firstAfter = try await journal.records(documentID: first)
+        let secondAfter = try await journal.records(documentID: second)
+        XCTAssertTrue(firstAfter.isEmpty, "The deleted document's history is gone")
+        XCTAssertEqual(secondAfter.count, 1, "Another document's history must survive")
+        let secondStillOpen = try await journal.openEpoch(documentID: second)
+        XCTAssertEqual(secondStillOpen?.id, secondEpoch.id, "Another document's epoch must stay open")
+        await journal.close()
+    }
 }

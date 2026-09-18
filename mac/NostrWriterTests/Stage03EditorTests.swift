@@ -257,4 +257,42 @@ final class Stage03EditorTests: XCTestCase {
               + "outlineMS=\(String(format: "%.1f", outlineMS)) editP95MS=\(String(format: "%.1f", editMS[18])) "
               + "editMaxMS=\(String(format: "%.1f", editMS[19]))")
     }
+
+    // MARK: - M21: consent is a live state, not a setting read once at open
+
+    /// Turning recording off must reach an already-open document. Before the
+    /// consent notification existed the setting changed silently and an open
+    /// document kept recording.
+    func testConsentChangeReachesAnOpenDocument() async throws {
+        let (document, _) = try makeController("Consent body.\n")
+        document.consent.choose(.off)
+        XCTAssertEqual(document.recordingState, .off)
+
+        document.consent.choose(.requested)
+        await settle()
+        // The isolated test host has no signed Keychain store, so the honest
+        // outcome is a gap. What matters is that the document reacted at all.
+        XCTAssertNotEqual(document.recordingState, .off)
+
+        document.consent.choose(.off)
+        await settle()
+        XCTAssertEqual(document.recordingState, .off)
+    }
+
+    /// Pause must not strand the session: resume re-enters the recording state
+    /// machine instead of silently staying paused.
+    func testPauseThenResumeLeavesThePausedState() async throws {
+        let (document, _) = try makeController("Pause body.\n")
+        document.consent.choose(.requested)
+        await settle()
+        document.stopRecording(pausing: true)
+        XCTAssertEqual(document.recordingState, .paused)
+        document.resumeRecording()
+        await settle()
+        XCTAssertNotEqual(document.recordingState, .paused, "Resume must leave the paused state")
+    }
+
+    private func settle(_ iterations: Int = 8) async {
+        for _ in 0..<iterations { await Task.yield() }
+    }
 }

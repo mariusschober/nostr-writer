@@ -47,6 +47,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.reply(toApplicationShouldTerminate: didCloseAll)
     }
 
+    func applicationWillTerminate(_ notification: Notification) {
+        // The detailed-history journal is application-scoped: only termination
+        // closes it, so closing one document never stops recording in others.
+        let library = recoveryLibrary
+        Task { await library.closeSharedHistoryJournal() }
+    }
+
     @objc func importTextCopy(_ sender: Any?) {
         guard textImporter == nil else { textImporter?.showWindow(sender); return }
         textImporter = TextImportController(library: recoveryLibrary) { [weak self] in self?.textImporter = nil }

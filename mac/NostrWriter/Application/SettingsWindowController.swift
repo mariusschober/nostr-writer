@@ -54,7 +54,14 @@ private struct SettingsView: View {
             Section("Recording & Privacy") {
                 Toggle("Store writing history on this Mac", isOn: Binding(
                     get: { recording == RecordingChoice.requested.rawValue },
-                    set: { recording = ($0 ? RecordingChoice.requested : .off).rawValue }))
+                    set: { isOn in
+                        let value = (isOn ? RecordingChoice.requested : .off).rawValue
+                        guard recording != value else { return }
+                        recording = value
+                        // Tell every open document immediately. Writing the
+                        // preference alone did not stop active recording.
+                        NotificationCenter.default.post(name: RecordingConsent.didChangeNotification, object: nil)
+                    }))
                 Text("History may include deleted text and timing. This choice never authorizes publishing or uploading evidence.")
                     .font(.callout).foregroundStyle(.secondary)
                 Text("Recording starts prospectively. Deleting local history does not delete your document and cannot revoke an already exported proof.")

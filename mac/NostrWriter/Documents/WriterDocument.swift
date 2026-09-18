@@ -65,14 +65,27 @@ final class WriterDocument: NSDocument {
     private(set) var recordingState: RecordingState = .off {
         didSet {
             guard recordingState != oldValue else { return }
+            // One authoritative state. The session's completeness decision must
+            // never disagree with what the inspector and menus show.
+            session?.recordingState = recordingState
             NotificationCenter.default.post(name: Self.recordingStateDidChange, object: self)
         }
     }
     private(set) var annotations: [SourceAnnotation] = []
+    /// Observed cause of every mutation in this session, so the inspector can
+    /// show real provenance categories rather than a verdict. A capture gap is
+    /// counted as unsupported input, never as direct typing.
+    private(set) var originTally: [EditOriginCategory: Int] = [:]
     private var pendingHistory: [LocalEditRecord] = []
+    /// The id of the most recent edit record that the journal acknowledged
+    /// (transaction committed). Used to hand out a real durable boundary handle
+    /// instead of a freshly invented UUID.
+    private(set) var lastFlushedRecordID: UUID?
     private var historyFlush: Task<Void, Never>?
     private var historyAttachment: Task<Void, Never>?
     private var recordingPaused = false
+    private var observesConsentChange = false
+    private var hasBeganEpoch = false
 
     var sourceBytes: Data { session?.snapshot.utf8 ?? loadedBytes.withLock { $0 } }
     override class var autosavesInPlace: Bool { false }
@@ -88,6 +101,7 @@ final class WriterDocument: NSDocument {
         let controller = WriterWindowController(writerDocument: self)
         addWindowController(controller)
         recoveryLibrary = recoveryLibrary ?? (NSApp.delegate as? AppDelegate)?.recoveryLibrary
+        observeConsentChangesIfNeeded()
         attachRecovery()
         if let source = session?.snapshot, let fileURL {
             savedFile = SavedFileRevision(source: source, url: fileURL)
@@ -462,11 +476,25 @@ final class WriterDocument: NSDocument {
         fileLifecycle.stop()
         interruptionFlush?.cancel(); recovery?.stop(); recoveryAttachment?.cancel()
         historyAttachment?.cancel()
+        historyFlush?.cancel(); historyFlush = nil
+        pendingHistory.removeAll()
         if let epoch = historyEpoch, let journal = historyJournal {
-            Task { try? await journal.endEpoch(epoch.id) }
+            let documentID = session?.snapshot.documentID
+            let revision = session?.snapshot.revision ?? Revision(0)
+            // End only this document's epoch. The journal is shared across open
+            // documents with an application lifetime; closing it here would
+            // silently stop recording everywhere else.
+            Task {
+                if let documentID {
+                    try? await journal.appendGap(CaptureGap(reason: .boundaryClose, revision: revision,
+                                                            recordedAtEpochSeconds: Date().timeIntervalSince1970),
+                                                 documentID: documentID, epochID: epoch.id)
+                }
+                try? await journal.endEpoch(epoch.id)
+            }
         }
         historyEpoch = nil
-        if let journal = historyJournal { Task { await journal.close() } }
+        NotificationCenter.default.removeObserver(self, name: RecordingConsent.didChangeNotification, object: nil)
         if let id = session?.snapshot.documentID, let library = recoveryLibrary {
             Task { try? await library.markClosed(id) }
         }
@@ -656,18 +684,56 @@ extension WriterDocument {
         let observed = LocalEditRecord(epochID: historyEpoch?.id ?? CaptureEpochID(), receipt: receipt,
                                        recordedAtEpochSeconds: Date().timeIntervalSince1970)
         retainAnnotationLineage(through: observed)
+        noteOrigin(receipt.command.origin, capture: capture)
         recordObservedEdit(observed, receipt: receipt, capture: capture)
         refreshWindows()
     }
 
+    private func noteOrigin(_ origin: EditOrigin, capture: CaptureCompleteness) {
+        let category: EditOriginCategory
+        if case .gap = capture { category = .unknown } else { category = origin.category }
+        originTally[category, default: 0] += 1
+    }
+
     // MARK: Recording lifecycle
 
+    /// Watches the owner's consent preference so a change while documents are
+    /// open takes effect in every affected session, not only the next one.
+    private func observeConsentChangesIfNeeded() {
+        guard !observesConsentChange else { return }
+        observesConsentChange = true
+        session?.recordingState = recordingState
+        NotificationCenter.default.addObserver(self, selector: #selector(consentSettingDidChange(_:)),
+                                               name: RecordingConsent.didChangeNotification, object: nil)
+        startRecordingIfConsented()
+    }
+
+    @objc private func consentSettingDidChange(_ notification: Notification) {
+        switch consent.choice {
+        case .requested:
+            startRecordingIfConsented()
+        case .off:
+            // Stop prospectively and drop anything not yet written, so no
+            // post-opt-out detail is retained. Already-written history is kept.
+            stopRecording(pausing: false)
+        }
+    }
+
     /// Turns consented recording on for this session. It is idempotent and
-    /// refuses silently when the owner has not opted in.
+    /// refuses silently when the owner has not opted in. Every (re)start opens a
+    /// *new* epoch so a resumed session is never shown as uninterrupted capture.
     func startRecordingIfConsented() {
         guard consent.choice == .requested else { return }
-        guard !recordingPaused, historyJournal == nil, historyAttachment == nil else { return }
+        // A start or resume already in flight, or live recording, is enough.
+        guard historyAttachment == nil else { return }
+        if case .observing = recordingState { return }
         guard let snapshot = session?.snapshot else { return }
+        recordingPaused = false
+        beginHistoryAttachment(documentID: snapshot.documentID, revision: snapshot.revision)
+    }
+
+    private func beginHistoryAttachment(documentID: DocumentID, revision: Revision) {
+        let gapReason: CaptureGapReason? = hasBeganEpoch ? .resumed : nil
         historyAttachment = Task { [weak self] in
             guard let self else { return }
             defer { self.historyAttachment = nil }
@@ -678,12 +744,13 @@ extension WriterDocument {
                 let journal = try await library.historyJournal()
                 guard !Task.isCancelled else { return }
                 self.historyJournal = journal
-                let epoch = try await journal.resumeOrOpenEpoch(documentID: snapshot.documentID,
-                                                                atRevision: snapshot.revision,
-                                                                priorTextCompleteness: .descriptiveOnly)
+                let epoch = try await journal.beginEpoch(documentID: documentID, atRevision: revision,
+                                                         priorTextCompleteness: .descriptiveOnly,
+                                                         gapReason: gapReason)
                 guard !Task.isCancelled else { return }
                 self.historyEpoch = epoch
-                self.annotations = (try? await journal.annotations(documentID: snapshot.documentID)) ?? []
+                self.hasBeganEpoch = true
+                self.annotations = (try? await journal.annotations(documentID: documentID)) ?? []
                 self.historyRetention = (try? await journal.retentionState()) ?? .healthy
                 self.recordingState = .observing
                 self.historyError = nil
@@ -695,21 +762,40 @@ extension WriterDocument {
         }
     }
 
-    /// Turns recorded history off. Existing retained history is preserved; only
-    /// future detailed records stop. This is not the same as deleting history.
+    /// Turns recorded history off, or pauses it. Existing retained history is
+    /// preserved; only future detailed records stop. The shared store stays
+    /// attached so resume can reopen recording without reopening the file.
     func stopRecording(pausing: Bool) {
+        let stoppingEpoch = historyEpoch
         historyAttachment?.cancel(); historyAttachment = nil
         recordingPaused = pausing
-        if let epoch = historyEpoch, let journal = historyJournal {
-            Task { try? await journal.endEpoch(epoch.id) }
-        }
+        historyFlush?.cancel(); historyFlush = nil
+        pendingHistory.removeAll()
         historyEpoch = nil
         recordingState = pausing ? .paused : .off
+        if let epoch = stoppingEpoch, let journal = historyJournal {
+            let documentID = session?.snapshot.documentID
+            let reason: CaptureGapReason = pausing ? .userPaused : .recordingOff
+            let revision = session?.snapshot.revision ?? Revision(0)
+            Task {
+                if let documentID {
+                    try? await journal.appendGap(CaptureGap(reason: reason, revision: revision,
+                                                            recordedAtEpochSeconds: Date().timeIntervalSince1970),
+                                                 documentID: documentID, epochID: epoch.id)
+                }
+                try? await journal.endEpoch(epoch.id)
+            }
+        }
         refreshWindows()
     }
 
     func resumeRecording() {
         recordingPaused = false
+        guard consent.choice == .requested else {
+            recordingState = .off
+            refreshWindows()
+            return
+        }
         recordingState = .off
         startRecordingIfConsented()
         refreshWindows()
@@ -743,6 +829,7 @@ extension WriterDocument {
                 guard let journal = self.historyJournal else { break }
                 do {
                     try await journal.append(batch)
+                    self.lastFlushedRecordID = batch.last?.id
                     let retention = (try? await journal.retentionState()) ?? .healthy
                     self.historyRetention = retention
                     self.historyError = nil
@@ -755,6 +842,27 @@ extension WriterDocument {
             }
             self.historyFlush = nil
         }
+    }
+
+    /// Awaits durability of every pending detailed record before a boundary
+    /// handle is produced. A handle is a statement that the record the handle
+    /// names is already committed, never a promise about unwritten state.
+    private func flushHistoryNow() async {
+        if let flush = historyFlush { await flush.value }
+        if !pendingHistory.isEmpty { flushHistoryIfNeeded() }
+        if let flush = historyFlush { await flush.value }
+    }
+
+    /// The durable finalization contract for detailed history. Distinct from
+    /// `DocumentSession`'s descriptive handle: this flushes first and names the
+    /// last acknowledged record, or returns nil when recording is off or a gap
+    /// means no continuous record exists.
+    func finalizeObservation(reason: ObservationBoundary) async -> CapturedRecordHandle? {
+        _ = reason
+        guard case .observing = recordingState, let snapshot = session?.snapshot else { return nil }
+        await flushHistoryNow()
+        guard let recordID = lastFlushedRecordID else { return nil }
+        return CapturedRecordHandle(id: recordID, source: snapshot)
     }
 
     private func enterGap(_ reason: CaptureGapReason) {
@@ -816,6 +924,11 @@ extension WriterDocument {
 
     func removeAnnotation(_ id: UUID) {
         annotations.removeAll { $0.id == id }
+        // Removing from memory is not removal from durable history: the stored
+        // row must go too, or reopening would resurrect the annotation.
+        if let journal = historyJournal {
+            Task { try? await journal.deleteAnnotation(id) }
+        }
         refreshWindows()
     }
 
@@ -823,11 +936,21 @@ extension WriterDocument {
     /// documents are untouched, and an already exported proof cannot be revoked.
     func deleteLocalHistory() async {
         historyAttachment?.cancel(); historyAttachment = nil
+        historyFlush?.cancel(); historyFlush = nil
         annotations = []
         pendingHistory = []
+        lastFlushedRecordID = nil
+        let deletingEpoch = historyEpoch
+        historyEpoch = nil
+        if let epoch = deletingEpoch, let journal = historyJournal {
+            try? await journal.endEpoch(epoch.id)
+        }
         guard let journal = historyJournal, let id = session?.snapshot.documentID else { return }
         try? await journal.deleteLocalHistory(documentID: id)
         historyRetention = .healthy
+        // Restart cleanly from the now-empty detail store when the owner still
+        // consents, so deletion never leaves a half-open lifecycle behind.
+        if consent.choice == .requested { startRecordingIfConsented() }
         refreshWindows()
     }
 

@@ -175,8 +175,7 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
 
     private func configureInspector() {
         inspectorModel.onDeleteHistory = { [weak self] in
-            guard let self else { return }
-            Task { await self.writerDocument.deleteLocalHistory(); self.refreshStatus() }
+            self?.confirmDeleteLocalHistory()
         }
         inspectorModel.onTogglePause = { [weak self] in
             guard let self else { return }
@@ -190,6 +189,28 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         inspectorModel.onToggleDictation = { [weak self] in self?.toggleDictation(nil) }
         inspectorModel.onMarkSource = { [weak self] kind, description, url in
             self?.markExternalSource(kind: kind, description: description, url: url)
+        }
+    }
+
+    /// Destruction stays honest: the owner sees exactly what is and is not
+    /// removed before any history is deleted. Deletion is never one-click.
+    private func confirmDeleteLocalHistory() {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = "Delete this document's detailed writing history?"
+        alert.informativeText = """
+        This permanently removes the recorded detailed history for this document, \
+        including deleted text and timing.
+
+        Your document and its encrypted recovery are not deleted. Deleting history \
+        cannot revoke an already exported proof or erase backups.
+        """
+        alert.addButton(withTitle: "Delete History")
+        alert.addButton(withTitle: "Cancel")
+        guard let window else { return }
+        alert.beginSheetModal(for: window) { [weak self] response in
+            guard response == .alertFirstButtonReturn, let self else { return }
+            Task { await self.writerDocument.deleteLocalHistory(); self.refreshStatus() }
         }
     }
 

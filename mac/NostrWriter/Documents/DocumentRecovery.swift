@@ -251,6 +251,14 @@ actor RecoveryLibrary {
         return try await task.value
     }
 
+    /// Closes the shared detailed-history journal at application termination.
+    /// Individual documents must never close it: the store outlives any one
+    /// document and is shared by every open session.
+    func closeSharedHistoryJournal() async {
+        guard let historyOpening else { return }
+        if let journal = try? await historyOpening.value { await journal.close() }
+    }
+
     private func openHistory() async throws -> HistoryJournal {
         guard ProcessInfo.processInfo.environment["NW_TEST_DEFAULTS"] == nil else {
             throw RecoveryKeyError.unavailable("Recording is disabled in this isolated interface test.")
