@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5` on `implementation/stage-02`, following
+`94a0d638d11ebafb8152f2cb9e7d82225626f049` on `implementation/stage-02`, following
 `2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
@@ -246,3 +246,23 @@ already passed; neither result validates the newly installed compiler/SDK. Furth
 builds need the owner's license decision. No agreement was accepted and no developer-path
 setting was changed. Repository operations used the separately installed Command Line
 Tools Git 2.50.1. The Mac also remains locked in the latest CUA observation.
+
+## Owner-signing preparation
+
+The optional `mac/scripts/build_signed_development.sh` accepts an explicitly supplied
+`WRITER_DEVELOPMENT_TEAM` and requires an existing Apple Development identity. It keeps a
+separate Debug build directory and selects a dedicated entitlement template with one
+resolved application-specific Keychain group. The built-app inspector now verifies the
+actual certificate team, development bundle identifier and group scope when this mode is
+requested. It continues to reject unexpected entitlements and test instrumentation.
+See [current development setup](../../../mac/DEVELOPMENT.md).
+
+Shell/Python syntax, plist structure and missing-team refusal **PASS**. No signing identity
+was invented or created; the host's identity query reported **0 valid identities** in the
+current locked session. Real signing and Keychain behavior are **NOT MEASURED**.
+
+`xcodebuild -version` now reports 27.0/27A266a, but a single actual build still exited 69
+with the Xcode/Apple SDK license requirement. No retry followed. A fresh CUA check still
+reported a locked Mac. These are current access/observation gates; Stage 03's accepted
+Stage 02 prerequisite remains unsatisfied. No passing checks were rerun for this review.
+Commands and boundaries are recorded in `logs/stage-02/signing-preparation-results.json`.

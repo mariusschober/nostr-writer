@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5",
+  "source_commit": "94a0d638d11ebafb8152f2cb9e7d82225626f049",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Document lifecycle, library, conflicts, import, managed images, identity-preserving rename/move and recovery-preserving Trash integrated; external acceptance gates remain open.",
+  "source_state": "Document lifecycle implementation plus optional owner-selected development signing helper; new signing path validated statically only, native acceptance remains open.",
   "criteria": [
     {
       "id": "M07",
@@ -310,7 +310,52 @@
       "xcode_bundle_version": "27.0",
       "reason": "Xcode.app was updated after the passing native check and ordinary app build. The system developer-tool wrapper now reports that the Xcode and Apple SDK license agreements have not been accepted. Owner review/acceptance is required before native builds resume.",
       "prior_checks": "Recorded lifecycle check and app build were completed before the update; they do not validate Xcode 27.",
-      "git_fallback": "Existing /Library/Developer/CommandLineTools/usr/bin/git 2.50.1 used only for repository operations; no license accepted or developer-directory preference changed."
+      "git_fallback": "Existing /Library/Developer/CommandLineTools/usr/bin/git 2.50.1 used only for repository operations; no license accepted or developer-directory preference changed.",
+      "version_query_limit": "Version query now succeeds, but a single actual build attempt still exits 69 at the license gate."
+    },
+    "owner_signing_preparation": {
+      "source_commit": "94a0d638d11ebafb8152f2cb9e7d82225626f049",
+      "status": "NOT MEASURED",
+      "scope": "Opt-in owner-selected development signing; no real signed app built or Keychain runtime observed.",
+      "static_checks": {
+        "status": "PASS",
+        "commands": [
+          "/bin/bash -n mac/scripts/build_signed_development.sh mac/scripts/environment.sh",
+          "/usr/bin/plutil -lint mac/NostrWriter/DeveloperSigning.entitlements",
+          "Python ast.parse of mac/scripts/inspect_app.py",
+          "Launch signing helper with WRITER_DEVELOPMENT_TEAM empty; assert exit 2 and explicit missing-team message before a build/signing action."
+        ]
+      },
+      "identity_preflight": {
+        "status": "BLOCKED",
+        "command": "security find-identity -v -p codesigning",
+        "observed_result": "0 valid identities found",
+        "scope": "Current locked host session; no private certificate/key material read or copied."
+      },
+      "xcode27": {
+        "status": "BLOCKED",
+        "version": "27.0 (27A266a)",
+        "version_query": "xcodebuild -version succeeds; this does not prove license clearance.",
+        "build_command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build",
+        "exit_code": 69,
+        "reason": "Actual build still refuses pending Xcode and Apple SDK license acceptance. One attempt; no retry loop.",
+        "log": "product/mac/evidence/logs/stage-02/xcode27-build-blocked.log"
+      },
+      "ui": {
+        "status": "BLOCKED",
+        "reason": "Fresh CUA selection of the ordinary built app again reported locked Mac and failed automatic unlock."
+      },
+      "boundaries": [
+        "Team is explicitly supplied; no invented team or certificate.",
+        "Helper requires an existing Apple Development identity; no automatic provisioning flag or credential creation.",
+        "Dedicated development build directory and Debug identity; release and ad-hoc entitlement paths remain distinct.",
+        "Inspector checks actual certificate team and a single resolved per-app Keychain group, without substituting signature inspection for runtime acceptance.",
+        "Full application build for the newly changed signing configuration remains NOT MEASURED."
+      ],
+      "primary_sources": [
+        "https://developer.apple.com/documentation/xcode/configuring-keychain-sharing",
+        "https://developer.apple.com/documentation/security/ksecattraccessgroup"
+      ]
     }
   },
   "next_work": [
@@ -318,5 +363,5 @@
     "Owner unlock/signing access and actual import/library/conflict/quit/crash/sleep/provider observations"
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "477d5b954a98af250c3c2207bdb996fe8009a186"
+  "previous_source_commit": "f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5"
 }
