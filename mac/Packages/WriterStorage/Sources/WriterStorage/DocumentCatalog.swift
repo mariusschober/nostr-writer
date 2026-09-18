@@ -16,6 +16,9 @@ public struct DocumentCatalogRecord: Codable, Sendable, Equatable, Identifiable 
     public var isOpen: Bool
     public var isVisible: Bool
     public var updatedAt: Double
+    // Additive optional metadata keeps existing schema-2 records readable.
+    public var isFolder: Bool?
+    public var isPinned: Bool?
     public var documentID: DocumentID { DocumentID(rawValue: id) }
 
     public init(documentID: DocumentID, title: String = "Untitled", location: String? = nil,
@@ -34,6 +37,9 @@ public struct DocumentCatalogRecord: Codable, Sendable, Equatable, Identifiable 
               (parentID == nil) == (parentRevision == nil), (parentID == nil) == (parentDigest == nil),
               parentID != id else {
             throw StorageError.invariantViolation("Document metadata is malformed or exceeds its bounds.")
+        }
+        if isFolder == true, location == nil || bookmark == nil || savedDigest != nil || parentID != nil {
+            throw StorageError.invariantViolation("A library folder must be a selected location without document history.")
         }
         if let location {
             guard !location.utf8.contains(0), let url = URL(string: location), url.isFileURL,

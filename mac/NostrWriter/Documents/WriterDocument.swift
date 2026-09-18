@@ -241,7 +241,12 @@ final class WriterDocument: NSDocument {
 
     override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         if item.action == #selector(revertPreservingChanges(_:)) { return fileURL != nil && !lifecycleBusy && !isSavingSource }
+        if item.action == #selector(revealInFinder(_:)) { return fileURL != nil }
         return super.validateUserInterfaceItem(item)
+    }
+
+    @objc func revealInFinder(_ sender: Any?) {
+        if let fileURL { NSWorkspace.shared.activateFileViewerSelecting([fileURL]) }
     }
 
     func setLifecycleBusy(_ busy: Bool) {

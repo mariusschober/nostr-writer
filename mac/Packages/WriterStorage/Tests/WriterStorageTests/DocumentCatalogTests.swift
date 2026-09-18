@@ -5,6 +5,20 @@ import XCTest
 
 @MainActor
 final class DocumentCatalogTests: XCTestCase {
+    func testOptionalFolderMetadataReadsOlderRecordsAndRejectsSourceHistory() async throws {
+        let workspace = try TempWorkspace(); defer { workspace.remove() }
+        let store = try makeStore(workspace)
+        var record = DocumentCatalogRecord(documentID: DocumentID(), title: "Folder", location: workspace.root.absoluteString, bookmark: Data([1]))
+        let oldBytes = try JSONEncoder().encode(record)
+        XCTAssertNil(try JSONDecoder().decode(DocumentCatalogRecord.self, from: oldBytes).isFolder)
+        record.isFolder = true
+        try await store.saveCatalogRecord(record)
+        let restored = try await store.catalogRecord(for: record.documentID)
+        XCTAssertEqual(restored?.isFolder, true)
+        record.savedRevision = 0; record.savedDigest = Data(repeating: 1, count: 32)
+        do { try await store.saveCatalogRecord(record); XCTFail("Folder accepted document history") } catch { }
+        try await store.close()
+    }
     func testLocationIdentityAndDerivationSurviveReopenWithoutIndexingBody() async throws {
         let workspace = try TempWorkspace(); defer { workspace.remove() }
         let store = try makeStore(workspace)

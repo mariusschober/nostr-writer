@@ -78,9 +78,42 @@ actor RecoveryLibrary {
         try await store.saveCatalogRecord(record)
     }
 
-    func catalogEntries() async throws -> [DocumentCatalogRecord] {
+    func catalogEntries(includeHidden: Bool = false) async throws -> [DocumentCatalogRecord] {
         let store = try await store()
-        return try await store.catalogRecords().filter { $0.isVisible }
+        return try await store.catalogRecords().filter { includeHidden || $0.isVisible }
+    }
+
+    func rememberFolder(_ record: DocumentCatalogRecord) async throws {
+        guard record.isFolder == true else { throw SourceAccessError.invalidBookmark }
+        try await store().saveCatalogRecord(record)
+    }
+
+    func hideReference(at url: URL) async throws {
+        let store = try await store()
+        let location = url.standardizedFileURL.resolvingSymlinksInPath().absoluteString
+        var record = try await store.catalogRecord(at: location)
+            ?? DocumentCatalogRecord(documentID: DocumentID(), title: url.lastPathComponent, location: location)
+        record.isVisible = false; record.isPinned = false
+        try await store.saveCatalogRecord(record)
+    }
+
+    func pinReference(at url: URL, pinned: Bool) async throws {
+        let store = try await store()
+        let location = url.standardizedFileURL.resolvingSymlinksInPath().absoluteString
+        var record = try await store.catalogRecord(at: location)
+            ?? DocumentCatalogRecord(documentID: DocumentID(), title: url.lastPathComponent, location: location)
+        record.bookmark = try await ScopedSourceFiles().bookmarkForExplicitSelection(url)
+        record.isPinned = pinned; record.isVisible = true
+        try await store.saveCatalogRecord(record)
+    }
+
+    func relocateReference(_ id: DocumentID, to resolvedURL: URL) async throws {
+        let store = try await store()
+        guard var record = try await store.catalogRecord(for: id) else { return }
+        record.location = resolvedURL.standardizedFileURL.resolvingSymlinksInPath().absoluteString
+        record.bookmark = try await ScopedSourceFiles().bookmarkForExplicitSelection(resolvedURL)
+        record.title = resolvedURL.lastPathComponent; record.updatedAt = Date().timeIntervalSince1970
+        try await store.saveCatalogRecord(record)
     }
 
     /// A separate recovery identity survives rolling-checkpoint compaction of
@@ -108,7 +141,9 @@ actor RecoveryLibrary {
         let orphans = metadata.filter { entry in !records.contains(where: { $0.documentID == entry.documentID }) }
             .map { DocumentCatalogRecord(documentID: $0.documentID, title: "Recovered document") }
         return (records + orphans).filter { record in
-            guard record.isVisible, let latest = metadata.first(where: { $0.documentID == record.documentID }) else { return false }
+            // Removing a file reference must not hide independently recoverable
+            // unsaved writing. It is not the Delete Private History action.
+            guard let latest = metadata.first(where: { $0.documentID == record.documentID }) else { return false }
             return record.savedDigest != latest.latestDigest
         }
     }
@@ -118,7 +153,7 @@ actor RecoveryLibrary {
         guard !query.isEmpty, query.utf8.count <= 4096 else { return [] }
         let store = try await store()
         var result: [DocumentCatalogRecord] = []
-        for record in try await store.catalogRecords() where record.isVisible {
+        for record in try await store.catalogRecords() where record.isVisible && record.isFolder != true {
             try Task.checkCancellation()
             if record.title.localizedCaseInsensitiveContains(query) { result.append(record) }
             // Search only the current source checkpoint. No deleted revisions,
