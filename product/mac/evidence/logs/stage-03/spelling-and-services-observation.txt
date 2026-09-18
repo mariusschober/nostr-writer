@@ -1,0 +1,109 @@
+Stage 03 native assistance observation (M18) - candidate 89313db3/repairs
+
+Candidate: mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app
+Build: 2026-09-18 22:22 +0100 (ad-hoc local signing; see STAGE-03.md)
+Host: MacBook-Pro-von-Marius.local, macOS 26.6.2 (25G83), Xcode 27.0, arm64.
+Driver: Codex computer-use runtime (element-based; coordinate clicks return
+-10005 noWindowsAvailable and press_key does not apply modifier flags).
+
+NOTE ON QUOTING: the AX dump wraps the selected word in typographic quotes.
+They are written here as plain quotes so this evidence file stays ASCII.
+
+(1) Edit menu, read from the running candidate (menu bar item "Edit"):
+
+  Edit
+    Undo, Redo, Cut, Copy, Paste, Select All, Find...
+    Spelling and Grammar
+      Show Spelling and Grammar, Check Document Now,
+      Check Spelling While Typing, Check Grammar With Spelling,
+      Correct Spelling Automatically
+    Writing Tools
+      Show Writing Tools, Proofread, Rewrite, Make Friendly,
+      Make Professional, Make Concise, Summarize, Create Key Points,
+      Make List, Make Table, Compose...
+    AutoFill
+      Contact..., Passwords..., Credit Card...
+    Emoji & Symbols
+
+  Selector IDs reported by the accessibility layer:
+      showSpellingAndGrammar:, checkSpelling:, toggleContinuousSpellChecking:,
+      toggleGrammarChecking:, toggleAutomaticSpellingCorrection:,
+      showWritingTools:, orderFrontCharacterPalette:
+
+  The Writing Tools submenu and the continuous-checking toggles are supplied by
+  AppKit for a text view; "Show Spelling and Grammar" is the Stage 03 addition
+  and reaches the shared NSSpellChecker panel. Before this repair the
+  programmatic menu bar exposed no Spelling submenu at all, so the standard
+  native spelling routes were unreachable from the Edit menu.
+
+(2) Contextual menu on the editor (AX secondary action "Show Menu"), caret
+    inside a word of the fixture document:
+
+  Cut, Copy, Paste, Paste and Match Style, Share...,
+  Font (Show Fonts, Show Colors),
+  Spelling and Grammar (Hide Spelling and Grammar, Check Document Now,
+      Check Spelling While Typing, Check Grammar With Spelling,
+      Correct Spelling Automatically),
+  Substitutions (Show Substitutions, Smart Copy/Paste, Smart Quotes,
+      Smart Dashes, Smart Links, Data Detectors, Text Replacement),
+  Speech (Start Speaking, Stop Speaking),
+  Layout Orientation (Horizontal, Vertical),
+  AutoFill (Contact..., Passwords..., Credit Card...)
+
+  With the caret inside the word "nobody" the two leading items were
+  "Look Up 'nobody'" and "Translate 'nobody'", i.e. the system Look Up and
+  Translation services are offered for the selected word in this editor.
+
+(3) Application menu: a "Services" submenu is present and populated by the
+    system ("Services count: 9" - Activity Monitor, Allocations & Leaks, File
+    Activity, System Trace, Time Profile Active Application, Time Profile App
+    Under Mouse, Time Profile Entire System, Toggle Instruments Recording,
+    Services Settings...). See services-menu-observation.txt, captured on the
+    22:07 candidate of the same repair series.
+
+(4) Default controls, observed on the live editor and confirmed by source:
+
+  - Continuous spell checking: enabled (the misspelled token "teh" rendered
+    with the red spelling underline in spell-underline-before-correction.png).
+  - Grammar checking with spelling: enabled by this repair
+    (WriterWindowController.install: editor.isGrammarCheckingEnabled = true).
+  - Automatic spelling correction: OFF. Verified by a live negative control -
+    with the app default, typing "teh " into an empty document left exactly
+    "teh " (4 bytes, 7465 6820).
+  - Text replacement, quote/dash substitution and automatic text completion:
+    left off (WriterWindowController.install).
+  - writingToolsBehavior = .none on macOS 15+ (WriterWindowController:122).
+    AppKit still injects the system Writing Tools submenu into the Edit menu;
+    no Writing Tools panel was invoked in this session, so the app-level
+    behaviour of those injected items is NOT MEASURED here.
+
+(5) Native spelling correction, performed through the app's own menu:
+
+  Step A (default, correction off): select all, type "teh " -> document is
+      exactly "teh "  (no correction).
+  Step B: Edit > Spelling and Grammar > Correct Spelling Automatically, then
+      select all and type "teh " -> document is exactly "The " (capitalised
+      sentence start). The system spelling-correction machinery ran inside the
+      app's text view and replaced the misspelled token.
+
+  This is a real native correction observed in the running candidate. It is the
+  *automatic* correction path, not a user-accepted correction from the spelling
+  panel or a suggestion menu. The accepted path (NSTextView.changeSpelling(_:))
+  is classified as knownAssistance(.spelling) and is covered by
+  NostrWriterTests/Stage03EditorTests
+  testGatewayClassifiesObservedDeliveryWithoutGuessingFromText; it was not
+  exercised natively here because the shared NSSpellChecker panel is a floating
+  NSPanel that the accessibility layer does not report as a window on this host
+  (System Events lists only the document window for process "NostrWriter" while
+  the panel is up), and the spelling-suggestion menu did not appear for a caret
+  or find-bar selection in this harness.
+
+(6) Non-ASCII input, observed while probing the input matrix:
+
+  System Events keystroke of "shalom" in Hebrew and a grinning emoji into the
+  focused editor produced the ASCII text "aaaa aa" (7 bytes): each non-ASCII
+  character was delivered as a native key event but resolved through the active
+  German keyboard layout to a plain letter. No emoji, RTL or CJK input source is
+  enabled on this host (enabled sources: German layout, CharacterPalette,
+  Ironwood, PressAndHold), so emoji/RTL/CJK tokens could not be entered natively
+  in this session.

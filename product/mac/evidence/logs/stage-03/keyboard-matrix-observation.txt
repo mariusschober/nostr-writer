@@ -1,0 +1,45 @@
+Stage 03 keyboard matrix observation (M14) - candidate 89313db3/repairs
+
+Candidate: mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app
+Build: 2026-09-18 22:22 +0100.
+Driver: System Events keystroke from an escalated osascript that also sets the
+process frontmost. Two capability facts were established first:
+
+  - The computer-use runtime's own modifier handling does NOT reach the app:
+    sky.press_key with modifiers ["cmd"], ["command"], ["meta"] or ["Cmd"] each
+    delivered the bare letter key instead (three probes typed literal "f"
+    characters into the fixture at the caret). That accidental edit was undone
+    through the app's own Edit > Undo Typing and the fixture text was restored
+    to "> A quoted passage attributed to nobody." before any evidence was taken.
+  - System Events keystroke WITH modifiers DOES reach the app. Validated with
+    Cmd+N, which created a new document ("Untitled 3"; the tab bar went from
+    three to four tabs).
+
+Observations on the running candidate, all driven as real key events:
+
+  1. Cmd+N            -> a new document/tab appeared. (modifier delivery probe)
+  2. Cmd+Z            -> undid typed characters; the document returned to empty
+                         and the status returned to "0 words - Unsaved".
+                         (Also used to repair the accidental "f" probes.)
+  3. Cmd+Shift+F      -> View > Focus Writing engaged: the accessibility tree
+                         lost "Document sidebar" and the toolbar entirely, the
+                         splitter moved to 0, and the editor became full width
+                         while the status line ("0 words - Unsaved"), the
+                         "Retry Recovery / Recording off" banner and the tab bar
+                         remained. A second Cmd+Shift+F restored the sidebar and
+                         toolbar.
+  4. Ctrl+Cmd+F       -> View > Enter Full Screen engaged: the window's close and
+                         minimize buttons disappeared from the accessibility
+                         tree (native fullscreen hides the traffic lights). A
+                         second Ctrl+Cmd+F restored both buttons.
+
+Not exercised in this session:
+  - Reduce Motion. NSWorkspace.shared.accessibilityDisplayShouldReduceMotion is
+    read by the app (WriterWindowController.swift:293), and the host currently
+    has no reduceMotion key in com.apple.universalaccess, i.e. the setting is
+    off. Its visible effect is an animation change that a single-frame capture
+    cannot show, so it needs an owner session with the setting toggled.
+  - Typewriter Scrolling as an interaction. View > Typewriter Scrolling exists
+    (selector toggleTypewriterScrolling:) and was toggled on and then off from
+    the View menu without error, but its effect is a viewport shift during
+    typing that the accessibility tree does not expose.

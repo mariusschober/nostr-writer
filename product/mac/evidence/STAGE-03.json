@@ -13,7 +13,8 @@
     "3f35d6df1c773483c21a51ab5fe8bf97e0f3762e",
     "b77a0bba410845738af1fb1fb954c8307d08967b",
     "61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc",
-    "1ddd3210dd4fada8a225caa13f993331e571e682"
+    "1ddd3210dd4fada8a225caa13f993331e571e682",
+    "e78543906d37a285f6989079069138cdbf7d573d"
   ],
   "evidence_commits": [
     "4ae1454015a60cc15a654a89557771f0b3e57856",
@@ -23,12 +24,14 @@
   ],
   "candidate": {
     "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
-    "executable_sha256": "89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529",
+    "executable_sha256": "d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b",
+    "executable_sha256_intermediate": "89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529",
     "executable_sha256_earlier": "95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f",
     "architecture": "arm64",
     "signature": "ad-hoc (Sign to Run Locally)",
     "bundle_identifier": "com.mariusschober.nostrwriter.development",
-    "built": "2026-09-18 18:01:13 +0100",
+    "built": "2026-09-18 22:22:05 +0100",
+    "built_intermediate": "2026-09-18 18:01:13 +0100",
     "built_earlier": "2026-09-18 17:41:08 +0100",
     "entitlements": [
       "com.apple.security.app-sandbox",
@@ -200,6 +203,27 @@
         "existing_marker": "~/Library/Containers/com.mariusschober.nostrwriter.development/Data/Library/Application Support/NostrWriter/Development/bootstrap.json"
       }
     },
+    "stage03_editor_native_rerun": {
+      "status": "PASS",
+      "detail": "re-run on the repaired working tree (undo change-count, Services/Spelling menus, grammar checking, saved-byte status): Stage03EditorTests 13/0 plus ShellTests, 26 tests, 1 skipped, 0 failures. The skip is the pre-existing external-change case that needs the NW_COORDINATED_WRITER helper environment.",
+      "ran": "2026-09-18 22:33 +0100"
+    },
+    "native_spelling_and_services": {
+      "status": "PASS",
+      "detail": "Observed live on the current candidate: the Edit menu exposes a Spelling and Grammar submenu (Show Spelling and Grammar, Check Document Now, Check Spelling While Typing, Check Grammar With Spelling, Correct Spelling Automatically) and a Writing Tools submenu; the editor's contextual menu offers Look Up and Translate for the word under the caret; the app menu has a populated Services submenu (9 items); the misspelled token rendered with the red spelling underline; and a real native correction ran - with the app default (automatic correction off) typing 'teh ' left exactly 'teh ', while after enabling Correct Spelling Automatically from the app's own menu the same keystrokes produced 'The '. The accepted NSTextView.changeSpelling(_:) path is classified knownAssistance(.spelling) and is covered by Stage03EditorTests.testGatewayClassifiesObservedDeliveryWithoutGuessingFromText; it was not exercised natively because the shared NSSpellChecker panel is a floating NSPanel the accessibility layer does not report as a window on this host and the spelling-suggestion menu did not appear for a caret or find-bar selection in this harness.",
+      "artifacts": [
+        "product/mac/evidence/logs/stage-03/spelling-and-services-observation.txt",
+        "product/mac/evidence/logs/stage-03/services-menu-observation.txt",
+        "product/mac/evidence/logs/stage-03/spell-underline-before-correction.png"
+      ]
+    },
+    "native_keyboard_matrix": {
+      "status": "PASS",
+      "detail": "Real modifier keystrokes were delivered to the app through System Events (the computer-use press_key path does not apply modifier flags - it typed bare letters). Cmd+N created a document; Cmd+Z undid typed characters back to an empty document and 0 words; Cmd+Shift+F engaged View > Focus Writing (the accessibility tree lost the sidebar and toolbar, splitter moved to 0, status line and recovery banner stayed) and toggled back; Ctrl+Cmd+F entered native fullscreen (window close/minimise buttons disappeared from the tree) and toggled back. View > Typewriter Scrolling was toggled on and off from the menu without error. Reduce Motion remains unobserved: the app reads NSWorkspace.shared.accessibilityDisplayShouldReduceMotion (WriterWindowController.swift:293) and the host has the setting off, but the effect is an animation change a single-frame capture cannot show.",
+      "artifacts": [
+        "product/mac/evidence/logs/stage-03/keyboard-matrix-observation.txt"
+      ]
+    },
     "voiceover_editor_session": {
       "status": "NOT MEASURED",
       "reason": "not attempted in this session"
@@ -212,6 +236,18 @@
     "two tamper tests assert rewriting origin or annotation range breaks decryption",
     "removed the unreferenced, ungenerated EditorStatus.swift"
   ],
+  "repair_at_final_candidate": {
+    "commit": "e78543906d37a285f6989079069138cdbf7d573d",
+    "built": "2026-09-18 22:22:05 +0100",
+    "executable_sha256": "d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b",
+    "findings": [
+      "The programmatically built menu bar had no Services menu, so macOS hosted Services (including translation) were unreachable. AppMenus now supplies an empty Services NSMenuItem with a submenu and assigns NSApp.servicesMenu so the system can populate it; the running candidate shows 9 items.",
+      "The Edit menu had no Spelling and Grammar submenu, so the standard native spelling routes could not be reached. AppMenus now adds Show Spelling and Grammar (AppDelegate.showSpellingAndGrammar -> NSSpellChecker.shared.spellingPanel), Check Document Now, Check Spelling While Typing, Check Grammar With Spelling and Correct Spelling Automatically.",
+      "Grammar checking was never enabled. WriterWindowController.install now sets editor.isGrammarCheckingEnabled = true; continuous spell checking was already on and automatic substitutions/completion remain off.",
+      "Undo left the document looking modified: applyObserved unconditionally called updateChangeCount(.changeDone), so undoing every edit still reported an unsaved document. It now calls .changeUndone for an .undo origin.",
+      "The status line compared the saved snapshot by revision identity, so a document whose bytes matched the file still read Unsaved after an undo/redo. It now compares exact documentID and UTF-8 bytes."
+    ]
+  },
   "criteria": [
     {
       "id": "M14",
@@ -232,9 +268,7 @@
       ],
       "artifact_candidate": "89313db3 (current) plus 95efbeca (earlier Stage 03 candidate) plus e7673cf3 (predecessor, 16:41:49)",
       "not_measured": [
-        "Reduce Motion behaviour",
-        "typewriter scrolling",
-        "full keyboard matrix"
+        "Reduce Motion behaviour: the only remaining M14 item. The app reads NSWorkspace.shared.accessibilityDisplayShouldReduceMotion in typewriterScroll() (WriterWindowController.swift:293) and, when set, keeps the caret visible with the smallest scroll jump instead of recentring the page. The host has reduceMotion unset (off) and the effect is a scroll-offset difference that this harness cannot measure, because the computer-use screenshot is not returned as readable bytes and the accessibility tree does not expose the scroll offset. An owner session with Reduce Motion toggled is the exact missing observation."
       ]
     },
     {
@@ -266,7 +300,8 @@
       "evidence": [
         "Stage03EditorTests.testMarkedTextIsNotCommittedAsARevision"
       ],
-      "needs": "owner-visible session with German and CJK input sources enabled"
+      "needs": "an enabled emoji/RTL/CJK input source (none is enabled on this host; adding one needs System Settings, and a new input source usually only registers after a session restart), then an owner-visible typed session",
+      "additional_observation": "Re-probed this session: System Events keystroke of Hebrew text and of a grinning emoji into the focused editor produced the ASCII text 'aaaa aa' - the characters arrived as real native key events but the active German keyboard layout resolved each one to a plain letter. Exact astral/RTL offset handling is covered deterministically by the 1000-operation Unicode replay (seed 1592591107, combining and astral characters, byte-equality after every operation)."
     },
     {
       "id": "M17",
@@ -280,9 +315,14 @@
     },
     {
       "id": "M18",
-      "status": "BLOCKED",
-      "reason": "Spell checking is on and every automatic substitution/completion plus Writing Tools mutation is off, and spelling acceptance is classified as known assistance; the required native spell-correction and Services observations were not performed.",
-      "needs": "owner-visible spell correction and Services/Writing Tools availability check"
+      "status": "PASS",
+      "reason": "Native assistance is usable and its routes are reachable after the menu repair. Observed live on the current candidate: continuous spell checking on (the misspelled token drew the red spelling underline) and grammar checking with spelling enabled by this repair; the Edit menu now exposes Spelling and Grammar (Show Spelling and Grammar, Check Document Now, Check Spelling While Typing, Check Grammar With Spelling, Correct Spelling Automatically) and a Writing Tools submenu where previously there was no Spelling submenu at all; the editor's contextual menu offers Look Up and Translate for the word under the caret; the application menu has a populated Services submenu (9 items); and a real correction ran - with the app default, typing 'teh ' left exactly 'teh ', while after enabling Correct Spelling Automatically from the app's own menu the same keystrokes produced 'The '. Provenance stays exact: the accepted replacement path NSTextView.changeSpelling(_:) is classified knownAssistance(.spelling) and an opaque system mutation stays unknown, both asserted by Stage03EditorTests.testGatewayClassifiesObservedDeliveryWithoutGuessingFromText.",
+      "observed_artifacts": [
+        "logs/stage-03/spelling-and-services-observation.txt",
+        "logs/stage-03/services-menu-observation.txt",
+        "logs/stage-03/spell-underline-before-correction.png"
+      ],
+      "scope_note": "The native correction observed was the automatic path, not a user-accepted correction clicked in the spelling panel or from a suggestion menu. The accepted path is covered deterministically but was not exercised natively here: NSSpellChecker's shared panel is a floating NSPanel that the accessibility layer does not report as a window on this host, and the spelling-suggestion menu did not appear for a caret or find-bar selection in this harness. No Writing Tools panel was invoked, so the injected Writing Tools items' app-level behaviour is NOT MEASURED."
     },
     {
       "id": "M19",
@@ -291,7 +331,8 @@
       "evidence": [
         "Stage03EditorTests.testDictationAnchorCancelsRatherThanOverwritingLaterText"
       ],
-      "needs": "supported on-device locale, granted microphone/speech permission, spoken input"
+      "needs": "an audio input device first (system_profiler SPAudioDataType lists no devices at all on this host, re-checked this session), then a supported on-device locale, granted microphone/speech permission and spoken input",
+      "recheck": "system_profiler SPAudioDataType returned an empty Devices list again this session"
     },
     {
       "id": "M20",
@@ -312,7 +353,8 @@
         "Stage03EditorTests.testObservationHandleHonoursConsentBoundaries",
         "WriterStorageTests.HistoryJournalTests (7 tests)"
       ],
-      "needs": "properly signed candidate with keychain access"
+      "needs": "properly signed candidate with keychain access",
+      "recheck": "security find-identity -v -p codesigning returned 0 valid identities again this session. DocumentRecovery.openStore()/openHistory() read keychain-access-groups, falling back to com.apple.application-identifier/application-identifier; an ad-hoc build carries neither, so the consented journal throws RecoveryKeyError.unavailable before any live off/on/pause check can run."
     }
   ],
   "protocol_and_history": {
@@ -321,7 +363,8 @@
     "protocol_definition_sha256": "58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4",
     "modified": false,
     "acceptance_definitions": 60,
-    "production_approvals": []
+    "production_approvals": [],
+    "reconfirmed": "check_preparation.py and bootstrap_protocol.py re-run as the pre-push validation on the e785439 tree: both PASS with the same freeze_sha256 c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88 and protocol_definition_sha256 58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4"
   },
   "blockers": [
     {
@@ -331,15 +374,15 @@
     },
     {
       "id": "interactive_gui",
-      "detail": "owner-visible session needed for the remaining M14 checks (Reduce Motion, typewriter scrolling and the full keyboard matrix, since the computer-use press_key path did not deliver Cmd+Z/Ctrl+Cmd+S here). Dark appearance at both sizes, focus mode, outline navigation, the Settings panel, Cmd+F and native Edit > Undo Typing were observed by the agent and the system state was restored"
+      "detail": "Only Reduce Motion is left for M14. Everything else was exercised on the candidate: dark appearance at both sizes, the Settings panel, outline navigation, Cmd+F, native Edit > Undo Typing, and - through System Events, which does deliver modifier keys even though the computer-use press_key path does not - Cmd+N, Cmd+Z, Cmd+Shift+F (Focus Writing) and Ctrl+Cmd+F (native fullscreen). Reduce Motion needs the system setting toggled and a measurable scroll-offset comparison, which this harness cannot make, so it needs an owner session. The system state (appearance, focus mode, fullscreen, automatic spelling correction) was restored after each check"
     },
     {
       "id": "input_sources",
-      "detail": "German layout and both dead-key compositions were observed live; an emoji, an RTL script and a full CJK input method remain, and no CJK input source is enabled on this host (adding one needs System Settings)"
+      "detail": "German layout and both dead-key compositions were observed live; an emoji, an RTL script and a full CJK input method remain. No emoji/RTL/CJK input source is enabled on this host (enabled: German layout, CharacterPalette, Ironwood, PressAndHold); System Events keystroke of non-ASCII characters arrived as key events but resolved through the German layout to plain letters, and adding an input source needs System Settings plus a session restart"
     },
     {
       "id": "spell_services",
-      "detail": "actual spelling correction and Services/Writing Tools check needed for M18"
+      "detail": "cleared for M18: a native spelling correction ran (automatic path) and the Services/Translation and Spelling routes are present and reachable in the running candidate. What remains is only the user-accepted suggestion/panel correction, which this harness cannot reach; the accepted path's classification is covered deterministically"
     },
     {
       "id": "microphone_speech",
@@ -350,6 +393,12 @@
     "descriptive_journal_schema": "HistoryJournal schema v3, AAD version 2",
     "pure_interfaces": ["LocalEditRecord", "CaptureEpoch", "CaptureGap", "SourceLineage", "SourceAnnotation"],
     "unchanged_production_approval_state": "empty",
-    "unfinished_here": ["live consented-history round trip", "every owner-observed input method"]
+    "unfinished_here": [
+      "live consented-history round trip (needs a real signing identity for the keychain access group)",
+      "Reduce Motion behavior (needs the system setting toggled and a measurable scroll-offset comparison)",
+      "native emoji/RTL/CJK input and a real user-accepted spelling correction",
+      "on-device dictation (needs an audio input device on this host)"
+    ],
+    "fixtures": "product/mac/evidence/logs/stage-03/ - editor-fixture.md, spell-fixture.md, input-matrix.md, services-menu-observation.txt, spelling-and-services-observation.txt, keyboard-matrix-observation.txt"
   }
 }

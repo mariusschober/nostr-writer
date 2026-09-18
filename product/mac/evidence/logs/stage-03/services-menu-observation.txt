@@ -1,0 +1,7 @@
+menu bar: AppleNostr WriterFileEditFormatViewFocusPassageWindowHelp
+app menu: About Nostr WriterSettings…missing valueServicesmissing valueHide Nostr WriterHide OthersShow Allmissing valueQuit Nostr WriterQuit and Keep Windows
+Edit: UndoRedomissing valueCutCopyPasteSelect AllFind…missing valueWriting ToolsAutoFillEmoji & Symbols
+Format: BoldItalicInline CodeHeadingBlock QuoteBulleted ListLinkmissing valueInsert Image…Show Fontsmissing valueDictate On This Mac
+Services count: 9
+Services items: Activity MonitorAllocations & LeaksFile ActivitySystem TraceTime Profile Active ApplicationTime Profile App Under MouseTime Profile Entire SystemToggle Instruments RecordingServices Settings…
+
