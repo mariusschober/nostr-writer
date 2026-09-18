@@ -6,6 +6,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let recoveryLibrary = RecoveryLibrary()
     lazy var libraryModel = WriterLibraryModel(recovery: recoveryLibrary)
     private var settings: NSWindowController?
+    private var textImporter: TextImportController?
+    private var terminating = false
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         #if DEBUG
@@ -26,6 +28,30 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool { true }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        guard !terminating else { return .terminateLater }
+        terminating = true
+        // Defer even an empty-document callback until after terminateLater is
+        // returned. Native close negotiation retains Save/Discard/Cancel and
+        // each WriterDocument's bounded recovery flush.
+        Task { @MainActor in
+            NSDocumentController.shared.closeAllDocuments(withDelegate: self,
+                didCloseAllSelector: #selector(documentsClosed(_:didCloseAll:contextInfo:)), contextInfo: nil)
+        }
+        return .terminateLater
+    }
+
+    @objc private func documentsClosed(_ controller: NSDocumentController, didCloseAll: Bool, contextInfo: UnsafeMutableRawPointer?) {
+        terminating = false
+        NSApp.reply(toApplicationShouldTerminate: didCloseAll)
+    }
+
+    @objc func importTextCopy(_ sender: Any?) {
+        guard textImporter == nil else { textImporter?.showWindow(sender); return }
+        textImporter = TextImportController(library: recoveryLibrary) { [weak self] in self?.textImporter = nil }
+        textImporter?.chooseSource()
+    }
 
     func applicationWillResignActive(_ notification: Notification) { checkpointDocuments(.interruption) }
 

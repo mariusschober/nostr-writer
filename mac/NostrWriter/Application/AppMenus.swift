@@ -25,6 +25,7 @@ enum AppMenus {
         let file = menu("File")
         item(file, "New", #selector(NSDocumentController.newDocument(_:)), "n")
         item(file, "Open…", #selector(NSDocumentController.openDocument(_:)), "o")
+        item(file, "Import Text Copy…", #selector(AppDelegate.importTextCopy(_:)))
         file.addItem(.separator())
         item(file, "Close", #selector(NSWindow.performClose(_:)), "w")
         item(file, "Save…", #selector(NSDocument.save(_:)), "s")

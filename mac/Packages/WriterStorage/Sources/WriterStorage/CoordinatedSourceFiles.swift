@@ -69,6 +69,22 @@ public actor CoordinatedSourceFiles {
         } onCancel: { cancellation.cancel() }
     }
 
+    /// Explicit import reads bounded original bytes before the person selects
+    /// their encoding. Ordinary source reads still require strict UTF-8.
+    public func readForTextImport(_ url: URL) async throws -> Data {
+        try Self.validate(url); try Self.preflight(url, mustBeNew: false)
+        let cancellation = FileCoordinationCancellation()
+        return try await withTaskCancellationHandler {
+            var coordinationError: NSError?, result: Result<Data, Error>?
+            cancellation.coordinator.coordinate(readingItemAt: url, options: [], error: &coordinationError) { target in
+                result = Result { try Self.readExact(target, requireUTF8: false) }
+            }
+            if let coordinationError { throw Self.safe(coordinationError) }
+            guard let result else { throw SourceFileError.unavailable }
+            return try result.get()
+        } onCancel: { cancellation.cancel() }
+    }
+
     /// Only for a native document writer already inside its coordinated file
     /// accessor. Adding another coordinator there would risk recursive access.
     public nonisolated static func readInsideNativeAccessor(_ url: URL) throws -> Data {
@@ -181,7 +197,7 @@ public actor CoordinatedSourceFiles {
         a.st_mtimespec.tv_sec == b.st_mtimespec.tv_sec && a.st_mtimespec.tv_nsec == b.st_mtimespec.tv_nsec &&
         a.st_ctimespec.tv_sec == b.st_ctimespec.tv_sec && a.st_ctimespec.tv_nsec == b.st_ctimespec.tv_nsec
     }
-    private static func readExact(_ url: URL) throws -> Data {
+    private static func readExact(_ url: URL, requireUTF8: Bool = true) throws -> Data {
         let fd = Darwin.open(url.path, O_RDONLY | O_NONBLOCK | O_NOFOLLOW | O_CLOEXEC)
         guard fd >= 0 else { throw posix() }; defer { Darwin.close(fd) }
         var before = stat(); guard fstat(fd, &before) == 0 else { throw posix() }; try regular(before)
@@ -198,7 +214,8 @@ public actor CoordinatedSourceFiles {
         var after = stat(), pathNow = stat()
         guard fstat(fd, &after) == 0, lstat(url.path, &pathNow) == 0 else { throw posix() }
         guard sameVersion(before, after), sameVersion(after, pathNow), bytes.count == Int(after.st_size) else { throw SourceFileError.changedDuringRead }
-        try validateSource(bytes); return bytes
+        if requireUTF8 { try validateSource(bytes) }
+        return bytes
     }
     private static func syncFile(_ fd: Int32) throws {
         guard fsync(fd) == 0, fcntl(fd, F_FULLFSYNC) == 0 else { throw SourceFileError.durabilityUnavailable }

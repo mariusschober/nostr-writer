@@ -16,7 +16,7 @@ actor RecoveryLibrary {
         let record: DocumentCatalogRecord
     }
 
-    func prepare(_ source: SourceSnapshot, url: URL?, parent: SourceSnapshot?) async throws -> Prepared {
+    func prepare(_ source: SourceSnapshot, url: URL?, parent: SourceSnapshot?, textImport: TextImportReceipt? = nil, title: String? = nil) async throws -> Prepared {
         let store = try await store()
         let location = url?.standardizedFileURL.resolvingSymlinksInPath().absoluteString
         var record: DocumentCatalogRecord
@@ -52,13 +52,14 @@ actor RecoveryLibrary {
             record = existing
         } else {
             record = DocumentCatalogRecord(documentID: source.documentID,
-                                            title: url?.lastPathComponent ?? "Untitled", location: location, parent: parent)
+                                            title: url?.lastPathComponent ?? title ?? "Untitled", location: location, parent: parent)
         }
         if let url {
             record.bookmark = try await ScopedSourceFiles().bookmarkForExplicitSelection(url)
             record.savedRevision = prepared.revision.rawValue; record.savedDigest = prepared.digest
         }
         record.isOpen = true; record.isVisible = true; record.updatedAt = Date().timeIntervalSince1970
+        if let textImport { record.textImport = textImport }
         _ = try await store.persist(RecoveryBatch(source: prepared, receipts: []))
         try await store.saveCatalogRecord(record)
         return Prepared(source: prepared, record: record)

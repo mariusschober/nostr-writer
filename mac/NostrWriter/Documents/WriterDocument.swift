@@ -18,6 +18,7 @@ final class WriterDocument: NSDocument {
     private var openingRevision = Revision(0)
     private var selectedScope: SelectedSourceLease?
     private(set) var derivedFrom: SourceSnapshot?
+    var textImport: TextImportReceipt?
     private(set) var session: DocumentSession?
     private(set) var recovery: DocumentRecovery?
     var recoveryLibrary: RecoveryLibrary?
@@ -358,11 +359,11 @@ final class WriterDocument: NSDocument {
         guard let initial = session?.snapshot, let library = recoveryLibrary else { return }
         recoveryAttachment?.cancel()
         recoveryPreparationError = nil
-        let url = fileURL, parent = derivedFrom
+        let url = fileURL, parent = derivedFrom, textImport = textImport, title = displayName
         recoveryAttachment = Task { [weak self] in
             do {
                 if retry { _ = try await library.store(retry: true) }
-                let prepared = try await library.prepare(initial, url: url, parent: parent)
+                let prepared = try await library.prepare(initial, url: url, parent: parent, textImport: textImport, title: title)
                 guard let self, !Task.isCancelled else { return }
                 self.pendingPreparation = (prepared, initial)
                 self.applyPreparedRecovery()
@@ -406,10 +407,13 @@ final class WriterDocument: NSDocument {
 
 
     nonisolated override func read(from data: Data, ofType typeName: String) throws {
-        guard let text = String(data: data, encoding: .utf8), data.count <= 8 * 1024 * 1024,
-              text.unicodeScalars.count <= 1_000_000 else {
-            throw CocoaError(.fileReadInapplicableStringEncoding)
+        guard data.count <= 8 * 1024 * 1024 else { throw CocoaError(.fileReadTooLarge) }
+        guard SourceSnapshot.firstInvalidUTF8Offset(in: data) == nil else {
+            throw NSError(domain: NSCocoaErrorDomain, code: NSFileReadInapplicableStringEncodingError,
+                userInfo: [NSLocalizedDescriptionKey: "This file is not valid UTF-8.",
+                           NSLocalizedRecoverySuggestionErrorKey: "Use File → Import Text Copy… to choose its encoding and review a new copy. The original file will stay unchanged."])
         }
+        guard String(decoding: data, as: UTF8.self).unicodeScalars.count <= 1_000_000 else { throw CocoaError(.fileReadTooLarge) }
         loadedBytes.withLock { $0 = data }
     }
 
