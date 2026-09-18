@@ -125,15 +125,15 @@ final class WriterLibraryModel: ObservableObject {
         hiddenLocations.insert(Self.location(url)); recent.removeAll { Self.location($0) == Self.location(url) }
         pinned.removeAll { Self.location($0) == Self.location(url) }
         Task {
-            do { try await recovery.hideReference(at: url) }
+            do { try await recovery.hideReference(at: url); refresh() }
             catch { libraryNotice = "Removed for this session. Recovery must be available to remember this change." }
         }
     }
 
     func pin(_ url: URL, value: Bool) {
         Task {
-            do { try await recovery.pinReference(at: url, pinned: value); refresh() }
-            catch { libraryNotice = "This reference could not be saved. Open the file again to restore its permission, then retry." }
+            do { try await recovery.pinReference(at: url, pinned: value); libraryNotice = nil; refresh() }
+            catch { libraryNotice = "This reference could not be saved. Recovery must be available to remember pinned documents." }
         }
     }
 

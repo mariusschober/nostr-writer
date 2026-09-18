@@ -113,7 +113,8 @@ actor RecoveryLibrary {
         let location = url.standardizedFileURL.resolvingSymlinksInPath().absoluteString
         var record = try await store.catalogRecord(at: location)
             ?? DocumentCatalogRecord(documentID: DocumentID(), title: url.lastPathComponent, location: location)
-        record.bookmark = try await ScopedSourceFiles().bookmarkForExplicitSelection(url)
+        // A favourite is library metadata, not a new file-access grant. Keep
+        // the existing bookmark; opening an unavailable reference offers Locate.
         record.isPinned = pinned; record.isVisible = true
         try await store.saveCatalogRecord(record)
     }
