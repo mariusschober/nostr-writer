@@ -884,11 +884,20 @@ extension WriterDocument {
         guard !annotations.isEmpty else { return }
         var survivors: [SourceAnnotation] = []
         for annotation in annotations {
+            // Staleness is a review flag, not transient state: once the wording
+            // was replaced it stays stale until the owner resolves it. A later
+            // unrelated edit must not silently clear it.
+            let wasStale = annotation.isStale
             switch SourceLineage.map(annotation.range, through: record) {
             case .preserved(let range):
-                survivors.append(rebound(annotation, to: range, stale: false))
+                survivors.append(rebound(annotation, to: range, stale: wasStale))
             case .split(let ranges):
-                survivors.append(contentsOf: ranges.map { rebound(annotation, to: $0, stale: false) })
+                // Each surviving fragment is its own annotation. Reusing one id
+                // would let persistence overwrite one fragment with another.
+                for (offset, range) in ranges.enumerated() {
+                    survivors.append(rebound(annotation, id: offset == 0 ? annotation.id : UUID(),
+                                             to: range, stale: wasStale))
+                }
             case .stale:
                 survivors.append(rebound(annotation, to: annotation.range, stale: true))
             }
@@ -897,8 +906,9 @@ extension WriterDocument {
         persistAnnotations()
     }
 
-    private func rebound(_ annotation: SourceAnnotation, to range: ByteRange, stale: Bool) -> SourceAnnotation {
-        SourceAnnotation(id: annotation.id, kind: annotation.kind, range: range,
+    private func rebound(_ annotation: SourceAnnotation, id: UUID? = nil,
+                         to range: ByteRange, stale: Bool) -> SourceAnnotation {
+        SourceAnnotation(id: id ?? annotation.id, kind: annotation.kind, range: range,
                          description: annotation.description, url: annotation.url,
                          revision: session?.snapshot.revision ?? annotation.revision, isStale: stale)
     }

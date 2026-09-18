@@ -89,14 +89,18 @@ public struct HistoryRecordRow: Sendable, Equatable {
 /// two writers can never silently disagree about what a chunk covers.
 enum HistoryCipher {
     static let aadDomain = Data("NWHISTORY1".utf8)
-    static let aadVersion: UInt16 = 1
+    /// Version 2 authenticates the record's full interpretation (range, cause,
+    /// assistance and post-digest), not just its deleted/inserted text.
+    static let aadVersion: UInt16 = 2
     static let referenceDomain = Data("NWHISTREF1".utf8)
     static let chunkDomain = Data("NWHISTCHK1".utf8)
     static let annotationDomain = Data("NWHISTANN1".utf8)
     static let genesisReference = Data(repeating: 0, count: 32)
 
     static func aad(documentID: DocumentID, recordingID: UUID, epochID: CaptureEpochID,
-                    chunkIndex: UInt64, revision: Revision, previousReference: Data) -> Data {
+                    chunkIndex: UInt64, revision: Revision, range: ByteRange,
+                    originCategory: EditOriginCategory, assistanceKind: AssistanceKind?,
+                    postDigest: Data, previousReference: Data) -> Data {
         var out = Data()
         out.append(aadDomain)
         out.append(StorageEncoding.uint16(aadVersion))
@@ -105,8 +109,22 @@ enum HistoryCipher {
         out.append(StorageEncoding.uuid(epochID.rawValue))
         out.append(StorageEncoding.uint64(chunkIndex))
         out.append(StorageEncoding.uint64(revision.rawValue))
+        // The interpretation of the record — its exact range, observed cause and
+        // resulting digest — is authenticated. Those values live in plaintext
+        // columns, so rewriting them must break authenticated decryption rather
+        // than silently changing what the record claims happened.
+        out.append(StorageEncoding.uint64(UInt64(bitPattern: Int64(range.lowerBound))))
+        out.append(StorageEncoding.uint64(UInt64(bitPattern: Int64(range.upperBound))))
+        out.append(field(Data(originCategory.rawValue.utf8)))
+        out.append(field(assistanceKind.map { Data($0.rawValue.utf8) } ?? Data()))
+        out.append(field(postDigest))
         out.append(previousReference)
         return out
+    }
+
+    /// Length-prefixed field so concatenated values can never be ambiguous.
+    private static func field(_ data: Data) -> Data {
+        StorageEncoding.uint64(UInt64(data.count)) + data
     }
 
     static func chunkReference(documentID: DocumentID, recordingID: UUID, epochID: CaptureEpochID,
@@ -122,11 +140,18 @@ enum HistoryCipher {
         return SourceSnapshot.sha256(out)
     }
 
-    static func annotationAAD(documentID: DocumentID, revision: Revision) -> Data {
+    static func annotationAAD(documentID: DocumentID, annotationID: UUID, kind: AnnotationKind,
+                              range: ByteRange, revision: Revision, isStale: Bool) -> Data {
         var out = Data()
         out.append(annotationDomain)
+        out.append(StorageEncoding.uint16(aadVersion))
         out.append(StorageEncoding.uuid(documentID.rawValue))
+        out.append(StorageEncoding.uuid(annotationID))
+        out.append(field(Data(kind.rawValue.utf8)))
+        out.append(StorageEncoding.uint64(UInt64(bitPattern: Int64(range.lowerBound))))
+        out.append(StorageEncoding.uint64(UInt64(bitPattern: Int64(range.upperBound))))
         out.append(StorageEncoding.uint64(revision.rawValue))
+        out.append(StorageEncoding.uint16(isStale ? 1 : 0))
         return out
     }
 
@@ -304,7 +329,10 @@ public actor HistoryJournal {
                 let payload = try Self.encodePayload(deleted: record.deleted, inserted: record.inserted)
                 let aad = HistoryCipher.aad(documentID: epoch.documentID, recordingID: epoch.recordingUUID,
                                             epochID: record.epochID, chunkIndex: index,
-                                            revision: record.revision, previousReference: previous)
+                                            revision: record.revision, range: record.range,
+                                            originCategory: record.originCategory,
+                                            assistanceKind: record.assistanceKind,
+                                            postDigest: record.postDigest, previousReference: previous)
                 let nonce = try nonceGenerator.nextNonce()
                 let sealed = try HistoryCipher.seal(payload, key: key, nonce: nonce, aad: aad)
                 let reference = HistoryCipher.chunkReference(documentID: epoch.documentID, recordingID: epoch.recordingUUID,
@@ -365,13 +393,16 @@ public actor HistoryJournal {
             let recordedAt = statement.columnDouble(10)
             let recordID = try Self.uuid(from: statement.requiredText(11)) ?? UUID()
             let epoch = try requireEpoch(rowEpochID)
+            let byteRange = try ByteRange(lowerBound: lower, upperBound: upper)
             let aad = HistoryCipher.aad(documentID: documentID, recordingID: epoch.recordingUUID,
                                         epochID: rowEpochID, chunkIndex: chunkIndex, revision: revision,
+                                        range: byteRange, originCategory: origin,
+                                        assistanceKind: assistance, postDigest: postDigest,
                                         previousReference: previous)
             let payload = try HistoryCipher.open(sealed, key: key, nonce: nonce, aad: aad)
             let (deleted, inserted) = try Self.decodePayload(payload)
             let record = LocalEditRecord(id: recordID, epochID: rowEpochID, revision: revision,
-                                         range: try ByteRange(lowerBound: lower, upperBound: upper),
+                                         range: byteRange,
                                          deleted: deleted, inserted: inserted, originCategory: origin,
                                          assistanceKind: assistance, postDigest: postDigest,
                                          recordedAtEpochSeconds: recordedAt)
@@ -413,7 +444,9 @@ public actor HistoryJournal {
         let payload = try Self.encodeAnnotation(description: annotation.description, url: annotation.url)
         let nonce = try nonceGenerator.nextNonce()
         let key = try await loadKey()
-        let aad = HistoryCipher.annotationAAD(documentID: documentID, revision: annotation.revision)
+        let aad = HistoryCipher.annotationAAD(documentID: documentID, annotationID: annotation.id,
+                                              kind: annotation.kind, range: annotation.range,
+                                              revision: annotation.revision, isStale: annotation.isStale)
         let sealed = try HistoryCipher.seal(payload, key: key, nonce: nonce, aad: aad)
         try database.withTransaction {
             let statement = try database.prepare("""
@@ -458,11 +491,14 @@ public actor HistoryJournal {
             let isStale = statement.columnInt64(5) != 0
             let nonce = try statement.requiredBlob(6)
             let sealed = try statement.requiredBlob(7)
+            let range = try ByteRange(lowerBound: lower, upperBound: upper)
             let payload = try HistoryCipher.open(sealed, key: key, nonce: nonce,
-                                                 aad: HistoryCipher.annotationAAD(documentID: documentID, revision: revision))
+                                                 aad: HistoryCipher.annotationAAD(
+                                                    documentID: documentID, annotationID: id, kind: kind,
+                                                    range: range, revision: revision, isStale: isStale))
             let (description, url) = try Self.decodeAnnotation(payload)
             result.append(SourceAnnotation(id: id, kind: kind,
-                                           range: try ByteRange(lowerBound: lower, upperBound: upper),
+                                           range: range,
                                            description: description, url: url, revision: revision, isStale: isStale))
         }
         return result

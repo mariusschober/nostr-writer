@@ -225,4 +225,59 @@ final class HistoryJournalTests: XCTestCase {
         XCTAssertEqual(secondStillOpen?.id, secondEpoch.id, "Another document's epoch must stay open")
         await journal.close()
     }
+
+    /// Stage 03 repair: the interpretation of a record — its range, cause and
+    /// post-digest — is authenticated, not only its sealed text. Rewriting a
+    /// plaintext column must break decryption, not silently change the record.
+    func testTamperingWithRecordInterpretationBreaksAuthentication() async throws {
+        let workspace = try TempWorkspace(); defer { workspace.remove() }
+        let id = DocumentID()
+        let journal = try makeJournal(workspace)
+        let initial = try makeSnapshot(id, 0, "source")
+        let epoch = try await journal.beginEpoch(documentID: id, atRevision: initial.revision,
+                                                 priorTextCompleteness: .descriptiveOnly)
+        try await journal.append([try insertRecord(epoch: epoch, source: initial, text: " typed")])
+        await journal.close()
+
+        let raw = try SQLiteConnection(path: workspace.databaseURL.path, busyTimeoutMilliseconds: 1_000)
+        let update = try raw.prepare("UPDATE history_records SET origin = 'assistance'")
+        _ = try update.step()
+        raw.close()
+
+        let reopened = try makeJournal(workspace)
+        do {
+            _ = try await reopened.records(documentID: id)
+            XCTFail("Rewriting a record's origin must break authenticated decryption")
+        } catch let error as HistoryError {
+            guard case .corrupt = error else { return XCTFail("Expected corrupt, got \(error)") }
+        }
+        await reopened.close()
+    }
+
+    /// The same holds for annotation interpretation (kind/range/staleness).
+    func testTamperingWithAnnotationInterpretationBreaksAuthentication() async throws {
+        let workspace = try TempWorkspace(); defer { workspace.remove() }
+        let id = DocumentID()
+        let journal = try makeJournal(workspace)
+        let initial = try makeSnapshot(id, 0, "source")
+        let annotation = SourceAnnotation(kind: .quotation,
+                                          range: try ByteRange(lowerBound: 0, upperBound: 5),
+                                          description: "note", revision: initial.revision)
+        try await journal.saveAnnotation(annotation, documentID: id)
+        await journal.close()
+
+        let raw = try SQLiteConnection(path: workspace.databaseURL.path, busyTimeoutMilliseconds: 1_000)
+        let update = try raw.prepare("UPDATE history_annotations SET range_upper = 6")
+        _ = try update.step()
+        raw.close()
+
+        let reopened = try makeJournal(workspace)
+        do {
+            _ = try await reopened.annotations(documentID: id)
+            XCTFail("Rewriting an annotation's range must break authenticated decryption")
+        } catch let error as HistoryError {
+            guard case .corrupt = error else { return XCTFail("Expected corrupt, got \(error)") }
+        }
+        await reopened.close()
+    }
 }
