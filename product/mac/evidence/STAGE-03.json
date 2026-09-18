@@ -141,7 +141,24 @@
     },
     "native_ui_preferences_and_reduce_motion": {
       "status": "NOT MEASURED",
-      "reason": "the Settings panel was opened and measured at 540x502 (artifact settings-window-fixed.jpeg); Reduce Motion behaviour and the typewriter-scrolling interaction remain unobserved and need an owner-visible session"
+      "reason": "the Settings panel was opened and measured at 540x502 (artifact settings-window-fixed.jpeg). Reduce Motion behaviour and the typewriter-scrolling interaction remain unobserved: driving Typewriter Scrolling, Toggle Inspector and Toggle Sidebar through the app's own View menu by accessibility produced no observable change in this harness",
+      "artifact": "product/mac/evidence/logs/stage-03/settings-window-fixed.jpeg"
+    },
+    "native_input_matrix_deadkeys": {
+      "status": "PASS",
+      "detail": "real key events on the frozen candidate with the German layout active: ä ö ü ß typed exactly and two genuine dead-key compositions committed through marked text (^ then e gave ê; ´ then e gave é). The text was typed into the app's untitled scratch buffer and not saved",
+      "artifact": "product/mac/evidence/logs/stage-03/input-matrix-deadkeys.jpeg",
+      "host_input_sources": [
+        "com.apple.keylayout.German",
+        "com.apple.PressAndHold",
+        "com.apple.CharacterPaletteIM",
+        "com.apple.inputmethod.ironwood"
+      ],
+      "not_performed": [
+        "emoji",
+        "RTL script",
+        "a full CJK input method"
+      ]
     },
     "native_keyboard_matrix": {
       "status": "NOT MEASURED",
@@ -154,7 +171,7 @@
     },
     "native_input_method_matrix": {
       "status": "NOT MEASURED",
-      "reason": "a German keyboard layout and PressAndHold are enabled on this host, but the required dead-key/IME/emoji/RTL composition was not typed into the editor; needs an owner-visible session"
+      "reason": "the German layout and both dead-key compositions were observed live (see native_input_matrix_deadkeys); an emoji, an RTL script and a full CJK input method were not, and no CJK input source is enabled on this host"
     },
     "native_spell_and_services": {
       "status": "NOT MEASURED",
@@ -162,7 +179,7 @@
     },
     "native_on_device_dictation": {
       "status": "NOT MEASURED",
-      "reason": "needs microphone, spoken audio and speech-recognition permission"
+      "reason": "system_profiler SPAudioDataType reports no audio devices at all on this host, so real on-device recognition cannot be exercised here whatever the permission state; needs an audio input device, a supported on-device locale and granted microphone/speech permission"
     },
     "native_inspector_annotation_interaction": {
       "status": "PASS",
@@ -175,7 +192,13 @@
     },
     "live_consented_history": {
       "status": "BLOCKED",
-      "reason": "ad-hoc candidate has no keychain access group; the app reported Recovery unavailable and the encrypted journal could not be opened"
+      "reason": "macOS requires a real signing identity for the keychain access group the journal uses. Two controlled experiments: re-signing a throwaway copy of the candidate ad-hoc WITH keychain-access-groups makes launchd refuse to launch it (POSIX 163) both with and without app-sandbox, while the identical re-sign WITHOUT that entitlement launches normally. security find-identity -v -p codesigning returns 0 identities, including an explicit query against login.keychain-db. A previously provisioned marker records accessGroup 6R2578FWBR.com.mariusschober.nostrwriter.development with ready true, so the owner's team identity worked earlier and is currently absent",
+      "experiment_evidence": {
+        "with_keychain_group_sandboxed": "launch failed, RBSRequestErrorDomain Code=5 / POSIX 163",
+        "with_keychain_group_unsandboxed": "launch failed, RBSRequestErrorDomain Code=5 / POSIX 163",
+        "control_without_keychain_group": "launched normally",
+        "existing_marker": "~/Library/Containers/com.mariusschober.nostrwriter.development/Data/Library/Application Support/NostrWriter/Development/bootstrap.json"
+      }
     },
     "voiceover_editor_session": {
       "status": "NOT MEASURED",
@@ -229,7 +252,17 @@
     {
       "id": "M16",
       "status": "BLOCKED",
-      "reason": "The marked-text unit path passes (composition publishes no revision, commit classified nativeIMECommit), but the required real input matrix (US/German layouts, dead keys, at least one real IME, emoji, RTL) was not performed.",
+      "reason": "Real native input was observed live this session on the frozen candidate: with the German layout active, ä ö ü ß typed exactly and two genuine dead-key compositions committed through marked text (^ then e gave ê; ´ then e gave é), captured in logs/stage-03/input-matrix-deadkeys.jpeg. The marked-text unit path also passes (composition publishes no revision, commit classified nativeIMECommit). Still unperformed: emoji, an RTL script and a full CJK input method; no CJK input source is enabled on this host.",
+      "observed": [
+        "German layout characters ä ö ü ß typed exactly",
+        "^ then e composed ê through marked text",
+        "´ then e composed é through marked text"
+      ],
+      "not_measured": [
+        "emoji",
+        "RTL script",
+        "a full CJK input method"
+      ],
       "evidence": [
         "Stage03EditorTests.testMarkedTextIsNotCommittedAsARevision"
       ],
@@ -254,7 +287,7 @@
     {
       "id": "M19",
       "status": "BLOCKED",
-      "reason": "Dictation anchor/cancellation rules pass deterministically, but real on-device recognition and denial/unavailable/error paths need a microphone, spoken audio and speech permission.",
+      "reason": "Dictation anchor/cancellation rules pass deterministically. system_profiler SPAudioDataType reports no audio devices at all on this host, so real on-device recognition cannot be exercised here whatever the permission state; the denial/unavailable/error paths also need an owner-visible session.",
       "evidence": [
         "Stage03EditorTests.testDictationAnchorCancelsRatherThanOverwritingLaterText"
       ],
@@ -274,7 +307,7 @@
     {
       "id": "M21",
       "status": "BLOCKED",
-      "reason": "Consent-boundary logic and the encrypted HistoryJournal behaviour pass deterministically, including the new interpretation-tamper cases, but the live off/on/pause persistence check could not run because the ad-hoc candidate has no keychain access group.",
+      "reason": "Consent-boundary logic and the encrypted HistoryJournal behaviour pass deterministically, including the interpretation-tamper cases. The live off/on/pause persistence check cannot run without a real signing identity: two controlled experiments showed an ad-hoc signature carrying keychain-access-groups is refused at launch (POSIX 163) with and without app-sandbox, while the same re-sign without that entitlement launches normally, and security find-identity returns 0 identities (including an explicit query against login.keychain-db). A previously provisioned marker records the owner's team-prefixed access group with ready true.",
       "evidence": [
         "Stage03EditorTests.testObservationHandleHonoursConsentBoundaries",
         "WriterStorageTests.HistoryJournalTests (7 tests)"
@@ -293,7 +326,7 @@
   "blockers": [
     {
       "id": "signing_identity",
-      "detail": "0 valid codesigning identities; restore the owner's existing Apple Development identity and rebuild with mac/scripts/build_signed_development.sh",
+      "detail": "0 valid codesigning identities (also 0 when login.keychain-db is queried explicitly). macOS refuses to launch an ad-hoc-signed app carrying a keychain-access-groups entitlement - verified with a throwaway re-signed copy: POSIX 163 with and without app-sandbox, while the same re-sign without the entitlement launches. So recovery and the consented journal need a real identity. The previously provisioned bootstrap marker records accessGroup 6R2578FWBR.com.mariusschober.nostrwriter.development with ready true, so the owner's existing Apple Development identity only needs restoring, then rebuild with mac/scripts/build_signed_development.sh",
       "blocks": ["M21 live history", "any recovery claim in this build"]
     },
     {
@@ -302,7 +335,7 @@
     },
     {
       "id": "input_sources",
-      "detail": "German and CJK input sources, emoji and RTL needed for M16"
+      "detail": "German layout and both dead-key compositions were observed live; an emoji, an RTL script and a full CJK input method remain, and no CJK input source is enabled on this host (adding one needs System Settings)"
     },
     {
       "id": "spell_services",
@@ -310,7 +343,7 @@
     },
     {
       "id": "microphone_speech",
-      "detail": "microphone, spoken audio and speech permission needed for M19"
+      "detail": "system_profiler SPAudioDataType reports no audio devices at all on this host, so M19 needs an audio input device before recognition can be exercised, plus a supported on-device locale and granted microphone/speech permission"
     }
   ],
   "stage04_handoff": {
