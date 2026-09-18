@@ -1,8 +1,8 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`1333b4cb31bcbdd7c786096cff0b97432b6f348a` on `implementation/stage-02`.
-M07 and M09–M12 pass in their recorded scopes. M08 awaits sleep/wake; final contract review reopened M13 for missing Stage 02 accessibility/appearance observations. All 60 definitions are unchanged.
+`67302883935fcfaba2b9668a04df3aee60820fcd` on `implementation/stage-02`.
+M07–M12 pass in their recorded scopes. M13 awaits actual VoiceOver speech; required light/dark screens are now observed. All 60 definitions are unchanged.
 Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
 ## Implemented checkpoint
@@ -428,3 +428,29 @@ Process inspection afterward found the utility but no running VoiceOver speech
 process. Sleep still awaits owner availability to wake/unlock. No new tests will
 run solely while waiting, and Stage 03 remains prohibited by the owner's stop
 boundary until Stage 02 passes and the goal is paused.
+
+## Owner-assisted sleep and final screen observation
+
+The owner replied ready and woke/unlocked the Mac. **M08 PASS:** system power logs
+record actual sleep at 14:01:49 +0100 and wake at 14:02:09, 20 seconds later. The
+unsaved draft and current recovery survived. Native Save reproduced the exact
+61-byte fixture, SHA-256 `f31c33a2934ef73d33fbb4b871f624f89884b05527b751612109d69527a960fb`.
+This closes the sleep gap; prior fault/crash/timing evidence retains its scope.
+
+Library/unsaved document and permission warning were observed in both light and
+dark. The warning left the complete dirty draft editable and the disk source
+unchanged. Synthetic permissions were restored. Actual conflict screenshots then
+revealed hidden comparison panels despite their presence in the accessibility tree.
+Commit `6730288` assigns the accessory stack its fitting frame. One signed build
+passed, and the resulting sheet visibly shows both complete versions and all four
+choices in both appearances. Tab traverses the two text views. Only the affected
+screen was repeated; no passing automated check was rerun. Auto appearance was
+restored. Details and exact candidate scopes are in
+[sleep-and-accessibility-observation.json](logs/stage-02/sleep-and-accessibility-observation.json).
+
+**M13 remains BLOCKED:** the owner reported “I did not hear speech.” VoiceOver was
+shown enabled, its speech was not muted, and Mac speakers were selected at 50%
+without mute. Native automation could not select the VoiceOver/Quickstart helper;
+no audible result is invented. The owner has been asked to toggle VoiceOver off/on
+manually. The settings switch and prepared conflict screen remain available. This
+is the sole remaining acceptance observation; Stage 03 has not started.

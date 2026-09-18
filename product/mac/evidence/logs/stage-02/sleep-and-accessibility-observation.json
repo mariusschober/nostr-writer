@@ -1,0 +1,45 @@
+{
+  "observed_date": "2026-09-18",
+  "source_commit": "67302883935fcfaba2b9668a04df3aee60820fcd",
+  "binary_sha256": "5364c150703529304517f1974d825f9b5074027f010f2f601d42d91693b44b54",
+  "sleep": {
+    "status": "PASS",
+    "source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a",
+    "binary_sha256": "4f0973a8388b118c6b236f44add943829d46cffb00e74e8e8ec1d3737990a91c",
+    "authorization": "Owner replied ready and then done after waking the Mac.",
+    "command": "pmset sleepnow",
+    "system_log_command": "pmset -g log | rg '2026-09-18 14:0[12].*(Entering Sleep|Wake from|DarkWake from)'",
+    "system_log": [
+      "2026-09-18 14:01:49 +0100 Sleep: Entering Sleep state due to Software Sleep; 20 secs",
+      "2026-09-18 14:02:09 +0100 Wake: Wake from Deep Idle, trackpadkeyboard HID Activity"
+    ],
+    "observed": "Unsaved synthetic draft and Recovery up to date survived actual system sleep/wake. Subsequent native Save produced all 61 exact expected bytes. Recording stayed off.",
+    "saved_bytes": 61,
+    "saved_sha256": "f31c33a2934ef73d33fbb4b871f624f89884b05527b751612109d69527a960fb",
+    "scope": "Actual sleep/wake and exact post-wake source readback, combined with separately recorded crash/fault/timing checks. No abrupt power-loss or new key-denial test claimed."
+  },
+  "appearance": {
+    "status": "PASS",
+    "library_unsaved_document": "Native library/search/blank editor/unsaved status observed in light and dark on 1333b4c.",
+    "permission_error": "Dedicated synthetic source and folder temporarily read-only. Native save displayed permission warning in light and dark. After dismissing, all 89 dirty bytes remained editable, Save failed remained explicit, encrypted recovery was current, and the saved source was unchanged. Permissions restored to 0755/0644.",
+    "conflict_initial_failure": "The accessibility tree exposed both complete versions, but the actual 260-pixel-wide alert rendered no comparison panels. Not a pass.",
+    "conflict_fix": "Assign the comparison NSStackView its fitting frame before NSAlert uses it as an accessory. Prior zero frame hid the constrained children. No source/storage logic changed.",
+    "conflict_after_fix": "Signed rebuilt sheet visibly shows both complete text panels (107 local / 61 external bytes), labels, byte counts, Keep Both default, Keep Local, Open External Copy and Cancel in light and dark. Tab moves focus between the two selectable source views.",
+    "settings_restored": "Auto appearance reselected and observed. Speaker selection, output volume and mute were only inspected, not changed."
+  },
+  "voiceover": {
+    "status": "BLOCKED",
+    "observed": "System Settings VoiceOver switch changed off to on. Speech Mute was off; MacBook Pro Speakers selected, output 50%, not muted. VoiceOver Utility caption setting was already enabled. Native keyboard reading commands and focused field transitions were attempted.",
+    "owner_report": "I did not hear speech",
+    "limitation": "No aural pass claimed. Selecting VoiceOver and its running Quickstart helper through native automation timed out. Process inspection showed Quickstart/Utility/SpeechSynthesisServer but no main VoiceOver process. This does not establish an application accessibility defect.",
+    "next_action": "Owner asked to toggle VoiceOver off/on manually and report whether speech starts. Settings left open at the switch; comparison remains available."
+  },
+  "build": {
+    "status": "PASS",
+    "log": "/private/tmp/nostr-writer-stage02-conflict-frame-build.log",
+    "scope": "One signed universal build after the small observed accessory-layout correction; only that corrected screen re-observed. No passing automated checks repeated.",
+    "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation DEVELOPMENT_TEAM=<owner-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY='Apple Development' WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build"
+  },
+  "stage_accepted": false,
+  "stop_boundary": "Once Stage 02 passes, push acceptance evidence and pause before Stage 03."
+}

@@ -3,9 +3,9 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a",
+  "source_commit": "67302883935fcfaba2b9668a04df3aee60820fcd",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Signed candidate with measured recovery deadline fix. Stage 02 remains unaccepted for actual sleep/wake and the missing Stage 02 accessibility/appearance observations identified at final review.",
+  "source_state": "Sleep/wake and complete light/dark screen observations recorded; conflict accessory layout fixed and observed. VoiceOver remains unverified because the owner heard no speech.",
   "criteria": [
     {
       "id": "M07",
@@ -21,13 +21,14 @@
     },
     {
       "id": "M08",
-      "status": "NOT MEASURED",
-      "reason": "Encrypted fault-injection, signed recovery, crash/restart and corrected native production-clock measurement pass within recorded scopes. Actual sleep/wake observation still awaits owner readiness.",
+      "status": "PASS",
+      "reason": "Recorded encrypted fault checks, signed crash/restart and quit, production-clock recovery measurement, and actual owner-assisted sleep/wake preserve exact source within their stated scopes.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
-        "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
+        "product/mac/evidence/logs/stage-02/recovery-timing-results.json",
+        "product/mac/evidence/logs/stage-02/sleep-and-accessibility-observation.json"
       ]
     },
     {
@@ -55,7 +56,8 @@
         "product/mac/evidence/logs/stage-02/conflicts-native.log",
         "product/mac/evidence/logs/stage-02/signed-runtime-results.json",
         "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
-        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
+        "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json",
+        "product/mac/evidence/logs/stage-02/sleep-and-accessibility-observation.json"
       ]
     },
     {
@@ -75,8 +77,8 @@
     },
     {
       "id": "M13",
-      "status": "NOT MEASURED",
-      "reason": "Recorded library actions, limits, AX exposure and library/editor light-dark inspection pass within scope. Final PLAN 02 review found no complete Stage 02 VoiceOver or requested light/dark screen matrix evidence. Prior foundation acceptance cannot establish these new controls; native capture tools failed during the remaining observation.",
+      "status": "BLOCKED",
+      "reason": "Library interaction/limits/AX and required light/dark screens are observed, including corrected visible conflict panels. Owner heard no VoiceOver speech although settings were enabled and unmuted. Awaiting manual VoiceOver activation and actual spoken-output observation.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
@@ -84,7 +86,8 @@
         "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json",
         "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json",
         "product/mac/evidence/logs/stage-02/library-final-observation.json",
-        "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
+        "product/mac/evidence/logs/stage-02/recovery-timing-results.json",
+        "product/mac/evidence/logs/stage-02/sleep-and-accessibility-observation.json"
       ]
     }
   ],
@@ -124,7 +127,7 @@
       "tests": 3,
       "seconds": 0.058
     },
-    "current_native_compile": "PASS: universal signed development candidate 1333b4c, binary SHA-256 recorded in recovery-timing-results.json.",
+    "current_native_compile": "PASS: signed universal source 6730288; actual corrected conflict comparison observed in light/dark.",
     "final_lifecycle_gui": "PASS limited signed Save As/Duplicate/Cancel Quit/saved normal Quit/recovered draft/Recent; remaining Stage 02 interactions NOT MEASURED.",
     "prior_catalog_native": {
       "status": "PASS",
@@ -406,13 +409,18 @@
     "native_recovery_timing": {
       "status": "PASS",
       "evidence": "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
+    },
+    "sleep_and_accessibility": {
+      "status": "PARTIAL",
+      "evidence": "product/mac/evidence/logs/stage-02/sleep-and-accessibility-observation.json",
+      "scope": "Sleep and appearance PASS; VoiceOver BLOCKED."
     }
   },
   "next_work": [
-    "Complete only the missing Stage 02 VoiceOver and requested light/dark screen observations once native capture works; retain prior passing component/provider evidence.",
-    "Perform one approved actual sleep/wake recovery observation when the owner is available to wake/unlock.",
-    "Review final M07-M13 evidence, commit/push acceptance, then pause the active goal before Stage 03."
+    "Await owner manual VoiceOver activation; observe speech for the already prepared Stage 02 screens without repeating storage/provider checks.",
+    "Restore VoiceOver to its prior off state after the scoped observation.",
+    "Record final Stage 02 acceptance and push only when M13 is satisfied; then pause before Stage 03 as requested."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "e08935a8924e2796f9deaa9e4e807077766cfba4"
+  "previous_source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a"
 }
