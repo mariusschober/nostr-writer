@@ -185,22 +185,28 @@ final class WriterDocument: NSDocument {
         }
     }
 
-    nonisolated override func presentedItemDidMove(to newURL: URL) {
-        super.presentedItemDidMove(to: newURL)
-        Task { @MainActor [weak self] in
-            guard let self, let saved = self.savedFile, self.fileURL == newURL else { return }
-            self.savedFile = SavedFileRevision(source: saved.source, url: newURL)
-            self.recovery?.acknowledgeSave(self.savedFile!, parent: self.derivedFrom,
-                assets: self.assets.records, assetFolderBookmark: self.assets.folderBookmark)
-            self.fileLifecycle.scheduleCheck(); self.refreshWindows()
-            let model = (NSApp.delegate as? AppDelegate)?.libraryModel
-            model?.noteRecent(newURL)
-            // Finish the location update before hiding the old reference: its
-            // catalog record still belongs to this document until then.
-            do { try await self.flushRecovery(at: .save) }
-            catch { return }
-            guard self.fileURL == newURL else { return }
-            model?.removeRecent(saved.url); model?.refresh()
+    nonisolated override var fileURL: URL? {
+        didSet {
+            guard let newURL = fileURL, oldValue != newURL else { return }
+            // AppKit may adopt a provider move after its presenter callback
+            // returns. Observe the adopted URL, not the callback's timing.
+            Task { @MainActor [weak self] in
+                guard let self, !self.isSavingSource, !self.lifecycleBusy,
+                      let saved = self.savedFile, saved.url != newURL,
+                      self.fileURL == newURL else { return }
+                self.savedFile = SavedFileRevision(source: saved.source, url: newURL)
+                self.recovery?.acknowledgeSave(self.savedFile!, parent: self.derivedFrom,
+                    assets: self.assets.records, assetFolderBookmark: self.assets.folderBookmark)
+                self.fileLifecycle.scheduleCheck(); self.refreshWindows()
+                let model = (NSApp.delegate as? AppDelegate)?.libraryModel
+                model?.noteRecent(newURL)
+                // Finish the location update before hiding the old reference: its
+                // catalog record still belongs to this document until then.
+                do { try await self.flushRecovery(at: .save) }
+                catch { return }
+                guard self.fileURL == newURL else { return }
+                model?.removeRecent(saved.url); model?.refresh()
+            }
         }
     }
 
