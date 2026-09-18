@@ -12,6 +12,8 @@
 <key>NSPrincipalClass</key><string>NSApplication</string>
 <key>NSHighResolutionCapable</key><true/>
 <key>NSSupportsAutomaticTermination</key><true/>
+<key>NSMicrophoneUsageDescription</key><string>Nostr Writer uses the microphone only while you run on-device dictation, and stops when you stop it.</string>
+<key>NSSpeechRecognitionUsageDescription</key><string>Nostr Writer transcribes dictation on this Mac only. Audio is not sent to a server.</string>
 <key>CFBundleDocumentTypes</key><array><dict>
 <key>CFBundleTypeName</key><string>Markdown document</string>
 <key>CFBundleTypeRole</key><string>Editor</string>

@@ -126,6 +126,36 @@ public actor RecoveryBootstrap {
 
     private func failure(_ message: String) -> RecoveryKeyError { .unavailable(message) }
 
+    /// Opens the consented detailed-history journal beside an existing
+    /// installation, sharing its installation key.
+    ///
+    /// Unlike ``open(root:service:accessGroup:)`` this never creates, replaces
+    /// or removes a key and never takes the single-writer installation lease:
+    /// the recovery store already owns it. A missing, unprepared or mismatched
+    /// installation is reported as an honest failure so recording stays off
+    /// while ordinary writing and recovery continue.
+    public func openHistoryJournal(root: URL, service: String, accessGroup: String) async throws -> HistoryJournal {
+        _ = try RecoveryKeychainIdentity(service: service, account: "validation", accessGroup: accessGroup)
+        guard root.isFileURL, root.path == root.standardizedFileURL.resolvingSymlinksInPath().path else {
+            throw failure("The private history location is not a direct local directory.")
+        }
+        let directory = Darwin.open(root.path, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+        guard directory >= 0 else { throw failure("The private history directory is unavailable.") }
+        defer { Darwin.close(directory) }
+        let marker = try read(directory: directory)
+        guard marker.version == 1, marker.ready, marker.service == service, marker.accessGroup == accessGroup else {
+            throw failure("The private history installation is not ready. Recording stays off.")
+        }
+        let identity = try RecoveryKeychainIdentity(service: service, account: marker.installation.uuidString,
+                                                    accessGroup: accessGroup)
+        let provider = KeychainRecoveryKey(identity: identity, reader: reader)
+        // Validate the key is loadable before SQLite can create any history row;
+        // a missing key must never generate a replacement.
+        _ = try await provider.loadRecoveryKey()
+        return try HistoryJournal(configuration: .init(databaseURL: root.appendingPathComponent("history.sqlite")),
+                                  keyProvider: provider)
+    }
+
     private func read(directory: Int32) throws -> RecoveryBootstrapMarker {
         let fd = openat(directory, "bootstrap.json", O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
         guard fd >= 0 else { throw failure("The recovery installation marker cannot be read.") }

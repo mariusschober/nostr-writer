@@ -5,6 +5,9 @@ public enum EditOrigin: Equatable, Sendable {
     case nativeIMEUpdate, nativeIMECommit
     case knownAssistance(AssistanceKind)
     case pasteExternal
+    // Stage 03 additions: clipboard deletion and drag-and-drop have their own
+    // observed causes, so an ordinary cut or drop is not recorded as a gap.
+    case cut, drop
     case internalMove(UUID), internalCopy(UUID)
     case undo(UUID), redo(UUID)
     case formatting, findReplace, externalReload, recover, unknown

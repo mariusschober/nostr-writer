@@ -47,13 +47,26 @@ enum AppMenus {
         item(edit, "Find…", #selector(NSTextView.performFindPanelAction(_:)), "f")
         edit.items.last?.tag = NSTextFinder.Action.showFindInterface.rawValue
         let format = menu("Format")
+        for formatting in EditorCommands.Formatting.allCases {
+            let value = NSMenuItem(title: formatting.title, action: #selector(WriterWindowController.applyFormatting(_:)), keyEquivalent: "")
+            value.representedObject = formatting.rawValue
+            format.addItem(value)
+        }
+        format.addItem(.separator())
         item(format, "Insert Image…", #selector(WriterDocument.insertImage(_:)))
         item(format, "Show Fonts", #selector(NSFontManager.orderFrontFontPanel(_:)))
+        format.addItem(.separator())
+        item(format, "Dictate On This Mac", #selector(WriterWindowController.toggleDictation(_:)))
         let view = menu("View")
         item(view, "Toggle Sidebar", #selector(WriterWindowController.toggleSidebar(_:)), "s", [.command, .control])
+        item(view, "Toggle Inspector", #selector(WriterWindowController.toggleInspector(_:)), "i", [.command, .option])
+        item(view, "Focus Writing", #selector(WriterWindowController.toggleFocusWriting(_:)), "f", [.command, .shift])
+        item(view, "Typewriter Scrolling", #selector(WriterWindowController.toggleTypewriterScrolling(_:)))
         item(view, "Enter Full Screen", #selector(NSWindow.toggleFullScreen(_:)), "f", [.command, .control])
         let focus = menu("Focus")
         item(focus, "Focus Session (available in Stage 07)", nil)
+        let passage = menu("Passage")
+        item(passage, "Show Inspector", #selector(WriterWindowController.showPassageInspector(_:)))
         let window = menu("Window"); NSApp.windowsMenu = window
         item(window, "Minimize", #selector(NSWindow.performMiniaturize(_:)), "m")
         item(window, "Zoom", #selector(NSWindow.performZoom(_:)))

@@ -22,7 +22,9 @@ def run(*args):
 
 entitlements = plistlib.loads(run("codesign", "-d", "--entitlements", "-", "--xml", str(app)).stdout)
 required = {"com.apple.security.app-sandbox", "com.apple.security.files.user-selected.read-write", "com.apple.security.network.client"}
-allowed = required | {"com.apple.security.get-task-allow"}
+# On-device dictation needs the audio-input capability. It is allowlisted but
+# not required, so an ordinary ad-hoc build still inspects cleanly.
+allowed = required | {"com.apple.security.get-task-allow", "com.apple.security.device.audio-input"}
 if args.development_team:
     allowed |= {"com.apple.application-identifier", "com.apple.developer.team-identifier", "keychain-access-groups"}
     bundle_id = plistlib.loads((app / "Contents/Info.plist").read_bytes())["CFBundleIdentifier"]

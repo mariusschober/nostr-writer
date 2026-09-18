@@ -7,9 +7,13 @@ import WriterStorage
 /// stay on this actor; document windows never wait synchronously for it.
 actor RecoveryLibrary {
     private var opening: Task<DocumentStore, Error>?
+    private var historyOpening: Task<HistoryJournal, Error>?
 
     init() {}
-    init(store: DocumentStore) { opening = Task { store } }
+    init(store: DocumentStore, history: HistoryJournal? = nil) {
+        opening = Task { store }
+        if let history { historyOpening = Task { history } }
+    }
 
     struct Prepared: Sendable {
         let source: SourceSnapshot
@@ -236,6 +240,42 @@ actor RecoveryLibrary {
                                                 attributes: [.posixPermissions: 0o700])
         return try await RecoveryBootstrap().open(root: parent.appendingPathComponent(environment, isDirectory: true),
                                                   service: service, accessGroup: accessGroup)
+    }
+
+    /// The consented detailed-history journal. It is opened lazily, only when
+    /// recording is explicitly on, and shares the recovery installation key.
+    func historyJournal() async throws -> HistoryJournal {
+        if let historyOpening { return try await historyOpening.value }
+        let task = Task { try await openHistory() }
+        historyOpening = task
+        return try await task.value
+    }
+
+    private func openHistory() async throws -> HistoryJournal {
+        guard ProcessInfo.processInfo.environment["NW_TEST_DEFAULTS"] == nil else {
+            throw RecoveryKeyError.unavailable("Recording is disabled in this isolated interface test.")
+        }
+        guard let task = SecTaskCreateFromSelf(nil) else {
+            throw RecoveryKeyError.unavailable("Recording needs a valid application signing identity.")
+        }
+        let groups = SecTaskCopyValueForEntitlement(task, "keychain-access-groups" as CFString, nil) as? [String]
+        let appID = (SecTaskCopyValueForEntitlement(task, "com.apple.application-identifier" as CFString, nil) as? String)
+            ?? (SecTaskCopyValueForEntitlement(task, "application-identifier" as CFString, nil) as? String)
+        guard let accessGroup = groups?.first ?? appID else {
+            throw RecoveryKeyError.unavailable("Recording is unavailable in this unsigned development build.")
+        }
+        #if DEBUG
+        let environment = "Development"
+        let service = "com.mariusschober.nostrwriter.development.recovery"
+        #else
+        let environment = "Release"
+        let service = "com.mariusschober.nostrwriter.recovery"
+        #endif
+        let support = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask,
+                                                 appropriateFor: nil, create: true)
+        let root = support.appendingPathComponent("NostrWriter", isDirectory: true)
+            .appendingPathComponent(environment, isDirectory: true)
+        return try await RecoveryBootstrap().openHistoryJournal(root: root, service: service, accessGroup: accessGroup)
     }
 }
 

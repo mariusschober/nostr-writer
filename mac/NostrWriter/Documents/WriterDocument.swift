@@ -50,6 +50,30 @@ final class WriterDocument: NSDocument {
     var isLifecycleTransitionActive: Bool { lifecycleBusy }
     private var preservedRevertSource: SourceSnapshot?
     private var interruptionFlush: Task<Void, Never>?
+
+    // MARK: Consented detailed local history (Stage 03)
+    //
+    // Detailed history is separate from recovery. It is gated by explicit
+    // consent, opened lazily beside the recovery installation and retained
+    // until the owner deletes it. A failure here never blocks writing.
+    let consent = RecordingConsent()
+    private(set) var historyJournal: HistoryJournal?
+    private(set) var historyEpoch: CaptureEpoch?
+    private(set) var historyError: String?
+    private(set) var historyRetention: HistoryRetentionState = .healthy
+    static let recordingStateDidChange = Notification.Name("WriterDocumentRecordingStateDidChange")
+    private(set) var recordingState: RecordingState = .off {
+        didSet {
+            guard recordingState != oldValue else { return }
+            NotificationCenter.default.post(name: Self.recordingStateDidChange, object: self)
+        }
+    }
+    private(set) var annotations: [SourceAnnotation] = []
+    private var pendingHistory: [LocalEditRecord] = []
+    private var historyFlush: Task<Void, Never>?
+    private var historyAttachment: Task<Void, Never>?
+    private var recordingPaused = false
+
     var sourceBytes: Data { session?.snapshot.utf8 ?? loadedBytes.withLock { $0 } }
     override class var autosavesInPlace: Bool { false }
     override class var autosavesDrafts: Bool { false }
@@ -328,9 +352,9 @@ final class WriterDocument: NSDocument {
         guard let session else { return }
         let bytes = loadedBytes.withLock { $0 }
         if bytes != session.snapshot.utf8 {
-            try session.apply(EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
+            try applyObserved(EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
                 range: try ByteRange(lowerBound: 0, upperBound: session.snapshot.byteCount),
-                replacement: bytes, origin: .unknown, undoGroup: UUID()))
+                replacement: bytes, origin: .externalReload, undoGroup: UUID()), capture: .descriptiveOnly)
         }
         savedFile = SavedFileRevision(source: session.snapshot, url: url)
         recovery?.observe(session.snapshot)
@@ -437,6 +461,12 @@ final class WriterDocument: NSDocument {
     override func close() {
         fileLifecycle.stop()
         interruptionFlush?.cancel(); recovery?.stop(); recoveryAttachment?.cancel()
+        historyAttachment?.cancel()
+        if let epoch = historyEpoch, let journal = historyJournal {
+            Task { try? await journal.endEpoch(epoch.id) }
+        }
+        historyEpoch = nil
+        if let journal = historyJournal { Task { await journal.close() } }
         if let id = session?.snapshot.documentID, let library = recoveryLibrary {
             Task { try? await library.markClosed(id) }
         }
@@ -482,9 +512,9 @@ final class WriterDocument: NSDocument {
 
     func applyExternalSource(_ external: SourceFileRead) throws {
         guard let session else { throw CocoaError(.fileReadUnknown) }
-        try session.apply(EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
+        try applyObserved(EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
             range: try ByteRange(lowerBound: 0, upperBound: session.snapshot.byteCount),
-            replacement: external.bytes, origin: .externalReload, undoGroup: UUID()))
+            replacement: external.bytes, origin: .externalReload, undoGroup: UUID()), capture: .descriptiveOnly)
         let bytes = external.bytes; loadedBytes.withLock { $0 = bytes }
         savedFile = SavedFileRevision(source: session.snapshot, url: external.url)
         fileModificationDate = external.modificationDate
@@ -578,27 +608,231 @@ final class WriterDocument: NSDocument {
 
     func insertManagedImageLink(_ link: String, at selection: NSRange, expecting source: SourceSnapshot) throws {
         guard !lifecycleBusy, session?.snapshot == source,
-              let editor = (windowControllers.first as? WriterWindowController)?.editor else { throw CocoaError(.userCancelled) }
+              let controller = windowControllers.first as? WriterWindowController else { throw CocoaError(.userCancelled) }
+        let editor = controller.editor
         _ = try source.byteRange(for: NativeRange(location: selection.location, length: selection.length))
         editor.breakUndoCoalescing()
-        programmaticOrigin = .formatting
-        defer { programmaticOrigin = nil; editor.breakUndoCoalescing() }
-        editor.insertText(link, replacementRange: selection)
+        defer { editor.breakUndoCoalescing() }
+        controller.gateway.performProgrammatic(origin: .formatting) {
+            editor.insertText(link, replacementRange: selection)
+        }
         guard session?.snapshot != source else { throw CocoaError(.userCancelled) }
     }
 
     func acceptScratchEdit(_ text: String) throws {
         guard !lifecycleBusy else { throw CocoaError(.userCancelled) }
-        // This stage-local scratch adapter is replaced by the attributed gateway in Stage 03.
         let next = Data(text.utf8)
         guard next != sourceBytes else { return }
         guard let session else { throw ContractError.unsupported("The document session has not opened.") }
         let command = EditCommand(id: UUID(), expectedRevision: session.snapshot.revision,
                                   range: try ByteRange(lowerBound: 0, upperBound: session.snapshot.byteCount),
                                   replacement: next, origin: programmaticOrigin ?? .unknown, undoGroup: UUID())
-        try session.apply(command)
-        loadedBytes.withLock { $0 = next }
+        // A whole-document replacement with no declared cause is an honest gap,
+        // not fabricated physical typing. A declared formatting/command cause is
+        // recorded as that explained cause.
+        let capture: CaptureCompleteness = (programmaticOrigin?.category.isExplained ?? false)
+            ? .descriptiveOnly : .gap(CaptureGapReason.opaqueInput.rawValue)
+        try applyObserved(command, capture: capture)
+    }
+}
+
+// MARK: - Consented detailed local history and annotations (Stage 03)
+
+extension WriterDocument {
+    /// The exact current revision, or nil before the session opens.
+    var sessionSnapshot: SourceSnapshot? { session?.snapshot }
+
+    /// The single place a real mutation becomes a document revision.
+    ///
+    /// It publishes the new immutable snapshot, updates ordinary encrypted
+    /// recovery, advances any in-memory annotation lineage, and — only when
+    /// detailed recording is on — appends one honest descriptive record.
+    func applyObserved(_ command: EditCommand, capture: CaptureCompleteness) throws {
+        guard let session else { throw ContractError.unsupported("The document session has not opened.") }
+        let receipt = try session.apply(command, completeness: capture)
+        loadedBytes.withLock { $0 = receipt.post.utf8 }
         updateChangeCount(.changeDone)
-        recovery?.observe(session.snapshot)
+        recovery?.observe(receipt.post)
+        let observed = LocalEditRecord(epochID: historyEpoch?.id ?? CaptureEpochID(), receipt: receipt,
+                                       recordedAtEpochSeconds: Date().timeIntervalSince1970)
+        retainAnnotationLineage(through: observed)
+        recordObservedEdit(observed, receipt: receipt, capture: capture)
+        refreshWindows()
+    }
+
+    // MARK: Recording lifecycle
+
+    /// Turns consented recording on for this session. It is idempotent and
+    /// refuses silently when the owner has not opted in.
+    func startRecordingIfConsented() {
+        guard consent.choice == .requested else { return }
+        guard !recordingPaused, historyJournal == nil, historyAttachment == nil else { return }
+        guard let snapshot = session?.snapshot else { return }
+        historyAttachment = Task { [weak self] in
+            guard let self else { return }
+            defer { self.historyAttachment = nil }
+            do {
+                guard let library = self.recoveryLibrary else {
+                    throw RecoveryKeyError.unavailable("Recovery is unavailable.")
+                }
+                let journal = try await library.historyJournal()
+                guard !Task.isCancelled else { return }
+                self.historyJournal = journal
+                let epoch = try await journal.resumeOrOpenEpoch(documentID: snapshot.documentID,
+                                                                atRevision: snapshot.revision,
+                                                                priorTextCompleteness: .descriptiveOnly)
+                guard !Task.isCancelled else { return }
+                self.historyEpoch = epoch
+                self.annotations = (try? await journal.annotations(documentID: snapshot.documentID)) ?? []
+                self.historyRetention = (try? await journal.retentionState()) ?? .healthy
+                self.recordingState = .observing
+                self.historyError = nil
+            } catch {
+                self.recordingState = .gap(CaptureGapReason.storeFailure.rawValue)
+                self.historyError = "Detailed history is unavailable. Your writing and encrypted recovery are unaffected."
+            }
+            self.refreshWindows()
+        }
+    }
+
+    /// Turns recorded history off. Existing retained history is preserved; only
+    /// future detailed records stop. This is not the same as deleting history.
+    func stopRecording(pausing: Bool) {
+        historyAttachment?.cancel(); historyAttachment = nil
+        recordingPaused = pausing
+        if let epoch = historyEpoch, let journal = historyJournal {
+            Task { try? await journal.endEpoch(epoch.id) }
+        }
+        historyEpoch = nil
+        recordingState = pausing ? .paused : .off
+        refreshWindows()
+    }
+
+    func resumeRecording() {
+        recordingPaused = false
+        recordingState = .off
+        startRecordingIfConsented()
+        refreshWindows()
+    }
+
+    /// An honest discontinuity in detailed history. Source and recovery stay
+    /// exact; this only records that intermediate detail is not continuous.
+    func noteHistoryBoundary(_ reason: CaptureGapReason) {
+        guard case .observing = recordingState else { return }
+        enterGap(reason)
+    }
+
+    private func recordObservedEdit(_ record: LocalEditRecord, receipt: MutationReceipt, capture: CaptureCompleteness) {
+        guard case .observing = recordingState, let epoch = historyEpoch else { return }
+        if case .gap = capture {
+            enqueueGap(CaptureGap(reason: .opaqueInput, revision: receipt.post.revision,
+                                  recordedAtEpochSeconds: record.recordedAtEpochSeconds), epoch: epoch)
+            return
+        }
+        pendingHistory.append(record)
+        flushHistoryIfNeeded()
+    }
+
+    private func flushHistoryIfNeeded() {
+        guard historyFlush == nil else { return }
+        historyFlush = Task { [weak self] in
+            guard let self else { return }
+            while !self.pendingHistory.isEmpty {
+                let batch = self.pendingHistory
+                self.pendingHistory.removeAll()
+                guard let journal = self.historyJournal else { break }
+                do {
+                    try await journal.append(batch)
+                    let retention = (try? await journal.retentionState()) ?? .healthy
+                    self.historyRetention = retention
+                    self.historyError = nil
+                    if case .pausedLimit = retention { self.enterGap(.resourceLimit) }
+                } catch {
+                    self.historyError = "Local history could not be written. Your writing and recovery are unaffected."
+                    self.enterGap(.storeFailure)
+                    break
+                }
+            }
+            self.historyFlush = nil
+        }
+    }
+
+    private func enterGap(_ reason: CaptureGapReason) {
+        guard let epoch = historyEpoch else { return }
+        if case .paused = recordingState { return }
+        recordingState = .gap(reason.rawValue)
+        enqueueGap(CaptureGap(reason: reason, revision: session?.snapshot.revision ?? Revision(0),
+                              recordedAtEpochSeconds: Date().timeIntervalSince1970), epoch: epoch)
+    }
+
+    private func enqueueGap(_ gap: CaptureGap, epoch: CaptureEpoch) {
+        guard let journal = historyJournal, let id = session?.snapshot.documentID else { return }
+        Task { try? await journal.appendGap(gap, documentID: id, epochID: epoch.id) }
+    }
+
+    // MARK: Annotations
+
+    private func retainAnnotationLineage(through record: LocalEditRecord) {
+        guard !annotations.isEmpty else { return }
+        var survivors: [SourceAnnotation] = []
+        for annotation in annotations {
+            switch SourceLineage.map(annotation.range, through: record) {
+            case .preserved(let range):
+                survivors.append(rebound(annotation, to: range, stale: false))
+            case .split(let ranges):
+                survivors.append(contentsOf: ranges.map { rebound(annotation, to: $0, stale: false) })
+            case .stale:
+                survivors.append(rebound(annotation, to: annotation.range, stale: true))
+            }
+        }
+        annotations = survivors
+        persistAnnotations()
+    }
+
+    private func rebound(_ annotation: SourceAnnotation, to range: ByteRange, stale: Bool) -> SourceAnnotation {
+        SourceAnnotation(id: annotation.id, kind: annotation.kind, range: range,
+                         description: annotation.description, url: annotation.url,
+                         revision: session?.snapshot.revision ?? annotation.revision, isStale: stale)
+    }
+
+    private func persistAnnotations() {
+        guard let journal = historyJournal, let id = session?.snapshot.documentID else { return }
+        let current = annotations
+        Task {
+            for annotation in current { try? await journal.saveAnnotation(annotation, documentID: id) }
+        }
+    }
+
+    /// Records a user-declared external source span. Markdown quotation syntax
+    /// alone never establishes attribution.
+    func addAnnotation(kind: AnnotationKind, range: ByteRange, description: String, url: String?) {
+        guard let snapshot = session?.snapshot else { return }
+        let annotation = SourceAnnotation(kind: kind, range: range, description: description,
+                                          url: url, revision: snapshot.revision)
+        annotations.append(annotation)
+        persistAnnotations()
+        refreshWindows()
+    }
+
+    func removeAnnotation(_ id: UUID) {
+        annotations.removeAll { $0.id == id }
+        refreshWindows()
+    }
+
+    /// Deletes one document's detailed history. Source, recovery and unrelated
+    /// documents are untouched, and an already exported proof cannot be revoked.
+    func deleteLocalHistory() async {
+        historyAttachment?.cancel(); historyAttachment = nil
+        annotations = []
+        pendingHistory = []
+        guard let journal = historyJournal, let id = session?.snapshot.documentID else { return }
+        try? await journal.deleteLocalHistory(documentID: id)
+        historyRetention = .healthy
+        refreshWindows()
+    }
+
+    func historySummary() async -> HistorySummary? {
+        guard let journal = historyJournal, let id = session?.snapshot.documentID else { return nil }
+        return try? await journal.summary(documentID: id)
     }
 }

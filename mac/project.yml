@@ -50,6 +50,10 @@ targets:
         excludes: [Application/AppMain.swift, Info.plist, NostrWriter.entitlements]
     dependencies:
       - package: WriterFoundation
+      # The unit tests compile the application sources and the ShellTests,
+      # which import these packages directly.
+      - package: WriterStorage
+      - package: WriterExport
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mariusschober.nostrwriter.tests

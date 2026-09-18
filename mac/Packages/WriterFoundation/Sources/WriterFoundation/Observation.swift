@@ -95,6 +95,8 @@ public enum EditOriginCategory: String, Hashable, Sendable, CaseIterable {
     case nativeIMECommit
     case assistance
     case pasteExternal
+    case cut
+    case drop
     case internalMove
     case internalCopy
     case undo
@@ -118,6 +120,8 @@ public extension EditOrigin {
         case .nativeIMECommit: .nativeIMECommit
         case .knownAssistance: .assistance
         case .pasteExternal: .pasteExternal
+        case .cut: .cut
+        case .drop: .drop
         case .internalMove: .internalMove
         case .internalCopy: .internalCopy
         case .undo: .undo

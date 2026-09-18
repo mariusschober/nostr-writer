@@ -12,14 +12,35 @@ final class DocumentSession: DocumentEditing {
 
     func apply(_ command: EditCommand) throws {
         let completeness: CaptureCompleteness = recordingState == .off ? .recordingOff : .descriptiveOnly
+        try apply(command, completeness: completeness)
+    }
+
+    /// Applies one command with an explicitly observed completeness. The
+    /// caller declares what it actually saw; the session never re-derives a
+    /// cause from the resulting text.
+    @discardableResult
+    func apply(_ command: EditCommand, completeness: CaptureCompleteness) throws -> MutationReceipt {
         let receipt = try command.applying(to: snapshot, completeness: completeness)
         snapshot = receipt.post
         lastMutation = receipt
+        return receipt
     }
 
+    /// Closes the descriptive lifecycle at a real boundary. Recording off
+    /// yields no handle; recording on yields a handle bound to the exact
+    /// current source. The handle is a local descriptive record, never an HWP
+    /// approval.
     func finalizeObservation(reason: ObservationBoundary) async throws -> CapturedRecordHandle? {
         if recordingState == .off { return nil }
-        throw ContractError.unsupported("Native observation finalization is not available until Stage 03.")
+        switch recordingState {
+        case .off:
+            return nil
+        case .paused, .pausedLimit, .gap:
+            // A boundary during a gap is honest: no continuous handle exists.
+            return nil
+        case .observing:
+            return CapturedRecordHandle(id: UUID(), source: snapshot)
+        }
     }
 
     func acceptsCompletion(for source: SourceSnapshot) -> Bool { source == snapshot }

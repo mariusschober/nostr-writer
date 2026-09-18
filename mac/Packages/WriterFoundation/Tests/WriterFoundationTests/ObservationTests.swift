@@ -182,6 +182,8 @@ private extension EditOriginCategory {
         case .nativeIMECommit: .nativeIMECommit
         case .assistance: .knownAssistance(.spelling)
         case .pasteExternal: .pasteExternal
+        case .cut: .cut
+        case .drop: .drop
         case .internalMove: .internalMove(UUID())
         case .internalCopy: .internalCopy(UUID())
         case .undo: .undo(UUID())
