@@ -292,6 +292,44 @@ final class Stage03EditorTests: XCTestCase {
         XCTAssertNotEqual(document.recordingState, .paused, "Resume must leave the paused state")
     }
 
+    // MARK: - M15/M17: a prediction is only published when it reproduces reality
+
+    /// A predicted range that does not reproduce the live editor must not
+    /// become a revision. This is the input-method-inside-existing-text case:
+    /// the range is numerically valid but addresses different content.
+    func testUnverifiedLiveBytesAreNotPublishedAsAPredictedRevision() throws {
+        let (document, controller) = try makeController("abcdef")
+        let editor = controller.editor
+
+        _ = controller.gateway.shouldChange(in: NSRange(location: 0, length: 1), replacement: "X")
+        // Make the live editor disagree with the prediction "Xbcdef".
+        editor.string = "abcdefZ"
+        controller.textDidChange(Notification(name: NSText.didChangeNotification, object: editor))
+
+        let mutation = try XCTUnwrap(document.session?.lastMutation)
+        XCTAssertEqual(Data(editor.string.utf8), document.sourceBytes,
+                       "the published source must match what the editor actually shows")
+        XCTAssertEqual(mutation.command.origin, .unknown,
+                       "an unverifiable prediction is an honest gap, not native typing")
+        XCTAssertEqual(mutation.command.range.lowerBound, 0)
+        XCTAssertEqual(mutation.command.range.upperBound, 6)
+    }
+
+    /// Internal ancestry uses the identity of the real copy/cut operation, and
+    /// falls back to an honest gap when no such token exists — never a fresh
+    /// UUID that implies a lineage that was not observed.
+    func testInternalAncestryUsesTheRealOperationIDOrAnHonestGap() throws {
+        let (_, controller) = try makeController("alpha beta")
+        let gateway = controller.gateway
+        let operationID = UUID()
+        XCTAssertEqual(gateway.origin(for: .pasteInternalCopy, declaredProgrammatic: nil, ancestryID: operationID),
+                       .internalCopy(operationID))
+        XCTAssertEqual(gateway.origin(for: .pasteInternalMove, declaredProgrammatic: nil, ancestryID: operationID),
+                       .internalMove(operationID))
+        XCTAssertEqual(gateway.origin(for: .pasteInternalCopy, declaredProgrammatic: nil, ancestryID: nil), .unknown)
+        XCTAssertEqual(gateway.origin(for: .pasteInternalMove, declaredProgrammatic: nil, ancestryID: nil), .unknown)
+    }
+
     private func settle(_ iterations: Int = 8) async {
         for _ in 0..<iterations { await Task.yield() }
     }

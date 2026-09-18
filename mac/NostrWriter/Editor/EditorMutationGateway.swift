@@ -82,6 +82,7 @@ final class EditorMutationGateway {
         // Read the declared programmatic cause before consuming the delivery,
         // which clears both fields.
         let declaredProgrammatic = editor?.programmaticOrigin
+        let ancestryID = editor?.lastAncestryID
         let delivery = editor?.consumeDelivery() ?? .unknown
         // Stage 07 seam: refuse an external insertion only when a policy is
         // actually engaged. The ordinary writing policy allows it, so normal
@@ -91,7 +92,7 @@ final class EditorMutationGateway {
             pending = nil
             return false
         }
-        let origin = origin(for: delivery, declaredProgrammatic: declaredProgrammatic)
+        let origin = origin(for: delivery, declaredProgrammatic: declaredProgrammatic, ancestryID: ancestryID)
         guard let replacement else {
             // A represented-object replacement (e.g. a deleted attachment) has
             // no text payload; treat it as an observed deletion.
@@ -121,7 +122,13 @@ final class EditorMutationGateway {
         let live = Data(editor.string.utf8)
         if live == snapshot.utf8 { pending = nil; return }
 
-        if let pending, pending.revision == snapshot.revision {
+        // A predicted range is only usable when applying it reproduces the live
+        // editor byte-for-byte. During composition inside existing text a
+        // numerically valid range can address different content, so an
+        // unverified prediction is discarded rather than published as a
+        // revision. The observed cause is still preserved for the fallback.
+        if let pending, pending.revision == snapshot.revision,
+           predictedPost(pending, snapshot: snapshot) == live {
             self.pending = nil
             self.unmappedOrigin = nil
             let command = EditCommand(id: UUID(), expectedRevision: pending.revision, range: pending.range,
@@ -137,6 +144,19 @@ final class EditorMutationGateway {
         let fallback = unmappedOrigin ?? declaredOrigin
         unmappedOrigin = nil
         reconcileWithWholeDocument(live: live, snapshot: snapshot, cause: fallback)
+    }
+
+    /// The exact bytes a pending prediction would produce against the base
+    /// revision, or nil when its range is not addressable there.
+    private func predictedPost(_ pending: Pending, snapshot: SourceSnapshot) -> Data? {
+        let bytes = snapshot.utf8
+        guard pending.range.lowerBound >= 0,
+              pending.range.upperBound <= bytes.count,
+              pending.range.lowerBound <= pending.range.upperBound,
+              (try? snapshot.nativeRange(for: pending.range)) != nil else { return nil }
+        var next = bytes
+        next.replaceSubrange(pending.range.lowerBound..<pending.range.upperBound, with: pending.replacement)
+        return next
     }
 
     /// Reconciles the document with the live editor after an out-of-band change
@@ -174,7 +194,8 @@ final class EditorMutationGateway {
     /// Maps an observed delivery to its honest cause. Internal so the
     /// classification table can be verified deterministically without driving
     /// every native input path through a real window.
-    func origin(for delivery: MarkdownTextView.Delivery, declaredProgrammatic: EditOrigin?) -> EditOrigin {
+    func origin(for delivery: MarkdownTextView.Delivery, declaredProgrammatic: EditOrigin?,
+                ancestryID: UUID? = nil) -> EditOrigin {
         // Native undo/redo are observed from the actual undo manager state, so
         // a real undo is never recorded as an opaque mutation.
         if let undo = document.undoManager {
@@ -187,8 +208,11 @@ final class EditorMutationGateway {
         case .imeCommit: return .nativeIMECommit
         case .spellingCorrection: return .knownAssistance(.spelling)
         case .pasteExternal: return .pasteExternal
-        case .pasteInternalCopy: return .internalCopy(UUID())
-        case .pasteInternalMove: return .internalMove(UUID())
+        // Ancestry is only claimed with the token captured by the real in-app
+        // copy/cut. Without it the change is an honest gap, never invented
+        // lineage.
+        case .pasteInternalCopy: return ancestryID.map { .internalCopy($0) } ?? .unknown
+        case .pasteInternalMove: return ancestryID.map { .internalMove($0) } ?? .unknown
         case .cut: return .cut
         case .drop: return .drop
         case .programmatic: return declaredProgrammatic ?? declaredOrigin ?? .unknown

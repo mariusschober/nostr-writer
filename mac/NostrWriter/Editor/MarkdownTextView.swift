@@ -38,6 +38,9 @@ final class MarkdownTextView: NSTextView {
     /// Exact bytes captured by an in-app copy/cut, used to prove an internal
     /// paste carries a real source payload rather than merely identical text.
     private var internalClipboard: AncestryToken?
+    /// The id of the internal ancestry token validated for the most recent
+    /// paste. Nil when the paste did not carry a real in-app source operation.
+    private(set) var lastAncestryID: UUID?
     /// Latches an accepted marked-text composition so the *commit* that follows
     /// is classified as an IME commit even if AppKit clears the marked range
     /// before delivering the final insertion.
@@ -48,7 +51,7 @@ final class MarkdownTextView: NSTextView {
 
     /// Consumes and clears the pending cause, so it cannot be reused twice.
     func consumeDelivery() -> Delivery {
-        defer { pendingDelivery = .unknown; programmaticOrigin = nil }
+        defer { pendingDelivery = .unknown; programmaticOrigin = nil; lastAncestryID = nil }
         return pendingDelivery
     }
 
@@ -122,8 +125,12 @@ final class MarkdownTextView: NSTextView {
            let pasted = NSPasteboard.general.string(forType: .string),
            token.matches(payload: Data(pasted.utf8)) {
             pendingDelivery = token.originCategory == .internalMove ? .pasteInternalMove : .pasteInternalCopy
+            // Carry the real copy/cut operation identity forward instead of
+            // inventing a fresh one per delivery.
+            lastAncestryID = token.sourceRecordID
         } else {
             pendingDelivery = .pasteExternal
+            lastAncestryID = nil
         }
         internalClipboard = nil
         super.paste(sender)
