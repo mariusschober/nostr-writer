@@ -35,10 +35,15 @@ Observations on the running candidate, all driven as real key events:
 
 Not exercised in this session:
   - Reduce Motion. NSWorkspace.shared.accessibilityDisplayShouldReduceMotion is
-    read by the app (WriterWindowController.swift:293), and the host currently
-    has no reduceMotion key in com.apple.universalaccess, i.e. the setting is
-    off. Its visible effect is an animation change that a single-frame capture
-    cannot show, so it needs an owner session with the setting toggled.
+    read by the app (WriterWindowController.swift:293), and the host has no
+    reduceMotion key in com.apple.universalaccess, i.e. the setting is off.
+    It cannot be turned on from here: `defaults write
+    com.apple.universalaccess reduceMotion -bool true` is refused with
+    "Could not write domain com.apple.universalaccess", and the key is still
+    absent afterwards. The app's Reduce Motion branch only changes the typewriter
+    scroll offset (smallest jump instead of recentring), which a window capture
+    can show, so switching the setting on in System Settings is the exact
+    remaining owner action.
   - Typewriter Scrolling as an interaction. View > Typewriter Scrolling exists
     (selector toggleTypewriterScrolling:) and was toggled on and then off from
     the View menu without error, but its effect is a viewport shift during

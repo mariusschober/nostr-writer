@@ -268,7 +268,7 @@
       ],
       "artifact_candidate": "89313db3 (current) plus 95efbeca (earlier Stage 03 candidate) plus e7673cf3 (predecessor, 16:41:49)",
       "not_measured": [
-        "Reduce Motion behaviour: the only remaining M14 item. The app reads NSWorkspace.shared.accessibilityDisplayShouldReduceMotion in typewriterScroll() (WriterWindowController.swift:293) and, when set, keeps the caret visible with the smallest scroll jump instead of recentring the page. The host has reduceMotion unset (off) and the effect is a scroll-offset difference that this harness cannot measure, because the computer-use screenshot is not returned as readable bytes and the accessibility tree does not expose the scroll offset. An owner session with Reduce Motion toggled is the exact missing observation."
+        "Reduce Motion behaviour: the only remaining M14 item. The app reads NSWorkspace.shared.accessibilityDisplayShouldReduceMotion in typewriterScroll() (WriterWindowController.swift:293) and, when set, keeps the caret visible with the smallest scroll jump instead of recentring the page. The host has reduceMotion unset (off) and the setting cannot be changed from here: defaults write com.apple.universalaccess reduceMotion -bool true is refused ('Could not write domain com.apple.universalaccess') and the key is still absent afterwards. The candidate's screenshots are readable, so an owner switching Reduce Motion on in System Settings is the exact missing step before the scroll-offset difference is measurable."
       ]
     },
     {
@@ -374,7 +374,7 @@
     },
     {
       "id": "interactive_gui",
-      "detail": "Only Reduce Motion is left for M14. Everything else was exercised on the candidate: dark appearance at both sizes, the Settings panel, outline navigation, Cmd+F, native Edit > Undo Typing, and - through System Events, which does deliver modifier keys even though the computer-use press_key path does not - Cmd+N, Cmd+Z, Cmd+Shift+F (Focus Writing) and Ctrl+Cmd+F (native fullscreen). Reduce Motion needs the system setting toggled and a measurable scroll-offset comparison, which this harness cannot make, so it needs an owner session. The system state (appearance, focus mode, fullscreen, automatic spelling correction) was restored after each check"
+      "detail": "Only Reduce Motion is left for M14. Everything else was exercised on the candidate: dark appearance at both sizes, the Settings panel, outline navigation, Cmd+F, native Edit > Undo Typing, and - through System Events, which does deliver modifier keys even though the computer-use press_key path does not - Cmd+N, Cmd+Z, Cmd+Shift+F (Focus Writing) and Ctrl+Cmd+F (native fullscreen). Reduce Motion cannot be reached from here: `defaults write com.apple.universalaccess reduceMotion -bool true` is refused with 'Could not write domain com.apple.universalaccess' and the key is still absent afterwards, so an owner must switch it on in System Settings -> Accessibility -> Display. The candidate's screenshots ARE readable (the computer-use runtime returns a file URL under the per-user temp directory), so once the setting is on the scroll-offset difference is directly measurable. The system state (appearance, focus mode, fullscreen, automatic spelling correction) was restored after each check"
     },
     {
       "id": "input_sources",
