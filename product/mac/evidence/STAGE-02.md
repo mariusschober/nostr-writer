@@ -1,7 +1,7 @@
 # Stage 02 — document integration in progress
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
-`636684f0954ef35d2b36444ce306dbc4b981e2e0` on `implementation/stage-02`, following
+`f4799ac6de24ec361baaad6f2871705326ed4d0c` on `implementation/stage-02`, following
 `2517ab4`. All M07–M13 remain open; all 60 acceptance definitions are unchanged.
 
 ## Implemented checkpoint
@@ -139,10 +139,37 @@ swift test --package-path mac/Packages/WriterStorage --filter LibraryFoldersTest
 xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build
 ```
 
+## Explicit import and quit checkpoint
+
+File → Import Text Copy opens a separate native review window with an explicit encoding
+selector and preview. It never guesses the encoding or rewrites the original. UTF-8
+retains exact source bytes; UTF-16 LE/BE, Windows-1252 and Latin-1 are deliberate conversions
+into a new unsaved document. Malformed input fails without replacement characters. The
+preview is bounded and conversion runs off the main actor; Import remains disabled until
+the current source has loaded and its selected conversion succeeds. Local metadata records
+original bytes/digest, selected encoding and converted digest, without granting HWP status.
+Ordinary Open rejects invalid UTF-8 and points to this explicit import-copy action.
+
+Normal Quit now returns `terminateLater`, runs native `closeAllDocuments` negotiation,
+and replies only when native document closing completes or is cancelled. This retains
+per-document recovery flushes and native Save/Discard/Cancel. The app compiles; actual
+multi-document quit/cancel and importer UI are **NOT MEASURED** while unlock is pending.
+
+One focused import check **PASS**, 0.033 seconds, covering strict source decoding, exact
+UTF-8 BOM/Unicode/CRLF preservation, explicit conversions, malformed UTF-16 refusal,
+unchanged original file, limits and retained descriptive metadata. Final ordinary arm64
+app build **PASS**. No passing check was repeated. Details and binary hash are in
+`logs/stage-02/text-import-results.json`.
+
+```sh
+swift test --package-path mac/Packages/WriterStorage --filter TextImportTests
+xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build
+```
+
 ## Remaining required work
 
-Explicit invalid-UTF-8 import copies, coordinated rename/move/assets/Trash,
-full close/quit/crash recovery, final folder/conflict UI observation,
+Coordinated rename/move/assets/Trash, actual close/quit/crash recovery,
+final import/folder/conflict UI observation,
 and actual iCloud/Google Drive lifecycles remain. Real encrypted-recovery acceptance needs
 legitimate application signing and Keychain access; an owner signing-team question is
 pending. No fabricated team ID or legacy Keychain fallback is permitted.

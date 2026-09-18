@@ -3,23 +3,24 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0",
+  "source_commit": "f4799ac6de24ec361baaad6f2871705326ed4d0c",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Catalog/recovery/conflicts plus scoped folder library and reference actions; Stage 02 remains unaccepted.",
+  "source_state": "Document/recovery/library/conflicts plus explicit text import and native quit negotiation; stage not accepted.",
   "criteria": [
     {
       "id": "M07",
       "status": "NOT MEASURED",
-      "reason": "Native exact-byte lifecycle, preserve-before-Revert, persistent identity/derivation and coalesced rapid-save checks pass. Full dirty close/quit, crash restart and final UI lifecycle acceptance remain unobserved.",
+      "reason": "Exact-byte lifecycle, persistent identity/derivation, preserved Revert, queued saves and explicit import conversions pass within recorded native/package scopes. Import and multi-document quit UI, actual crash/restart and final lifecycle observation remain outstanding.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
-        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json",
+        "product/mac/evidence/logs/stage-02/text-import-results.json"
       ]
     },
     {
       "id": "M08",
       "status": "NOT MEASURED",
-      "reason": "Encrypted catalog/recovery and native close boundary pass with synthetic keys. Save/resign/close/sleep requests are wired with a five-second waiting deadline; real Keychain, system sleep and graceful quit/crash observation remain unmeasured. Ad-hoc app lacks legitimate signing access group.",
+      "reason": "Encrypted components, source boundaries and native close callback have synthetic-key evidence; quit now waits for native close-all negotiation. Actual signed Keychain, crash recovery, system sleep and multi-document quit remain unobserved.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json"
@@ -179,13 +180,38 @@
       },
       "privacy": "Only explicitly selected folders; no persistent plaintext body index. Skips hidden files, symlinks and known unmaterialized cloud files during body search. Removing a reference never deletes source or recovery.",
       "frozen_inputs": "PASS: 69 protocol files, 326 pinned recovery files, 60 retained criteria"
+    },
+    "text_import": {
+      "source_commit": "f4799ac6de24ec361baaad6f2871705326ed4d0c",
+      "import_check": {
+        "status": "PASS",
+        "tests": 1,
+        "failed": 0,
+        "seconds": 0.033,
+        "scope": [
+          "Ordinary source reader rejects non-UTF-8",
+          "Explicit bounded import reads original bytes without rewriting file",
+          "UTF-8 preserves BOM, decomposed Unicode, CRLF and whitespace",
+          "Explicit UTF-16 LE/BE, Windows-1252 and Latin-1 conversion",
+          "Unpaired surrogates, odd UTF-16 bytes and oversized input refused",
+          "Original/converted digests persist as local descriptive import metadata"
+        ]
+      },
+      "app_build": {
+        "status": "PASS",
+        "architecture": "arm64",
+        "binary_sha256": "ba813ecbb5cdf12a1115615d0b701a519dce2c08d6c9c8176c73b050c38b5303"
+      },
+      "ui_observation": "NOT MEASURED; latest computer-use observation was locked, owner unlock remains pending",
+      "quit_behavior": "COMPILED, NOT MEASURED: AppDelegate now uses terminateLater, native closeAllDocuments negotiation and reply after completion. Per-document save/recovery flush and Save/Discard/Cancel are retained. Actual multi-document/Cancel/quit still requires observation.",
+      "frozen_inputs": "PASS: 69 protocol files, 326 pinned recovery files, all 60 criteria retained",
+      "repeated_passing_tests": false
     }
   },
   "next_work": [
-    "Explicit invalid-UTF-8 import copy and remaining rename/move/assets/Trash workflows",
-    "Graceful quit and remaining recovery lifecycle gaps",
-    "Owner unlock/signing access and actual UI/crash/sleep/provider observations"
+    "Managed image assets and coordinated rename/move/Save As/Trash flows",
+    "Owner unlock/signing access and actual import/library/conflict/quit/crash/sleep/provider observations"
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "78606bfad0659d3e56239d71b381aacb5afe93c4"
+  "previous_source_commit": "636684f0954ef35d2b36444ce306dbc4b981e2e0"
 }

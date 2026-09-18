@@ -1,0 +1,50 @@
+[0/1] Planning build
+Building for debugging...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/9] Compiling WriterStorage CoordinatedSourceFiles.swift
+[5/9] Emitting module WriterStorage
+[6/9] Compiling WriterStorage TextImport.swift
+[7/9] Compiling WriterStorage DocumentCatalog.swift
+[8/11] Compiling WriterStorage ScopedSourceFiles.swift
+[9/11] Compiling WriterStorage LibraryFolders.swift
+[10/25] Compiling WriterStorageTests TestSupport.swift
+[11/25] Compiling WriterStorageTests SchemaRetentionFaultTests.swift
+[12/25] Compiling WriterStorageTests StorageCoreTests.swift
+[13/25] Compiling WriterStorageTests ScopedSourceFilesTests.swift
+[14/26] Compiling WriterStorageTests RecoveryCoordinatorTests.swift
+/Users/schober/Projects/Nostr Writer/mac/Packages/WriterStorage/Tests/WriterStorageTests/RecoveryCoordinatorTests.swift:961:13: warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 959 |         XCTAssertEqual(attempts, 1, "A failure must not start an unattended retry loop.")
+ 960 | 
+ 961 |         var state = await coordinator.state()
+     |             `- warning: variable 'state' was never mutated; consider changing to 'let' constant
+ 962 |         XCTAssertTrue(state.isPausedForRetry)
+ 963 |         XCTAssertEqual(state.lastFailure, .persistence(.diskFull("no space")))
+[15/26] Compiling WriterStorageTests LibraryFoldersTests.swift
+[16/26] Compiling WriterStorageTests RecoveryBootstrapTests.swift
+[17/26] Compiling WriterStorageTests EncryptionTests.swift
+[18/26] Compiling WriterStorageTests KeychainRecoveryKeyTests.swift
+[19/26] Compiling WriterStorageTests TextImportTests.swift
+[20/26] Emitting module WriterStorageTests
+[21/26] Compiling WriterStorageTests DurabilityAndBoundsTests.swift
+[22/26] Compiling WriterStorageTests DurabilityFileIntegrationTests.swift
+[23/26] Compiling WriterStorageTests CoordinatedSourceFilesTests.swift
+[24/26] Compiling WriterStorageTests DocumentCatalogTests.swift
+[24/26] Write Objects.LinkFileList
+[25/26] Linking WriterStoragePackageTests
+Build complete! (3.05s)
+Test Suite 'Selected tests' started at 2026-09-18 01:15:46.254.
+Test Suite 'WriterStoragePackageTests.xctest' started at 2026-09-18 01:15:46.255.
+Test Suite 'TextImportTests' started at 2026-09-18 01:15:46.255.
+Test Case '-[WriterStorageTests.TextImportTests testExplicitImportPreservesOriginalAndRejectsMalformedText]' started.
+Test Case '-[WriterStorageTests.TextImportTests testExplicitImportPreservesOriginalAndRejectsMalformedText]' passed (0.033 seconds).
+Test Suite 'TextImportTests' passed at 2026-09-18 01:15:46.288.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.033 (0.033) seconds
+Test Suite 'WriterStoragePackageTests.xctest' passed at 2026-09-18 01:15:46.288.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.033 (0.033) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 01:15:46.288.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.033 (0.034) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

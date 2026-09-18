@@ -1,0 +1,26 @@
+{
+  "source_commit": "f4799ac6de24ec361baaad6f2871705326ed4d0c",
+  "import_check": {
+    "status": "PASS",
+    "tests": 1,
+    "failed": 0,
+    "seconds": 0.033,
+    "scope": [
+      "Ordinary source reader rejects non-UTF-8",
+      "Explicit bounded import reads original bytes without rewriting file",
+      "UTF-8 preserves BOM, decomposed Unicode, CRLF and whitespace",
+      "Explicit UTF-16 LE/BE, Windows-1252 and Latin-1 conversion",
+      "Unpaired surrogates, odd UTF-16 bytes and oversized input refused",
+      "Original/converted digests persist as local descriptive import metadata"
+    ]
+  },
+  "app_build": {
+    "status": "PASS",
+    "architecture": "arm64",
+    "binary_sha256": "ba813ecbb5cdf12a1115615d0b701a519dce2c08d6c9c8176c73b050c38b5303"
+  },
+  "ui_observation": "NOT MEASURED; latest computer-use observation was locked, owner unlock remains pending",
+  "quit_behavior": "COMPILED, NOT MEASURED: AppDelegate now uses terminateLater, native closeAllDocuments negotiation and reply after completion. Per-document save/recovery flush and Save/Discard/Cancel are retained. Actual multi-document/Cancel/quit still requires observation.",
+  "frozen_inputs": "PASS: 69 protocol files, 326 pinned recovery files, all 60 criteria retained",
+  "repeated_passing_tests": false
+}
