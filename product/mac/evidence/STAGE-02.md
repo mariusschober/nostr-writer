@@ -2,7 +2,7 @@
 
 **Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
 `220dc09f6ad4b96d0218896ec395929b66bc0bc3` on `implementation/stage-02`.
-M07 and M11 now pass; M08–M10/M12–M13 remain open. All 60 definitions are unchanged.
+M07, M09, M10 and M11 now pass; M08/M12–M13 remain open. All 60 definitions are unchanged.
 Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
 ## Implemented checkpoint
@@ -352,3 +352,19 @@ M09/M10 remain NOT MEASURED overall. Stage 02 remains unaccepted.
 
 **Owner stop boundary:** finish Stage 02 acceptance, record and push evidence, then
 pause before Stage 03. The full eight-stage goal remains unfinished.
+
+### Provider lifecycle completion checkpoint
+
+M09 and M10 now **PASS** in the recorded scopes. Both providers opened evicted
+files and saved native edits while Wi-Fi was off. Wi-Fi was restored immediately;
+Drive's remote 123-byte source matched exactly after reconnect. iCloud rename,
+second-process dirty conflict and Keep Local retained the complete local source
+and external recovery. Saving that recovered external version reproduced all
+69 bytes. After a graceful iCloud sync-service restart and Writer restart, an
+evicted source reopened from Recent and matched all 131 bytes, including the
+offline edit. The iCloud external writer was local and coordinated; no second-device
+conflict is claimed. Both sync providers and Wi-Fi are running again.
+
+The detailed report retains unsuccessful tool attempts and the uncompleted iCloud
+Keep Both folder selection. It claims only observed outcomes. No app source or
+automated tests changed during this provider completion checkpoint.

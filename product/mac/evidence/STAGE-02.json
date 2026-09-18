@@ -31,16 +31,16 @@
     },
     {
       "id": "M09",
-      "status": "NOT MEASURED",
-      "reason": "Actual native iCloud Save As and exact local bytes pass; offline/reconnect, eviction/download, rename, conflict and provider restart remain unobserved.",
+      "status": "PASS",
+      "reason": "Actual native iCloud save/open, Wi-Fi-off edit/save, reconnect with later eviction/download exact bytes, Finder rename, second-process provider-file dirty conflict with both exact recovered versions, and sync-service restart observed.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
       ]
     },
     {
       "id": "M10",
-      "status": "NOT MEASURED",
-      "reason": "Actual native Save, client outage/restart with exact remote bytes, remote dirty conflict/Keep Both with exact remote copies, and remote rename pass. Eviction/download and network offline/reconnect remain unobserved.",
+      "status": "PASS",
+      "reason": "Actual native Drive save/open, client outage/restart, Wi-Fi-off edit/save and exact remote reconnect bytes, eviction/download, remote rename, and real remote dirty conflict with exact separate versions observed.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
       ]
@@ -102,7 +102,7 @@
     "acceptance_definitions": "PASS: 60 retained",
     "current_ui_observation": "PASS limited local-file/sidebar scope; predates lifecycle changes. See binary-scoped observation JSON.",
     "real_keychain": "PASS scoped signed runtime: durable recovery shown, owner force quit, recovered exact 54-byte draft after restart; no secret exported.",
-    "actual_providers": "PARTIAL: see provider_lifecycle_observation; M09/M10 remain NOT MEASURED overall.",
+    "actual_providers": "PASS within recorded native provider scopes; iCloud conflict used a second local coordinated writer, Drive conflict used real remote replacement.",
     "native_boundaries": {
       "status": "PASS",
       "tests": 3,
@@ -390,14 +390,14 @@
       "evidence": "product/mac/evidence/logs/stage-02/native-lifecycle-observation.json"
     },
     "provider_lifecycle_observation": {
-      "status": "NOT MEASURED",
-      "scope": "Actual provider checkpoint; Stage 02 remains unaccepted.",
+      "status": "PASS",
+      "scope": "Observed actual iCloud and Google Drive provider lifecycles; Stage 02 still awaits remaining recovery/library scope.",
       "evidence": "product/mac/evidence/logs/stage-02/provider-lifecycle-observation.json"
     }
   },
   "next_work": [
-    "Complete outstanding Stage 02 provider lifecycle and library/recovery observations; do not repeat passing suites.",
-    "Owner requires pause after Stage 02 passes; do not start Stage 03."
+    "Complete remaining Stage 02 recovery/library observations and final acceptance review; no repeated passing suites.",
+    "After Stage 02 passes, record and push evidence, then pause before Stage 03 as requested."
   ],
   "historical_evidence_used_as_current_pass": false,
   "previous_source_commit": "7308ad41f30acbbd7ce0e3ceffa2094d49d9c492"

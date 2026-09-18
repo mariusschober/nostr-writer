@@ -1,7 +1,7 @@
 {
   "observed_date": "2026-09-18",
-  "status": "NOT MEASURED",
-  "scope": "Actual provider checkpoint; Stage 02 remains unaccepted.",
+  "status": "PASS",
+  "scope": "Observed actual iCloud and Google Drive provider lifecycles; Stage 02 still awaits remaining recovery/library scope.",
   "source_commit": "220dc09f6ad4b96d0218896ec395929b66bc0bc3",
   "binary_sha256": "bfc167244ad4ac19ca8fdbc78d82792a4f32fe5ba98226d7e8a0fc7f0985c888",
   "build": {
@@ -47,10 +47,15 @@
       "observed": "On candidate 220dc09 the connector renamed the synthetic file. Window, tab, Open and Recent all changed, the previous current reference disappeared, editor text remained and recovery became up to date. Older stale references from preceding candidates are retained for reference-removal checks."
     },
     "eviction_download": {
-      "status": "NOT MEASURED"
+      "status": "PASS",
+      "observed": "Finder Remove Download first reported Resource busy while Writer remained running. After normal app exit, Remove Download succeeded; native Open panel showed Not Downloaded. Opening downloaded and displayed the complete source; subsequent offline save and exact remote-byte comparison retained the original 96-byte prefix."
     },
     "network_offline_reconnect": {
-      "status": "NOT MEASURED"
+      "status": "PASS",
+      "observed": "System Settings showed Wi-Fi off throughout the native edit and Save. Writer showed Saved to folder and recovery up to date. Wi-Fi was restored in finally and Connected observed. Connector raw download after reconnect matched the complete 123-byte expected source.",
+      "bytes": 123,
+      "sha256": "966f550d475415f7faf6569757eb9ec05172bfe9f0806dfc0c6dc2bfb2ae3f13",
+      "tool_attempts": "Two initial UI automation attempts were interrupted by stale app state; the first changed no setting, the second restored Wi-Fi before editing. Changed approach to fresh per-app observations, then completed one edit per provider. No passing check repeated."
     },
     "tool_limits": "Drive window stayed Loading your account with Pause disabled; initial app selection took about 11 minutes. No retry loop. One relaunch reported a tool timeout but process and successful remote sync proved launch. Direct CLI provider-file reads were denied by macOS privacy; used native grants and connector raw downloads, without changing security settings."
   },
@@ -62,19 +67,38 @@
       "observed": "Created approved synthetic folder in Finder. Native Save As succeeded with recovery up to date. Exact local source bytes read back.",
       "limit": "This proves native save, not server upload."
     },
-    "remaining": [
-      "offline/reconnect",
-      "evict/download",
-      "rename",
-      "dirty conflict",
-      "provider restart"
-    ]
+    "remaining": [],
+    "eviction_download": {
+      "status": "PASS",
+      "observed": "Finder Remove Download; native Open panel showed In iCloud. Open displayed the complete original text. After later offline/reconnect/conflict and sync restart, evicted again; Finder showed In iCloud, persisted Recent reopened it, and exact 131-byte file readback passed."
+    },
+    "network_offline_reconnect": {
+      "status": "PASS",
+      "observed": "Wi-Fi off shown while native editor appended synthetic text and saved; Saved to folder and recovery up to date observed. Wi-Fi restored and connected. Exact 103-byte local source passed; later post-restart eviction/download retained the complete offline edit.",
+      "bytes": 103,
+      "sha256": "6e95d410e576b9f326de21e94d3cfd96564a8a043f03f4ad5989fac8a85f8813"
+    },
+    "rename": {
+      "status": "PASS",
+      "observed": "Finder renamed only the synthetic file. Writer window, tab, Open and Recent followed the new URL and retained text.",
+      "tool_attempt": "Automatic approval review refused an ambiguous cached AX index. Refreshed full Finder state to prove the exact selected synthetic path before proceeding."
+    },
+    "dirty_conflict": {
+      "status": "PASS",
+      "scope": "Second local coordinated process writes the actual iCloud file; not a claimed second-device remote edit.",
+      "observed": "Native dirty-change review displayed exact 131-byte local and 69-byte external versions. Initial Keep Both reached destination folder consent but no completed grant was observed; no success claimed for that attempt. Returned to review and used Keep Local. Source matched the full local version, both conflict recovery entries appeared. Opened external recovery through the sidebar and saved a separate iCloud copy; all 69 bytes matched the external fixture.",
+      "local_sha256": "525d4d7cdb71beb65f92c28104f700482be2e2e97779bfccfa8055ca7bc67f18",
+      "external_sha256": "f6030041520245f401f8eba8fde137dbef3be27b3c7af9eada8d4d6abaf364b5"
+    },
+    "provider_restart": {
+      "status": "PASS",
+      "observed": "Graceful SIGTERM to the identified user-owned iCloud bird service, under approved brief sync interruption. New PID observed. Normal Writer quit/restart then native download through persisted Recent returned exact conflict-resolved 131-byte source."
+    }
   },
   "verification_policy": "No automated suites rerun for this checkpoint. Each source correction compiled; only affected native cloud behavior repeated. Failed first rename approach retained as evidence.",
   "remaining": [
-    "Complete provider lifecycle observations",
-    "Actual sleep recovery boundary",
-    "Remaining library reference/accessibility observations and cross-volume scope"
+    "Actual sleep boundary",
+    "Remaining library reference/accessibility observations and final acceptance review"
   ],
   "user_stop_boundary": "After Stage 02 passes, record/push evidence and pause before Stage 03."
 }
