@@ -37,6 +37,14 @@ architectures and minimum macOS version. Passing this inspection is not proof of
 Keychain runtime behavior, File Provider behavior, HWP authority, Developer ID distribution
 or notarization. Those require the stage-specific observations and evidence.
 
-As of the latest Stage 02 checkpoint, the signed path is **NOT MEASURED**: this host has no
-valid signing identity and native builds still stop at Xcode 27's license gate. Only helper
-syntax, entitlement structure and missing-team refusal have been checked.
+On 18 September 2026 the owner completed Xcode 27 setup and explicitly authorized Apple
+Development signing, registration of this Mac/app, and the development profile. The signed
+universal build and entitlement inspection passed. The ordinary signed app recovered a
+synthetic unsaved draft after force quit, preserving all 54 bytes; corrected multi-document
+quit also saved exactly and exited. These observations do not complete provider acceptance.
+
+Initial provisioning used the actual My Mac destination; a generic destination could not
+register the previously unregistered Mac. Subsequent builds used the existing profile with
+no provisioning flags. Owner-specific team settings are not committed to the project.
+The signature inspector required execution outside the restricted agent tool sandbox;
+the same unchanged inspector passed there. See the stage evidence for exact scoped results.

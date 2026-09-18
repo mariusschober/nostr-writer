@@ -1,0 +1,34 @@
+{
+  "observed_utc": "2026-09-18T09:55:51.231401+00:00",
+  "source_commit": "cceb94d29b6e28fdd05f07c2b175b855b7e241ed",
+  "xcode": "27.0 (27A266a)",
+  "first_launch_check": {
+    "command": "xcodebuild -checkFirstLaunchStatus",
+    "exit_code": 0,
+    "status": "PASS"
+  },
+  "build": {
+    "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/DerivedData -destination platform=macOS -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build",
+    "exit_code": 0,
+    "status": "PASS",
+    "attempts": 1,
+    "architecture": "arm64",
+    "signing": "ad-hoc",
+    "binary_sha256": "945c2ac6e4730f7fd60f4927f56b8c984bc37e3baadff375935bd6ad2d3681da",
+    "raw_log": "/private/tmp/nostr-writer-stage02-xcode27-resume-build.log"
+  },
+  "access": {
+    "status": "PASS",
+    "observation": "CUA observed Xcode Welcome and Settings windows on unlocked Mac. Xcode Apple Accounts page displays Sign In; no connected account observed. Initial app-selection tool call took 1529 seconds, an environment-control delay."
+  },
+  "signing": {
+    "status": "BLOCKED",
+    "command": "security find-identity -v -p codesigning",
+    "observation": "0 valid identities found, including a second check outside the sandbox in the unlocked session. Owner Apple-account sign-in requested; signed build and real Keychain runtime remain unmeasured."
+  },
+  "verification_limits": [
+    "No tests run or repeated for this checkpoint.",
+    "Successful ad-hoc build is not signed Keychain, UI, crash, or provider acceptance.",
+    "Frozen protocol and historical bytes unchanged."
+  ]
+}

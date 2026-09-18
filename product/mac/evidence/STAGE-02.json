@@ -3,27 +3,29 @@
   "accepted": false,
   "status": "NOT MEASURED",
   "input_commit": "1fb8625",
-  "source_commit": "94a0d638d11ebafb8152f2cb9e7d82225626f049",
+  "source_commit": "32048befffaa8d0ebc930993c98c366293add590",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Document lifecycle implementation plus optional owner-selected development signing helper; new signing path validated statically only, native acceptance remains open.",
+  "source_state": "Signed development app running with real Keychain recovery; native Save As/Duplicate/Recent and cancelled-recovery quit defects fixed. Stage acceptance remains open.",
   "criteria": [
     {
       "id": "M07",
       "status": "NOT MEASURED",
-      "reason": "Exact-byte lifecycle, persistent identity/derivation, preserved Revert, queued saves and explicit import conversions pass within recorded native/package scopes. Import and multi-document quit UI, actual crash/restart and final lifecycle observation remain outstanding.",
+      "reason": "Exact-byte lifecycle and identity checks pass in recorded scopes. Actual signed Save As, Duplicate, Cancel Quit and saved normal Quit observed; explicit import and remaining lifecycle UI outstanding.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
-        "product/mac/evidence/logs/stage-02/text-import-results.json"
+        "product/mac/evidence/logs/stage-02/text-import-results.json",
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
       ]
     },
     {
       "id": "M08",
       "status": "NOT MEASURED",
-      "reason": "Encrypted components, source boundaries and native close callback have synthetic-key evidence; quit now waits for native close-all negotiation. Actual signed Keychain, crash recovery, system sleep and multi-document quit remain unobserved.",
+      "reason": "Encrypted fault-injection components pass in recorded scopes. Real signed Keychain recovery, owner-performed crash/restart, and saved multi-document quit observed; actual sleep and key-unavailable/retry observation remain outstanding.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
-        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json",
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
       ]
     },
     {
@@ -41,30 +43,33 @@
     {
       "id": "M11",
       "status": "NOT MEASURED",
-      "reason": "All three preserve-both conflict choices, overwrite refusal, clean reload and own-save echo pass native synthetic-file checks, including changes from a second coordinated process. Actual conflict UI blocked by locked Mac; real-provider flows and signed private recovery remain unobserved.",
+      "reason": "Preserve-both conflict paths and coordinated second-process checks pass in recorded scope. Actual conflict UI and provider flows remain outstanding.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/conflict-results.json",
-        "product/mac/evidence/logs/stage-02/conflicts-native.log"
+        "product/mac/evidence/logs/stage-02/conflicts-native.log",
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
       ]
     },
     {
       "id": "M12",
       "status": "NOT MEASURED",
-      "reason": "Scoped bookmarks, Locate/Remove, managed images, identity-preserving rename/move and recovery-preserving platform Trash are implemented. One native lifecycle check passes; final ordinary app builds. Actual permission loss, duplicate-window/menu UI, provider behavior and cross-volume path remain unobserved.",
+      "reason": "Bookmarks, owned assets and coordinated lifecycle checks pass in recorded scope. Actual Duplicate menu observed. Permission loss, owned-image consent, rename/move/Trash UI and cross-volume path remain outstanding.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/boundaries-native.log",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
         "product/mac/evidence/logs/stage-02/assets-results.json",
-        "product/mac/evidence/logs/stage-02/relocate-results.json"
+        "product/mac/evidence/logs/stage-02/relocate-results.json",
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
       ]
     },
     {
       "id": "M13",
       "status": "NOT MEASURED",
-      "reason": "Open/Recent/Pinned, selected-folder listing, current body/title search, Locate/Remove references and recovered entries are implemented. Four focused folder/metadata checks pass within scope; final native UI and real provider/recovery library behavior remain unobserved.",
+      "reason": "Library/current-text search/folder components pass in recorded scope. Actual recovered draft, Recent reopen and canonical deduplication observed. Remaining folder, search and accessibility interactions outstanding.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/folders-results.json",
-        "product/mac/evidence/logs/stage-02/library-ui-observation.json"
+        "product/mac/evidence/logs/stage-02/library-ui-observation.json",
+        "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
       ]
     }
   ],
@@ -85,7 +90,7 @@
     "recovery_snapshot": "PASS: 326 pinned files",
     "acceptance_definitions": "PASS: 60 retained",
     "current_ui_observation": "PASS limited local-file/sidebar scope; predates lifecycle changes. See binary-scoped observation JSON.",
-    "real_keychain": "NOT MEASURED: requires legitimate signed app identity/access group",
+    "real_keychain": "PASS scoped signed runtime: durable recovery shown, owner force quit, recovered exact 54-byte draft after restart; no secret exported.",
     "actual_providers": "NOT MEASURED",
     "native_boundaries": {
       "status": "PASS",
@@ -104,8 +109,8 @@
       "tests": 3,
       "seconds": 0.058
     },
-    "current_native_compile": "PASS arm64 app and hostless native test targets compiled by boundaries invocation.",
-    "final_lifecycle_gui": "NOT MEASURED",
+    "current_native_compile": "PASS: universal signed development app, Xcode 27, source 32048be.",
+    "final_lifecycle_gui": "PASS limited signed Save As/Duplicate/Cancel Quit/saved normal Quit/recovered draft/Recent; remaining Stage 02 interactions NOT MEASURED.",
     "prior_catalog_native": {
       "status": "PASS",
       "tests": 2,
@@ -356,12 +361,23 @@
         "https://developer.apple.com/documentation/xcode/configuring-keychain-sharing",
         "https://developer.apple.com/documentation/security/ksecattraccessgroup"
       ]
+    },
+    "xcode27_resume": {
+      "status": "PASS",
+      "scope": "One ordinary arm64 build with Xcode 27; owner license/access gates cleared. Signing and native acceptance remain open.",
+      "evidence": "product/mac/evidence/logs/stage-02/xcode27-resume-results.json"
+    },
+    "signed_runtime": {
+      "status": "PASS",
+      "scope": "Real signed recovery and corrected native quit; not full Stage 02 acceptance.",
+      "evidence": "product/mac/evidence/logs/stage-02/signed-runtime-results.json"
     }
   },
   "next_work": [
-    "Managed image assets and coordinated rename/move/Save As/Trash flows",
-    "Owner unlock/signing access and actual import/library/conflict/quit/crash/sleep/provider observations"
+    "Complete remaining native import, conflict, permission, owned-image, library and file lifecycle observations without repeating unchanged passing checks.",
+    "Actual iCloud Drive and Google Drive provider lifecycle acceptance; system sleep and unavailable/retry observations remain open.",
+    "Keep Stage 03 gated until all M07-M13 pass."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "f06cbe77e23bf8cd21b5495455fbf65ceb7ba0b5"
+  "previous_source_commit": "94a0d638d11ebafb8152f2cb9e7d82225626f049"
 }

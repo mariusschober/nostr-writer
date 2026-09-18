@@ -1,0 +1,149 @@
+{
+  "observed_utc": "2026-09-18T10:32:25.919207+00:00",
+  "base_commit": "cceb94d29b6e28fdd05f07c2b175b855b7e241ed",
+  "source_state": "Committed native document actions, canonical Recent deduplication, and cancelled recovery handoff fix. Earlier signed candidate observations remain separately scoped.",
+  "signed_build": {
+    "status": "PASS",
+    "binary_sha256": "0786083723a23163e703dac044f6937c49ac2fd9c7a7945d80bfce2440564889",
+    "architectures": [
+      "x86_64",
+      "arm64"
+    ],
+    "minimum_os_versions": [
+      "14.0",
+      "14.0"
+    ],
+    "strict_signature_verification": "PASS"
+  },
+  "signing_scope": "Owner explicitly authorized Apple development certificate, registration of this Mac/app, and development profile. Certificate/private key remain in owner Keychain. No release or notarization claim.",
+  "commands": [
+    "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination platform=macOS,id=<owner-Mac-ID> -skipPackagePluginValidation -allowProvisioningUpdates -allowProvisioningDeviceRegistration DEVELOPMENT_TEAM=<owner-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY=Apple Development WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build",
+    "python3 mac/scripts/inspect_app.py mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app --development-team <owner-team> (outside restricted tool sandbox)",
+    "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/NativeTestDerivedData -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test -only-testing:NostrWriterTests/ShellTests/testStoppedRecoveryRejectsLateBoundary -only-testing:NostrWriterTests/ShellTests/testQueuedSavesAndCloseBoundaryPreserveLatestRevision -test-timeouts-enabled YES -default-test-execution-time-allowance 30 -maximum-test-execution-time-allowance 30",
+    "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation DEVELOPMENT_TEAM=<owner-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY='Apple Development' WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build"
+  ],
+  "attempts": [
+    {
+      "status": "BLOCKED",
+      "scope": "Initial helper dependency resolution",
+      "reason": "GitHub TLS connection failure; switched to existing pinned local checkouts."
+    },
+    {
+      "status": "BLOCKED",
+      "scope": "Signed build without account updates",
+      "reason": "No provisioning profile yet; owner explicitly authorized app/Mac registration."
+    },
+    {
+      "status": "BLOCKED",
+      "scope": "Generic Mac destination with provisioning enabled",
+      "reason": "Apple account had no registered device; targeted actual My Mac destination."
+    },
+    {
+      "status": "PASS",
+      "scope": "Actual Mac destination with owner-authorized provisioning",
+      "reason": "Universal signed build completed."
+    },
+    {
+      "status": "BLOCKED",
+      "scope": "Signature inspector inside restricted tool sandbox",
+      "reason": "codesign returned no entitlement data and an invalid-blob warning; unchanged inspector passed outside the sandbox."
+    }
+  ],
+  "observations": [
+    {
+      "status": "PASS",
+      "scope": "Signed runtime recovery",
+      "detail": "Ordinary development app accepted the synthetic draft and displayed Recovery up to date with recording off."
+    },
+    {
+      "status": "PASS",
+      "scope": "Owner-performed force quit and recovery",
+      "detail": "Owner pressed Force Quit after the automated action was held. Relaunched the same signed binary, observed Recovered drafts, opened the synthetic unsaved draft, and saved it. Saved output exactly matches the 54-byte safety fixture.",
+      "sha256": "d4467a137a75ff084eab9da1cc46185e58aaede09c79af23b3c5f3c622ff5d85"
+    },
+    {
+      "status": "PASS",
+      "scope": "Save As title fix",
+      "detail": "Saving Recovered Copy.md updated both native window/tab and Open sidebar label; old file retained. Saved source is the same exact 54 bytes."
+    },
+    {
+      "status": "PASS",
+      "scope": "Duplicate menu fix",
+      "detail": "Duplicate is visible in File and opens an independent unsaved native tab with exact source. Subsequent quit-save writes the same exact 54 bytes."
+    },
+    {
+      "status": "PASS",
+      "scope": "Cancel Quit",
+      "detail": "Native quit presented Save/Delete/Cancel; Cancel retained the unsaved duplicate and all three native tabs."
+    },
+    {
+      "status": "FAIL",
+      "scope": "Complete normal Quit after Save",
+      "detail": "All synthetic files were saved exactly, but app stalled. One process sample found a main-actor busy loop awaiting an already-completed recovery handoff. Cancellation/retirement fix and focused regression subsequently passed; final candidate native quit observation below supersedes this failure only for that flow."
+    },
+    {
+      "status": "NOT MEASURED",
+      "scope": "Import panel",
+      "detail": "One unsigned-candidate panel left Open disabled for the selected UTF-16 fixture; stopped rather than repeat. A panel screenshot was blank, so no product/environment diagnosis is claimed yet."
+    },
+    {
+      "status": "NOT MEASURED",
+      "scope": "Extra raw private-store inspection",
+      "detail": "Read-only external inspection stalled and was terminated. No at-rest scan pass is claimed; prior cryptographic component evidence remains separate."
+    }
+  ],
+  "newly_observed_defects": [
+    "Stale Open sidebar title after Save As (fixed and observed).",
+    "Duplicate hidden from native File menu (fixed and observed).",
+    "Recent list duplicated one file through /tmp and /private/tmp aliases (fixed and observed).",
+    "Late recovery boundary after cancellation could spin forever during normal quit (fixed; focused regression and native quit passed)."
+  ],
+  "tool_limits": [
+    "CUA row clicks select sidebar whitespace; clicking the visible recovered-draft label succeeded.",
+    "CUA text typing dropped non-ASCII input; paste reported a clipboard timeout but a subsequent observation confirmed the complete Unicode fixture. No input retry after confirming success.",
+    "CUA intermittently failed to capture replaced modal windows; refreshed app bindings rather than repeating mutations."
+  ],
+  "still_required": [
+    "Actual iCloud Drive and Google Drive provider lifecycle acceptance.",
+    "Remaining import, permission, owned-image, rename/move/Trash, and library interactions.",
+    "Actual sleep boundary and remaining key-unavailable/retry observations.",
+    "Full M07-M13 acceptance before Stage 03."
+  ],
+  "source_commit": "32048befffaa8d0ebc930993c98c366293add590",
+  "final_candidate": {
+    "source_commit": "32048befffaa8d0ebc930993c98c366293add590",
+    "binary_sha256": "2364b2db7bb0a8ae3d371dfcdb388ae3a257f53d790ddfc225c30a96858d3545",
+    "build": "PASS",
+    "signature_inspection": "PASS outside restricted tool sandbox",
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "minimum_macos": "14.0",
+    "tests": {
+      "status": "PASS",
+      "count": 2,
+      "failures": 0,
+      "seconds": 1.078,
+      "names": [
+        "testStoppedRecoveryRejectsLateBoundary",
+        "testQueuedSavesAndCloseBoundaryPreserveLatestRevision"
+      ]
+    },
+    "observations": [
+      {
+        "status": "PASS",
+        "scope": "Recent canonical deduplication",
+        "detail": "Each saved file appears once; opening saved synthetic recovery file from Recent succeeded."
+      },
+      {
+        "status": "PASS",
+        "scope": "Normal Quit after Cancel then Save",
+        "detail": "Three native tabs including an unsaved Duplicate; Quit/Cancel preserved them, then Quit/Save wrote Quit Fix Saved.md. Read-only process lookup confirmed the signed application exited. Saved bytes exactly match synthetic 54-byte fixture.",
+        "byte_count": 54,
+        "sha256": "d4467a137a75ff084eab9da1cc46185e58aaede09c79af23b3c5f3c622ff5d85"
+      }
+    ]
+  },
+  "command_redactions": "Owner team and Mac device identifier are redacted; actual values were passed locally. Final build used existing authorized profile, without provisioning flags."
+}

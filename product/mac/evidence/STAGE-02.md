@@ -266,3 +266,47 @@ with the Xcode/Apple SDK license requirement. No retry followed. A fresh CUA che
 reported a locked Mac. These are current access/observation gates; Stage 03's accepted
 Stage 02 prerequisite remains unsatisfied. No passing checks were rerun for this review.
 Commands and boundaries are recorded in `logs/stage-02/signing-preparation-results.json`.
+
+## Resumed Xcode 27 checkpoint — 18 September 2026
+
+The owner resumed implementation. The Mac is accessible through CUA and Xcode
+first-launch status now exits 0. One ordinary arm64 build of source `cceb94d`
+**PASS** with Xcode 27.0/27A266a; no test suite was run or repeated.
+The observed binary and command are recorded in
+`logs/stage-02/xcode27-resume-results.json`. This supersedes the previous
+license/locked-screen blockers, not any outstanding application acceptance.
+
+An unlocked, unsandboxed identity query still reports **0 valid signing identities**.
+Xcode Settings → Apple Accounts shows Sign In with no connected account. The owner
+was directed to that page; signed private recovery remains **BLOCKED** on account/
+certificate setup. Ad-hoc compilation does not establish Keychain runtime behavior.
+No stage acceptance or Stage 03 entry is claimed.
+
+## Signed runtime and corrected native quit — 18 September 2026
+
+Source: `32048befffaa8d0ebc930993c98c366293add590`. Owner completed Xcode/account setup and
+explicitly authorized development certificate, Mac/app registration and development profile.
+Universal signed build and actual entitlement inspection **PASS**; owner identity details and
+credentials are not committed. This resolves the prior signing/license/access blockers.
+
+The signed app displayed Recovery up to date for a synthetic Unicode draft with recording off.
+After the owner pressed Force Quit, the same binary reopened the recovered unsaved draft;
+native Save wrote the exact 54-byte fixture. Save As updated both window and sidebar title.
+Duplicate is now visible in File and creates an independent unsaved document. Quit/Cancel
+preserved the open tabs. These scoped observations are **PASS**.
+
+The first Quit/Save wrote exact bytes but hung. A single process sample found a stale recovery
+handoff causing a main-actor loop. Recovery now retires cancelled/completed handoffs by token
+and rejects late boundaries. Only two affected native checks ran: **2 PASS, 0 failures, 1.078 s**.
+The rebuilt signed candidate then completed the same Cancel/Quit/Save flow and exited; its saved
+file still matched all 54 bytes. Recent canonical aliases now appear once and reopen correctly.
+Final binary SHA-256: `2364b2db7bb0a8ae3d371dfcdb388ae3a257f53d790ddfc225c30a96858d3545`.
+
+Commands, candidate scope, earlier failure and subsequent results are recorded in
+[the runtime report](logs/stage-02/signed-runtime-results.json), with the
+[focused check excerpt](logs/stage-02/quit-fix-native-summary.log) and
+[hang sample](logs/stage-02/quit-hang-sample.txt). No broad test suite was repeated.
+
+M07–M13 remain **NOT MEASURED** overall: remaining import/permission/assets/library/lifecycle
+interactions, actual provider lifecycles, sleep and unavailable-key observations are open.
+Stage 03 remains gated. Frozen protocol, historical originals and all 60 criteria are unchanged.

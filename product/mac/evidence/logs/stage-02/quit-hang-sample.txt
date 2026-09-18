@@ -1,0 +1,149 @@
+Analysis of sampling NostrWriter (pid 81335) every 1 millisecond
+Process:         NostrWriter [81335]
+Path:            /Users/USER/*/NostrWriter.app/Contents/MacOS/NostrWriter
+Load Address:    0x100a00000
+Identifier:      com.mariusschober.nostrwriter.development
+Version:         0.1.0 (1)
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  launchd [1]
+Target Type:     live task
+
+Date/Time:       2026-09-18 11:26:27.317 +0100
+Launch Time:     2026-09-18 11:19:04.325 +0100
+OS Version:      macOS 26.6.2 (25G83)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         74.1M
+Physical footprint (peak):  95.9M
+Idle exit:                  untracked
+----
+
+Call graph:
+    139 Thread_6642636   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 104 completeTaskWithClosure(swift::AsyncContext*, swift::SwiftError*)  (in libswift_Concurrency.dylib) + 1  [0x2937e7ec5]
+    + ! 104 partial apply for thunk for @escaping @isolated(any) @callee_guaranteed @async () -> (@out A)  (in NostrWriter) + 1  [0x100a06215]  /<compiler-generated>:0
+    + !   104 thunk for @escaping @isolated(any) @callee_guaranteed @async () -> (@out A)  (in NostrWriter) + 1  [0x100a060c5]  /<compiler-generated>:0
+    + !     104 partial apply for closure #1 in closure #1 in static RecoveryDeadline.run(_:)  (in NostrWriter) + 1  [0x100a32075]  /<compiler-generated>:0
+    + !       104 closure #1 in closure #1 in static RecoveryDeadline.run(_:)  (in NostrWriter) + 1  [0x100a2c2e1]  DocumentRecovery.swift:395
+    + !         104 partial apply for closure #1 in WriterDocument.flushRecovery(at:)  (in NostrWriter) + 1  [0x100ac34bd]  /<compiler-generated>:0
+    + !           104 closure #1 in WriterDocument.flushRecovery(at:)  (in NostrWriter) + 1  [0x100abbf69]  WriterDocument.swift:393
+    + !             104 DocumentRecovery.flush(_:boundary:)  (in NostrWriter) + 1  [0x100a29101]  DocumentRecovery.swift:327
+    + !               39 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 1  [0x100a29971]  DocumentRecovery.swift:351
+    + !               : 19 swift_task_future_waitImpl(swift::OpaqueValue*, swift::AsyncContext*, swift::AsyncTask*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*)  (in libswift_Concurrency.dylib) + 280  [0x2937e5d54]
+    + !               : | 19 swift::metadataimpl::ValueWitnesses<swift::metadataimpl::AggregateBox<>>::initializeWithCopy(swift::OpaqueValue*, swift::OpaqueValue*, swift::TargetMetadata<swift::InProcess> const*)  (in libswiftCore.dylib) + 0  [0x1a183de94]
+    + !               : 8 swift_task_future_waitImpl(swift::OpaqueValue*, swift::AsyncContext*, swift::AsyncTask*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*)  (in libswift_Concurrency.dylib) + 64  [0x2937e5c7c]
+    + !               : | 8 swift_task_getCurrent  (in libswift_Concurrency.dylib) + 0  [0x2937de1f0]
+    + !               : 7 swift_task_future_waitImpl(swift::OpaqueValue*, swift::AsyncContext*, swift::AsyncTask*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*)  (in libswift_Concurrency.dylib) + 152  [0x2937e5cd4]
+    + !               : | 7 swift::AsyncTask::waitFuture(swift::AsyncTask*, swift::AsyncContext*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*, swift::OpaqueValue*)  (in libswift_Concurrency.dylib) + 140,12,...  [0x2937e4564,0x2937e44e4,...]
+    + !               : 4 swift_task_future_waitImpl(swift::OpaqueValue*, swift::AsyncContext*, swift::AsyncTask*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*)  (in libswift_Concurrency.dylib) + 48,124  [0x2937e5c6c,0x2937e5cb8]
+    + !               : 1 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 24  [0x100a29988]  DocumentRecovery.swift:351
+    + !               17 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 56  [0x100a299a8]  DocumentRecovery.swift:351
+    + !               : 15 swift_task_dealloc  (in libswift_Concurrency.dylib) + 0,80,...  [0x2937e8ff8,0x2937e9048,...]
+    + !               : 2 swift_task_dealloc  (in libswift_Concurrency.dylib) + 28  [0x2937e9014]
+    + !               :   2 swift_task_getCurrent  (in libswift_Concurrency.dylib) + 0  [0x2937de1f0]
+    + !               15 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 200  [0x100a29a98]  DocumentRecovery.swift:351
+    + !               : 12 swift_task_alloc  (in libswift_Concurrency.dylib) + 0  [0x2937e8d50]
+    + !               : 2 swift_task_alloc  (in libswift_Concurrency.dylib) + 28  [0x2937e8d6c]
+    + !               : | 2 swift_task_getCurrent  (in libswift_Concurrency.dylib) + 0  [0x2937de1f0]
+    + !               : 1 swift::StackAllocator<984ul, &swift::TaskAllocatorSlabMetadata, swift::TaskAllocatorConfiguration>::alloc(unsigned long)  (in libswift_Concurrency.dylib) + 312  [0x2937e8ef8]
+    + !               11 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 40  [0x100a299f8]  DocumentRecovery.swift:351
+    + !               : 9 swift_release  (in libswiftCore.dylib) + 0,16,...  [0x1a18230f0,0x1a1823100,...]
+    + !               : 2 DYLD-STUB$$swift_release  (in NostrWriter) + 4  [0x100fca394]
+    + !               7 swift_task_switchImpl(swift::AsyncContext*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::SerialExecutorRef)  (in libswift_Concurrency.dylib) + 64,84  [0x2937e024c,0x2937e0260]
+    + !               4 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 124  [0x100a29a4c]  DocumentRecovery.swift:0
+    + !               : 2 swift_endAccess  (in libswiftCore.dylib) + 32  [0x1a18230a0]
+    + !               : | 2 swift::runtime::SwiftTLSContext::get()  (in libswiftCore.dylib) + 20  [0x1a18dce24]
+    + !               : 2 swift_endAccess  (in libswiftCore.dylib) + 0  [0x1a1823080]
+    + !               4 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 96  [0x100a29a30]  DocumentRecovery.swift:351
+    + !               : 2 swift_beginAccess  (in libswiftCore.dylib) + 64  [0x1a181ec10]
+    + !               : | 2 swift::runtime::SwiftTLSContext::get()  (in libswiftCore.dylib) + 20  [0x1a18dce24]
+    + !               : 1 swift_beginAccess  (in libswiftCore.dylib) + 84  [0x1a181ec24]
+    + !               : | 1 swift::runtime::AccessSet::insert(swift::runtime::Access*, void*, void*, swift::ExclusivityFlags)  (in libswiftCore.dylib) + 132  [0x1a1883988]
+    + !               : 1 swift_beginAccess  (in libswiftCore.dylib) + 28  [0x1a181ebec]
+    + !               3 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 116  [0x100a29a44]  DocumentRecovery.swift:351
+    + !               : 2 swift_retain  (in libswiftCore.dylib) + 56  [0x1a182303c]
+    + !               : 1 DYLD-STUB$$swift_retain  (in NostrWriter) + 4  [0x100fca3a0]
+    + !               2 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 24,32  [0x100a299e8,0x100a299f0]  DocumentRecovery.swift:351
+    + !               2 swift_task_dealloc  (in libswift_Concurrency.dylib) + 104  [0x2937e9060]
+    + 31 start  (in dyld) + 6992  [0x18dd004e4]
+    + ! 31 main  (in NostrWriter) + 12  [0x100a06698]  AppMain.swift:0
+    + !   31 static NostrWriterMain.$main()  (in NostrWriter) + 12  [0x100a06684]  /<compiler-generated>:0
+    + !     31 static NostrWriterMain.main()  (in NostrWriter) + 212  [0x100a064fc]  AppMain.swift:11
+    + !       31 closure #1 in static NostrWriterMain.main()  (in NostrWriter) + 176  [0x100a0665c]  AppMain.swift:11
+    + !         31 -[NSApplication run]  (in AppKit) + 408  [0x1925b1164]
+    + !           31 -[NSApplication _handleEvent:]  (in AppKit) + 60  [0x192d9f6d8]
+    + !             31 -[NSApplication(NSEventRouting) sendEvent:]  (in AppKit) + 1844  [0x193152700]
+    + !               31 routeKeyEquivalent  (in AppKit) + 444  [0x1931544e4]
+    + !                 31 -[NSMenu performKeyEquivalent:]  (in AppKit) + 356  [0x19281f8b0]
+    + !                   31 -[NSMenu _performKeyEquivalentForItemAtIndex:]  (in AppKit) + 172  [0x192fda158]
+    + !                     31 _NSMenuPerformActionWithHighlighting  (in AppKit) + 160  [0x19317e644]
+    + !                       31 -[NSMenuItem _corePerformAction:]  (in AppKit) + 540  [0x192feee6c]
+    + !                         31 -[NSApplication(NSResponder) sendAction:to:from:]  (in AppKit) + 560  [0x192758720]
+    + !                           31 -[NSApplication terminate:]  (in AppKit) + 780  [0x1927bf578]
+    + !                             31 -[NSApplication _shouldTerminate]  (in AppKit) + 1188  [0x1927cd82c]
+    + !                               31 -[NSApplication(NSEventRouting) nextEventMatchingMask:untilDate:inMode:dequeue:]  (in AppKit) + 72  [0x193153678]
+    + !                                 31 -[NSApplication(NSEventRouting) _nextEventMatchingEventMask:untilDate:inMode:dequeue:]  (in AppKit) + 688  [0x19315396c]
+    + !                                   31 _DPSNextEvent  (in AppKit) + 576  [0x1925be084]
+    + !                                     31 _DPSBlockUntilNextEventMatchingListInMode  (in AppKit) + 228  [0x192c6a3d0]
+    + !                                       31 _BlockUntilNextEventMatchingListInMode  (in HIToolbox) + 48  [0x19b10014c]
+    + !                                         31 ReceiveNextEventCommon  (in HIToolbox) + 488  [0x19af768bc]
+    + !                                           31 RunCurrentEventLoopInMode  (in HIToolbox) + 320  [0x19af73560]
+    + !                                             31 _CFRunLoopRunSpecificWithOptions  (in CoreFoundation) + 532  [0x18e25a264]
+    + !                                               31 __CFRunLoopRun  (in CoreFoundation) + 1944  [0x18e187ce8]
+    + !                                                 31 __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__  (in CoreFoundation) + 16  [0x18e1c5754]
+    + !                                                   31 _dispatch_main_queue_callback_4CF  (in libdispatch.dylib) + 44  [0x18df1e924]
+    + !                                                     31 _dispatch_main_queue_drain  (in libdispatch.dylib) + 176  [0x18df1e9e4]
+    + !                                                       31 _dispatch_main_queue_drain.cold.6  (in libdispatch.dylib) + 612  [0x18df47314]
+    + !                                                         31 swift_job_runImpl(swift::Job*, swift::SerialExecutorRef)  (in libswift_Concurrency.dylib) + 156  [0x2937df6ec]
+    + !                                                           31 swift::runJobInEstablishedExecutorContext(swift::Job*)  (in libswift_Concurrency.dylib) + 472  [0x2937dde18]
+    + !                                                             9 Task<>.value.getter  (in libswift_Concurrency.dylib) + 0  [0x293832144]
+    + !                                                             8 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 0  [0x100a29970]  DocumentRecovery.swift:351
+    + !                                                             6 DocumentRecovery.waitForHandoff()  (in NostrWriter) + 0  [0x100a299d0]  DocumentRecovery.swift:351
+    + !                                                             6 swift_task_switch  (in libswift_Concurrency.dylib) + 0,4,...  [0x2937e01dc,0x2937e01e0,...]
+    + !                                                             1 DYLD-STUB$$Task<>.value.getter  (in NostrWriter) + 4  [0x100fc80b4]
+    + !                                                             1 swift_task_future_wait  (in libswift_Concurrency.dylib) + 0  [0x2937e5c0c]
+    + 3 swift_task_future_waitImpl(swift::OpaqueValue*, swift::AsyncContext*, swift::AsyncTask*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*)  (in libswift_Concurrency.dylib) + 288  [0x2937e5d5c]
+    + 1 swift_task_switchImpl(swift::AsyncContext*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::SerialExecutorRef)  (in libswift_Concurrency.dylib) + 48  [0x2937e023c]
+    139 Thread_6642733: com.apple.NSEventThread
+    + 139 thread_start  (in libsystem_pthread.dylib) + 8  [0x18e0c6c1c]
+    +   139 _pthread_start  (in libsystem_pthread.dylib) + 136  [0x18e0cbc58]
+    +     139 _NSEventThread  (in AppKit) + 184  [0x1926dfcac]
+    +       139 _CFRunLoopRunSpecificWithOptions  (in CoreFoundation) + 532  [0x18e25a264]
+    +         139 __CFRunLoopRun  (in CoreFoundation) + 1188  [0x18e1879f4]
+    +           139 __CFRunLoopServiceMachPort  (in CoreFoundation) + 160  [0x18e189108]
+    +             139 mach_msg  (in libsystem_kernel.dylib) + 24  [0x18e087fc0]
+    +               139 mach_msg_overwrite  (in libsystem_kernel.dylib) + 480  [0x18e0909c0]
+    +                 139 mach_msg2_internal  (in libsystem_kernel.dylib) + 76  [0x18e09a5a4]
+    +                   139 mach_msg2_trap  (in libsystem_kernel.dylib) + 8  [0x18e087c34]
+    139 Thread_6646729
+    + 139 start_wqthread  (in libsystem_pthread.dylib) + 8  [0x18e0c6c10]
+    +   139 _pthread_wqthread  (in libsystem_pthread.dylib) + 368  [0x18e0c7f0c]
+    +     139 __workq_kernreturn  (in libsystem_kernel.dylib) + 8  [0x18e0899f0]
+    139 Thread_6649511
+    + 139 start_wqthread  (in libsystem_pthread.dylib) + 8  [0x18e0c6c10]
+    +   139 _pthread_wqthread  (in libsystem_pthread.dylib) + 368  [0x18e0c7f0c]
+    +     139 __workq_kernreturn  (in libsystem_kernel.dylib) + 8  [0x18e0899f0]
+    139 Thread_6650018
+      139 start_wqthread  (in libsystem_pthread.dylib) + 8  [0x18e0c6c10]
+        139 _pthread_wqthread  (in libsystem_pthread.dylib) + 368  [0x18e0c7f0c]
+          139 __workq_kernreturn  (in libsystem_kernel.dylib) + 8  [0x18e0899f0]
+
+Total number in stack (recursive counted multiple, when >=5):
+
+Sort by top of stack, same collapsed (when >= 5):
+        __workq_kernreturn  (in libsystem_kernel.dylib)        417
+        mach_msg2_trap  (in libsystem_kernel.dylib)        139
+        swift::metadataimpl::ValueWitnesses<swift::metadataimpl::AggregateBox<>>::initializeWithCopy(swift::OpaqueValue*, swift::OpaqueValue*, swift::TargetMetadata<swift::InProcess> const*)  (in libswiftCore.dylib)        19
+        DocumentRecovery.waitForHandoff()  (in NostrWriter)        17
+        swift_task_dealloc  (in libswift_Concurrency.dylib)        17
+        swift_task_alloc  (in libswift_Concurrency.dylib)        12
+        swift_task_getCurrent  (in libswift_Concurrency.dylib)        12
+        Task<>.value.getter  (in libswift_Concurrency.dylib)        9
+        swift_release  (in libswiftCore.dylib)        9
+        swift_task_switchImpl(swift::AsyncContext*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::SerialExecutorRef)  (in libswift_Concurrency.dylib)        8
+        swift::AsyncTask::waitFuture(swift::AsyncTask*, swift::AsyncContext*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*, swift::OpaqueValue*)  (in libswift_Concurrency.dylib)        7
+        swift_task_future_waitImpl(swift::OpaqueValue*, swift::AsyncContext*, swift::AsyncTask*, void (swift::AsyncContext* swift_async_context) swiftasynccall*, swift::AsyncContext*)  (in libswift_Concurrency.dylib)        7
+        swift_task_switch  (in libswift_Concurrency.dylib)        6
+

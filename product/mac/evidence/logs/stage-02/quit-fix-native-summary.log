@@ -1,0 +1,8 @@
+Test Case '-[NostrWriterTests.ShellTests testQueuedSavesAndCloseBoundaryPreserveLatestRevision]' started.
+Test Case '-[NostrWriterTests.ShellTests testQueuedSavesAndCloseBoundaryPreserveLatestRevision]' passed (1.069 seconds).
+Test Case '-[NostrWriterTests.ShellTests testStoppedRecoveryRejectsLateBoundary]' started.
+Test Case '-[NostrWriterTests.ShellTests testStoppedRecoveryRejectsLateBoundary]' passed (0.010 seconds).
+	 Executed 2 tests, with 0 failures (0 unexpected) in 1.078 (1.080) seconds
+	 Executed 2 tests, with 0 failures (0 unexpected) in 1.078 (1.081) seconds
+	 Executed 2 tests, with 0 failures (0 unexpected) in 1.078 (1.082) seconds
+** TEST SUCCEEDED **
