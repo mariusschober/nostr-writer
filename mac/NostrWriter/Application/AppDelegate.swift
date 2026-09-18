@@ -75,6 +75,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         settings?.showWindow(sender)
     }
 
+    /// Shows the shared native Spelling and Grammar panel for the writing view.
+    @objc func showSpellingAndGrammar(_ sender: Any?) {
+        NSSpellChecker.shared.spellingPanel.orderFront(sender)
+    }
+
     @objc func showWriterHelp(_ sender: Any?) {
         let alert = NSAlert()
         alert.messageText = "Writing and writing history"

@@ -679,7 +679,10 @@ extension WriterDocument {
         guard let session else { throw ContractError.unsupported("The document session has not opened.") }
         let receipt = try session.apply(command, completeness: capture)
         loadedBytes.withLock { $0 = receipt.post.utf8 }
-        updateChangeCount(.changeDone)
+        // An undo moves back toward the saved revision, so it decrements the
+        // document's change count; treating it as a fresh change would leave
+        // the file looking modified after every edit was undone.
+        if case .undo = command.origin { updateChangeCount(.changeUndone) } else { updateChangeCount(.changeDone) }
         recovery?.observe(receipt.post)
         let observed = LocalEditRecord(epochID: historyEpoch?.id ?? CaptureEpochID(), receipt: receipt,
                                        recordedAtEpochSeconds: Date().timeIntervalSince1970)

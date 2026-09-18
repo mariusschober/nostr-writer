@@ -113,6 +113,7 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 9
         editor.defaultParagraphStyle = paragraph
         editor.isContinuousSpellCheckingEnabled = true
+        editor.isGrammarCheckingEnabled = true
         editor.isAutomaticSpellingCorrectionEnabled = false
         editor.isAutomaticTextReplacementEnabled = false
         editor.isAutomaticQuoteSubstitutionEnabled = false
@@ -314,7 +315,10 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         if writerDocument.fileLifecycle.conflict != nil { fileState = "External changes need review" }
         else if writerDocument.isSavingSource { fileState = "Saving…" }
         else if writerDocument.saveFailed { fileState = "Save failed" }
-        else if let saved = writerDocument.savedFile, saved.source == writerDocument.session?.snapshot {
+        // "Saved" is about the file on disk, so compare its exact bytes - not
+        // the revision number, which necessarily advances on undo and redo.
+        else if let saved = writerDocument.savedFile, let snapshot = writerDocument.session?.snapshot,
+                saved.source.documentID == snapshot.documentID, saved.source.utf8 == snapshot.utf8 {
             fileState = "Saved to \(saved.url.deletingLastPathComponent().lastPathComponent)"
         } else { fileState = "Unsaved" }
         wordCount.stringValue = "\(words) \(words == 1 ? "word" : "words") · \(fileState)"

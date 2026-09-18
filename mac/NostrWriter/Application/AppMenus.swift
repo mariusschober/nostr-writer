@@ -18,6 +18,18 @@ enum AppMenus {
         item(app, "About Nostr Writer", #selector(NSApplication.orderFrontStandardAboutPanel(_:)))
         item(app, "Settings…", #selector(AppDelegate.showSettings(_:)), ",")
         app.addItem(.separator())
+        // macOS hosts Services - including translation of the selected passage -
+        // in the application menu, but AppKit only populates that submenu if the
+        // app supplies the item. This menu bar is built programmatically, so
+        // without this the whole Services menu is unreachable and ordinary
+        // writing loses it. The submenu is intentionally empty here: the system
+        // fills it from the registered service providers.
+        let servicesItem = NSMenuItem(title: "Services", action: nil, keyEquivalent: "")
+        let services = NSMenu(title: "Services")
+        servicesItem.submenu = services
+        NSApp.servicesMenu = services
+        app.addItem(servicesItem)
+        app.addItem(.separator())
         item(app, "Hide Nostr Writer", #selector(NSApplication.hide(_:)), "h")
         item(app, "Hide Others", #selector(NSApplication.hideOtherApplications(_:)), "h", [.command, .option])
         item(app, "Show All", #selector(NSApplication.unhideAllApplications(_:)))
@@ -46,6 +58,20 @@ enum AppMenus {
         item(edit, "Select All", #selector(NSText.selectAll(_:)), "a")
         item(edit, "Find…", #selector(NSTextView.performFindPanelAction(_:)), "f")
         edit.items.last?.tag = NSTextFinder.Action.showFindInterface.rawValue
+        // AppKit does not add a Spelling submenu to a programmatically built
+        // menu bar. Continuous spelling and grammar indications are on by
+        // default; these are the standard native routes to act on them.
+        edit.addItem(.separator())
+        let spelling = NSMenu(title: "Spelling and Grammar")
+        let spellingItem = NSMenuItem(title: "Spelling and Grammar", action: nil, keyEquivalent: "")
+        spellingItem.submenu = spelling
+        item(spelling, "Show Spelling and Grammar", #selector(AppDelegate.showSpellingAndGrammar(_:)), ":")
+        item(spelling, "Check Document Now", #selector(NSText.checkSpelling(_:)), ";")
+        spelling.addItem(.separator())
+        item(spelling, "Check Spelling While Typing", #selector(NSTextView.toggleContinuousSpellChecking(_:)))
+        item(spelling, "Check Grammar With Spelling", #selector(NSTextView.toggleGrammarChecking(_:)))
+        item(spelling, "Correct Spelling Automatically", #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
+        edit.addItem(spellingItem)
         let format = menu("Format")
         for formatting in EditorCommands.Formatting.allCases {
             let value = NSMenuItem(title: formatting.title, action: #selector(WriterWindowController.applyFormatting(_:)), keyEquivalent: "")
