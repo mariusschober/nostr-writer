@@ -98,9 +98,23 @@
       "status": "PASS",
       "detail": "final candidate launched with the fixture; real window titled editor-fixture.md at 1120x760 (origin 304,195); instance quit afterwards"
     },
-    "native_ui_screenshots": {
+    "native_ui_current_build_light": {
+      "status": "PASS",
+      "detail": "captured through the Codex computer-use runtime against the signed-development candidate; exact source, typography, measure, emphasis colours, sidebar, tabs, toolbar and status line, no clipping",
+      "artifact": "product/mac/evidence/logs/stage-03/editor-1120x760-light-candidate.jpeg"
+    },
+    "native_annotation_interaction": {
+      "status": "PASS",
+      "detail": "inspector opened; blockquote selected and marked as an external source showing bytes 109-147; one character typed at the document start re-mapped it to bytes 110-148 with status 41 words Unsaved",
+      "artifacts": [
+        "product/mac/evidence/logs/stage-03/editor-inspector-open.jpeg",
+        "product/mac/evidence/logs/stage-03/editor-inspector-marked-span.jpeg",
+        "product/mac/evidence/logs/stage-03/editor-inspector-marked-span-after-edit.jpeg"
+      ]
+    },
+    "native_ui_predecessor_screenshots": {
       "status": "NOT MEASURED",
-      "reason": "the four recorded screenshots were captured against predecessor candidate e7673cf3 at 16:52 and are partial layout evidence only; current-build pixel capture is blocked because the capturing process lacks Screen Recording permission",
+      "reason": "the four recorded PNG screenshots were captured against predecessor candidate e7673cf3 at 16:52 and are partial layout evidence only",
       "artifacts": [
         "product/mac/evidence/logs/stage-03/editor-1120x760-light.png",
         "product/mac/evidence/logs/stage-03/editor-1120x760-dark.png",
@@ -148,21 +162,23 @@
     {
       "id": "M14",
       "status": "BLOCKED",
-      "reason": "Partial: real window, typography, chrome, measure and contrast observed on the predecessor candidate at 1120x760 light/dark and 760 pt width with real native typing; the final candidate is confirmed to open a real 1120x760 window, but pixel capture is blocked and Settings preferences, Reduce Motion, focus/typewriter, outline navigation and the full keyboard matrix remain unobserved. Needs an interactive owner-visible GUI session.",
+      "reason": "Partial, now against the final candidate: a real 1120x760 light window with exact source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line was captured, and the passage inspector was opened and used. Dark appearance on this build, Reduce Motion, focus/typewriter, outline navigation, the Settings window and the full keyboard matrix remain unobserved and need an owner-visible session.",
       "observed_artifacts": [
+        "logs/stage-03/editor-1120x760-light-candidate.jpeg",
+        "logs/stage-03/editor-inspector-open.jpeg",
         "logs/stage-03/editor-1120x760-light.png",
         "logs/stage-03/editor-1120x760-dark.png",
         "logs/stage-03/editor-760x556-light.png",
         "logs/stage-03/editor-native-input-light.png"
       ],
-      "artifact_candidate": "e7673cf3 (predecessor, 16:41:49)",
+      "artifact_candidate": "95efbeca (current) plus e7673cf3 (predecessor, 16:41:49)",
       "not_measured": [
         "Settings preferences window",
         "Reduce Motion behaviour",
         "focus mode and typewriter scrolling",
         "outline popup navigation",
         "full keyboard matrix",
-        "current-build pixel capture (needs Screen Recording permission)"
+        "dark appearance on the current candidate"
       ]
     },
     {
@@ -213,12 +229,14 @@
     },
     {
       "id": "M20",
-      "status": "BLOCKED",
-      "reason": "Annotation lineage is verified deterministically (exact shift, stale-on-replacement, removal keeps source, sticky staleness, distinct split ids), but the inspector UI and an actual annotation interaction were not captured.",
+      "status": "PASS",
+      "reason": "Observed live: the passage inspector opened, the blockquote was selected and marked as an external source showing bytes 109-147, and one character typed at the document start re-mapped it to bytes 110-148 (exact +1 shift). The lineage transformations (shift, stale-on-replacement, removal, sticky staleness, distinct split ids) are additionally covered deterministically, and the UI shows the contracted NOT PROVABLE message and does not claim human certainty.",
       "evidence": [
+        "logs/stage-03/editor-inspector-open.jpeg",
+        "logs/stage-03/editor-inspector-marked-span.jpeg",
+        "logs/stage-03/editor-inspector-marked-span-after-edit.jpeg",
         "Stage03EditorTests.testAnnotationsShiftThroughEditsAndRemovalKeepsSource"
-      ],
-      "needs": "owner-visible inspector and annotation interaction"
+      ]
     },
     {
       "id": "M21",
@@ -246,13 +264,8 @@
       "blocks": ["M21 live history", "any recovery claim in this build"]
     },
     {
-      "id": "screen_recording_permission",
-      "detail": "the capturing process cannot take screen images (screencapture: could not create image from display), so M14 current-build pixel evidence cannot be produced",
-      "blocks": ["M14 current-build screenshots"]
-    },
-    {
       "id": "interactive_gui",
-      "detail": "owner-visible session needed for M14 preferences/Reduce Motion/focus/keyboard and M20 annotation interaction"
+      "detail": "owner-visible session needed for M14 dark appearance/Reduce Motion/focus/outline/Settings/keyboard; shell screencapture is unavailable but the Codex computer-use runtime can capture the window"
     },
     {
       "id": "input_sources",

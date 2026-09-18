@@ -132,35 +132,39 @@ Logs live in `product/mac/evidence/logs/stage-03/`
 Interaction was driven against the real candidate with a synthetic fixture
 (`logs/stage-03/editor-fixture.md`); no private draft was recorded.
 
-At the final candidate `95efbeca...` it was observed on 2026-09-18 that launching
-the app with the fixture produced a real window titled `editor-fixture.md` at
-1120x760 (origin 304,195). **Pixel capture of that window is BLOCKED**: the
-capturing process has no Screen Recording permission (`screencapture` returned
-"could not create image from display"). The instance was quit afterwards.
-
-The four screenshots below were captured earlier at 16:52 against the predecessor
-candidate `e7673cf3...` (built 16:41:49), which predates the consent-lifecycle
-and gateway changes. They are retained as partial layout evidence only, **not as
-current-build observations**:
+At the final candidate `95efbeca...` (built 17:41:08) the app was observed on
+2026-09-18 through the Codex computer-use runtime, which resolved and drove the
+signed-development candidate by path. Shell `screencapture` remains unavailable
+on this host ("could not create image from display"), but the runtime's own
+capture path works. Four current-build captures were taken with the fixture
+loaded, and the annotated span was exercised live:
 
 | Artifact | Observation |
 | --- | --- |
-| `editor-1120x760-light.png` | Real window titled `nw-s3-fixture.md` at 1120x760 in light appearance; exact Markdown source, heading/blockquote/inline-code emphasis, sidebar/tab bar/toolbar and a status line ("41 words - Saved to tmp") laid out without clipping. Banner reads "Recovery unavailable. Save your document to a file; your text is still editable."; indicator reads "Recording off". |
-| `editor-1120x760-dark.png` | Same window in dark appearance; source, emphasis colours and status text stay legible. |
-| `editor-760x556-light.png` | Window constrained to 760 pt width; the measure narrows and long lines wrap; nothing clips or overlaps. |
-| `editor-native-input-light.png` | Real system key events inserted `Typed natively into Stage 03.`; the word count moved 41 to 46 and the status changed `Saved to tmp` to `Unsaved`. |
+| `editor-1120x760-light-candidate.jpeg` | Real window titled `editor-fixture.md` at 1120x760 in light appearance; exact Markdown source on a centred measure in monospaced type, with heading (`#`/`##`), bold, inline-code, blockquote and code-fence colouring; sidebar (Open/Recent), tab bar, toolbar (Headings, Formatting, Dictate, Focus, Toggle Inspector, Preview & Export, Publish) and a status line ("41 words - Saved to stage-03") laid out without clipping or overlap. Banner reads "Recovery unavailable. Save your document to a file; your text is still editable."; indicator reads "Recording off". |
+| `editor-inspector-open.jpeg` | The passage inspector toggled open: RECORDING "Recording off / No detailed revisions or deleted text are stored" with Pause/Resume and Delete Local History; DICTATION Off; SELECTED PASSAGE with Category (Quotation), Source description, Optional URL and "This material is not claimed as freshly composed."; MARKED SPANS "No marked spans."; HUMAN WRITING PROOF "NOT PROVABLE - no approved Mac capture profile and model are installed. This is not a judgment about who wrote your text." |
+| `editor-inspector-marked-span.jpeg` | The blockquote passage was selected and marked as an external source (Quotation, description "Unattributed quotation for the Stage 03 fixture."). MARKED SPANS then read "Unattributed quotation for the Stage 03 fixture. / Quotation - bytes 109-147" with a remove control. |
+| `editor-inspector-marked-span-after-edit.jpeg` | One character typed at the document start re-mapped the marked span to "Quotation - bytes 110-148" (an exact +1 shift), and the status changed to "41 words - Unsaved". |
+
+The earlier recorded screenshots were captured at 16:52 against the predecessor
+candidate `e7673cf3...` (built 16:41:49) and are retained as partial evidence
+only, not as current-build observations: `editor-1120x760-light.png` and
+`editor-1120x760-dark.png` (light and dark layout at 1120x760),
+`editor-760x556-light.png` (760 pt width) and `editor-native-input-light.png`
+(real key events typed text; word count 41 to 46; status "Saved to tmp" to
+"Unsaved").
 
 ## Acceptance results (M14-M21)
 
 | ID | Status | Evidence and exact gap |
 | --- | --- | --- |
-| M14 | **BLOCKED** | Partial: real window, typography, chrome, measure adaptation and contrast were observed at 1120x760 (light and dark) and at 760 pt width, with real native typing (screenshots above, predecessor candidate), and the final candidate is confirmed to open a real 1120x760 window. Not observed: the Settings preferences window, Reduce Motion behaviour, focus mode and typewriter scrolling interaction, outline-popup navigation, and the full keyboard matrix, and no current-build pixel capture is possible without Screen Recording permission. These need an interactive owner-visible GUI session. |
+| M14 | **BLOCKED** | Partial, now against the final candidate: a real 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line was captured (`editor-1120x760-light-candidate.jpeg`), and the passage inspector was opened and used. Still not observed: dark appearance on this build, Reduce Motion behaviour, focus mode and typewriter scrolling interaction, outline-popup navigation, the Settings preferences window and the full keyboard matrix. These need an owner-visible interactive session; dark appearance also needs a system-appearance change. |
 | M15 | **PASS** | `testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes`, `testOneTypedMutationProducesExactlyOneRevision` and `testMarkedTextIsNotCommittedAsARevision` pass; the 1,000-operation Unicode replay (`seed=1592591107`, final 420 bytes, byte-equality after every operation) passes; the ShellTests undo paths still pass; the 100,008-word / 540,600-byte fixture measured outline 27.0 ms, edit p95 45.7 ms, max 45.8 ms; real typing preserved exact source. |
 | M16 | **BLOCKED** | The composition unit path passes (`testMarkedTextIsNotCommittedAsARevision`: marked text publishes no revision, the commit is classified `nativeIMECommit`, and the case reports BLOCKED when the headless host has no marked-text support). The required real input matrix - US and German layouts, dead keys, at least one real IME, emoji and RTL - was not performed. Needs an owner-visible session with the German and CJK input sources enabled. |
 | M17 | **PASS** | The route inventory above is tied to implementation; `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText` covers every delivery including `unknown`; `testOneTypedMutationProducesExactlyOneRevision` proves a duplicate delegate callback publishes no second revision; `testInputPolicyRefusesExternalInsertionLocally` proves the Stage 07 seam refuses external insertion without global interception. |
 | M18 | **BLOCKED** | Deterministic parts verified: continuous spell checking on, automatic spelling correction / text replacement / quote / dash substitution / text completion all off, `writingToolsBehavior = .none` on macOS 15+, and spelling acceptance classified `knownAssistance(.spelling)`. The required native spell-correction and Services/Writing-Tools observations were not performed and need an owner-visible session. |
 | M19 | **BLOCKED** | Deterministic anchor/cancellation rules pass (`testDictationAnchorCancelsRatherThanOverwritingLaterText`). Real on-device recognition needs a microphone, spoken audio and speech-recognition permission, so it needs an owner session; denial/unavailable/error paths were not exercised live. |
-| M20 | **BLOCKED** | Deterministic lineage verified (`testAnnotationsShiftThroughEditsAndRemovalKeepsSource`: an insertion at index 0 shifts the annotation exactly, replacing its wording marks it stale rather than moving the exclusion, removal leaves source intact; staleness is now sticky and split fragments get distinct ids). The inspector UI and an actual annotation interaction were not captured - the agent could not open the inspector in this session - so the required actual interaction is outstanding. |
+| M20 | **PASS** | Observed in the running app: the passage inspector opened; selecting the blockquote populated SELECTED PASSAGE; filling a source description enabled "Mark External Source"; marking created a span shown as "Quotation - bytes 109-147"; and one character typed at the document start re-mapped it to "bytes 110-148" (an exact +1 shift). `testAnnotationsShiftThroughEditsAndRemovalKeepsSource` deterministically covers the shift, stale-on-replacement, removal, sticky staleness and distinct split ids; the inspector's HUMAN WRITING PROOF section shows the contracted NOT PROVABLE message and the passage notice says the material "is not claimed as freshly composed", so the UI does not imply human certainty. |
 | M21 | **BLOCKED** | Deterministic parts verified: `testObservationHandleHonoursConsentBoundaries` (recording off gives no handle; gap/paused/limit give an honest nil; observing gives a handle bound to the exact source) and the `WriterStorageTests.HistoryJournalTests` (round-trip, encryption at rest, wrong key, capacity pause without stopping writing, delete-history leaves recovery intact, and the two new interpretation-tamper cases). The live off/on/pause persistence check could not run: the ad-hoc candidate has no keychain access group, so the app itself reported "Recovery unavailable" and the encrypted journal could not be opened. Needs a properly signed candidate. |
 
 ## Blockers (exact missing access, input or decision)
@@ -171,14 +175,14 @@ current-build observations**:
    with `WRITER_DEVELOPMENT_TEAM=<team>` via
    `mac/scripts/build_signed_development.sh`. This is required for M21's live
    consent/journal checks and for any claim about real recovery in this build.
-2. **Screen Recording permission.** The capturing process cannot take screen
-   images (`screencapture` fails with "could not create image from display"), so
-   M14's current-build pixel evidence cannot be produced. Grant Screen Recording
-   to the observing app, or capture the window during an owner-visible session.
-3. **Interactive GUI session (owner-visible).** M14's remaining checks (Settings
-   preferences, Reduce Motion, focus/typewriter, outline navigation, keyboard
-   matrix) and M20's annotation interaction need an attentive session on the
-   console; scripted AX/coordinate control was only partly effective here.
+2. **Owner-visible interactive session.** M14's remaining checks (dark
+   appearance, Reduce Motion, focus/typewriter, outline navigation, the Settings
+   window and the keyboard matrix) need an attentive session on the console.
+   Shell `screencapture` is unavailable on this host, but the Codex computer-use
+   runtime captures the window (as used above), so screenshot capture itself is
+   not the blocker for the light appearance.
+3. **Dark appearance.** The current-build capture is light only; a dark-appearance
+   screenshot needs a system-appearance change or an owner-visible session.
 4. **Input-method matrix.** M16 needs the German and at least one CJK input
    source enabled and typed into the editor, plus emoji and RTL.
 5. **Spell/assistance session.** M18 needs an actual spelling correction and a
