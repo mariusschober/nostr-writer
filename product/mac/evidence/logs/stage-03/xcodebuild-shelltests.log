@@ -1,0 +1,725 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath .build/NativeTestDerivedData -destination platform=macOS -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test "-only-testing:NostrWriterTests/ShellTests"
+
+Build settings from command line:
+    ARCHS = arm64
+    ONLY_ACTIVE_ARCH = YES
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  WriterFoundation: /Users/schober/Projects/Nostr Writer/mac/Packages/WriterFoundation
+  CryptoSwift: https://github.com/krzyzanowskim/CryptoSwift.git @ e45a263
+  cmark-gfm: https://github.com/swiftlang/swift-cmark.git @ 924936d
+  BigInt: https://github.com/attaswift/BigInt.git @ e07e00f
+  KeyboardShortcuts: https://github.com/sindresorhus/KeyboardShortcuts.git @ 49c3fc0
+  ZIPFoundation: https://github.com/weichsel/ZIPFoundation.git @ 22787ff
+  swift-markdown: https://github.com/swiftlang/swift-markdown.git @ 7d9a5ce
+  swift-secp256k1: https://github.com/21-DOT-DEV/swift-secp256k1.git @ e70a10e
+  WriterExport: /Users/schober/Projects/Nostr Writer/mac/Packages/WriterExport
+  WriterHWP: /Users/schober/Projects/Nostr Writer/mac/Packages/WriterHWP
+  WriterNostr: /Users/schober/Projects/Nostr Writer/mac/Packages/WriterNostr
+  WriterStorage: /Users/schober/Projects/Nostr Writer/mac/Packages/WriterStorage
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, id:00006000-0014189836D2801E, name:My Mac }
+{ platform:macOS, arch:x86_64, id:00006000-0014189836D2801E, name:My Mac }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+Compile plug-in “SharedSourcesPlugin” in package “swift-secp256k1”
+[debug]: Compiling plugin to executable at /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Products/PluginExecutables/SharedSourcesPlugin
+[debug]: Using compiler /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc
+[debug]: Plugin compilation output directory '/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Products/PluginExecutables'
+[debug]: Computed hash of plugin compilation inputs: 77f5909a459f2014d899c6cfea3b35d4038f882a44786251136867d9f5586046
+
+
+Apply build tool plug-in “SharedSourcesPlugin” to target “P256K” in package “swift-secp256k1”
+
+/usr/bin/sandbox-exec -p "(version 1)
+(deny default)
+(import \"system.sb\")
+(allow file-read*)
+(allow process*)
+(allow mach-lookup (global-name \"com.apple.lsd.mapdb\"))
+(allow mach-lookup (global-name \"com.apple.mobileassetd.v2\"))
+(allow file-write*
+    (subpath \"/private/tmp\")
+    (subpath \"/private/var/tmp\")
+    (subpath \"/private/var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T\")
+    (subpath \"/private/var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/C\")
+)
+(deny file-write*
+    (subpath \"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/SourcePackages/checkouts/swift-secp256k1\")
+)
+(allow file-write*
+    (subpath \"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin\")
+    (subpath \"/private/var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/TemporaryItems\")
+)
+" /bin/sh -c "find '/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/SourcePackages/checkouts/swift-secp256k1/Sources/Shared' -name '*.swift' -exec cp {} '/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin//' \\;"
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SEC1PrivateKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ObjectIdentifier.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SubjectPublicKeyInfo.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Zeroization.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+XonlyKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+PrivateKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+PublicKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+Tweak.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+Signature.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SHA256.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Recovery+Signature.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Recovery.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/EdDSA.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Nonces.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+XonlyKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+PublicKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Signature.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Tweak.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+PrivateKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/DH.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Tweak.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Signing.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Nonces.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Aggregate.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSASignature.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PKCS8PrivateKey.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1OctetString.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Null.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Boolean.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Integer.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ArraySliceBigint.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1BitString.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Any.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Strings.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Identifier.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/GeneralizedTime.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PEMDocument.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SecureBytes.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PrettyBytes.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/RNG_boring.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Signature.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/CryptoKitErrors.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Digest.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Context.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDH.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/XonlyKeyImplementation.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PrivateKeyImplementation.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PublicKeyImplementation.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/P256K.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Utility.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Combine.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Errors.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/HashDigest.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Representation.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Arithmetic.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+FixedWidthInteger.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Modular.swift: Permission denied
+cp: /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SafeCompare.swift: Permission denied
+
+Process build tool plug-in results
+package: <IDESwiftPackageCore.IDESwiftPackageDependency:0x9255d8c00 path:'/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/SourcePackages/checkouts/swift-secp256k1'>
+    target: P256K
+        prebuildCommandOutputPaths: [SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Any.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1BitString.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Boolean.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Identifier.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Integer.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Null.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1OctetString.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Strings.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ArraySliceBigint.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Combine.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Context.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/CryptoKitErrors.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/DH.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Digest.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDH.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+PublicKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+Tweak.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+XonlyKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSASignature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/EdDSA.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Errors.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/GeneralizedTime.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/HashDigest.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Aggregate.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Nonces.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Signing.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Tweak.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ObjectIdentifier.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/P256K.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PEMDocument.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PKCS8PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PrettyBytes.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PrivateKeyImplementation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PublicKeyImplementation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/RNG_boring.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Recovery+Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Recovery.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SEC1PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SHA256.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SafeCompare.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Nonces.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+PublicKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Tweak.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+XonlyKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SecureBytes.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SubjectPublicKeyInfo.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Arithmetic.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+FixedWidthInteger.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Modular.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Representation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Utility.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/XonlyKeyImplementation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Zeroization.swift">)]
+        buildCommands: []
+        allDerivedOutputPaths: [SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Any.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1BitString.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Boolean.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Identifier.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Integer.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Null.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1OctetString.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ASN1Strings.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ArraySliceBigint.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Combine.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Context.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/CryptoKitErrors.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/DH.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Digest.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDH.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+PublicKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+Tweak.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA+XonlyKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSA.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ECDSASignature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/EdDSA.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Errors.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/GeneralizedTime.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/HashDigest.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Aggregate.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Nonces.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Signing.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig+Tweak.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/MuSig.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/ObjectIdentifier.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/P256K.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PEMDocument.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PKCS8PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PrettyBytes.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PrivateKeyImplementation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/PublicKeyImplementation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/RNG_boring.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Recovery+Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Recovery.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SEC1PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SHA256.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SafeCompare.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Nonces.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+PrivateKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+PublicKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+Tweak.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr+XonlyKey.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Schnorr.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SecureBytes.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Signature.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/SubjectPublicKeyInfo.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Arithmetic.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+FixedWidthInteger.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Modular.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256+Representation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/UInt256.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Utility.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/XonlyKeyImplementation.swift">), SwiftPM.SPMAbsolutePath(absolutePath: <AbsolutePath:"/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/BuildToolPluginIntermediates/swift-secp256k1.output/P256K/SharedSourcesPlugin/Zeroization.swift">)]
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (36 targets)
+    Target 'NostrWriterUITests' in project 'NostrWriter'
+        ➜ Explicit dependency on target 'NostrWriter' in project 'NostrWriter'
+    Target 'NostrWriterTests' in project 'NostrWriter'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'WriterStorage-product' in project 'WriterStorage'
+        ➜ Explicit dependency on target 'WriterExport-product' in project 'WriterExport'
+    Target 'NostrWriter' in project 'NostrWriter'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'WriterStorage-product' in project 'WriterStorage'
+        ➜ Explicit dependency on target 'WriterHWP-product' in project 'WriterHWP'
+        ➜ Explicit dependency on target 'WriterExport-product' in project 'WriterExport'
+        ➜ Explicit dependency on target 'WriterNostr-product' in project 'WriterNostr'
+        ➜ Explicit dependency on target 'KeyboardShortcuts-product' in project 'KeyboardShortcuts'
+    Target 'KeyboardShortcuts-product' in project 'KeyboardShortcuts'
+        ➜ Explicit dependency on target 'KeyboardShortcuts' in project 'KeyboardShortcuts'
+        ➜ Explicit dependency on target 'KeyboardShortcuts_KeyboardShortcuts' in project 'KeyboardShortcuts'
+    Target 'KeyboardShortcuts' in project 'KeyboardShortcuts'
+        ➜ Explicit dependency on target 'KeyboardShortcuts_KeyboardShortcuts' in project 'KeyboardShortcuts'
+    Target 'KeyboardShortcuts_KeyboardShortcuts' in project 'KeyboardShortcuts' (no dependencies)
+    Target 'WriterNostr-product' in project 'WriterNostr'
+        ➜ Explicit dependency on target 'WriterNostr' in project 'WriterNostr'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'P256K-product' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'CryptoSwift-product' in project 'CryptoSwift'
+    Target 'WriterNostr' in project 'WriterNostr'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'P256K-product' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'CryptoSwift-product' in project 'CryptoSwift'
+    Target 'CryptoSwift-product' in project 'CryptoSwift'
+        ➜ Explicit dependency on target 'CryptoSwift' in project 'CryptoSwift'
+        ➜ Explicit dependency on target 'CryptoSwift_CryptoSwift' in project 'CryptoSwift'
+    Target 'CryptoSwift' in project 'CryptoSwift'
+        ➜ Explicit dependency on target 'CryptoSwift_CryptoSwift' in project 'CryptoSwift'
+    Target 'CryptoSwift_CryptoSwift' in project 'CryptoSwift' (no dependencies)
+    Target 'P256K-product' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'P256K' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'libsecp256k1' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'SharedSourcesPlugin' in project 'swift-secp256k1'
+    Target 'P256K' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'libsecp256k1' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'SharedSourcesPlugin' in project 'swift-secp256k1'
+    Target 'SharedSourcesPlugin' in project 'swift-secp256k1' (no dependencies)
+    Target 'libsecp256k1' in project 'swift-secp256k1' (no dependencies)
+    Target 'WriterExport-product' in project 'WriterExport'
+        ➜ Explicit dependency on target 'WriterExport' in project 'WriterExport'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'Markdown-product' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'ZIPFoundation-product' in project 'ZIPFoundation'
+    Target 'WriterExport' in project 'WriterExport'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'Markdown-product' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'ZIPFoundation-product' in project 'ZIPFoundation'
+    Target 'ZIPFoundation-product' in project 'ZIPFoundation'
+        ➜ Explicit dependency on target 'ZIPFoundation' in project 'ZIPFoundation'
+        ➜ Explicit dependency on target 'ZIPFoundation_ZIPFoundation' in project 'ZIPFoundation'
+    Target 'ZIPFoundation' in project 'ZIPFoundation'
+        ➜ Explicit dependency on target 'ZIPFoundation_ZIPFoundation' in project 'ZIPFoundation'
+    Target 'ZIPFoundation_ZIPFoundation' in project 'ZIPFoundation' (no dependencies)
+    Target 'Markdown-product' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'Markdown' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'CAtomic' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'cmark-gfm-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+    Target 'Markdown' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'CAtomic' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'cmark-gfm-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+    Target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm-extensions' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+    Target 'cmark-gfm-extensions' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+    Target 'cmark-gfm-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+    Target 'cmark-gfm' in project 'cmark-gfm' (no dependencies)
+    Target 'CAtomic' in project 'swift-markdown' (no dependencies)
+    Target 'WriterHWP-product' in project 'WriterHWP'
+        ➜ Explicit dependency on target 'WriterHWP' in project 'WriterHWP'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'BigInt-product' in project 'BigInt'
+    Target 'WriterHWP' in project 'WriterHWP'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'BigInt-product' in project 'BigInt'
+    Target 'BigInt-product' in project 'BigInt'
+        ➜ Explicit dependency on target 'BigInt' in project 'BigInt'
+    Target 'BigInt' in project 'BigInt' (no dependencies)
+    Target 'WriterStorage-product' in project 'WriterStorage'
+        ➜ Explicit dependency on target 'WriterStorage' in project 'WriterStorage'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+    Target 'WriterStorage' in project 'WriterStorage'
+        ➜ Explicit dependency on target 'CSQLite' in project 'WriterStorage'
+        ➜ Explicit dependency on target 'WriterFoundation-product' in project 'WriterFoundation'
+    Target 'CSQLite' in project 'WriterStorage' (no dependencies)
+    Target 'WriterFoundation-product' in project 'WriterFoundation'
+        ➜ Explicit dependency on target 'WriterFoundation' in project 'WriterFoundation'
+    Target 'WriterFoundation' in project 'WriterFoundation' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk /Users/schober/Projects/Nostr\ Writer/mac/.build/NativeTestDerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache
+    cd /Users/schober/Projects/Nostr\ Writer/mac/NostrWriter.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -o /Users/schober/Projects/Nostr\ Writer/mac/.build/NativeTestDerivedData/SDKStatCaches.noindex/macosx27.0-26A425-7231f6df4def33e022ae2eb8f782df1a.sdkstatcache
+
+PruneExplicitPrecompiledModules /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+note: Disabling hardened runtime with ad-hoc codesigning. (in target 'NostrWriter' from project 'NostrWriter')
+2026-09-18 16:35:58.574 xcodebuild[29413:7100772]  DVTAssertions: Warning in IDEFrameworks/IDEFoundation/Execution/LaunchSystem/IDELaunchSession.m:395
+Details:  setRunnablePIDWithDiagnostics:logSection:andCompletionHandler: called without a completion handler - blocking until diagnostics setup completes. Callers should migrate to using a completion handler for better performance.
+Object:   <IDELaunchSession: 0x92250c300>
+Method:   -setRunnablePIDWithDiagnostics:logSection:andCompletionHandler:
+Thread:   <NSThread: 0x926163240>{number = 5, name = (null)}
+Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
+Test Suite 'Selected tests' started at 2026-09-18 16:35:58.714.
+Test Suite 'NostrWriterTests.xctest' started at 2026-09-18 16:35:58.714.
+Test Suite 'ShellTests' started at 2026-09-18 16:35:58.714.
+Test Case '-[NostrWriterTests.ShellTests testConsentIsOffUntilExplicitChoice]' started.
+Test Case '-[NostrWriterTests.ShellTests testConsentIsOffUntilExplicitChoice]' passed (0.006 seconds).
+Test Case '-[NostrWriterTests.ShellTests testDocumentRoundTripsExactSourceBytes]' started.
+2026-09-18 16:35:58.763117+0100 xctest[29485:7101077] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.763162+0100 xctest[29485:7101077] [Application] Error registering app with intents framework: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.763564+0100 xctest[29485:7101080] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.763591+0100 xctest[29485:7101080] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.763920+0100 xctest[29485:7101078] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.763933+0100 xctest[29485:7101078] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.764268+0100 xctest[29485:7101078] [Connection] Will NOT re-try to establish the connection
+2026-09-18 16:35:58.764296+0100 xctest[29485:7101077] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.764309+0100 xctest[29485:7101077] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-18 16:35:58.903494+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 4C1B2790
+2026-09-18 16:35:58.970028+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac457fb60 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0620, '|':NSSplitView:0x1046cbd80 )>",
+    "<NSLayoutConstraint:0xac457fed0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, '|':NSView:0xac4402300 )>",
+    "<NSLayoutConstraint:0xac4660190 'NSSplitView.Edge.Trailing' H:[NSView:0xac4402300]-(1)-|(LTR)   (active, names: '|':NSSplitView:0x1046cbd80 )>",
+    "<NSLayoutConstraint:0xac46601e0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, NSViewSafeAreaLayoutGuide:0xac60f0620 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac457fed0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, '|':NSView:0xac4402300 )>.
+2026-09-18 16:35:58.970363+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac457fb60 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0620, '|':NSSplitView:0x1046cbd80 )>",
+    "<NSLayoutConstraint:0xac457fed0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, '|':NSView:0xac4402300 )>",
+    "<NSLayoutConstraint:0xac4660190 'NSSplitView.Edge.Trailing' H:[NSView:0xac4402300]-(1)-|(LTR)   (active, names: '|':NSSplitView:0x1046cbd80 )>",
+    "<NSLayoutConstraint:0xac46601e0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, NSViewSafeAreaLayoutGuide:0xac60f0620 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac457fed0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, '|':NSView:0xac4402300 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testDocumentRoundTripsExactSourceBytes] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac457fb60 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0620, '|':NSSplitView:0x1046cbd80 )>",
+    "<NSLayoutConstraint:0xac457fed0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, '|':NSView:0xac4402300 )>",
+    "<NSLayoutConstraint:0xac4660190 'NSSplitView.Edge.Trailing' H:[NSView:0xac4402300]-(1)-|(LTR)   (active, names: '|':NSSplitView:0x1046cbd80 )>",
+    "<NSLayoutConstraint:0xac46601e0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, NSViewSafeAreaLayoutGuide:0xac60f0620 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac457fed0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f0460, '|':NSView:0xac4402300 )>.
+Test Case '-[NostrWriterTests.ShellTests testDocumentRoundTripsExactSourceBytes]' passed (0.955 seconds).
+Test Case '-[NostrWriterTests.ShellTests testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave]' started.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriterTests/ShellTests.swift:268: -[NostrWriterTests.ShellTests testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave] : Test skipped - Set NW_COORDINATED_WRITER to the compiled test-only coordinated_writer.swift helper.
+Test Case '-[NostrWriterTests.ShellTests testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave]' skipped (0.049 seconds).
+Test Case '-[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy]' started.
+2026-09-18 16:35:59.750100+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 47205E62
+2026-09-18 16:35:59.779104+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac4744460 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a3e0, '|':NSSplitView:0xac493c380 )>",
+    "<NSLayoutConstraint:0xac4744960 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSView:0xac4348c80 )>",
+    "<NSLayoutConstraint:0xac4744aa0 'NSSplitView.Edge.Trailing' H:[NSView:0xac4348c80]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac493c380 )>",
+    "<NSLayoutConstraint:0xac4744af0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, NSViewSafeAreaLayoutGuide:0xac560a3e0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac4744960 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSView:0xac4348c80 )>.
+2026-09-18 16:35:59.779375+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac4744460 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a3e0, '|':NSSplitView:0xac493c380 )>",
+    "<NSLayoutConstraint:0xac4744960 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSView:0xac4348c80 )>",
+    "<NSLayoutConstraint:0xac4744aa0 'NSSplitView.Edge.Trailing' H:[NSView:0xac4348c80]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac493c380 )>",
+    "<NSLayoutConstraint:0xac4744af0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, NSViewSafeAreaLayoutGuide:0xac560a3e0 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac4744960 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSView:0xac4348c80 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac4744460 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a3e0, '|':NSSplitView:0xac493c380 )>",
+    "<NSLayoutConstraint:0xac4744960 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSView:0xac4348c80 )>",
+    "<NSLayoutConstraint:0xac4744aa0 'NSSplitView.Edge.Trailing' H:[NSView:0xac4348c80]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac493c380 )>",
+    "<NSLayoutConstraint:0xac4744af0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, NSViewSafeAreaLayoutGuide:0xac560a3e0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac4744960 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSView:0xac4348c80 )>.
+2026-09-18 16:36:00.123459+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 8503B211
+2026-09-18 16:36:00.130890+0100 xctest[29485:7101079] [logging-persist] cannot open file at line 51044 of [f0ca7bba1c]
+2026-09-18 16:36:00.130909+0100 xctest[29485:7101079] [logging-persist] os_unix.c:51044: (2) open(/private/var/db/DetachedSignatures) - No such file or directory
+2026-09-18 16:36:00.147385+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 1DE04F1B
+2026-09-18 16:36:00.149174+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 20BF7359
+2026-09-18 16:36:00.149426+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 16F938EF
+2026-09-18 16:36:00.163584+0100 xctest[29485:7101077] [default] [ERROR] open() failed for path '/var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-native-assets-CE4C4780-543F-405E-B0BE-BED63B4676A9/Copy.md'
+; error 2 (No such file or directory)
+2026-09-18 16:36:00.213020+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 1A85F5D7
+2026-09-18 16:36:00.239047+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac4963520 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1a40, '|':NSSplitView:0xac3ccce00 )>",
+    "<NSLayoutConstraint:0xac49606e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, '|':NSView:0xac3dc0f00 )>",
+    "<NSLayoutConstraint:0xac4744e60 'NSSplitView.Edge.Trailing' H:[NSView:0xac3dc0f00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3ccce00 )>",
+    "<NSLayoutConstraint:0xac47452c0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, NSViewSafeAreaLayoutGuide:0xac60f1a40 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac49606e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, '|':NSView:0xac3dc0f00 )>.
+2026-09-18 16:36:00.239358+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac4963520 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1a40, '|':NSSplitView:0xac3ccce00 )>",
+    "<NSLayoutConstraint:0xac49606e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, '|':NSView:0xac3dc0f00 )>",
+    "<NSLayoutConstraint:0xac4744e60 'NSSplitView.Edge.Trailing' H:[NSView:0xac3dc0f00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3ccce00 )>",
+    "<NSLayoutConstraint:0xac47452c0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, NSViewSafeAreaLayoutGuide:0xac60f1a40 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac49606e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, '|':NSView:0xac3dc0f00 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac4963520 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1a40, '|':NSSplitView:0xac3ccce00 )>",
+    "<NSLayoutConstraint:0xac49606e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, '|':NSView:0xac3dc0f00 )>",
+    "<NSLayoutConstraint:0xac4744e60 'NSSplitView.Edge.Trailing' H:[NSView:0xac3dc0f00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3ccce00 )>",
+    "<NSLayoutConstraint:0xac47452c0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, NSViewSafeAreaLayoutGuide:0xac60f1a40 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac49606e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f1880, '|':NSView:0xac3dc0f00 )>.
+2026-09-18 16:36:00.414896+0100 xctest[29485:7101069] WARNING: Application performed a reentrant operation in its NSTableView delegate. This warning will become an assert in the future.
+Test Case '-[NostrWriterTests.ShellTests testManagedImageInsertionUndoDerivationAndReferencedCopy]' passed (0.804 seconds).
+Test Case '-[NostrWriterTests.ShellTests testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks]' started.
+2026-09-18 16:36:00.550942+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 2132E037
+2026-09-18 16:36:00.578098+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac48e2300 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3e20, '|':NSSplitView:0xac382c000 )>",
+    "<NSLayoutConstraint:0xac48e2580 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, '|':NSView:0xac434bc00 )>",
+    "<NSLayoutConstraint:0xac48e3250 'NSSplitView.Edge.Trailing' H:[NSView:0xac434bc00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382c000 )>",
+    "<NSLayoutConstraint:0xac48e3200 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, NSViewSafeAreaLayoutGuide:0xac60f3e20 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac48e2580 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, '|':NSView:0xac434bc00 )>.
+2026-09-18 16:36:00.578430+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac48e2300 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3e20, '|':NSSplitView:0xac382c000 )>",
+    "<NSLayoutConstraint:0xac48e2580 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, '|':NSView:0xac434bc00 )>",
+    "<NSLayoutConstraint:0xac48e3250 'NSSplitView.Edge.Trailing' H:[NSView:0xac434bc00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382c000 )>",
+    "<NSLayoutConstraint:0xac48e3200 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, NSViewSafeAreaLayoutGuide:0xac60f3e20 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac48e2580 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, '|':NSView:0xac434bc00 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac48e2300 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3e20, '|':NSSplitView:0xac382c000 )>",
+    "<NSLayoutConstraint:0xac48e2580 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, '|':NSView:0xac434bc00 )>",
+    "<NSLayoutConstraint:0xac48e3250 'NSSplitView.Edge.Trailing' H:[NSView:0xac434bc00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382c000 )>",
+    "<NSLayoutConstraint:0xac48e3200 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, NSViewSafeAreaLayoutGuide:0xac60f3e20 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac48e2580 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f3c60, '|':NSView:0xac434bc00 )>.
+2026-09-18 16:36:00.817482+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 86F8BBC6
+2026-09-18 16:36:01.355117+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 7EBFF0CE
+2026-09-18 16:36:01.400949+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 43DCE408
+2026-09-18 16:36:01.437427+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 8CE695CD
+2026-09-18 16:36:01.483547+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: AF0160F7
+2026-09-18 16:36:01.519736+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: DFF41609
+2026-09-18 16:36:01.565686+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 3EFFDDF0
+2026-09-18 16:36:01.602071+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: FB015D4E
+2026-09-18 16:36:01.638309+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: CF317B10
+2026-09-18 16:36:01.674643+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 6C794B47
+2026-09-18 16:36:01.710983+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 836CF896
+2026-09-18 16:36:01.759617+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 57773287
+2026-09-18 16:36:01.795634+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: B5981475
+2026-09-18 16:36:01.831574+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 9F2C08C3
+2026-09-18 16:36:01.869454+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 8D254B47
+2026-09-18 16:36:01.913963+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: A6BD6B23
+2026-09-18 16:36:01.950267+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 3BA54985
+2026-09-18 16:36:01.986368+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 68A7DC6D
+2026-09-18 16:36:02.024464+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: F5289421
+2026-09-18 16:36:02.068482+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 549016E6
+2026-09-18 16:36:02.114125+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 3D9F5941
+2026-09-18 16:36:02.152446+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 7082AC9F
+2026-09-18 16:36:02.188799+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: AA85F165
+2026-09-18 16:36:02.225034+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 3E711929
+2026-09-18 16:36:02.261242+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 687E6834
+2026-09-18 16:36:02.304882+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 44EC8003
+2026-09-18 16:36:02.344754+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 39C582D4
+2026-09-18 16:36:02.389543+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 19C0AC26
+2026-09-18 16:36:02.425711+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: E056E4D4
+2026-09-18 16:36:02.461868+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 313A61FF
+2026-09-18 16:36:02.504964+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 1503E588
+2026-09-18 16:36:02.545047+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 08F8BC13
+2026-09-18 16:36:02.581229+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: F1BAD5A3
+2026-09-18 16:36:02.617532+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: D0B19E62
+2026-09-18 16:36:02.653582+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 3E81D5DE
+2026-09-18 16:36:02.690612+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: D876DE26
+2026-09-18 16:36:02.736411+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 00D5927E
+2026-09-18 16:36:02.779033+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: D4E0D98E
+2026-09-18 16:36:02.818368+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 9BEEB9CF
+2026-09-18 16:36:02.854625+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: D26B3447
+2026-09-18 16:36:02.890797+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: EAE3B0EF
+STAGE02_TIMING bytes=57344 edits=40 presenterCallbacks=10 recoveryMS=537.480291 editP95MS=5.90425 editMaxMS=11.431458
+Test Case '-[NostrWriterTests.ShellTests testNativeEditingTimingWithRealRecoveryAndPresenterCallbacks]' passed (2.416 seconds).
+Test Case '-[NostrWriterTests.ShellTests testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity]' started.
+2026-09-18 16:36:02.964810+0100 xctest[29485:7101128] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 66CFBC0B
+2026-09-18 16:36:02.987792+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac46ac730 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSSplitView:0xac4fe0a80 )>",
+    "<NSLayoutConstraint:0xac46ad1d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, '|':NSView:0xac4701b80 )>",
+    "<NSLayoutConstraint:0xac46aea80 'NSSplitView.Edge.Trailing' H:[NSView:0xac4701b80]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4fe0a80 )>",
+    "<NSLayoutConstraint:0xac46aead0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, NSViewSafeAreaLayoutGuide:0xac560a5a0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac46ad1d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, '|':NSView:0xac4701b80 )>.
+2026-09-18 16:36:02.988033+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac46ac730 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSSplitView:0xac4fe0a80 )>",
+    "<NSLayoutConstraint:0xac46ad1d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, '|':NSView:0xac4701b80 )>",
+    "<NSLayoutConstraint:0xac46aea80 'NSSplitView.Edge.Trailing' H:[NSView:0xac4701b80]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4fe0a80 )>",
+    "<NSLayoutConstraint:0xac46aead0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, NSViewSafeAreaLayoutGuide:0xac560a5a0 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac46ad1d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, '|':NSView:0xac4701b80 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac46ac730 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac560a5a0, '|':NSSplitView:0xac4fe0a80 )>",
+    "<NSLayoutConstraint:0xac46ad1d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, '|':NSView:0xac4701b80 )>",
+    "<NSLayoutConstraint:0xac46aea80 'NSSplitView.Edge.Trailing' H:[NSView:0xac4701b80]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4fe0a80 )>",
+    "<NSLayoutConstraint:0xac46aead0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, NSViewSafeAreaLayoutGuide:0xac560a5a0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac46ad1d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac60f38e0, '|':NSView:0xac4701b80 )>.
+2026-09-18 16:36:03.168862+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 0516D244
+2026-09-18 16:36:03.191601+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac41300a0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c7e0, '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac4133430 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, '|':NSView:0xac3c9cf00 )>",
+    "<NSLayoutConstraint:0xac41327b0 'NSSplitView.Edge.Trailing' H:[NSView:0xac3c9cf00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac4132800 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, NSViewSafeAreaLayoutGuide:0xac6e6c7e0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac4133430 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, '|':NSView:0xac3c9cf00 )>.
+2026-09-18 16:36:03.191829+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac41300a0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c7e0, '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac4133430 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, '|':NSView:0xac3c9cf00 )>",
+    "<NSLayoutConstraint:0xac41327b0 'NSSplitView.Edge.Trailing' H:[NSView:0xac3c9cf00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac4132800 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, NSViewSafeAreaLayoutGuide:0xac6e6c7e0 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac4133430 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, '|':NSView:0xac3c9cf00 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac41300a0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c7e0, '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac4133430 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, '|':NSView:0xac3c9cf00 )>",
+    "<NSLayoutConstraint:0xac41327b0 'NSSplitView.Edge.Trailing' H:[NSView:0xac3c9cf00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac4132800 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, NSViewSafeAreaLayoutGuide:0xac6e6c7e0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac4133430 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c540, '|':NSView:0xac3c9cf00 )>.
+2026-09-18 16:36:03.338067+0100 xctest[29485:7101069] WARNING: Application performed a reentrant operation in its NSTableView delegate. This warning will become an assert in the future.
+2026-09-18 16:36:03.384146+0100 xctest[29485:7101128] [default] [ERROR] open() failed for path '/var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-native-F71D3829-507D-4332-BC4C-6011D240A7F6/second.md'
+; error 2 (No such file or directory)
+Test Case '-[NostrWriterTests.ShellTests testNativeSaveRevertAndDuplicateKeepExactBytesAndIdentity]' passed (0.478 seconds).
+Test Case '-[NostrWriterTests.ShellTests testNativeUndoSynchronizesExactDocumentSource]' started.
+2026-09-18 16:36:03.438795+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: D41A499D
+2026-09-18 16:36:03.462843+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3854f00 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6dc00, '|':NSSplitView:0xac3e34000 )>",
+    "<NSLayoutConstraint:0xac38547d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, '|':NSView:0xac3cc4f00 )>",
+    "<NSLayoutConstraint:0xac3857c50 'NSSplitView.Edge.Trailing' H:[NSView:0xac3cc4f00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3e34000 )>",
+    "<NSLayoutConstraint:0xac3857ca0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, NSViewSafeAreaLayoutGuide:0xac6e6dc00 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac38547d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, '|':NSView:0xac3cc4f00 )>.
+2026-09-18 16:36:03.463097+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac3854f00 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6dc00, '|':NSSplitView:0xac3e34000 )>",
+    "<NSLayoutConstraint:0xac38547d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, '|':NSView:0xac3cc4f00 )>",
+    "<NSLayoutConstraint:0xac3857c50 'NSSplitView.Edge.Trailing' H:[NSView:0xac3cc4f00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3e34000 )>",
+    "<NSLayoutConstraint:0xac3857ca0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, NSViewSafeAreaLayoutGuide:0xac6e6dc00 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac38547d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, '|':NSView:0xac3cc4f00 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+2026-09-18 16:36:03.582809+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 30939680
+2026-09-18 16:36:03.583658+0100 xctest[29485:7101078] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: F264A80A
+2026-09-18 16:36:03.583864+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 37BBB058
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testNativeUndoSynchronizesExactDocumentSource] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3854f00 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6dc00, '|':NSSplitView:0xac3e34000 )>",
+    "<NSLayoutConstraint:0xac38547d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, '|':NSView:0xac3cc4f00 )>",
+    "<NSLayoutConstraint:0xac3857c50 'NSSplitView.Edge.Trailing' H:[NSView:0xac3cc4f00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3e34000 )>",
+    "<NSLayoutConstraint:0xac3857ca0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, NSViewSafeAreaLayoutGuide:0xac6e6dc00 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac38547d0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6da40, '|':NSView:0xac3cc4f00 )>.
+Test Case '-[NostrWriterTests.ShellTests testNativeUndoSynchronizesExactDocumentSource]' passed (0.171 seconds).
+Test Case '-[NostrWriterTests.ShellTests testPersistentIdentityReopenPreservesDifferentUnsavedRecovery]' started.
+2026-09-18 16:36:03.628046+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 9AD88B33
+2026-09-18 16:36:03.650621+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac40e4d70 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6dc00, '|':NSSplitView:0xac3ccd500 )>",
+    "<NSLayoutConstraint:0xac47448c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, '|':NSView:0xac434a580 )>",
+    "<NSLayoutConstraint:0xac4744e60 'NSSplitView.Edge.Trailing' H:[NSView:0xac434a580]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3ccd500 )>",
+    "<NSLayoutConstraint:0xac4744820 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, NSViewSafeAreaLayoutGuide:0xac6e6dc00 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac47448c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, '|':NSView:0xac434a580 )>.
+2026-09-18 16:36:03.650867+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac40e4d70 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6dc00, '|':NSSplitView:0xac3ccd500 )>",
+    "<NSLayoutConstraint:0xac47448c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, '|':NSView:0xac434a580 )>",
+    "<NSLayoutConstraint:0xac4744e60 'NSSplitView.Edge.Trailing' H:[NSView:0xac434a580]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3ccd500 )>",
+    "<NSLayoutConstraint:0xac4744820 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, NSViewSafeAreaLayoutGuide:0xac6e6dc00 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac47448c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, '|':NSView:0xac434a580 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testPersistentIdentityReopenPreservesDifferentUnsavedRecovery] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac40e4d70 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6dc00, '|':NSSplitView:0xac3ccd500 )>",
+    "<NSLayoutConstraint:0xac47448c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, '|':NSView:0xac434a580 )>",
+    "<NSLayoutConstraint:0xac4744e60 'NSSplitView.Edge.Trailing' H:[NSView:0xac434a580]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac3ccd500 )>",
+    "<NSLayoutConstraint:0xac4744820 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, NSViewSafeAreaLayoutGuide:0xac6e6dc00 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac47448c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e060, '|':NSView:0xac434a580 )>.
+2026-09-18 16:36:03.824222+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: CF86B757
+2026-09-18 16:36:03.847023+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3ced810 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c2a0, '|':NSSplitView:0xac4ac0380 )>",
+    "<NSLayoutConstraint:0xac3cedb80 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, '|':NSView:0xac4702800 )>",
+    "<NSLayoutConstraint:0xac3cedf90 'NSSplitView.Edge.Trailing' H:[NSView:0xac4702800]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4ac0380 )>",
+    "<NSLayoutConstraint:0xac3cedfe0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, NSViewSafeAreaLayoutGuide:0xac6e6c2a0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac3cedb80 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, '|':NSView:0xac4702800 )>.
+2026-09-18 16:36:03.847292+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac3ced810 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c2a0, '|':NSSplitView:0xac4ac0380 )>",
+    "<NSLayoutConstraint:0xac3cedb80 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, '|':NSView:0xac4702800 )>",
+    "<NSLayoutConstraint:0xac3cedf90 'NSSplitView.Edge.Trailing' H:[NSView:0xac4702800]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4ac0380 )>",
+    "<NSLayoutConstraint:0xac3cedfe0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, NSViewSafeAreaLayoutGuide:0xac6e6c2a0 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac3cedb80 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, '|':NSView:0xac4702800 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testPersistentIdentityReopenPreservesDifferentUnsavedRecovery] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3ced810 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6c2a0, '|':NSSplitView:0xac4ac0380 )>",
+    "<NSLayoutConstraint:0xac3cedb80 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, '|':NSView:0xac4702800 )>",
+    "<NSLayoutConstraint:0xac3cedf90 'NSSplitView.Edge.Trailing' H:[NSView:0xac4702800]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4ac0380 )>",
+    "<NSLayoutConstraint:0xac3cedfe0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, NSViewSafeAreaLayoutGuide:0xac6e6c2a0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac3cedb80 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e920, '|':NSView:0xac4702800 )>.
+2026-09-18 16:36:04.014138+0100 xctest[29485:7101069] WARNING: Application performed a reentrant operation in its NSTableView delegate. This warning will become an assert in the future.
+Test Case '-[NostrWriterTests.ShellTests testPersistentIdentityReopenPreservesDifferentUnsavedRecovery]' passed (0.458 seconds).
+Test Case '-[NostrWriterTests.ShellTests testQueuedSavesAndCloseBoundaryPreserveLatestRevision]' started.
+2026-09-18 16:36:04.074107+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: AD74DC88
+2026-09-18 16:36:04.097684+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3cdb570 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6ca80, '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac3cdb8e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, '|':NSView:0xac4abe080 )>",
+    "<NSLayoutConstraint:0xac3cdbb60 'NSSplitView.Edge.Trailing' H:[NSView:0xac4abe080]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac3cdbbb0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, NSViewSafeAreaLayoutGuide:0xac6e6ca80 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac3cdb8e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, '|':NSView:0xac4abe080 )>.
+2026-09-18 16:36:04.097924+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac3cdb570 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6ca80, '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac3cdb8e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, '|':NSView:0xac4abe080 )>",
+    "<NSLayoutConstraint:0xac3cdbb60 'NSSplitView.Edge.Trailing' H:[NSView:0xac4abe080]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac3cdbbb0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, NSViewSafeAreaLayoutGuide:0xac6e6ca80 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac3cdb8e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, '|':NSView:0xac4abe080 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testQueuedSavesAndCloseBoundaryPreserveLatestRevision] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3cdb570 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6ca80, '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac3cdb8e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, '|':NSView:0xac4abe080 )>",
+    "<NSLayoutConstraint:0xac3cdbb60 'NSSplitView.Edge.Trailing' H:[NSView:0xac4abe080]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac382ce00 )>",
+    "<NSLayoutConstraint:0xac3cdbbb0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, NSViewSafeAreaLayoutGuide:0xac6e6ca80 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac3cdb8e0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d6c0, '|':NSView:0xac4abe080 )>.
+Test Case '-[NostrWriterTests.ShellTests testQueuedSavesAndCloseBoundaryPreserveLatestRevision]' passed (0.247 seconds).
+Test Case '-[NostrWriterTests.ShellTests testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages]' started.
+2026-09-18 16:36:04.318843+0100 xctest[29485:7101080] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: C1990E8E
+2026-09-18 16:36:04.340594+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac49637a0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d0a0, '|':NSSplitView:0xac493d880 )>",
+    "<NSLayoutConstraint:0xac4962c10 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, '|':NSView:0xac4937980 )>",
+    "<NSLayoutConstraint:0xac4962670 'NSSplitView.Edge.Trailing' H:[NSView:0xac4937980]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac493d880 )>",
+    "<NSLayoutConstraint:0xac4960f50 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, NSViewSafeAreaLayoutGuide:0xac6e6d0a0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac4962c10 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, '|':NSView:0xac4937980 )>.
+2026-09-18 16:36:04.340843+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac49637a0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d0a0, '|':NSSplitView:0xac493d880 )>",
+    "<NSLayoutConstraint:0xac4962c10 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, '|':NSView:0xac4937980 )>",
+    "<NSLayoutConstraint:0xac4962670 'NSSplitView.Edge.Trailing' H:[NSView:0xac4937980]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac493d880 )>",
+    "<NSLayoutConstraint:0xac4960f50 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, NSViewSafeAreaLayoutGuide:0xac6e6d0a0 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac4962c10 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, '|':NSView:0xac4937980 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac49637a0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d0a0, '|':NSSplitView:0xac493d880 )>",
+    "<NSLayoutConstraint:0xac4962c10 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, '|':NSView:0xac4937980 )>",
+    "<NSLayoutConstraint:0xac4962670 'NSSplitView.Edge.Trailing' H:[NSView:0xac4937980]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac493d880 )>",
+    "<NSLayoutConstraint:0xac4960f50 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, NSViewSafeAreaLayoutGuide:0xac6e6d0a0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac4962c10 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6d500, '|':NSView:0xac4937980 )>.
+2026-09-18 16:36:04.511244+0100 xctest[29485:7101079] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: CFB9B0E4
+2026-09-18 16:36:04.537443+0100 xctest[29485:7101079] NSFileSandboxingRequestRelatedItemExtension: Failed to issue extension for /var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-relocate-3F994EFF-ED7C-48A2-B74D-F120C3F00B5A/Renamed.md because: Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"
+2026-09-18 16:36:04.537471+0100 xctest[29485:7101079] [general] -[NSFileCoordinator itemAtURL:willMoveToURL:] could not get a sandbox extension. oldURL: file:///var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-relocate-3F994EFF-ED7C-48A2-B74D-F120C3F00B5A/Original.md, newURL: file:///var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-relocate-3F994EFF-ED7C-48A2-B74D-F120C3F00B5A/Renamed.md
+2026-09-18 16:36:04.557525+0100 xctest[29485:7101080] NSFileSandboxingRequestRelatedItemExtension: Failed to issue extension for /var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-relocate-3F994EFF-ED7C-48A2-B74D-F120C3F00B5A/destination/Moved-A3756CB6-AFA5-4975-99C2-825777024CB3.md because: Error Domain=NSPOSIXErrorDomain Code=1 "Operation not permitted"
+2026-09-18 16:36:04.557546+0100 xctest[29485:7101080] [general] -[NSFileCoordinator itemAtURL:willMoveToURL:] could not get a sandbox extension. oldURL: file:///var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-relocate-3F994EFF-ED7C-48A2-B74D-F120C3F00B5A/Renamed.md, newURL: file:///var/folders/xy/bg1y6lf52nd48j5q9ymy8_th0000gn/T/writer-relocate-3F994EFF-ED7C-48A2-B74D-F120C3F00B5A/destination/Moved-A3756CB6-AFA5-4975-99C2-825777024CB3.md
+Test Case '-[NostrWriterTests.ShellTests testRenameMoveAndTrashRetainIdentityUnsavedTextAndOwnedImages]' passed (0.800 seconds).
+Test Case '-[NostrWriterTests.ShellTests testScratchEditorUsesTextKitTwoAndNoAutomaticWordingChanges]' started.
+2026-09-18 16:36:05.117553+0100 xctest[29485:7101077] [CandidateGeneration] containerToPush is nil, will not push anything to candidate receiver for request token: 1E6D85C3
+2026-09-18 16:36:05.141458+0100 xctest[29485:7101069] [AppKit] Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3cdbf70 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6eca0, '|':NSSplitView:0xac4722a00 )>",
+    "<NSLayoutConstraint:0xac3cdb0c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, '|':NSView:0xac3eede00 )>",
+    "<NSLayoutConstraint:0xac3cda490 'NSSplitView.Edge.Trailing' H:[NSView:0xac3eede00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4722a00 )>",
+    "<NSLayoutConstraint:0xac3cda3a0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, NSViewSafeAreaLayoutGuide:0xac6e6eca0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac3cdb0c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, '|':NSView:0xac3eede00 )>.
+2026-09-18 16:36:05.141733+0100 xctest[29485:7101069] [Layout] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0xac3cdbf70 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6eca0, '|':NSSplitView:0xac4722a00 )>",
+    "<NSLayoutConstraint:0xac3cdb0c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, '|':NSView:0xac3eede00 )>",
+    "<NSLayoutConstraint:0xac3cda490 'NSSplitView.Edge.Trailing' H:[NSView:0xac3eede00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4722a00 )>",
+    "<NSLayoutConstraint:0xac3cda3a0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, NSViewSafeAreaLayoutGuide:0xac6e6eca0 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0xac3cdb0c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, '|':NSView:0xac3eede00 )>
+
+Set the NSUserDefault NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints to YES to have -[NSWindow visualizeConstraints:] automatically called when this happens.  And/or, set a symbolic breakpoint on LAYOUT_CONSTRAINTS_NOT_SATISFIABLE to catch this in the debugger.
+/Users/schober/Projects/Nostr Writer/mac/NostrWriter/Documents/WriterWindowController.swift:167: warning: -[NostrWriterTests.ShellTests testScratchEditorUsesTextKitTwoAndNoAutomaticWordingChanges] : Conflicting constraints detected: (
+    "<NSLayoutConstraint:0xac3cdbf70 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6eca0, '|':NSSplitView:0xac4722a00 )>",
+    "<NSLayoutConstraint:0xac3cdb0c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, '|':NSView:0xac3eede00 )>",
+    "<NSLayoutConstraint:0xac3cda490 'NSSplitView.Edge.Trailing' H:[NSView:0xac3eede00]-(1)-|(LTR)   (active, names: '|':NSSplitView:0xac4722a00 )>",
+    "<NSLayoutConstraint:0xac3cda3a0 'NSSplitView.Edge.Trailing' NSViewSafeAreaLayoutGuide.right == NSViewSafeAreaLayoutGuide.right + 1   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, NSViewSafeAreaLayoutGuide:0xac6e6eca0 )>"
+).
+
+Will attempt to recover by breaking <NSLayoutConstraint:0xac3cdb0c0 'NSViewSafeAreaLayoutGuide-right' H:[NSViewSafeAreaLayoutGuide]-(0)-|(LTR)   (active, names: NSViewSafeAreaLayoutGuide:0xac6e6e4c0, '|':NSView:0xac3eede00 )>.
+Test Case '-[NostrWriterTests.ShellTests testScratchEditorUsesTextKitTwoAndNoAutomaticWordingChanges]' passed (0.172 seconds).
+Test Case '-[NostrWriterTests.ShellTests testSessionRejectsStaleAsyncCompletion]' started.
+Test Case '-[NostrWriterTests.ShellTests testSessionRejectsStaleAsyncCompletion]' passed (0.001 seconds).
+Test Case '-[NostrWriterTests.ShellTests testStoppedRecoveryRejectsLateBoundary]' started.
+Test Case '-[NostrWriterTests.ShellTests testStoppedRecoveryRejectsLateBoundary]' passed (0.026 seconds).
+Test Suite 'ShellTests' passed at 2026-09-18 16:36:05.300.
+	 Executed 13 tests, with 1 test skipped and 0 failures (0 unexpected) in 6.581 (6.585) seconds
+Test Suite 'NostrWriterTests.xctest' passed at 2026-09-18 16:36:05.300.
+	 Executed 13 tests, with 1 test skipped and 0 failures (0 unexpected) in 6.581 (6.586) seconds
+Test Suite 'Selected tests' passed at 2026-09-18 16:36:05.300.
+	 Executed 13 tests, with 1 test skipped and 0 failures (0 unexpected) in 6.581 (6.586) seconds
+2026-09-18 16:36:25.834 xcodebuild[29413:7100727] [MT] IDETestOperationsObserverDebug: 27.439 elapsed -- Testing started completed.
+2026-09-18 16:36:25.835 xcodebuild[29413:7100727] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-09-18 16:36:25.835 xcodebuild[29413:7100727] [MT] IDETestOperationsObserverDebug: 27.439 sec, +27.439 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/schober/Projects/Nostr Writer/mac/.build/NativeTestDerivedData/Logs/Test/Test-NostrWriter-2026.09.18_16-35-56-+0100.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

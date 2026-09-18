@@ -1,0 +1,270 @@
+{
+  "stage": "03",
+  "accepted": false,
+  "status": "BLOCKED",
+  "scope": "M14-M21 editor, transparent assistance, annotations and consented local writing history",
+  "input_commit": "c1aafc90115e431fdbf7df79f67c120ae470a94a",
+  "predecessor_accepted_commit": "b8568c09530b90e28a3d1fb817335c6a980fc116",
+  "predecessor_source_commit": "67302883935fcfaba2b9668a04df3aee60820fcd",
+  "branch": "implementation/stage-03",
+  "implementation_commits": [
+    "e96e72d67288fe74d0517da285c2684e1fdb3947",
+    "17cb7523eaab35697e911be4b3bc895da37a857b"
+  ],
+  "evidence_commit": "the commit adding this file; the implementation hashes above are the authoritative source identity",
+  "candidate": {
+    "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
+    "executable_sha256": "e7673cf3437b47482363fdf23b0faccc7fc2e35a0c23f034b6545c1bcb7c42b4",
+    "architecture": "arm64",
+    "signature": "ad-hoc (Sign to Run Locally)",
+    "bundle_identifier": "com.mariusschober.nostrwriter.development",
+    "built": "2026-09-18 16:41:49 +0100",
+    "entitlements": [
+      "com.apple.security.app-sandbox",
+      "com.apple.security.device.audio-input",
+      "com.apple.security.files.user-selected.read-write",
+      "com.apple.security.get-task-allow",
+      "com.apple.security.network.client"
+    ],
+    "signed_candidate_available": false,
+    "signed_candidate_reason": "security find-identity -v -p codesigning returns 0 valid identities on this host"
+  },
+  "environment": {
+    "macos": "26.6.2 (25G83)",
+    "xcode": "27.0 (27A266a)",
+    "swift": "6.4",
+    "host_arch": "arm64"
+  },
+  "checks": {
+    "check_preparation": {
+      "status": "PASS",
+      "detail": "frozen protocol 69 files (67 inventoried), freeze_sha256 c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88, snapshot 326 files, 60 acceptance definitions retained"
+    },
+    "bootstrap_protocol": {
+      "status": "PASS",
+      "detail": "read-only verification of the same freeze identity"
+    },
+    "frozen_paths_unchanged": {
+      "status": "PASS",
+      "detail": "git status for protocol/ and history/ is empty"
+    },
+    "writer_foundation": {
+      "status": "PASS",
+      "tests": 135,
+      "failed": 0,
+      "replay": "STAGE03_REPLAY seed=1592591107 operations=1000 finalBytes=420",
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-stage03-tests.log"
+    },
+    "writer_storage": {
+      "status": "PASS",
+      "tests": 122,
+      "failed": 0,
+      "skipped": 2
+    },
+    "stage03_editor_native": {
+      "status": "PASS",
+      "tests": 9,
+      "failed": 0,
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-stage03-tests.log"
+    },
+    "stage03_performance": {
+      "status": "PASS",
+      "fixture_words": 100008,
+      "fixture_bytes": 540600,
+      "outline_ms": 27.0,
+      "edit_p95_ms": 45.7,
+      "edit_max_ms": 45.8,
+      "log": "product/mac/evidence/logs/stage-03/measurements.txt"
+    },
+    "native_shell_regression": {
+      "status": "PASS",
+      "tests": 13,
+      "failed": 0,
+      "skipped": 1,
+      "skip_reason": "testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave needs NW_COORDINATED_WRITER",
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-shelltests.log"
+    },
+    "conflict_regression_with_helper": {
+      "status": "PASS",
+      "tests": 1,
+      "failed": 0,
+      "detail": "external-change path modified by Stage 03 is not regressed",
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-conflict-regression.log"
+    },
+    "candidate_build": {
+      "status": "PASS",
+      "detail": "BUILD SUCCEEDED, arm64 Debug, only pre-existing #selector-style warnings",
+      "log": "product/mac/evidence/logs/stage-03/xcodebuild-candidate-build.log"
+    },
+    "native_ui_light_1120x760": {
+      "status": "PASS",
+      "detail": "real window, exact source, typography, measure, syntax emphasis, sidebar/tab/toolbar/status, no clipping",
+      "artifact": "product/mac/evidence/logs/stage-03/editor-1120x760-light.png"
+    },
+    "native_ui_dark_1120x760": {
+      "status": "PASS",
+      "detail": "same content in dark appearance with legible contrast",
+      "artifact": "product/mac/evidence/logs/stage-03/editor-1120x760-dark.png"
+    },
+    "native_ui_narrow": {
+      "status": "PASS",
+      "detail": "760 pt window width; measure narrows and wraps without clipping",
+      "artifact": "product/mac/evidence/logs/stage-03/editor-760x556-light.png"
+    },
+    "native_real_typing": {
+      "status": "PASS",
+      "detail": "system key events inserted text; word count 41 to 46 and dirty state observed",
+      "artifact": "product/mac/evidence/logs/stage-03/editor-native-input-light.png"
+    },
+    "native_ui_preferences_and_reduce_motion": {
+      "status": "NOT MEASURED",
+      "reason": "needs an interactive owner-visible GUI session"
+    },
+    "native_input_method_matrix": {
+      "status": "NOT MEASURED",
+      "reason": "needs German and CJK input sources plus emoji and RTL typed into the editor"
+    },
+    "native_spell_and_services": {
+      "status": "NOT MEASURED",
+      "reason": "needs an actual spelling correction and a Services/Writing Tools availability check"
+    },
+    "native_on_device_dictation": {
+      "status": "NOT MEASURED",
+      "reason": "needs microphone, spoken audio and speech-recognition permission"
+    },
+    "native_inspector_annotation_interaction": {
+      "status": "NOT MEASURED",
+      "reason": "the agent could not open the inspector in this session"
+    },
+    "live_consented_history": {
+      "status": "BLOCKED",
+      "reason": "ad-hoc candidate has no keychain access group; the app reported Recovery unavailable and the encrypted journal could not be opened"
+    },
+    "voiceover_editor_session": {
+      "status": "NOT MEASURED",
+      "reason": "not attempted in this session"
+    }
+  },
+  "criteria": [
+    {
+      "id": "M14",
+      "status": "BLOCKED",
+      "reason": "Observed real window, typography, chrome, measure and contrast at 1120x760 light/dark and 760 pt width with real native typing. Settings preferences, Reduce Motion, focus/typewriter interaction, outline navigation and the full keyboard matrix remain unobserved and need an interactive owner-visible GUI session.",
+      "observed_artifacts": [
+        "logs/stage-03/editor-1120x760-light.png",
+        "logs/stage-03/editor-1120x760-dark.png",
+        "logs/stage-03/editor-760x556-light.png",
+        "logs/stage-03/editor-native-input-light.png"
+      ],
+      "not_measured": [
+        "Settings preferences window",
+        "Reduce Motion behaviour",
+        "focus mode and typewriter scrolling",
+        "outline popup navigation",
+        "full keyboard matrix"
+      ]
+    },
+    {
+      "id": "M15",
+      "status": "PASS",
+      "reason": "Deterministic formatting/find-replace/undo and 1000-operation Unicode replay pass, the 100008-word 540600-byte fixture measures edit p95 45.7 ms, and real typing preserved exact source.",
+      "evidence": [
+        "Stage03EditorTests.testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes",
+        "Stage03EditorTests.testOneTypedMutationProducesExactlyOneRevision",
+        "Stage03EditorTests.testHundredThousandWordDocumentStaysExactAndResponsive",
+        "ShellTests.testNativeUndoSynchronizesExactDocumentSource",
+        "logs/stage-03/measurements.txt"
+      ]
+    },
+    {
+      "id": "M16",
+      "status": "BLOCKED",
+      "reason": "The marked-text unit path passes (composition publishes no revision, commit classified nativeIMECommit), but the required real input matrix (US/German layouts, dead keys, at least one real IME, emoji, RTL) was not performed.",
+      "evidence": [
+        "Stage03EditorTests.testMarkedTextIsNotCommittedAsARevision"
+      ],
+      "needs": "owner-visible session with German and CJK input sources enabled"
+    },
+    {
+      "id": "M17",
+      "status": "PASS",
+      "reason": "Route inventory is tied to implementation; every delivery including unknown is classified, a duplicate delegate callback publishes no second revision, and the Stage 07 seam refuses external insertion without global interception.",
+      "evidence": [
+        "Stage03EditorTests.testGatewayClassifiesObservedDeliveryWithoutGuessingFromText",
+        "Stage03EditorTests.testOneTypedMutationProducesExactlyOneRevision",
+        "Stage03EditorTests.testInputPolicyRefusesExternalInsertionLocally"
+      ]
+    },
+    {
+      "id": "M18",
+      "status": "BLOCKED",
+      "reason": "Spell checking is on and every automatic substitution/completion plus Writing Tools mutation is off, and spelling acceptance is classified as known assistance; the required native spell-correction and Services observations were not performed.",
+      "needs": "owner-visible spell correction and Services/Writing Tools availability check"
+    },
+    {
+      "id": "M19",
+      "status": "BLOCKED",
+      "reason": "Dictation anchor/cancellation rules pass deterministically, but real on-device recognition and denial/unavailable/error paths need a microphone, spoken audio and speech permission.",
+      "evidence": [
+        "Stage03EditorTests.testDictationAnchorCancelsRatherThanOverwritingLaterText"
+      ],
+      "needs": "supported on-device locale, granted microphone/speech permission, spoken input"
+    },
+    {
+      "id": "M20",
+      "status": "BLOCKED",
+      "reason": "Annotation lineage is verified deterministically (exact shift, stale-on-replacement, removal keeps source), but the inspector UI and an actual annotation interaction were not captured.",
+      "evidence": [
+        "Stage03EditorTests.testAnnotationsShiftThroughEditsAndRemovalKeepsSource"
+      ],
+      "needs": "owner-visible inspector and annotation interaction"
+    },
+    {
+      "id": "M21",
+      "status": "BLOCKED",
+      "reason": "Consent-boundary logic and the encrypted HistoryJournal behaviour pass deterministically, but the live off/on/pause persistence check could not run because the ad-hoc candidate has no keychain access group.",
+      "evidence": [
+        "Stage03EditorTests.testObservationHandleHonoursConsentBoundaries",
+        "WriterStorageTests.HistoryJournalTests (5 tests)"
+      ],
+      "needs": "properly signed candidate with keychain access"
+    }
+  ],
+  "protocol_and_history": {
+    "frozen_files": 69,
+    "freeze_sha256": "c04ded3b82a462aa22a7289a5bcbeccd5719124a4718cb5fbd4f47c297993d88",
+    "protocol_definition_sha256": "58efebeb46689cfafd597230facda03a9541d423b244d36b84cff35b2fc8c6d4",
+    "modified": false,
+    "acceptance_definitions": 60,
+    "production_approvals": []
+  },
+  "blockers": [
+    {
+      "id": "signing_identity",
+      "detail": "0 valid codesigning identities; restore the owner's existing Apple Development identity and rebuild with mac/scripts/build_signed_development.sh",
+      "blocks": ["M21 live history", "any recovery claim in this build"]
+    },
+    {
+      "id": "interactive_gui",
+      "detail": "owner-visible session needed for M14 preferences/Reduce Motion/focus/keyboard and M20 annotation interaction"
+    },
+    {
+      "id": "input_sources",
+      "detail": "German and CJK input sources, emoji and RTL needed for M16"
+    },
+    {
+      "id": "spell_services",
+      "detail": "actual spelling correction and Services/Writing Tools check needed for M18"
+    },
+    {
+      "id": "microphone_speech",
+      "detail": "microphone, spoken audio and speech permission needed for M19"
+    }
+  ],
+  "stage04_handoff": {
+    "descriptive_journal_schema": "HistoryJournal schema v3",
+    "pure_interfaces": ["LocalEditRecord", "CaptureEpoch", "CaptureGap", "SourceLineage", "SourceAnnotation"],
+    "unchanged_production_approval_state": "empty",
+    "unfinished_here": ["live consented-history round trip", "every owner-observed input method"]
+  }
+}

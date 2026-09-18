@@ -1,0 +1,1 @@
+STAGE03_PERF words=100008 bytes=540600 outlineItems=0 outlineMS=27.0 editP95MS=45.7 editMaxMS=45.8
