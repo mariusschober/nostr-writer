@@ -1,8 +1,9 @@
-# Stage 02 — document integration in progress
+# Stage 02 — accepted
 
-**Not accepted.** Stage 01 is accepted at `1fb8625`. Current source is
+**Accepted on 18 September 2026. All M07–M13 PASS in their recorded scopes, including owner-confirmed VoiceOver.**
+Stage 01 is accepted at `1fb8625`. Accepted implementation source is
 `67302883935fcfaba2b9668a04df3aee60820fcd` on `implementation/stage-02`.
-M07–M12 pass in their recorded scopes. M13 awaits actual VoiceOver speech; required light/dark screens are now observed. All 60 definitions are unchanged.
+Native document/storage/provider, recovery, library and appearance evidence is recorded below. The owner subsequently confirmed working VoiceOver and directed it to pass. All 60 definitions are unchanged. **Pause before Stage 03.**
 Later checkpoints below supersede earlier unobserved/blocked states only in their stated scopes.
 
 ## Implemented checkpoint
@@ -454,3 +455,26 @@ without mute. Native automation could not select the VoiceOver/Quickstart helper
 no audible result is invented. The owner has been asked to toggle VoiceOver off/on
 manually. The settings switch and prepared conflict screen remain available. This
 is the sole remaining acceptance observation; Stage 03 has not started.
+
+## Final owner confirmation and pause — 18 September 2026
+
+After reporting system-wide VoiceOver silence, the owner first directed Stage 02
+acceptance despite that issue. The owner then confirmed: **“Now it works, mark it
+as passed.”** M13 is now **PASS**, based on that owner observation together with
+the recorded native interaction, storage-limit, accessibility-tree and light/dark
+evidence. The agent does not claim to have captured or independently heard speech.
+This later confirmation supersedes the earlier blocked state and interim exception;
+no acceptance definition was changed and no failed attempt is represented as a pass.
+
+Stage 02 is **accepted**, with all M07–M13 passing in their stated scopes at source
+`6730288`. Signed binary SHA-256:
+`5364c150703529304517f1974d825f9b5074027f010f2f601d42d91693b44b54`.
+No further tests were run for this evidence update.
+
+Auto appearance is restored; speaker/volume/mute were unchanged. VoiceOver was
+restored off before the owner's subsequent confirmation of working speech. No
+further UI changes were made after that confirmation.
+
+**Pause the goal before Stage 03**, as the owner requested. Stage 03 has not started.
+Later stages and the complete 60-requirement release remain unfinished. On an
+explicit future resume, start Stage 03 from this accepted source and stage evidence.

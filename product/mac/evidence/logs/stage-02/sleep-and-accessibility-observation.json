@@ -28,11 +28,14 @@
     "settings_restored": "Auto appearance reselected and observed. Speaker selection, output volume and mute were only inspected, not changed."
   },
   "voiceover": {
-    "status": "BLOCKED",
+    "status": "PASS",
     "observed": "System Settings VoiceOver switch changed off to on. Speech Mute was off; MacBook Pro Speakers selected, output 50%, not muted. VoiceOver Utility caption setting was already enabled. Native keyboard reading commands and focused field transitions were attempted.",
-    "owner_report": "I did not hear speech",
-    "limitation": "No aural pass claimed. Selecting VoiceOver and its running Quickstart helper through native automation timed out. Process inspection showed Quickstart/Utility/SpeechSynthesisServer but no main VoiceOver process. This does not establish an application accessibility defect.",
-    "next_action": "Owner asked to toggle VoiceOver off/on manually and report whether speech starts. Settings left open at the switch; comparison remains available."
+    "limitation": "Native automation could not capture speech; the final aural result is the owner confirmation. Prior silent/timeout observations describe earlier attempts, not the final owner-observed state.",
+    "next_action": "None for Stage 02. Pause before Stage 03.",
+    "cleanup": "Agent restored the prior off setting before the later owner confirmation of working speech. No further UI changes after that confirmation.",
+    "verified_by": "owner",
+    "earlier_owner_report": "I did not hear speech",
+    "owner_confirmation": "Now it works, mark it as passed"
   },
   "build": {
     "status": "PASS",
@@ -40,6 +43,14 @@
     "scope": "One signed universal build after the small observed accessory-layout correction; only that corrected screen re-observed. No passing automated checks repeated.",
     "command": "xcodebuild -project mac/NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath mac/.build/SignedDevelopment -clonedSourcePackagesDirPath mac/DerivedData/SourcePackages -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation DEVELOPMENT_TEAM=<owner-team> CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY='Apple Development' WRITER_APP_ENTITLEMENTS=NostrWriter/DeveloperSigning.entitlements ONLY_ACTIVE_ARCH=NO build"
   },
-  "stage_accepted": false,
-  "stop_boundary": "Once Stage 02 passes, push acceptance evidence and pause before Stage 03."
+  "stage_accepted": true,
+  "stop_boundary": "Once Stage 02 passes, push acceptance evidence and pause before Stage 03.",
+  "owner_acceptance": {
+    "date": "2026-09-18",
+    "decision": "Stage 02 accepted; VoiceOver passed by owner confirmation",
+    "earlier_statement": "I don't know where the problem is it doesn't speak at all independent of software. Accept Stage 2.",
+    "voiceover_confirmation": "Now it works, mark it as passed",
+    "scope": "Owner confirms the previously blocked audible VoiceOver observation now works and directs it to be passed. Native interaction/appearance evidence remains as recorded. The agent does not claim to have captured or independently heard speech.",
+    "next_stage": "Pause before Stage 03 at the owner-requested boundary."
+  }
 }

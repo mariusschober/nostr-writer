@@ -1,11 +1,11 @@
 {
   "stage": "02",
-  "accepted": false,
-  "status": "NOT MEASURED",
+  "accepted": true,
+  "status": "PASS",
   "input_commit": "1fb8625",
   "source_commit": "67302883935fcfaba2b9668a04df3aee60820fcd",
   "preparation_import_commit": "3cd49d6",
-  "source_state": "Sleep/wake and complete light/dark screen observations recorded; conflict accessory layout fixed and observed. VoiceOver remains unverified because the owner heard no speech.",
+  "source_state": "Accepted signed Stage 02 implementation at 6730288. All M07-M13 pass in their recorded scopes, including owner-confirmed VoiceOver after the system-wide silence was resolved.",
   "criteria": [
     {
       "id": "M07",
@@ -77,8 +77,8 @@
     },
     {
       "id": "M13",
-      "status": "BLOCKED",
-      "reason": "Library interaction/limits/AX and required light/dark screens are observed, including corrected visible conflict panels. Owner heard no VoiceOver speech although settings were enabled and unmuted. Awaiting manual VoiceOver activation and actual spoken-output observation.",
+      "status": "PASS",
+      "reason": "Recorded library actions, storage/search limits, native accessibility controls and required light/dark screens pass. Owner subsequently confirmed VoiceOver works and explicitly directed the spoken-output check to pass; this is owner evidence, not agent-captured audio.",
       "evidence": [
         "product/mac/evidence/logs/stage-02/folders-results.json",
         "product/mac/evidence/logs/stage-02/library-ui-observation.json",
@@ -88,7 +88,8 @@
         "product/mac/evidence/logs/stage-02/library-final-observation.json",
         "product/mac/evidence/logs/stage-02/recovery-timing-results.json",
         "product/mac/evidence/logs/stage-02/sleep-and-accessibility-observation.json"
-      ]
+      ],
+      "voiceover_verified_by": "owner"
     }
   ],
   "checks": {
@@ -411,16 +412,26 @@
       "evidence": "product/mac/evidence/logs/stage-02/recovery-timing-results.json"
     },
     "sleep_and_accessibility": {
-      "status": "PARTIAL",
+      "status": "PASS",
       "evidence": "product/mac/evidence/logs/stage-02/sleep-and-accessibility-observation.json",
-      "scope": "Sleep and appearance PASS; VoiceOver BLOCKED."
-    }
+      "scope": "Sleep and appearance observed; audible VoiceOver subsequently confirmed by owner."
+    },
+    "temporary_settings_restored": "Auto appearance restored; speaker/volume/mute unchanged. Agent restored VoiceOver off before the owner subsequently reported working speech; no further UI changes after that confirmation."
   },
   "next_work": [
-    "Await owner manual VoiceOver activation; observe speech for the already prepared Stage 02 screens without repeating storage/provider checks.",
-    "Restore VoiceOver to its prior off state after the scoped observation.",
-    "Record final Stage 02 acceptance and push only when M13 is satisfied; then pause before Stage 03 as requested."
+    "Pause the active goal before Stage 03 as explicitly requested; do not begin later-stage work.",
+    "On a future explicit resume, begin Stage 03 using accepted Stage 02 source/evidence. The remaining stages and the full 60-requirement release remain unfinished."
   ],
   "historical_evidence_used_as_current_pass": false,
-  "previous_source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a"
+  "previous_source_commit": "1333b4cb31bcbdd7c786096cff0b97432b6f348a",
+  "acceptance_basis": "recorded stage evidence plus owner-confirmed VoiceOver observation",
+  "all_assigned_criteria_observed_pass": true,
+  "owner_acceptance": {
+    "date": "2026-09-18",
+    "decision": "Stage 02 accepted; VoiceOver passed by owner confirmation",
+    "earlier_statement": "I don't know where the problem is it doesn't speak at all independent of software. Accept Stage 2.",
+    "voiceover_confirmation": "Now it works, mark it as passed",
+    "scope": "Owner confirms the previously blocked audible VoiceOver observation now works and directs it to be passed. Native interaction/appearance evidence remains as recorded. The agent does not claim to have captured or independently heard speech.",
+    "next_stage": "Pause before Stage 03 at the owner-requested boundary."
+  }
 }
