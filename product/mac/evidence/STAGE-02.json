@@ -303,6 +303,14 @@
         "M01-M60 definitions unchanged.",
         "Production HWP approval set remains empty."
       ]
+    },
+    "toolchain_transition": {
+      "status": "BLOCKED",
+      "observed_utc": "2026-09-18 00:56",
+      "xcode_bundle_version": "27.0",
+      "reason": "Xcode.app was updated after the passing native check and ordinary app build. The system developer-tool wrapper now reports that the Xcode and Apple SDK license agreements have not been accepted. Owner review/acceptance is required before native builds resume.",
+      "prior_checks": "Recorded lifecycle check and app build were completed before the update; they do not validate Xcode 27.",
+      "git_fallback": "Existing /Library/Developer/CommandLineTools/usr/bin/git 2.50.1 used only for repository operations; no license accepted or developer-directory preference changed."
     }
   },
   "next_work": [

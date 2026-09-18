@@ -236,3 +236,13 @@ pending. No fabricated team ID or legacy Keychain fallback is permitted.
 Every M07–M13 row is **NOT MEASURED** with its precise outstanding scope in `STAGE-02.json`.
 No Stage 03 start or acceptance is implied. The remaining stage gates are the real storage/provider and native lifecycle observations;
 no broad verification pass is planned.
+
+## Toolchain change after this checkpoint
+
+At approximately 2026-09-18 00:56 UTC, the host replaced Xcode.app with version 27.0.
+The system developer-tool wrapper then refused execution pending review/acceptance of
+Apple's Xcode and SDK agreements. The preceding native check and ordinary app build had
+already passed; neither result validates the newly installed compiler/SDK. Further native
+builds need the owner's license decision. No agreement was accepted and no developer-path
+setting was changed. Repository operations used the separately installed Command Line
+Tools Git 2.50.1. The Mac also remains locked in the latest CUA observation.
