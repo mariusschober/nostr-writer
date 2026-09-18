@@ -47,6 +47,35 @@ final class CoordinatedSourceFilesTests: XCTestCase {
         try noTemporaryFiles(folder)
     }
 
+    func testMoveAcrossMountedVolumesPreservesExactBytesAndMetadata() async throws {
+        guard let path = ProcessInfo.processInfo.environment["NW_CROSS_VOLUME_DIRECTORY"] else {
+            throw XCTSkip("Set NW_CROSS_VOLUME_DIRECTORY to an explicitly mounted disposable test volume.")
+        }
+        let sourceFolder = try directory()
+        let targetFolder = URL(fileURLWithPath: path, isDirectory: true)
+            .appendingPathComponent("nw-cross-volume-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: targetFolder, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: targetFolder) }
+        var sourceInfo = stat(), targetInfo = stat()
+        XCTAssertEqual(stat(sourceFolder.path, &sourceInfo), 0)
+        XCTAssertEqual(stat(targetFolder.path, &targetInfo), 0)
+        XCTAssertNotEqual(sourceInfo.st_dev, targetInfo.st_dev, "Must exercise the real cross-volume branch")
+        let sourceURL = sourceFolder.appendingPathComponent("source.md")
+        let targetURL = targetFolder.appendingPathComponent("moved.md")
+        let bytes = Data([0xef, 0xbb, 0xbf]) + Data("Cross-volume Cafe\u{301} 🇪🇸\r\n\tExact source.\r\n".utf8)
+        try bytes.write(to: sourceURL, options: .withoutOverwriting)
+        XCTAssertEqual(chmod(sourceURL.path, 0o640), 0)
+        let io = CoordinatedSourceFiles(), previous = try await io.read(sourceURL)
+        let moved = try await io.move(previous, to: targetURL)
+        XCTAssertTrue(moved.durabilityConfirmed)
+        XCTAssertEqual(moved.file.bytes, bytes)
+        XCTAssertEqual(try Data(contentsOf: targetURL), bytes)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: sourceURL.path))
+        XCTAssertEqual(stat(targetURL.path, &targetInfo), 0)
+        XCTAssertEqual(targetInfo.st_mode & 0o777, 0o640)
+        try noTemporaryFiles(sourceFolder); try noTemporaryFiles(targetFolder)
+    }
+
     func testExistingDestinationAndStaleReadPreserveBothInputs() async throws {
         let folder = try directory(), url = folder.appendingPathComponent("source.md"), io = CoordinatedSourceFiles()
         let local = try snapshot(Data("local".utf8))
