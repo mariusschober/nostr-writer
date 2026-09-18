@@ -10,8 +10,8 @@ outstanding). `accepted: false`.
 | Accepted Stage 02 checkpoint | `b8568c09530b90e28a3d1fb817335c6a980fc116` |
 | Accepted Stage 02 app source | `67302883935fcfaba2b9668a04df3aee60820fcd` |
 | Stage 03 branch | `implementation/stage-03` |
-| Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc` |
-| Evidence commits | `4ae1454015a60cc15a654a89557771f0b3e57856` (first M14-M21 record and logs) and the commit adding this revision |
+| Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc`, `1ddd3210dd4fada8a225caa13f993331e571e682` (the Settings-window fix) |
+| Evidence commits | `4ae1454015a60cc15a654a89557771f0b3e57856` (first M14-M21 record and logs), `751879ef2dcef131a5287f7c9ae114137fa99719`, `9b4a18db4fa6b7323ae62c35133cbef6e078ed81`, and the commit adding this revision (reported in the handoff, since a commit cannot contain its own hash) |
 | Candidate executable | `mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter` |
 | Candidate SHA-256 (current) | `89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529` |
 | Candidate SHA-256 (earlier) | `95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f` |
@@ -138,19 +138,21 @@ conflict-regression helper. The recorded performance measurement (100,008 words 
 recorded run; no code on that path changed.
 
 Logs live in `product/mac/evidence/logs/stage-03/`
-(`xcodebuild-candidate-build-61d3dbd.log` is this revision's candidate build).
+(`xcodebuild-candidate-build-61d3dbd.log` and, after the Settings fix,
+`xcodebuild-candidate-build-9b4a18d-settings.log`).
 
 ## Native observations
 
 Interaction was driven against the real candidate with a synthetic fixture
 (`logs/stage-03/editor-fixture.md`); no private draft was recorded.
 
-At the final candidate `95efbeca...` (built 17:41:08) the app was observed on
-2026-09-18 through the Codex computer-use runtime, which resolved and drove the
-signed-development candidate by path. Shell `screencapture` remains unavailable
-on this host ("could not create image from display"), but the runtime's own
-capture path works. Four current-build captures were taken with the fixture
-loaded, and the annotated span was exercised live:
+The app was observed on 2026-09-18 through the Codex computer-use runtime, which
+resolved and drove the signed-development candidate by path. Shell `screencapture`
+remains unavailable on this host ("could not create image from display"), but the
+runtime's own capture path works. The captures below were taken with the fixture
+loaded: the light pass and the annotated span at candidate `95efbeca...` (built
+17:41:08), the Settings panel at `89313db3...` (built 18:01:13, after the fix),
+and the dark pass at the same current candidate:
 
 | Artifact | Observation |
 | --- | --- |
@@ -159,6 +161,20 @@ loaded, and the annotated span was exercised live:
 | `editor-inspector-marked-span.jpeg` | The blockquote passage was selected and marked as an external source (Quotation, description "Unattributed quotation for the Stage 03 fixture."). MARKED SPANS then read "Unattributed quotation for the Stage 03 fixture. / Quotation - bytes 109-147" with a remove control. |
 | `editor-inspector-marked-span-after-edit.jpeg` | One character typed at the document start re-mapped the marked span to "Quotation - bytes 110-148" (an exact +1 shift), and the status changed to "41 words - Unsaved". |
 | `settings-window-fixed.jpeg` | The Settings panel after the fix, measured at 540x502: Editor section with Typeface "System Mono", Size 18 pt, Measure 72 chars, a Focus segmented control (Off/Sentence/Paragraph), Typewriter scrolling off, and the note "Presentation only. The exact source bytes are never rewritten by these preferences."; Recording & Privacy with "Store writing history on this Mac" off and its explanation. |
+| `editor-dark-candidate.jpeg` | The same 1120x760 window in **dark appearance** (the system was switched to Dark for the observation and restored to Light afterwards). The whole editor follows the dark system appearance - dark window chrome, sidebar, tab bar and editor surface - with the same exact source and the heading, bold, inline-code, blockquote and code-fence colours still legible against the dark background; toolbar, status line, recovery banner and "Recording off" indicator are unchanged. |
+| `editor-760x556-dark-candidate.jpeg` | The window resized to its minimum frame (760x556: the contracted 760x520 content height plus the 36 pt titlebar) in dark appearance. The editor re-wraps the source instead of clipping, the sidebar narrows, the toolbar condenses its trailing controls into an overflow chevron, and the status line stays intact - the measure adapts rather than forcing horizontal truncation. |
+
+With the fixture loaded, the native find bar was opened with Cmd+F (search field,
+Replace checkbox, find next/previous) and accepted a literal query; the document
+source was unchanged by the search. Native undo was exercised through the app's
+own Edit menu: two characters typed at the end of the document registered a
+single **"Undo Typing"** item, the menu reported it enabled, and choosing it
+restored the exact fixture (41 words, caret at the end) while the on-disk file
+was never written. That accidental in-memory edit and its undo are recorded here
+rather than omitted. Modifier-combo shortcuts other than Cmd+F did not reach the
+app through this session's computer-use `press_key` path (Cmd+Z, Ctrl+Cmd+S and a
+plain letter combination produced no state change), so the remaining keyboard
+matrix is left for an owner session rather than inferred from a harness artefact.
 
 Outline navigation was exercised live: the toolbar Headings menu listed
 "Stage 03 Fixture" with nested "Section One" and "Section Two" (each exposing
@@ -182,8 +198,8 @@ only, not as current-build observations: `editor-1120x760-light.png` and
 
 | ID | Status | Evidence and exact gap |
 | --- | --- | --- |
-| M14 | **BLOCKED** | Observed live on the candidate: a 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the passage inspector; the Settings panel (after fixing a real 180x64 collapse defect); outline-popup navigation that moved the caret to the chosen heading; and Focus Writing, which collapsed the sidebar and toolbar to a full-width editor. Still not observed: dark appearance on this build, Reduce Motion behaviour, the typewriter-scrolling interaction, and the full keyboard matrix. These need an owner-visible interactive session; dark appearance also needs a system-appearance change. |
-| M15 | **PASS** | `testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes`, `testOneTypedMutationProducesExactlyOneRevision` and `testMarkedTextIsNotCommittedAsARevision` pass; the 1,000-operation Unicode replay (`seed=1592591107`, final 420 bytes, byte-equality after every operation) passes; the ShellTests undo paths still pass; the 100,008-word / 540,600-byte fixture measured outline 27.0 ms, edit p95 45.7 ms, max 45.8 ms; real typing preserved exact source. |
+| M14 | **BLOCKED** | Observed live on the candidate: a 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the same window in dark appearance at 1120x760 and at the minimum 760x556 frame; the passage inspector; the Settings panel (after fixing a real 180x64 collapse defect); outline-popup navigation that moved the caret to the chosen heading; Focus Writing, which collapsed the sidebar and toolbar to a full-width editor; Cmd+F opening the native find bar without changing the source; and native undo through Edit > Undo Typing restoring the exact fixture after typed characters. Still not observed: Reduce Motion behaviour, the typewriter-scrolling interaction, and the full keyboard matrix (the computer-use `press_key` API did not deliver Cmd+Z or Ctrl+Cmd+S to the app in this session). These need an owner-visible interactive session. |
+| M15 | **PASS** | `testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes`, `testOneTypedMutationProducesExactlyOneRevision` and `testMarkedTextIsNotCommittedAsARevision` pass; the 1,000-operation Unicode replay (`seed=1592591107`, final 420 bytes, byte-equality after every operation) passes; the ShellTests undo paths still pass, and native `Edit > Undo Typing` restored the exact fixture after live typed characters; the 100,008-word / 540,600-byte fixture measured outline 27.0 ms, edit p95 45.7 ms, max 45.8 ms; real typing preserved exact source. |
 | M16 | **BLOCKED** | The composition unit path passes (`testMarkedTextIsNotCommittedAsARevision`: marked text publishes no revision, the commit is classified `nativeIMECommit`, and the case reports BLOCKED when the headless host has no marked-text support). The required real input matrix - US and German layouts, dead keys, at least one real IME, emoji and RTL - was not performed. Needs an owner-visible session with the German and CJK input sources enabled. |
 | M17 | **PASS** | The route inventory above is tied to implementation; `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText` covers every delivery including `unknown`; `testOneTypedMutationProducesExactlyOneRevision` proves a duplicate delegate callback publishes no second revision; `testInputPolicyRefusesExternalInsertionLocally` proves the Stage 07 seam refuses external insertion without global interception. |
 | M18 | **BLOCKED** | Deterministic parts verified: continuous spell checking on, automatic spelling correction / text replacement / quote / dash substitution / text completion all off, `writingToolsBehavior = .none` on macOS 15+, and spelling acceptance classified `knownAssistance(.spelling)`. The required native spell-correction and Services/Writing-Tools observations were not performed and need an owner-visible session. |
@@ -199,14 +215,17 @@ only, not as current-build observations: `editor-1120x760-light.png` and
    with `WRITER_DEVELOPMENT_TEAM=<team>` via
    `mac/scripts/build_signed_development.sh`. This is required for M21's live
    consent/journal checks and for any claim about real recovery in this build.
-2. **Owner-visible interactive session.** M14's remaining checks (dark
-   appearance, Reduce Motion, focus/typewriter, outline navigation, the Settings
-   window and the keyboard matrix) need an attentive session on the console.
+2. **Owner-visible interactive session.** M14's remaining checks (Reduce Motion
+   and the full keyboard matrix), M16's real input matrix, M18's spell/Services
+   session and M19's dictation session need an attentive session on the console.
    Shell `screencapture` is unavailable on this host, but the Codex computer-use
-   runtime captures the window (as used above), so screenshot capture itself is
-   not the blocker for the light appearance.
-3. **Dark appearance.** The current-build capture is light only; a dark-appearance
-   screenshot needs a system-appearance change or an owner-visible session.
+   runtime captures the window, so capture itself is not the blocker. Dark
+   appearance was observed and restored by the agent this session.
+3. **Keyboard-shortcut delivery.** The computer-use `press_key` path did not
+   deliver Cmd+Z or Ctrl+Cmd+S to the app in this session (Cmd+F did open the
+   find bar), so the full keyboard matrix is unverified rather than failed. The
+   app's own Edit > Undo Typing item was enabled and correctly reverted typed
+   input, so native undo itself is confirmed.
 4. **Input-method matrix.** M16 needs the German and at least one CJK input
    source enabled and typed into the editor, plus emoji and RTL.
 5. **Spell/assistance session.** M18 needs an actual spelling correction and a

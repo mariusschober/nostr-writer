@@ -12,11 +12,14 @@
     "17cb7523eaab35697e911be4b3bc895da37a857b",
     "3f35d6df1c773483c21a51ab5fe8bf97e0f3762e",
     "b77a0bba410845738af1fb1fb954c8307d08967b",
-    "61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc"
+    "61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc",
+    "1ddd3210dd4fada8a225caa13f993331e571e682"
   ],
   "evidence_commits": [
     "4ae1454015a60cc15a654a89557771f0b3e57856",
-    "the commit adding this revision"
+    "751879ef2dcef131a5287f7c9ae114137fa99719",
+    "9b4a18db4fa6b7323ae62c35133cbef6e078ed81",
+    "the commit adding this revision (reported in the handoff, since a commit cannot contain its own hash)"
   ],
   "candidate": {
     "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
@@ -105,6 +108,18 @@
       "detail": "captured through the Codex computer-use runtime against the signed-development candidate; exact source, typography, measure, emphasis colours, sidebar, tabs, toolbar and status line, no clipping",
       "artifact": "product/mac/evidence/logs/stage-03/editor-1120x760-light-candidate.jpeg"
     },
+    "native_ui_dark_appearance": {
+      "status": "PASS",
+      "detail": "the current candidate in dark appearance at 1120x760 and at the minimum 760x556 frame (760x520 content). The whole editor followed the dark system appearance with the source, emphasis colours, chrome and status line intact; the system was switched to Dark for the capture and restored to Light afterwards",
+      "artifacts": [
+        "product/mac/evidence/logs/stage-03/editor-dark-candidate.jpeg",
+        "product/mac/evidence/logs/stage-03/editor-760x556-dark-candidate.jpeg"
+      ]
+    },
+    "native_find_and_undo": {
+      "status": "PASS",
+      "detail": "Cmd+F opened the native find bar (search field, Replace, next/previous) and accepted a literal query with the document source unchanged; two typed characters registered a single enabled Edit > Undo Typing item, and choosing it restored the exact fixture (41 words, caret at end) while the on-disk file was never written"
+    },
     "native_annotation_interaction": {
       "status": "PASS",
       "detail": "inspector opened; blockquote selected and marked as an external source showing bytes 109-147; one character typed at the document start re-mapped it to bytes 110-148 with status 41 words Unsaved",
@@ -126,11 +141,20 @@
     },
     "native_ui_preferences_and_reduce_motion": {
       "status": "NOT MEASURED",
-      "reason": "needs an interactive owner-visible GUI session"
+      "reason": "the Settings panel was opened and measured at 540x502 (artifact settings-window-fixed.jpeg); Reduce Motion behaviour and the typewriter-scrolling interaction remain unobserved and need an owner-visible session"
+    },
+    "native_keyboard_matrix": {
+      "status": "NOT MEASURED",
+      "reason": "Cmd+F opened the find bar in this session, but the computer-use press_key path did not deliver Cmd+Z or Ctrl+Cmd+S to the app, so the remaining shortcuts are unverified rather than failed",
+      "observed": [
+        "Cmd+F opened the native find bar",
+        "Edit > Undo Typing restored the exact fixture after typed characters",
+        "Cmd+Shift+F focus mode and outline navigation were observed in the earlier session"
+      ]
     },
     "native_input_method_matrix": {
       "status": "NOT MEASURED",
-      "reason": "needs German and CJK input sources plus emoji and RTL typed into the editor"
+      "reason": "a German keyboard layout and PressAndHold are enabled on this host, but the required dead-key/IME/emoji/RTL composition was not typed into the editor; needs an owner-visible session"
     },
     "native_spell_and_services": {
       "status": "NOT MEASURED",
@@ -169,9 +193,11 @@
     {
       "id": "M14",
       "status": "BLOCKED",
-      "reason": "Observed live on the candidate: a 1120x760 light window with exact source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the passage inspector; the Settings panel at 540x502 after fixing a real 180x64 collapse defect; outline-popup navigation that moved the caret to the chosen heading; and Focus Writing, which collapsed the sidebar and toolbar to a full-width editor. Dark appearance on this build, Reduce Motion, the typewriter-scrolling interaction and the full keyboard matrix remain unobserved and need an owner-visible session.",
+      "reason": "Observed live on the candidate: a 1120x760 light window with exact source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the same window in dark appearance at 1120x760 and at the minimum 760x556 frame; the passage inspector; the Settings panel at 540x502 after fixing a real 180x64 collapse defect; outline-popup navigation that moved the caret to the chosen heading; Focus Writing, which collapsed the sidebar and toolbar to a full-width editor; Cmd+F opening the native find bar without changing the source; and native undo through Edit > Undo Typing restoring the exact fixture after typed characters. Reduce Motion, the typewriter-scrolling interaction and the full keyboard matrix remain unobserved and need an owner-visible session.",
       "observed_artifacts": [
         "logs/stage-03/editor-1120x760-light-candidate.jpeg",
+        "logs/stage-03/editor-dark-candidate.jpeg",
+        "logs/stage-03/editor-760x556-dark-candidate.jpeg",
         "logs/stage-03/editor-inspector-open.jpeg",
         "logs/stage-03/editor-inspector-marked-span.jpeg",
         "logs/stage-03/editor-inspector-marked-span-after-edit.jpeg",
@@ -185,14 +211,13 @@
       "not_measured": [
         "Reduce Motion behaviour",
         "typewriter scrolling",
-        "full keyboard matrix",
-        "dark appearance on the current candidate"
+        "full keyboard matrix"
       ]
     },
     {
       "id": "M15",
       "status": "PASS",
-      "reason": "Deterministic formatting/find-replace/undo and 1000-operation Unicode replay pass, the 100008-word 540600-byte fixture measures edit p95 45.7 ms, and real typing preserved exact source.",
+      "reason": "Deterministic formatting/find-replace/undo and 1000-operation Unicode replay pass, native Edit > Undo Typing restored the exact fixture after live typed characters, the 100008-word 540600-byte fixture measures edit p95 45.7 ms, and real typing preserved exact source.",
       "evidence": [
         "Stage03EditorTests.testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes",
         "Stage03EditorTests.testOneTypedMutationProducesExactlyOneRevision",
@@ -273,7 +298,7 @@
     },
     {
       "id": "interactive_gui",
-      "detail": "owner-visible session needed for M14 dark appearance/Reduce Motion/focus/outline/Settings/keyboard; shell screencapture is unavailable but the Codex computer-use runtime can capture the window"
+      "detail": "owner-visible session needed for the remaining M14 checks (Reduce Motion, typewriter scrolling and the full keyboard matrix, since the computer-use press_key path did not deliver Cmd+Z/Ctrl+Cmd+S here). Dark appearance at both sizes, focus mode, outline navigation, the Settings panel, Cmd+F and native Edit > Undo Typing were observed by the agent and the system state was restored"
     },
     {
       "id": "input_sources",
