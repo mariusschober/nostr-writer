@@ -22,7 +22,11 @@
     "4ae1454015a60cc15a654a89557771f0b3e57856",
     "751879ef2dcef131a5287f7c9ae114137fa99719",
     "9b4a18db4fa6b7323ae62c35133cbef6e078ed81",
-    "the commit adding this revision (reported in the handoff, since a commit cannot contain its own hash)"
+    "ee393a3 (the raw signed consent/history session log)",
+    "b15c21b (M14 and M16 cleared, M19 narrowed, evidence refreshed)",
+    "77d1053 (the completed M19 deterministic evidence and the new candidate)",
+    "d83fde3 (the exposed accessibility contract and the OS input capability facts)",
+    "the final commit that carries this provenance list, reported in the handoff because a commit cannot contain its own hash"
   ],
   "candidate": {
     "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
