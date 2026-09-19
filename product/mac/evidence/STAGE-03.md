@@ -4,10 +4,11 @@ Status: **BLOCKED** (implementation complete, compiling, hardened and
 deterministically verified; the live consented-history path and the full native
 input matrix now pass on properly signed candidates; one mandatory owner-visible
 observation is outstanding). `accepted: false`. Acceptance: M14, M15, M16, M17,
-M18, M20 and M21 PASS; M19 BLOCKED on owner input rather than on code. M14 is
-PASS with the live Reduce Motion system-toggle differential explicitly recorded
-as NOT MEASURED (the branch itself is tested); that residual and the M19 owner
-session are the only things between this stage and `accepted: true`.
+M18, M20 and M21 PASS; M19 BLOCKED on owner input rather than on code. Two
+residuals are recorded rather than hidden: the live Reduce Motion system-toggle
+differential (the branch itself is tested), and the owner session for real
+on-device dictation (its gate ordering, refused-grant states and late-callback
+rejection are tested).
 
 Revision note (2026-09-19): M21 moved from BLOCKED to PASS after the signed
 candidate was built and exercised; two earlier blocker claims (no code-signing
@@ -16,7 +17,10 @@ sandbox. M16 then moved from BLOCKED to PASS after the emoji, RTL and CJK rows
 were re-derived against the input sources actually enabled on this host, and M14
 moved from BLOCKED to PASS after the Reduce Motion branch was extracted into the
 pure `TypewriterScrollPlan` and covered by a test while typewriter scrolling was
-observed live on the rebuilt candidate.
+observed live on the rebuilt candidate. M19 stayed BLOCKED but its deterministic
+evidence was completed: the permission gate is now injectable, the session
+identity is a monotonic non-reusable token, and six tests cover the unsupported,
+denied-speech, denied-microphone, late-callback and superseded-session paths.
 
 | Reference | Value |
 | --- | --- |
@@ -24,16 +28,17 @@ observed live on the rebuilt candidate.
 | Accepted Stage 02 checkpoint | `b8568c09530b90e28a3d1fb817335c6a980fc116` |
 | Accepted Stage 02 app source | `67302883935fcfaba2b9668a04df3aee60820fcd` |
 | Stage 03 branch | `implementation/stage-03` |
-| Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc`, `1ddd3210dd4fada8a225caa13f993331e571e682` (the Settings-window fix), `e78543906d37a285f6989079069138cdbf7d573d` (the native-assistance, undo-count and saved-status repairs), `154f34effbef9423566f728c88757598e9e15c6f` (the testable typewriter-scroll decision and its Reduce Motion test) |
+| Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc`, `1ddd3210dd4fada8a225caa13f993331e571e682` (the Settings-window fix), `e78543906d37a285f6989079069138cdbf7d573d` (the native-assistance, undo-count and saved-status repairs), `154f34effbef9423566f728c88757598e9e15c6f` (the testable typewriter-scroll decision and its Reduce Motion test), `d8745dcfabdcea5c9a07ea669bf91b62da5306fa` (the testable dictation gate, session token and their checks) |
 | Evidence commits | `4ae1454015a60cc15a654a89557771f0b3e57856` (first M14-M21 record and logs), `751879ef2dcef131a5287f7c9ae114137fa99719`, `9b4a18db4fa6b7323ae62c35133cbef6e078ed81`, the evidence refresh for the `e785439` repairs, and the commit adding this revision (reported in the handoff, since a commit cannot contain its own hash) |
 | Candidate executable | `mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter` |
-| Candidate SHA-256 (current) | `8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627` |
-| Candidate SHA-256 (previous) | `436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392` |
-| Candidate SHA-256 (earlier signed) | `d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b` |
+| Candidate SHA-256 (current) | `53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390` |
+| Candidate SHA-256 (previous) | `8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627` |
+| Candidate SHA-256 (earlier signed) | `436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392` |
+| Candidate SHA-256 (earliest signed) | `d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b` |
 | Candidate SHA-256 (intermediate) | `89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529` |
 | Candidate SHA-256 (earlier) | `95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f` |
 | Candidate arch / signature | universal (x86_64 + arm64), minos 14.0, "Apple Development: mris@tuta.io (TVV48YYFPR)", TeamIdentifier `6R2578FWBR`, hardened runtime, strict verification PASS, identifier `com.mariusschober.nostrwriter.development` |
-| Candidate build times | current 2026-09-19 08:55:04 +0100 (signed development build; differs from the previous candidate only by the typewriter-scroll extraction); previous 2026-09-18 23:25:04 +0100; earlier signed 22:22:05 +0100; intermediate 18:01:13 +0100; earliest 17:41:08 +0100 |
+| Candidate build times | current 2026-09-19 09:27 +0100 (signed development build; differs from the previous candidate only by the dictation gate/session refactor); previous 2026-09-19 08:55:04 +0100 (the typewriter-scroll extraction); earlier signed 2026-09-18 23:25:04 +0100; intermediate 22:22:05 +0100; earliest 18:01:13 +0100; first 17:41:08 +0100 |
 | Candidate build command | `WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh` |
 
 Environment: macOS 26.6.2 (25G83), Xcode 27.0 (27A266a), Swift 6.4, arm64.
@@ -74,7 +79,9 @@ New app-layer sources under `mac/NostrWriter/Editor/`:
   the narrow Stage 07 input-policy seam.
 - `EditorSupport.swift` - presentation-only Markdown emphasis and focus
   highlight (TextKit 2 rendering attributes) plus `EditorCommands.Formatting`,
-  which inserts visible syntax through the gateway with a formatting origin.
+  which inserts visible syntax through the gateway with a formatting origin, and
+  `TypewriterScrollPlan`, the pure scroll decision `typewriterScroll()` calls
+  with the system Reduce Motion flag.
 - `WritePreferences.swift` - typography/measure/focus/typewriter preferences
   (13-32 pt, 50-100 chars) that never touch source bytes.
 - `EditorOutline.swift` - pure ATX/Setext heading reader bound to a snapshot.
@@ -82,7 +89,9 @@ New app-layer sources under `mac/NostrWriter/Editor/`:
   annotations, an explicit "not claimed as freshly composed" notice and the
   contracted proof-absence message.
 - `DictationController.swift` - optional, explicit, on-device dictation with a
-  source-bound anchor, generation token and no silent cloud fallback.
+  source-bound anchor, a monotonic never-reused session token
+  (`DictationGeneration`), an injectable capability gate (`DictationGate`, whose
+  `.live` value is the only one that touches TCC) and no silent cloud fallback.
 
 Modified app/packages: `WriterWindowController` (editor adapter, chrome, outline,
 inspector wiring, commands, sleep/close cancellation, coalesced presentation
@@ -270,6 +279,9 @@ is recorded under Blockers, and the branch itself is now covered by
 | `xcodebuild -project NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath .build/SignedDevelopment -destination platform=macOS -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build` | **BUILD SUCCEEDED**; ad-hoc sign; only pre-existing `#selector`-style warnings |
 | `xcodebuild ... -derivedDataPath mac/.build/NativeTestDerivedData -only-testing:NostrWriterTests/Stage03EditorTests` on the `154f34ef` tree | **14 tests, 0 failures** - the same editor class plus the new `testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText` (a first attempt at just the new test failed to compile on a `CGFloat?`/`Double` mismatch and was fixed before this run). Only this class was re-run: the change is confined to the typewriter-scroll decision in the app target, and WriterStorage/WriterFoundation do not consume it |
 | `WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh` on the `154f34ef` tree | **strict_signature_verification PASS**, universal (x86_64 + arm64), minos 14.0, binary sha256 `8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627` |
+| `xcodebuild ... -only-testing:NostrWriterTests/Stage03EditorTests -only-testing:NostrWriterTests/ShellTests` on the `154f34ef` tree | **27 tests, 1 skipped, 0 failures** (`Stage03EditorTests` 14/0, `ShellTests` 13 with 1 skip - the pre-existing `testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave`, which needs the `NW_COORDINATED_WRITER` helper and is separately covered by the recorded conflict-regression run) |
+| `xcodebuild ... -only-testing:NostrWriterTests/Stage03EditorTests` on the `d8745dcf` tree | **19 tests, 0 failures** - adds the five dictation checks. Two earlier attempts failed to compile (`CGFloat?`/`Double`, then `SourceSnapshot` optional chaining) and were fixed before this run |
+| `WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh` on the `d8745dcf` tree | **BUILD SUCCEEDED**, **strict_signature_verification PASS**, universal (x86_64 + arm64), minos 14.0, binary sha256 `53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390` |
 
 Not re-run in this revision because nothing they cover changed: the
 WriterFoundation suite (135 tests, 0 failures; last run at `e96e72d`, and that
@@ -335,6 +347,33 @@ only, not as current-build observations: `editor-1120x760-light.png` and
 (real key events typed text; word count 41 to 46; status "Saved to tmp" to
 "Unsaved").
 
+### Dictation session rules on the final candidate
+
+The stage plan requires "denied/unavailable/error behavior and deterministic
+late-callback/range cancellation checks" for M19. Only the anchor/range rule was
+covered before this session, so the gate was made injectable and the session
+identity became a monotonic, never-reused token; two earlier compile failures were
+fixed on the way. Six checks now pass on the final candidate:
+
+| Check | What it proves |
+| --- | --- |
+| `testDictationAnchorCancelsRatherThanOverwritingLaterText` | Insert at the anchor, replace only this session's own range, cancel on unrelated replacement, cancel on a truncated document |
+| `testDictationRefusesUnsupportedLanguageBeforeAskingForPermission` | `.unavailable` with **zero** speech and microphone requests, not listening, source unchanged |
+| `testDictationReportsDeniedSpeechAndMicrophoneWithoutListening` | `.denied` on speech, the microphone never requested, no revision published |
+| `testDictationReportsDeniedMicrophoneAfterAGrantedSpeechPrompt` | `.denied` on the microphone after exactly one speech request and one microphone request |
+| `testLateDictationCallbackAfterStopCannotTouchTheDocument` | A hypothesis delivered after `stop()` changes neither the source bytes nor the published revision |
+| `testTokenFromAnEarlierSessionCannotOverwriteANewerOne` | A superseded session's token is never reused and its callback is dropped; the current session still applies with origin `knownAssistance(.dictation)` |
+
+Live on the rebuilt candidate `53813d41`, without answering any privacy prompt: the
+app launches, the status line reads "Recovery up to date, 0 words - Unsaved
+Recording off", the toolbar button "Dictate On This Mac" is present and enabled, and
+the inspector renders `RECORDING Recording off` and `DICTATION Off` alongside the
+unchanged `NOT PROVABLE - no approved Mac capture profile and model are installed.`
+The dictation button was deliberately **not** clicked: that raises the system Speech
+Recognition and Microphone prompts, and answering them is a TCC privacy decision
+reserved for the owner. Raw evidence:
+`logs/stage-03/dictation-session-observation.txt`.
+
 ## Acceptance results (M14-M21)
 
 | ID | Status | Evidence and exact gap |
@@ -344,7 +383,7 @@ only, not as current-build observations: `editor-1120x760-light.png` and
 | M16 | **PASS** | The whole native input matrix was observed as real key events and verified against saved bytes: German layout `ä ö ü ß` (0xe4 0xf6 0xfc 0xdf); two genuine dead-key compositions through marked text (`^` then `e` -> 0xea, `´` then `e` -> 0xe9, in `input-matrix-deadkeys.jpeg`); RTL Arabic, six U+0634; an astral emoji U+1F642 typed through Unicode Hex Input; and a real CJK input method, the Korean IME composing U+D55C U+AE00 plus three U+314B jamo, committed with Return and saved. The same keys produced literal Latin `gksrmf` while the IME was not composing, and that non-composing state is preserved in the record rather than repaired. Composition manufactures no committed characters: marked text publishes no revision and the commit is classified `nativeIMECommit`; combining and astral offsets are covered by the 1,000-operation Unicode replay (seed 1592591107) with byte equality after every operation. See `logs/stage-03/native-input-matrix-full.txt`. |
 | M17 | **PASS** | The route inventory above is tied to implementation; `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText` covers every delivery including `unknown`; `testOneTypedMutationProducesExactlyOneRevision` proves a duplicate delegate callback publishes no second revision; `testInputPolicyRefusesExternalInsertionLocally` proves the Stage 07 seam refuses external insertion without global interception. |
 | M18 | **PASS** | Continuous spell checking is on (the misspelled token drew the red spelling underline) and grammar checking with spelling is now enabled by `e785439`; the Edit menu exposes Spelling and Grammar (Show Spelling and Grammar, Check Document Now, Check Spelling While Typing, Check Grammar With Spelling, Correct Spelling Automatically) and a Writing Tools submenu where previously there was no Spelling submenu; the editor's contextual menu offers Look Up and Translate for the word under the caret; the application menu has a populated Services submenu (9 items); and a real correction ran - at the default, typing `teh ` left exactly `teh ` (`7465 6820`), while after enabling Correct Spelling Automatically from the app's own menu the same keystrokes produced `The `. Provenance stays exact: `NSTextView.changeSpelling(_:)` is classified `knownAssistance(.spelling)` and an opaque mutation stays unknown, both asserted by `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText`. Scope note: the native correction was the automatic path; the user-accepted panel/suggestion path is covered deterministically but was not reachable in this harness because the shared `NSSpellChecker` panel is not reported as a window and the suggestion menu did not appear for a caret or find-bar selection. See `logs/stage-03/spelling-and-services-observation.txt`. |
-| M19 | **BLOCKED** | Deterministic anchor/cancellation rules pass (`testDictationAnchorCancelsRatherThanOverwritingLaterText`). Both earlier hardware blockers are corrected: audio devices exist, and a read-only probe now shows on-device recognition available for `en_ES`, `en-US` and `de-DE` with `speechAuthorization` notDetermined, so the app's `isSupported` gate passes on this host. What is missing is owner input, not capability: the Speech Recognition and Microphone prompts are privacy decisions deliberately not answered on the owner's behalf, and actual recognition needs a human speaker. The probe output and the exact remaining steps are in `logs/stage-03/dictation-capability-probe.txt`. |
+| M19 | **BLOCKED** | Deterministic coverage is complete for everything this row can verify without a human speaker. Anchor/cancellation (`testDictationAnchorCancelsRatherThanOverwritingLaterText`): the first hypothesis inserts at the anchor, a refined hypothesis replaces only this session's own range, an unrelated edit replaced by newer text cancels instead of clobbering, and a truncated document cancels rather than writing past the end. Permission ordering and refusal states: an unsupported language ends `.unavailable` with **zero** permission requests; a refused speech grant ends `.denied("Speech recognition permission was not granted.")` without ever requesting the microphone; a refused microphone ends `.denied("Microphone permission was not granted.")` after exactly one request each; no revision is published in any of them. Late callbacks: a hypothesis delivered after `stop()` changes neither the source bytes nor the published revision, and a token from a superseded session is dropped even while a newer session is open, which still applies its own transcript with origin `knownAssistance(.dictation)`. Nineteen `Stage03EditorTests` pass on the final candidate, and the rebuilt app still launches with "Recovery up to date" and renders `DICTATION Off` in the inspector. Both earlier hardware blockers are corrected: audio devices exist, and on-device recognition is available for `en_ES`, `en-US` and `de-DE` with `speechAuthorization` notDetermined, so the app's `isSupported` gate passes on this host. **Remaining is owner input, not capability:** the Speech Recognition and Microphone prompts are privacy decisions deliberately not answered on the owner's behalf, and actual recognition needs a human speaker. The dictation button was deliberately not clicked. See `logs/stage-03/dictation-capability-probe.txt` and `logs/stage-03/dictation-session-observation.txt`. |
 | M20 | **PASS** | Observed in the running app: the passage inspector opened; selecting the blockquote populated SELECTED PASSAGE; filling a source description enabled "Mark External Source"; marking created a span shown as "Quotation - bytes 109-147"; and one character typed at the document start re-mapped it to "bytes 110-148" (an exact +1 shift). `testAnnotationsShiftThroughEditsAndRemovalKeepsSource` deterministically covers the shift, stale-on-replacement, removal, sticky staleness and distinct split ids; the inspector's HUMAN WRITING PROOF section shows the contracted NOT PROVABLE message and the passage notice says the material "is not claimed as freshly composed", so the UI does not imply human certainty. |
 | M21 | **PASS** | Deterministic parts verified: `testObservationHandleHonoursConsentBoundaries` (recording off gives no handle; gap/paused/limit give an honest nil; observing gives a handle bound to the exact source) and the `WriterStorageTests.HistoryJournalTests` set (round-trip, encryption at rest, wrong key, capacity pause without stopping writing, delete-history leaves recovery intact, and the two new interpretation-tamper cases). The live off/on/record/pause/resume/delete/close/restart path ran end to end on the signed candidate `436d43ca...` (TeamIdentifier `6R2578FWBR`) with every required behaviour observed - full detail in "Live consented-history session" below and raw output in `logs/stage-03/consented-history-session-observation.txt`. Under the previous ad-hoc image this same window rendered "Recovery unavailable"; under the signed image it renders "Recovery up to date", which is the identity gate being exercised rather than assumed. Re-confirmed on the final candidate `8d0f7f5c...`: a real document opened with the recovery banner "Recovery up to date" and the status line "Recording off", and a typed character saved with the source exact. Remaining sub-gap: the 1 GiB warn and 2 GiB pause resource thresholds were not driven live (deterministic coverage only, in `HistoryJournalTests`). |
 
@@ -487,6 +526,22 @@ deliberate check in Stage 04 before any cross-session lineage claim is made.
    denied and unavailable paths. See
    `logs/stage-03/dictation-capability-probe.txt`.
 
+   The deterministic half of this row was finished in the same session. The
+   permission gate is now injectable (`DictationGate`; only `.live` touches TCC),
+   the session identity is a monotonic, never-reused token
+   (`DictationGeneration`), and `deliver(transcript:token:)` drops a stale token
+   before the anchor is consulted. Six `Stage03EditorTests` pass on the final
+   candidate and assert: an unsupported language refuses with **zero** permission
+   requests; a refused speech grant stops before the microphone is ever
+   requested; each refusal ends in `.denied` with the contracted wording and no
+   published revision; a hypothesis delivered after `stop()` changes neither the
+   source bytes nor the published revision; and a superseded session's token is
+   never reused, its callback is dropped, and the current session still applies
+   with origin `knownAssistance(.dictation)`. The dictation button was
+   deliberately **not** clicked in this session, because clicking is what raises
+   the two prompts. See
+   `logs/stage-03/dictation-session-observation.txt`.
+
 ## Independent work completed while blocked
 
 Source, tests and evidence above: the mutation gateway, the finished editor
@@ -510,13 +565,17 @@ Finished here: the live consented-history round trip on the signed candidate
 recovery preserved); the complete native input matrix (German umlauts, dead keys,
 emoji, RTL Arabic, Hangul) verified against exact saved bytes; and typewriter
 scrolling observed live on the rebuilt candidate with the Reduce Motion branch
-extracted into a tested pure decision.
+extracted into a tested pure decision; and the dictation gate ordering,
+refused-grant states and late-callback rejection made testable and tested.
 
 Unfinished here, each with its exact missing input: the live Reduce Motion
 differential (the owner toggling the system setting plus a measurable scroll
 comparison - the branch itself is tested); actual on-device dictation plus its
-denied and unavailable paths (granted microphone/speech permission and a human
-speaker - the hardware and on-device models are present); a real user-accepted
+denied and unavailable paths replayed from the UI (granted microphone/speech
+permission and a human speaker - the hardware and on-device models are present,
+and those same states are asserted deterministically); a real user-accepted
 spelling correction (a reachable spelling panel); the 1 GiB warn / 2 GiB pause
-resource thresholds driven live (deterministic coverage only); and a VoiceOver
-editing session.
+resource thresholds driven live (deterministic coverage only: the app uses
+`HistoryCapacity.standard` with no supported override, so driving it live would
+mean writing roughly 2 GiB of ciphertext for a test); and a VoiceOver editing
+session.

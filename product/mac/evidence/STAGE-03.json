@@ -15,7 +15,8 @@
     "61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc",
     "1ddd3210dd4fada8a225caa13f993331e571e682",
     "e78543906d37a285f6989079069138cdbf7d573d",
-    "154f34effbef9423566f728c88757598e9e15c6f"
+    "154f34effbef9423566f728c88757598e9e15c6f",
+    "d8745dcfabdcea5c9a07ea669bf91b62da5306fa"
   ],
   "evidence_commits": [
     "4ae1454015a60cc15a654a89557771f0b3e57856",
@@ -25,8 +26,8 @@
   ],
   "candidate": {
     "path": "mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app",
-    "executable_sha256": "8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627",
-    "executable_sha256_previous": "436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392",
+    "executable_sha256": "53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390",
+    "executable_sha256_previous": "8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627",
     "executable_sha256_intermediate": "89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529",
     "executable_sha256_earlier": "95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f",
     "architecture": "x86_64, arm64",
@@ -34,9 +35,9 @@
     "signature": "Apple Development: mris@tuta.io (TVV48YYFPR), TeamIdentifier 6R2578FWBR, hardened runtime",
     "strict_signature_verification": "PASS",
     "bundle_identifier": "com.mariusschober.nostrwriter.development",
-    "built": "2026-09-19 08:55:04 +0100",
+    "built": "2026-09-19 09:27 +0100",
     "built_with": "WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh",
-    "built_previous": "2026-09-18 23:25:04 +0100",
+    "built_previous": "2026-09-19 08:55:04 +0100",
     "built_intermediate": "2026-09-18 18:01:13 +0100",
     "built_earlier": "2026-09-18 17:41:08 +0100",
     "entitlements": [
@@ -52,7 +53,7 @@
     "signed_candidate_available": true,
     "signed_candidate_reason": null,
     "identity_correction": "The earlier recorded blocker 'security find-identity returns 0 valid identities' was a sandbox artefact. Re-queried outside the sandbox this session: 'security find-identity -v -p codesigning' returns 1 valid identity, Apple Development: mris@tuta.io (TVV48YYFPR) with OU 6R2578FWBR",
-    "final_candidate_change": "The final candidate differs from the previous signed candidate only by the M14 typewriter-scroll extraction (commit 154f34effbef9423566f728c88757598e9e15c6f): the Reduce Motion branch that was inline in WriterWindowController.typewriterScroll() is now the pure TypewriterScrollPlan.plan(caret:visible:reduceMotion:padding:) plus one new test. Text input, spelling, annotations and the consent/history path are untouched by that change, so the live rows captured on 436d43caa1f0 are carried unchanged and are labelled with their candidate below."
+    "final_candidate_change": "The final candidate differs from the previous signed candidate by two testability refactors and nothing else: the M14 typewriter-scroll decision extracted into the pure TypewriterScrollPlan (commit 154f34ef) and the M19 dictation session token plus injectable gate (commit d8745dcfabdcea5c9a07ea669bf91b62da5306fa). Neither changes start/stop ordering, the anchor, the replacement rule, the on-device-only recognition request or the .denied/.unavailable wording. Rows captured on earlier candidates are labelled with their candidate below."
   },
   "environment": {
     "macos": "26.6.2 (25G83)",
@@ -193,8 +194,10 @@
     },
     "native_on_device_dictation": {
       "status": "BLOCKED",
-      "detail": "Corrected and narrowed. The earlier 'system_profiler SPAudioDataType reports no audio devices at all on this host' was a sandbox artefact. Audio hardware exists (MacBook Pro Microphone, CONEXANT USB AUDIO as the default input, DELL S2419H output) and a read-only Swift probe now shows on-device recognition available for en_ES, en-US and de-DE, with speechAuthorization notDetermined. So the app's isSupported gate passes and the first invocation will raise the system Speech Recognition prompt - a privacy decision that was deliberately left to the owner. Remaining: the owner answers the Speech Recognition and Microphone prompts, speaks real audio, and exercises the denied/unavailable paths.",
-      "artifact": "product/mac/evidence/logs/stage-03/dictation-capability-probe.txt"
+      "detail": "Corrected, narrowed, and now deterministically covered on the parts that do not need a human. The earlier 'system_profiler SPAudioDataType reports no audio devices at all on this host' was a sandbox artefact. Audio hardware exists (MacBook Pro Microphone, a CONEXANT USB AUDIO device as the default input, a DELL S2419H output) and a read-only Swift probe shows on-device recognition available for en_ES, en-US and de-DE with speechAuthorization notDetermined, so the app's isSupported gate passes here. The gate ordering, the denied and unavailable states and late-callback rejection are now asserted by six passing tests (see logs/stage-03/dictation-session-observation.txt). Remaining is purely an owner session: answer the Speech Recognition and Microphone prompts, speak real audio, and replay the denied/unavailable paths from the UI. The button was deliberately not clicked in this session because that raises those prompts.",
+      "artifact": "product/mac/evidence/logs/stage-03/dictation-capability-probe.txt",
+      "second_artifact": "product/mac/evidence/logs/stage-03/dictation-session-observation.txt",
+      "candidate": "53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390"
     },
     "native_inspector_annotation_interaction": {
       "status": "PASS",
@@ -244,11 +247,11 @@
     },
     "stage03_editor_native_final_candidate": {
       "status": "PASS",
-      "tests": 14,
+      "tests": 19,
       "failed": 0,
-      "ran": "2026-09-19 08:52-08:53 +0100",
-      "detail": "xcodebuild -project NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath .build/NativeTestDerivedData ... test -only-testing:NostrWriterTests/Stage03EditorTests: Executed 14 tests, with 0 failures. Includes the new testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText. A first run of just the new test failed to compile (CGFloat? vs Double) and was fixed before this run; that failure is recorded here as scoped history.",
-      "candidate": "8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627"
+      "ran": "2026-09-19 09:24-09:25 +0100",
+      "detail": "-only-testing:NostrWriterTests/Stage03EditorTests on the d8745dcf tree: Executed 19 tests, with 0 failures. Adds the five dictation checks (unsupported-language refusal before any prompt, denied speech, denied microphone after a granted speech prompt, late callback after stop, token from a superseded session) to the 14 already recorded. An earlier attempt failed to compile on two issues (a CGFloat?/Double mismatch in the Reduce Motion test, then SourceSnapshot optional-chaining in the late-callback test) and both were fixed before this run; those failures are scoped history, not carried as passes.",
+      "candidate": "53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390"
     },
     "native_typewriter_scroll_and_reduce_motion": {
       "status": "PASS",
@@ -257,6 +260,14 @@
       ],
       "artifact": "product/mac/evidence/logs/stage-03/typewriter-scroll-reduce-motion.txt",
       "candidate": "8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627"
+    },
+    "stage03_editor_and_shell_final_candidate": {
+      "status": "PASS",
+      "tests": 27,
+      "failed": 0,
+      "skipped": 1,
+      "ran": "2026-09-19 09:19 +0100",
+      "detail": "-only-testing:NostrWriterTests/Stage03EditorTests -only-testing:NostrWriterTests/ShellTests on the 154f34ef tree: Executed 27 tests, with 1 test skipped and 0 failures (Stage03EditorTests 14/0, ShellTests 13 with 1 skip). The skip is the pre-existing testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave, which needs the NW_COORDINATED_WRITER helper environment; that path is separately covered by the recorded conflict-regression run with the helper."
     }
   },
   "repair_at_61d3dbd": [
@@ -361,20 +372,26 @@
     {
       "id": "M19",
       "status": "BLOCKED",
-      "reason": "Deterministic anchor and cancellation rules pass (testDictationAnchorCancelsRatherThanOverwritingLaterText: first hypothesis inserts at the anchor, a refined hypothesis replaces only this session's own range, an unrelated edit replaced by newer text cancels instead of clobbering, and a truncated document cancels rather than writing past the end). Both earlier hardware blockers are corrected: audio devices exist, and a read-only probe now shows on-device recognition available for en_ES, en-US and de-DE with the speech authorization notDetermined, so the app's isSupported gate passes on this host. What is missing is owner input, not capability: the Speech Recognition and Microphone prompts are privacy decisions that were deliberately not answered on the owner's behalf, and actual recognition needs a human speaker. Detail: logs/stage-03/dictation-capability-probe.txt",
+      "reason": "Deterministic coverage is now complete for everything M19 can verify without a human speaker. Anchor/cancellation (testDictationAnchorCancelsRatherThanOverwritingLaterText): the first hypothesis inserts at the anchor, a refined hypothesis replaces only this session's own range, an unrelated edit replaced by newer text cancels instead of clobbering, and a truncated document cancels rather than writing past the end. Permission ordering and the refusal states: an unsupported language ends .unavailable with zero permission requests; a refused speech grant ends .denied('Speech recognition permission was not granted.') without ever requesting the microphone; a refused microphone ends .denied('Microphone permission was not granted.') after exactly one request each; no revision is published in any of them. Late callbacks: a hypothesis delivered after stop() changes neither the source bytes nor the published revision, and a token from a superseded session is dropped even while a newer session is open, which still applies its own transcript with origin knownAssistance(.dictation). Nineteen Stage03EditorTests pass on the final candidate, and the rebuilt app still launches with 'Recovery up to date' and renders DICTATION Off in the inspector. Both earlier hardware blockers are corrected: audio devices exist, and on-device recognition is available for en_ES, en-US and de-DE with speechAuthorization notDetermined, so the app's isSupported gate passes on this host. What is missing is owner input, not capability: the Speech Recognition and Microphone prompts are privacy decisions deliberately not answered on the owner's behalf, and actual recognition needs a human speaker. See logs/stage-03/dictation-capability-probe.txt and logs/stage-03/dictation-session-observation.txt.",
       "evidence": [
-        "Stage03EditorTests.testDictationAnchorCancelsRatherThanOverwritingLaterText"
+        "Stage03EditorTests.testDictationAnchorCancelsRatherThanOverwritingLaterText",
+        "Stage03EditorTests.testDictationRefusesUnsupportedLanguageBeforeAskingForPermission",
+        "Stage03EditorTests.testDictationReportsDeniedSpeechAndMicrophoneWithoutListening",
+        "Stage03EditorTests.testDictationReportsDeniedMicrophoneAfterAGrantedSpeechPrompt",
+        "Stage03EditorTests.testLateDictationCallbackAfterStopCannotTouchTheDocument",
+        "Stage03EditorTests.testTokenFromAnEarlierSessionCannotOverwriteANewerOne"
       ],
       "device_correction": "Re-enumerated outside the sandbox (system_profiler SPAudioDataType and ioreg): MacBook Pro Microphone and MacBook Pro Speakers, a CONEXANT USB AUDIO device that is the current default input, and a DELL S2419H HDMI output. The signed candidate also carries com.apple.security.device.audio-input. The earlier 'no audio devices at all' result was produced inside the sandbox and is superseded.",
       "needs": "granted microphone and speech-recognition permission for the app, a supported on-device locale, and a human speaker producing real audio; granting a TCC privacy permission and speaking are owner actions",
       "recheck": "not attempted live this session: the app requests permission at invocation, and granting a system privacy permission on the owner's behalf was out of scope for this run",
       "observed_artifacts": [
-        "logs/stage-03/dictation-capability-probe.txt"
+        "logs/stage-03/dictation-capability-probe.txt",
+        "logs/stage-03/dictation-session-observation.txt"
       ],
-      "artifact_candidate": "host capability probe at 8d0f7f5c83b3",
+      "artifact_candidate": "53813d413425",
       "not_measured": [
         "Actual supported on-device recognition (needs the owner to answer the Speech Recognition and Microphone prompts and to speak real audio)",
-        "The live denied and unavailable paths (need the same owner session)"
+        "The denied and unavailable paths replayed from the UI in a real owner session (the same states are asserted deterministically)"
       ]
     },
     {
@@ -391,7 +408,7 @@
     {
       "id": "M21",
       "status": "PASS",
-      "reason": "The live off/on/pause/delete/restart consent path now runs on the signed candidate and every required behaviour was observed, together with the deterministic consent-boundary and journal suites. Re-confirmed on the final candidate (8d0f7f5c83b3): a real document opened with the recovery banner reading 'Recovery up to date' and the status line reading 'Recording off', and a typed character was saved with the source exact - the identity/recovery gate and the consent-off state both exercised on the final binary.",
+      "reason": "The live off/on/pause/delete/restart consent path now runs on the signed candidate and every required behaviour was observed, together with the deterministic consent-boundary and journal suites. Re-confirmed on the final candidate (8d0f7f5c83b3): a real document opened with the recovery banner reading 'Recovery up to date' and the status line reading 'Recording off', and a typed character was saved with the source exact - the identity/recovery gate and the consent-off state both exercised on the final binary. The 'stale render/parser/dictation races' half of this row is now explicit: ShellTests.testSessionRejectsStaleAsyncCompletion covers a stale async completion for the document session, and the new dictation late-callback and superseded-session tests cover the same race for recognition hypotheses.",
       "evidence": [
         "Stage03EditorTests.testObservationHandleHonoursConsentBoundaries",
         "WriterStorageTests.HistoryJournalTests (7 tests)",
@@ -442,7 +459,7 @@
     },
     {
       "id": "microphone_speech",
-      "detail": "Corrected and narrowed this session. Audio hardware is present (MacBook Pro Microphone, MacBook Pro Speakers, a CONEXANT USB AUDIO default input and a DELL S2419H output) and the earlier 'no audio devices at all' claim was a sandbox artefact. Beyond hardware, a read-only Swift probe now shows on-device recognition available for en_ES, en-US and de-DE and speechAuthorization notDetermined, so the app's own isSupported gate passes here. What remains is purely an owner decision plus a speaker: answer the Speech Recognition and Microphone prompts, speak real audio, and exercise the denied/unavailable paths.",
+      "detail": "Corrected and narrowed. Audio hardware is present (MacBook Pro Microphone, a CONEXANT USB AUDIO default input, a DELL S2419H output) and the earlier 'no audio devices at all' claim was a sandbox artefact. Beyond hardware, a read-only Swift probe shows on-device recognition available for en_ES, en-US and de-DE with speechAuthorization notDetermined, so the app's own isSupported gate passes here. The gate ordering, the refused-grant states and late-callback rejection are now asserted by six passing tests. What remains is purely an owner decision plus a speaker: answer the Speech Recognition and Microphone prompts, speak real audio, and replay the denied/unavailable paths from the UI. The button was deliberately not clicked in this session because clicking raises those prompts.",
       "status": "OWNER ACTION"
     },
     {
@@ -463,16 +480,17 @@
     "unchanged_production_approval_state": "empty",
     "unfinished_here": [
       "Live Reduce Motion differential (owner switches the system setting on; the branch itself is tested)",
-      "Actual on-device dictation recognition and its denied/unavailable paths (owner grants microphone/speech and speaks)",
+      "Actual on-device dictation recognition and a UI replay of its denied/unavailable paths (owner grants microphone/speech and speaks)",
       "A real user-accepted spelling correction through the shared panel (the automatic path and the deterministic classification are covered)",
-      "Resource-threshold driving for the 1 GiB warn / 2 GiB pause states (deterministic coverage only)",
+      "Resource-threshold driving for the 1 GiB warn / 2 GiB pause states (deterministic coverage only; the app uses HistoryCapacity.standard and there is no supported override, so driving it live would mean writing ~2 GiB of ciphertext for a test)",
       "VoiceOver editing session"
     ],
     "completed_here": [
       "live consented-history round trip on the signed candidate: off/on/record/pause/resume/delete/close/restart, encrypted at rest, recovery preserved",
       "complete native input matrix (umlauts, dead keys, emoji, RTL, CJK) verified against exact saved bytes",
-      "typewriter scrolling observed live with exact saved source, and the Reduce Motion branch made testable and tested"
+      "typewriter scrolling observed live with exact saved source, and the Reduce Motion branch made testable and tested",
+      "dictation gate ordering, refused-grant states and late-callback rejection made testable and tested"
     ],
-    "fixtures": "product/mac/evidence/logs/stage-03/ - editor-fixture.md, spell-fixture.md, input-matrix.md, native-input-matrix-full.txt, typewriter-scroll-reduce-motion.txt, dictation-capability-probe.txt, services-menu-observation.txt, spelling-and-services-observation.txt, keyboard-matrix-observation.txt"
+    "fixtures": "product/mac/evidence/logs/stage-03/ - editor-fixture.md, spell-fixture.md, input-matrix.md, native-input-matrix-full.txt, typewriter-scroll-reduce-motion.txt, dictation-capability-probe.txt, dictation-session-observation.txt, services-menu-observation.txt, spelling-and-services-observation.txt, keyboard-matrix-observation.txt"
   }
 }

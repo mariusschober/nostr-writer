@@ -1,0 +1,93 @@
+Stage 03 - M19 dictation: gate ordering, denied/unavailable and late-callback evidence
+source commit d8745dcfabdcea5c9a07ea669bf91b62da5306fa
+candidate executable sha256 53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390
+  (universal x86_64 + arm64, minos 14.0, TeamIdentifier 6R2578FWBR, strict signature PASS)
+observed 2026-09-19 09:24-09:30 (Atlantic/Canary)
+
+WHY THIS RUN
+The stage plan's minimum evidence for M19 is "actual supported recognition plus
+denied/unavailable/error behavior and deterministic late-callback/range
+cancellation checks". Only the anchor/range rule was covered before this run; the
+permission ordering, the denied/unavailable states and the late-callback rejection
+were real code with no check. They are now driven deterministically.
+
+WHAT CHANGED IN THE APP (no behaviour change)
+  - DictationGeneration: a monotonic, non-reusable session token (begin /
+    invalidate / isCurrent), the same shape as the accepted TypewriterScrollPlan.
+  - DictationGate: the two capability questions (isSupported for a locale,
+    requestSpeech, requestMicrophone) as injectable closures. `.live` is the only
+    gate that touches TCC; a test never answers a privacy prompt.
+  - DictationController.beginSession(at:) opens the session and anchors to the
+    exact caret at invocation, before any prompt can move it.
+  - DictationController.deliver(transcript:token:) is the single entry point for
+    a recognition hypothesis and drops a token other than the current one before
+    the anchor is consulted.
+  Nothing about start/stop ordering, the anchor, the replacement rule, the
+  on-device-only request or the .denied/.unavailable wording changed.
+
+COMMAND
+  xcodebuild -project NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug \
+    -derivedDataPath .build/NativeTestDerivedData \
+    -clonedSourcePackagesDirPath DerivedData/SourcePackages \
+    -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile \
+    -skipPackageUpdates -destination 'platform=macOS' -skipPackagePluginValidation \
+    ARCHS=arm64 ONLY_ACTIVE_ARCH=YES test -only-testing:NostrWriterTests/Stage03EditorTests
+
+RESULT
+  Executed 19 tests, with 0 failures (0 unexpected) in 5.931 (5.937) seconds
+  ** TEST SUCCEEDED **
+
+  Passed, relevant to M19:
+    testDictationAnchorCancelsRatherThanOverwritingLaterText          (0.001 s)
+    testDictationRefusesUnsupportedLanguageBeforeAskingForPermission  (0.180 s)
+    testDictationReportsDeniedSpeechAndMicrophoneWithoutListening     (0.191 s)
+    testDictationReportsDeniedMicrophoneAfterAGrantedSpeechPrompt     (0.223 s)
+    testLateDictationCallbackAfterStopCannotTouchTheDocument          (0.163 s)
+    testTokenFromAnEarlierSessionCannotOverwriteANewerOne             (0.176 s)
+
+WHAT EACH NEW CHECK PROVES
+  1. Unsupported language: with a gate whose isSupported is false, toggle() ends in
+     .unavailable("On-device dictation is not available for this language or
+     system."), isListening is false, and the speech and microphone request
+     counters are both 0 - the app refuses before it would ever prompt, and the
+     source bytes are unchanged.
+  2. Denied speech: with isSupported true and speech refused, the state settles on
+     .denied("Speech recognition permission was not granted."), the microphone was
+     never requested (counter 0), no revision was published
+     (document.session?.lastMutation is nil) and the source is unchanged.
+  3. Denied microphone: with speech granted and the microphone refused, the state
+     settles on .denied("Microphone permission was not granted.") after exactly one
+     speech request and one microphone request, with the source unchanged.
+  4. Late callback after stop: a session opened at offset 3 inserts "hi" at the
+     anchor ("abchidef"); after stop() the same token is delivered again with
+     " too late " and neither the source bytes nor the published revision change,
+     leaving the state .idle. Two independent guards hold: the token is stale and
+     the anchor was dropped.
+  5. Superseded session: after a session is closed and a new one opened, the first
+     session's token is not reused, its callback is dropped (source stays
+     "abcdef"), and the current session still applies - "liveabcdef" with the
+     recorded origin knownAssistance(.dictation).
+
+LIVE CHECK OF THE REBUILT CANDIDATE (no privacy prompt answered)
+The app was quit gracefully, the signed candidate was rebuilt and relaunched, and
+the following was read from the running binary (accessibility tree):
+  - window opened, status line "Recovery up to date, Value: 0 words - Unsaved Recording off"
+    (the signed-candidate identity/recovery gate still passes after the refactor)
+  - toolbar button "Dictate On This Mac" present and enabled
+  - inspector: "RECORDING  Recording off - No detailed revisions or deleted text are stored."
+    and "DICTATION  Off"
+  - inspector: "HUMAN WRITING PROOF  NOT PROVABLE - no approved Mac capture profile
+    and model are installed. This is not a judgment about who wrote your text."
+
+Deliberately NOT done: the "Dictate On This Mac" button was not clicked. Clicking it
+raises the system Speech Recognition and Microphone prompts, and answering them is a
+TCC privacy decision reserved for the owner. The gate ordering above is proved by
+counter assertions rather than by answering a prompt on the owner's behalf.
+
+STILL OUTSTANDING FOR M19 (owner actions, unchanged in kind)
+  1. Invoke Format > Dictate On This Mac (or the toolbar button) and answer the
+     Speech Recognition and Microphone prompts.
+  2. Speak real audio; confirm the transcript lands at the anchor with a visible
+     listening indicator and a working Stop.
+  3. Replay the denied and unavailable paths from the UI in that same session.
+No real audio and no private transcript is stored here.
