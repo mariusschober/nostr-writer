@@ -1,8 +1,16 @@
 # Stage 03 evidence - editor, assistance and local writing history
 
 Status: **BLOCKED** (implementation complete, compiling, hardened and
-deterministically verified; mandatory native and owner observations
-outstanding). `accepted: false`.
+deterministically verified; the live consented-history path now passes on a
+properly signed candidate; the remaining mandatory native and owner
+observations are outstanding). `accepted: false`. Acceptance: M15, M17, M18,
+M20 and M21 PASS; M14, M16 and M19 BLOCKED, each on a single identified owner
+input rather than on code.
+
+Revision note (2026-09-19): M21 moved from BLOCKED to PASS after the signed
+candidate was built and exercised; two earlier blocker claims (no code-signing
+identity, no audio devices) were corrected after being re-derived outside the
+sandbox.
 
 | Reference | Value |
 | --- | --- |
@@ -13,19 +21,37 @@ outstanding). `accepted: false`.
 | Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc`, `1ddd3210dd4fada8a225caa13f993331e571e682` (the Settings-window fix), `e78543906d37a285f6989079069138cdbf7d573d` (the native-assistance, undo-count and saved-status repairs) |
 | Evidence commits | `4ae1454015a60cc15a654a89557771f0b3e57856` (first M14-M21 record and logs), `751879ef2dcef131a5287f7c9ae114137fa99719`, `9b4a18db4fa6b7323ae62c35133cbef6e078ed81`, the evidence refresh for the `e785439` repairs, and the commit adding this revision (reported in the handoff, since a commit cannot contain its own hash) |
 | Candidate executable | `mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter` |
-| Candidate SHA-256 (current) | `d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b` |
+| Candidate SHA-256 (current) | `436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392` |
+| Candidate SHA-256 (previous) | `d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b` |
 | Candidate SHA-256 (intermediate) | `89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529` |
 | Candidate SHA-256 (earlier) | `95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f` |
-| Candidate arch / signature | arm64, ad-hoc ("Sign to Run Locally"), identifier `com.mariusschober.nostrwriter.development` |
-| Candidate build times | current 2026-09-18 22:22:05 +0100 (native-assistance repair); earlier 18:01:13 +0100 (settings fix) and 17:41:08 +0100 |
+| Candidate arch / signature | universal (x86_64 + arm64), minos 14.0, "Apple Development: mris@tuta.io (TVV48YYFPR)", TeamIdentifier `6R2578FWBR`, hardened runtime, strict verification PASS, identifier `com.mariusschober.nostrwriter.development` |
+| Candidate build times | current 2026-09-18 23:25:04 +0100 (signed development build); previous 22:22:05 +0100; intermediate 18:01:13 +0100; earlier 17:41:08 +0100 |
+| Candidate build command | `WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh` |
 
 Environment: macOS 26.6.2 (25G83), Xcode 27.0 (27A266a), Swift 6.4, arm64.
-`security find-identity -v -p codesigning` returned **0 valid identities**, so the
-required Apple Development-signed candidate could not be produced. The candidate
-above is an ad-hoc build whose entitlements are `app-sandbox`,
-`device.audio-input`, `files.user-selected.read-write`, `get-task-allow` and
-`network.client` - deliberately without `application-identifier` or
-`keychain-access-groups`. The consequences are recorded under M21 and Blockers.
+`security find-identity -v -p codesigning` returns **1 valid identity** when
+queried outside the sandbox - "Apple Development: mris@tuta.io (TVV48YYFPR)",
+OU `6R2578FWBR`. The earlier "0 valid identities" result, and the earlier
+"no audio devices at all" result, were both sandbox artefacts and are corrected
+here; the owner's existing identity and audio hardware were already present.
+The candidate was therefore rebuilt and signed with the owner's existing team,
+and its entitlements are `app-sandbox`, `device.audio-input`,
+`files.user-selected.read-write`, `get-task-allow`, `network.client`,
+`application-identifier = 6R2578FWBR.com.mariusschober.nostrwriter.development`,
+`developer.team-identifier = 6R2578FWBR` and
+`keychain-access-groups = 6R2578FWBR.com.mariusschober.nostrwriter.development`.
+Recovery and the consented history journal both open under it; see M21 and
+Blockers.
+
+Two candidate identities are in play and are kept distinct. The observations
+recorded in the earlier Stage 03 sessions (editor surface, Settings fix, dark
+appearance, find bar, keyboard matrix, spelling/Services, annotation
+interaction) were made on the ad-hoc image `d2f868cb...`, which reported
+"Recovery unavailable". The consent/history observations below were made on the
+current signed image `436d43ca...`, which reports "Recovery up to date" for the
+same window. No source changed between them; rerun only checks affected by a
+source change.
 
 ## What was implemented
 
@@ -293,18 +319,98 @@ only, not as current-build observations: `editor-1120x760-light.png` and
 | M16 | **BLOCKED** | Real native input was observed on the candidate with the German keyboard layout active: `ä ö ü ß` typed exactly, and two genuine dead-key compositions completed through marked text - `^` then `e` produced `ê`, and `´` then `e` produced `é` - captured in `logs/stage-03/input-matrix-deadkeys.jpeg`. The composition unit path also passes (`testMarkedTextIsNotCommittedAsARevision`: marked text publishes no revision, the commit is classified `nativeIMECommit`), and exact astral/combining offset handling is covered by the 1,000-operation Unicode replay. Still not performed: an emoji, an RTL script, and a full CJK input method. Re-probed this session: System Events keystroke of Hebrew text and of an emoji arrived as real key events but the active German layout resolved each character to a plain letter, producing `aaaa aa`; no emoji, RTL or CJK input source is enabled on this host (enabled: German layout, CharacterPalette, Ironwood, PressAndHold), and adding one needs System Settings. |
 | M17 | **PASS** | The route inventory above is tied to implementation; `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText` covers every delivery including `unknown`; `testOneTypedMutationProducesExactlyOneRevision` proves a duplicate delegate callback publishes no second revision; `testInputPolicyRefusesExternalInsertionLocally` proves the Stage 07 seam refuses external insertion without global interception. |
 | M18 | **PASS** | Continuous spell checking is on (the misspelled token drew the red spelling underline) and grammar checking with spelling is now enabled by `e785439`; the Edit menu exposes Spelling and Grammar (Show Spelling and Grammar, Check Document Now, Check Spelling While Typing, Check Grammar With Spelling, Correct Spelling Automatically) and a Writing Tools submenu where previously there was no Spelling submenu; the editor's contextual menu offers Look Up and Translate for the word under the caret; the application menu has a populated Services submenu (9 items); and a real correction ran - at the default, typing `teh ` left exactly `teh ` (`7465 6820`), while after enabling Correct Spelling Automatically from the app's own menu the same keystrokes produced `The `. Provenance stays exact: `NSTextView.changeSpelling(_:)` is classified `knownAssistance(.spelling)` and an opaque mutation stays unknown, both asserted by `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText`. Scope note: the native correction was the automatic path; the user-accepted panel/suggestion path is covered deterministically but was not reachable in this harness because the shared `NSSpellChecker` panel is not reported as a window and the suggestion menu did not appear for a caret or find-bar selection. See `logs/stage-03/spelling-and-services-observation.txt`. |
-| M19 | **BLOCKED** | Deterministic anchor/cancellation rules pass (`testDictationAnchorCancelsRatherThanOverwritingLaterText`). `system_profiler SPAudioDataType` reports **no audio devices at all** on this host (re-checked this session), so real on-device recognition cannot be exercised here whatever the permission state: the exact missing access is an audio input device, plus a supported on-device locale and granted microphone/speech permission. The denial/unavailable/error paths were likewise not exercised live and need the owner session. |
+| M19 | **BLOCKED** | Deterministic anchor/cancellation rules pass (`testDictationAnchorCancelsRatherThanOverwritingLaterText`). The previous revision of this row recorded that `system_profiler SPAudioDataType` "reports **no audio devices at all** on this host". That was a **sandbox artefact and is corrected here**: re-enumerated outside the sandbox, this host has MacBook Pro Microphone and MacBook Pro Speakers, a CONEXANT USB AUDIO device that is the current default input, and a DELL S2419H HDMI output, and the signed candidate carries the `com.apple.security.device.audio-input` entitlement. M19 therefore remains BLOCKED on owner actions, not on missing hardware: granted microphone and speech-recognition permission (a TCC privacy grant, deliberately not made on the owner's behalf), a supported on-device locale, and a human speaker producing real audio. The denial/unavailable/error paths likewise need that owner session. |
 | M20 | **PASS** | Observed in the running app: the passage inspector opened; selecting the blockquote populated SELECTED PASSAGE; filling a source description enabled "Mark External Source"; marking created a span shown as "Quotation - bytes 109-147"; and one character typed at the document start re-mapped it to "bytes 110-148" (an exact +1 shift). `testAnnotationsShiftThroughEditsAndRemovalKeepsSource` deterministically covers the shift, stale-on-replacement, removal, sticky staleness and distinct split ids; the inspector's HUMAN WRITING PROOF section shows the contracted NOT PROVABLE message and the passage notice says the material "is not claimed as freshly composed", so the UI does not imply human certainty. |
-| M21 | **BLOCKED** | Deterministic parts verified: `testObservationHandleHonoursConsentBoundaries` (recording off gives no handle; gap/paused/limit give an honest nil; observing gives a handle bound to the exact source) and the `WriterStorageTests.HistoryJournalTests` set (round-trip, encryption at rest, wrong key, capacity pause without stopping writing, delete-history leaves recovery intact, and the two new interpretation-tamper cases). The live off/on/pause persistence check remains unobservable. `DocumentRecovery.openStore()`/`openHistory()` read `keychain-access-groups`, falling back to `com.apple.application-identifier`/`application-identifier`, and an ad-hoc build carries neither, so the consented journal throws `RecoveryKeyError.unavailable` before any live check can run. Two controlled experiments established *why* rather than assuming: re-signing a throwaway copy of the candidate ad-hoc **with** a `keychain-access-groups` entitlement makes macOS refuse to launch it (launchd `POSIX 163`) both with and without `app-sandbox`, while the identical re-sign **without** that entitlement launches normally - so macOS requires a real signing identity for the access group. `security find-identity -v -p codesigning` returns 0 identities (re-checked this session), and querying `login.keychain-db` explicitly also returns 0, so no Apple Development identity is currently present. A previously provisioned marker shows this worked earlier: `~/Library/Containers/com.mariusschober.nostrwriter.development/Data/Library/Application Support/NostrWriter/Development/bootstrap.json` records `accessGroup "6R2578FWBR.com.mariusschober.nostrwriter.development"`, `ready: true`. Restoring that existing identity and rebuilding with `mac/scripts/build_signed_development.sh` is the exact missing access. |
+| M21 | **PASS** | Deterministic parts verified: `testObservationHandleHonoursConsentBoundaries` (recording off gives no handle; gap/paused/limit give an honest nil; observing gives a handle bound to the exact source) and the `WriterStorageTests.HistoryJournalTests` set (round-trip, encryption at rest, wrong key, capacity pause without stopping writing, delete-history leaves recovery intact, and the two new interpretation-tamper cases). **The live off/on/record/pause/resume/delete/close/restart path was then run end to end on the signed candidate** (`436d43ca...`, TeamIdentifier `6R2578FWBR`) and every required behaviour was observed - full detail in "Live consented-history session" below. Under the previous ad-hoc image this same window rendered "Recovery unavailable"; under the signed image it renders "Recovery up to date", which is the identity gate being exercised rather than assumed. Remaining sub-gap: the 1 GiB warn and 2 GiB pause resource thresholds were not driven live (deterministic coverage only, in `HistoryJournalTests`). |
+
+## Live consented-history session (signed candidate, 2026-09-19)
+
+Ran after the signed rebuild, on executable `436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392`.
+All probes were synthetic ASCII tokens typed or discarded by hand; no real
+writing, keys, or private text is involved. The container was returned to its
+pre-session state afterwards (see "State restoration").
+
+1. **Off.** Baseline container held `bootstrap.json`, `installation.lock` and
+   `recovery.sqlite*` only, with no `history.sqlite`; the document read
+   `41 words - Saved to tmp Recording off` and the inspector read
+   `RECORDING Recording off - No detailed revisions or deleted text are stored.`
+   Under the earlier ad-hoc image the same window had read "Recovery
+   unavailable"; on the signed image it reads "Recovery up to date".
+2. **On.** Toggled "Store writing history on this Mac" in the app's own Settings
+   window (element `switch Store writing history on this Mac`). The document and
+   inspector moved to `Recording on`, the status line to `Recording on`, and
+   `history.sqlite` appeared at 4,096 bytes with a 111,272-byte WAL. The new
+   epoch recorded `prior_completeness = descriptiveOnly`, i.e. the pre-existing
+   file text was imported as descriptive rather than claimed as fresh
+   composition.
+3. **Typing.** 14 real keystrokes (`m21probeZq7Vv `) produced exactly **14**
+   `history_records`, `chunk_index` 0..13, `origin = directNativeInput`, one
+   source revision per character, and `range_lower/range_upper` advancing one
+   UTF-16 unit per character (239 back to 225). Each record carried a 12-byte
+   `nonce` and a 48-byte `sealed` payload with `post_digest` and `chunk_ref`.
+   `grep` for the probe token and for `Stage 03 Fixture` in `history.sqlite` and
+   its WAL returned **0 matches** - the store is encrypted at rest.
+4. **Pause.** The inspector's Pause/Resume moved the state to
+   `Recording paused - Earlier history is preserved; new detail is not recorded.`
+   A further 16 typed characters added **no** records (still 14) and appended one
+   honest gap row (`reason = userPaused`, `revision = 14`). The journal WAL still
+   grew, because the *separate* recovery store kept checkpointing: editing and
+   encrypted recovery stay intact while detailed history is paused.
+5. **Resume.** State returned to `Recording on` and a new epoch began with
+   `gap_reason = resumed` (`began_revision = 28`). The 15 characters typed after
+   resume produced 15 further records (`chunk_index` 14..28), so the pause is
+   visible as a boundary rather than silently smoothed over.
+6. **Delete Local History.** The confirmation read: "Delete this document's
+   detailed writing history? This permanently removes the recorded detailed
+   history for this document, including deleted text and timing. Your document
+   and its encrypted recovery are not deleted. Deleting history cannot revoke an
+   already exported proof or erase backups." After confirming, `history_records`,
+   `history_gaps` and `history_annotations` were **0** for the document, while
+   `recovery.sqlite` still held 66 `recovery_chunks` across 54 documents and the
+   banner still read "Recovery up to date" - exactly the required
+   "deleting history leaves recovery intact".
+7. **Close.** A graceful Cmd+Q (discarding the synthetic unsaved buffer through
+   the app's own "Discard Changes" dialog) appended a `boundaryClose` gap, ended
+   the epoch, closed the shared journal, and exited the process cleanly. The
+   scratch fixture file was left byte-identical (225 bytes,
+   md5 `cad776dbec6f806c75212bb7b08fa1c8`).
+8. **Restart.** Relaunched the registered build and re-opened the same file.
+   Consent persisted with **no** re-prompt (`41 words - Saved to tmp Recording on`)
+   and recovery reopened ("Recovery up to date"). Typing 15 characters then
+   recorded 15 new `history_records` (`origin = directNativeInput`, ranges
+   225..239) with no plaintext in the WAL, so consented detail survives a restart.
+
+**State restoration.** The owner's pre-session preference was restored:
+`recordingChoice` is back to `off`, and the synthetic `history.sqlite` created
+during this session (no journal existed before it) was deleted. `recovery.sqlite`
+was preserved and checkpointed by the clean shutdown; it now also contains the
+synthetic probe revisions, which is disclosed rather than hidden. The scratch
+document `/private/tmp/nw-s3-fixture.md` was never written to disk by the app
+during the session.
+
+**One observation left open for Stage 04, not a Stage 03 row.** The recovery
+catalog maps this file to a stable identity (`document_catalog.location_key =
+file:///tmp/nw-s3-fixture.md`, `document_id CCA2B3FB`), while the epoch created
+for the same window in the post-restart session used a different document id
+(`453DCCCF`, reached through the `/private/tmp` path form of the same file). The
+journal recorded correct, monotonic, per-character detail either way, and
+recovery worked in both sessions, so no Stage 03 requirement fails here; but
+whether `/tmp` and `/private/tmp` should resolve to one catalog entry is worth a
+deliberate check in Stage 04 before any cross-session lineage claim is made.
 
 ## Blockers (exact missing access, input or decision)
 
-1. **Signing identity.** `security find-identity -v -p codesigning` returns 0
-   valid identities on this host. Restore the owner's existing Apple Development
-   identity/profile (no new certificate or account should be created) and rebuild
-   with `WRITER_DEVELOPMENT_TEAM=<team>` via
-   `mac/scripts/build_signed_development.sh`. This is required for M21's live
-   consent/journal checks and for any claim about real recovery in this build.
+1. **Signing identity - RESOLVED.** The earlier record was wrong: the "0 valid
+   codesigning identities" result came from inside the sandbox. Queried outside
+   it, `security find-identity -v -p codesigning` returns 1 valid identity,
+   "Apple Development: mris@tuta.io (TVV48YYFPR)" (OU `6R2578FWBR`); the owner's
+   existing identity was already installed and nothing new was created. The
+   candidate was rebuilt with `WRITER_DEVELOPMENT_TEAM=6R2578FWBR
+   mac/scripts/build_signed_development.sh`, verifies strictly, and carries
+   `keychain-access-groups = 6R2578FWBR.com.mariusschober.nostrwriter.development`.
+   Recovery and the consented journal both open under it; M21 is PASS. The same
+   sandbox masking produced the audio-device claim corrected in item 6, so no
+   remaining claim about this host rests on an in-sandbox query.
 2. **Reduce Motion only.** M14 is otherwise fully observed live. The app reads
    `NSWorkspace.shared.accessibilityDisplayShouldReduceMotion` in
    `typewriterScroll()`. The setting is off on this host and cannot be changed
@@ -323,19 +429,34 @@ only, not as current-build observations: `editor-1120x760-light.png` and
    is why earlier probes typed bare letters; that is recorded, not carried
    forward as a gap.
 4. **Input-method matrix.** M16 still needs an emoji, an RTL script and a full
-   CJK input method. No such input source is enabled on this host and adding one
-   needs System Settings (and usually a session restart); System Events keystroke
-   of non-ASCII characters resolves through the German layout to plain letters.
+   CJK input method. Re-derived on the signed candidate this session: the
+   Emoji & Symbols palette *is* an enabled input source and does launch (the
+   `CharacterPalette` process appears after Control-Command-Space) but exposes no
+   accessibility window, so it cannot be driven; a real clipboard paste
+   (`pbcopy` then Command-V) and the computer-use `type_text` path both failed to
+   deliver a Unicode probe into the editor's text view, leaving the buffer
+   unchanged; and blind keystrokes aimed at the palette's search field landed in
+   the document instead. No emoji/RTL/CJK insertion was observed, so none is
+   claimed. The enabled set is German layout, CharacterPalette, Ironwood
+   (handwriting) and PressAndHold; System Events keystrokes of non-ASCII text
+   still resolve through the German layout to plain letters. Adding and selecting
+   a real emoji/RTL/CJK input source needs System Settings and usually a session
+   restart - an input-source configuration step, not a code defect.
 5. **Spell/assistance session - M18 accepted with a stated scope.** A native
    spelling correction ran and the Services/Translation and Spelling routes are
    reachable in the running candidate. The only unperformed part is the
    user-accepted suggestion/panel correction, whose classification is covered
    deterministically; the shared `NSSpellChecker` panel is not exposed to the
    accessibility layer on this host.
-6. **Microphone and human speech.** M19 needs an audio input device first -
-   `system_profiler SPAudioDataType` reports no devices at all on this host - then
-   a supported on-device locale, granted microphone/speech permission and spoken
-   input, then a denial/error replay.
+6. **Microphone and human speech - claim corrected.** The previous revision said
+   `system_profiler SPAudioDataType` reports no devices at all on this host. That
+   was a sandbox artefact. Outside the sandbox this host has MacBook Pro
+   Microphone and Speakers, a CONEXANT USB AUDIO device that is the current
+   default input, and a DELL S2419H HDMI output, and the signed candidate carries
+   `com.apple.security.device.audio-input`. M19 therefore needs owner actions, not
+   hardware: granted microphone and speech-recognition permission (a TCC privacy
+   grant, deliberately not made here), a supported on-device locale, and a human
+   speaker, followed by a denial/error replay.
 
 ## Independent work completed while blocked
 
@@ -355,8 +476,13 @@ The descriptive journal schema (`HistoryJournal`, schema v3; AAD version 2),
 production approval state, not a claim that software-only capture authenticates a
 human source.
 
-Unfinished here, each with its exact missing input: the live consented-history
-round trip (a real signing identity for the keychain access group); Reduce Motion
-(the system setting plus a measurable scroll comparison); native emoji/RTL/CJK
-input and a real user-accepted spelling correction (an enabled input source and a
-reachable spelling panel); and on-device dictation (an audio input device).
+Finished here: the live consented-history round trip on the signed candidate
+(off/on/record/pause/resume/delete/close/restart with encryption at rest and
+recovery preserved).
+
+Unfinished here, each with its exact missing input: Reduce Motion (the owner
+toggling the system setting plus a measurable scroll comparison); native
+emoji/RTL/CJK input (an enabled and selected input source) and a real
+user-accepted spelling correction (a reachable spelling panel); and on-device
+dictation (granted microphone/speech permission and a human speaker - the audio
+hardware is present).
