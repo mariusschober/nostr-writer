@@ -48,6 +48,42 @@ struct DictationAnchor: Equatable, Sendable {
     }
 }
 
+/// Monotonic session identity. A recognition callback carries the token of the
+/// session that started it, and a token is never reused, so anything older than
+/// `current` belongs to a session that has already stopped or finished.
+struct DictationGeneration: Equatable, Sendable {
+    private(set) var current = 0
+
+    /// Opens a new session and returns its token.
+    mutating func begin() -> Int {
+        current += 1
+        return current
+    }
+
+    /// Ends the open session, invalidating every token issued so far.
+    mutating func invalidate() { current += 1 }
+
+    func isCurrent(_ token: Int) -> Bool { token == current }
+}
+
+/// The two capability questions dictation asks, separated so the unsupported,
+/// denied and granted paths can be decided without answering a privacy prompt
+/// on the owner's behalf. The live gate is the only one that touches TCC.
+@MainActor
+struct DictationGate {
+    var isSupported: (Locale) -> Bool
+    var requestSpeech: () async -> Bool
+    var requestMicrophone: () async -> Bool
+
+    static let live = DictationGate(
+        isSupported: { locale in
+            guard let recognizer = SFSpeechRecognizer(locale: locale) else { return false }
+            return recognizer.isAvailable && recognizer.supportsOnDeviceRecognition
+        },
+        requestSpeech: DictationController.requestSpeechPermission,
+        requestMicrophone: DictationController.requestMicrophonePermission)
+}
+
 /// Optional, explicit, on-device dictation.
 ///
 /// It requests microphone and speech permission only at invocation, refuses
@@ -72,25 +108,25 @@ final class DictationController {
     private weak var editor: MarkdownTextView?
     private let gateway: EditorMutationGateway
     private let locale: Locale
+    private let gate: DictationGate
 
     private var audioEngine: AVAudioEngine?
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
-    private var generation = 0
+    private var generation = DictationGeneration()
     /// Source-bound anchor and the exact text this session has inserted there.
     private var anchor: DictationAnchor?
     private var insertionOrigin: EditOrigin = .knownAssistance(.dictation)
 
-    init(editor: MarkdownTextView, gateway: EditorMutationGateway, locale: Locale = .current) {
+    init(editor: MarkdownTextView, gateway: EditorMutationGateway, locale: Locale = .current,
+         gate: DictationGate = .live) {
         self.editor = editor
         self.gateway = gateway
         self.locale = locale
+        self.gate = gate
     }
 
-    var isSupported: Bool {
-        guard let recognizer = SFSpeechRecognizer(locale: locale) else { return false }
-        return recognizer.isAvailable && recognizer.supportsOnDeviceRecognition
-    }
+    var isSupported: Bool { gate.isSupported(locale) }
 
     func toggle() {
         if state.isListening { stop() } else { start() }
@@ -106,21 +142,21 @@ final class DictationController {
             update(.unavailable("On-device dictation is not available for this language or system."))
             return
         }
-        generation += 1
-        let token = generation
-        // Anchor to the exact caret at invocation. Later unrelated edits are
-        // detected before any transcript is applied.
-        anchor = DictationAnchor(location: editor.selectedRange().location)
+        // Anchor to the exact caret at invocation, before any permission prompt
+        // can move it, and open the session now so a callback from a previous
+        // session is already stale. Later unrelated edits are detected before
+        // any transcript is applied.
+        let token = beginSession(at: editor.selectedRange().location)
         Task { [weak self] in
-            guard let self, self.generation == token else { return }
-            let speechAllowed = await self.requestSpeechPermission()
-            guard self.generation == token else { return }
+            guard let self, self.generation.isCurrent(token) else { return }
+            let speechAllowed = await self.gate.requestSpeech()
+            guard self.generation.isCurrent(token) else { return }
             guard speechAllowed else {
                 self.update(.denied("Speech recognition permission was not granted."))
                 return
             }
-            let micAllowed = await self.requestMicrophonePermission()
-            guard self.generation == token else { return }
+            let micAllowed = await self.gate.requestMicrophone()
+            guard self.generation.isCurrent(token) else { return }
             guard micAllowed else {
                 self.update(.denied("Microphone permission was not granted."))
                 return
@@ -129,8 +165,21 @@ final class DictationController {
         }
     }
 
+    /// Opens a dictation session at an exact source location and returns the
+    /// token that any callback for it must carry.
+    ///
+    /// `start()` is the production caller; this is separate so the session and
+    /// coalescing rules can be driven without a microphone or a private
+    /// transcript.
+    @discardableResult
+    func beginSession(at location: Int) -> Int {
+        let token = generation.begin()
+        anchor = DictationAnchor(location: location)
+        return token
+    }
+
     func stop() {
-        generation += 1
+        generation.invalidate()
         // Dropping the anchor means a late callback that slips past the
         // generation guard still cannot claim a valid range.
         anchor = nil
@@ -175,14 +224,14 @@ final class DictationController {
 
         task = recognizer.recognitionTask(with: request) { [weak self] result, error in
             Task { @MainActor [weak self] in
-                guard let self, self.generation == token else { return }
+                guard let self, self.generation.isCurrent(token) else { return }
                 if let result {
                     let text = result.bestTranscription.formattedString
                     if result.isFinal {
-                        self.applyTranscript(text)
+                        self.deliver(transcript: text, token: token)
                         self.stop()
                     } else {
-                        self.applyTranscript(text)
+                        self.deliver(transcript: text, token: token)
                     }
                 } else if error != nil {
                     self.stop()
@@ -191,6 +240,17 @@ final class DictationController {
             }
         }
         update(.listening)
+    }
+
+    /// Applies one recognition hypothesis for `token`.
+    ///
+    /// A token other than the current one belongs to a session that has already
+    /// stopped, finished or been superseded, so the hypothesis is dropped here -
+    /// before the anchor is consulted - and can neither move the caret nor
+    /// publish a revision.
+    func deliver(transcript: String, token: Int) {
+        guard generation.isCurrent(token) else { return }
+        applyTranscript(transcript)
     }
 
     /// Replaces only this session's still-valid dictated range. If newer,
@@ -217,7 +277,7 @@ final class DictationController {
 
     // MARK: - Permissions
 
-    private func requestSpeechPermission() async -> Bool {
+    static func requestSpeechPermission() async -> Bool {
         switch SFSpeechRecognizer.authorizationStatus() {
         case .authorized: return true
         case .denied, .restricted: return false
@@ -231,7 +291,7 @@ final class DictationController {
         }
     }
 
-    private func requestMicrophonePermission() async -> Bool {
+    static func requestMicrophonePermission() async -> Bool {
         switch AVCaptureDevice.authorizationStatus(for: .audio) {
         case .authorized: return true
         case .denied, .restricted: return false

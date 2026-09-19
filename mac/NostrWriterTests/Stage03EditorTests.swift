@@ -185,6 +185,126 @@ final class Stage03EditorTests: XCTestCase {
 
     // MARK: - Stage 07 input-policy seam (no global interception)
 
+    // MARK: - M19: the gate refuses before any prompt, and late callbacks are dropped
+
+    /// A gate whose answers are fixed, so the unsupported, denied and granted
+    /// paths can be decided without answering a real privacy prompt. Each call
+    /// is counted so a test can assert a prompt was never even requested.
+    private final class CountingGate {
+        var supported = true
+        var speech = true
+        var microphone = true
+        var speechRequests = 0
+        var microphoneRequests = 0
+
+        @MainActor func make() -> DictationGate {
+            DictationGate(
+                isSupported: { [self] _ in supported },
+                requestSpeech: { [self] in speechRequests += 1; return speech },
+                requestMicrophone: { [self] in microphoneRequests += 1; return microphone })
+        }
+    }
+
+    func testDictationRefusesUnsupportedLanguageBeforeAskingForPermission() throws {
+        let (document, controller) = try makeController("keep me")
+        let counter = CountingGate()
+        counter.supported = false
+        let dictation = DictationController(editor: controller.editor, gateway: controller.gateway,
+                                           locale: Locale(identifier: "en-US"), gate: counter.make())
+
+        dictation.toggle()
+
+        XCTAssertEqual(dictation.state, .unavailable("On-device dictation is not available for this language or system."))
+        XCTAssertFalse(dictation.state.isListening)
+        XCTAssertEqual(counter.speechRequests, 0, "an unsupported language must not prompt for speech permission")
+        XCTAssertEqual(counter.microphoneRequests, 0, "an unsupported language must not prompt for the microphone")
+        XCTAssertEqual(document.sourceBytes, Data("keep me".utf8))
+    }
+
+    func testDictationReportsDeniedSpeechAndMicrophoneWithoutListening() async throws {
+        let (document, controller) = try makeController("keep me")
+        let counter = CountingGate()
+        counter.speech = false
+        counter.microphone = false
+        let dictation = DictationController(editor: controller.editor, gateway: controller.gateway,
+                                           locale: Locale(identifier: "en-US"), gate: counter.make())
+
+        let denied = XCTestExpectation(description: "denied state")
+        dictation.onStateChange = { if case .denied = $0 { denied.fulfill() } }
+        dictation.start()
+        await fulfillment(of: [denied], timeout: 5)
+
+        XCTAssertEqual(dictation.state, .denied("Speech recognition permission was not granted."))
+        XCTAssertFalse(dictation.state.isListening)
+        XCTAssertEqual(counter.speechRequests, 1)
+        XCTAssertEqual(counter.microphoneRequests, 0,
+                       "a refused speech grant must stop before the microphone prompt")
+        XCTAssertEqual(document.sourceBytes, Data("keep me".utf8))
+        XCTAssertNil(document.session?.lastMutation)
+    }
+
+    func testDictationReportsDeniedMicrophoneAfterAGrantedSpeechPrompt() async throws {
+        let (document, controller) = try makeController("keep me")
+        let counter = CountingGate()
+        counter.speech = true
+        counter.microphone = false
+        let dictation = DictationController(editor: controller.editor, gateway: controller.gateway,
+                                           locale: Locale(identifier: "en-US"), gate: counter.make())
+
+        let denied = XCTestExpectation(description: "microphone denied")
+        dictation.onStateChange = { if case .denied = $0 { denied.fulfill() } }
+        dictation.start()
+        await fulfillment(of: [denied], timeout: 5)
+
+        XCTAssertEqual(dictation.state, .denied("Microphone permission was not granted."))
+        XCTAssertEqual(counter.speechRequests, 1)
+        XCTAssertEqual(counter.microphoneRequests, 1)
+        XCTAssertEqual(document.sourceBytes, Data("keep me".utf8))
+    }
+
+    func testLateDictationCallbackAfterStopCannotTouchTheDocument() throws {
+        let (document, controller) = try makeController("abcdef")
+        let counter = CountingGate()
+        let dictation = DictationController(editor: controller.editor, gateway: controller.gateway,
+                                           locale: Locale(identifier: "en-US"), gate: counter.make())
+
+        let token = dictation.beginSession(at: 3)
+        // A hypothesis from this session would insert at the anchor.
+        dictation.deliver(transcript: "hi", token: token)
+        XCTAssertEqual(document.sourceBytes, Data("abchidef".utf8))
+
+        dictation.stop()
+        let afterStop = document.sourceBytes
+        // The callback for the session that just ended is now stale.
+        dictation.deliver(transcript: " too late ", token: token)
+        XCTAssertEqual(document.sourceBytes, afterStop, "a late callback must not change the source")
+        XCTAssertEqual(document.session?.snapshot.utf8, Data("abchidef".utf8),
+                       "the published revision must still hold the pre-callback source")
+        XCTAssertEqual(dictation.state, .idle)
+    }
+
+    func testTokenFromAnEarlierSessionCannotOverwriteANewerOne() throws {
+        let (document, controller) = try makeController("abcdef")
+        let counter = CountingGate()
+        let dictation = DictationController(editor: controller.editor, gateway: controller.gateway,
+                                           locale: Locale(identifier: "en-US"), gate: counter.make())
+
+        let first = dictation.beginSession(at: 0)
+        dictation.stop()
+        let second = dictation.beginSession(at: 0)
+        XCTAssertNotEqual(first, second, "a closed session's token must never be reused")
+
+        // The superseded session's callback is dropped even though a session is
+        // open again, so it cannot overwrite the newer one.
+        dictation.deliver(transcript: "STALE", token: first)
+        XCTAssertEqual(document.sourceBytes, Data("abcdef".utf8))
+
+        // The current session still works and is attributed to assistance.
+        dictation.deliver(transcript: "live", token: second)
+        XCTAssertEqual(document.sourceBytes, Data("liveabcdef".utf8))
+        XCTAssertEqual(document.session?.lastMutation?.command.origin, .knownAssistance(.dictation))
+    }
+
     func testInputPolicyRefusesExternalInsertionLocally() throws {
         let (document, controller) = try makeController("keep me")
         let before = try XCTUnwrap(document.session?.snapshot)
