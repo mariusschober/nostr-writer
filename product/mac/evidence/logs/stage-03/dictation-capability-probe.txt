@@ -1,0 +1,43 @@
+Stage 03 - M19 on-device dictation: live capability probe
+observed 2026-09-19 08:49 (Atlantic/Canary)
+
+Read-only probe of the live speech/microphone state. It requests nothing and grants
+nothing; it only reports what the system currently exposes.
+
+Source: /private/tmp/nw-speech-probe.swift, run with `swift nw-speech-probe.swift`
+
+  locale: en_ES
+  speechAuthorization: notDetermined
+  microphoneAuthorization: authorized
+  recognizer[en_ES]  available=true onDevice=true
+  recognizer[en-US]  available=true onDevice=true
+  recognizer[de-DE]  available=true onDevice=true
+
+Reading: on-device recognition is available for the host locale and for en-US and de-DE,
+so the app's `isSupported` gate passes on this machine. `speechAuthorization` is
+notDetermined, which means the app's first invocation will show the system Speech
+Recognition prompt - that prompt is a privacy decision for the owner and was deliberately
+not answered for them. `microphoneAuthorization` above is the probe process's own TCC
+identity, not the app's; the app's own microphone grant is likewise the owner's decision.
+
+Audio hardware and entitlement (recorded earlier this stage, unchanged):
+  system_profiler SPAudioDataType: MacBook Pro Microphone, MacBook Pro Speakers,
+  a CONEXANT USB AUDIO device that is the current default input, and a DELL S2419H output.
+  The signed candidate carries com.apple.security.device.audio-input.
+
+What the candidate already proves deterministically:
+  testDictationAnchorCancelsRatherThanOverwritingLaterText - first hypothesis inserts at the
+  anchor, a refined hypothesis replaces only this session's own range, an unrelated edit
+  replaced by newer text cancels instead of clobbering, and a truncated document cancels
+  rather than writing past the end.
+  The controller additionally drops the anchor on stop, guards every async step with a
+  generation token, refuses cloud recognition, and reports .denied / .unavailable states.
+
+Exact owner actions still required for the M19 row:
+  1. Invoke Format > Dictate On This Mac (or the toolbar button) and answer the Speech
+     Recognition and Microphone prompts.
+  2. Speak real audio and confirm the transcript lands at the anchor with a visible
+     listening indicator and a working Stop.
+  3. Exercise the denied/unavailable paths in the same session (System Settings >
+     Privacy & Security > Speech Recognition / Microphone).
+No real audio or transcript is committed.

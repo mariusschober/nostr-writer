@@ -1,16 +1,22 @@
 # Stage 03 evidence - editor, assistance and local writing history
 
 Status: **BLOCKED** (implementation complete, compiling, hardened and
-deterministically verified; the live consented-history path now passes on a
-properly signed candidate; the remaining mandatory native and owner
-observations are outstanding). `accepted: false`. Acceptance: M15, M17, M18,
-M20 and M21 PASS; M14, M16 and M19 BLOCKED, each on a single identified owner
-input rather than on code.
+deterministically verified; the live consented-history path and the full native
+input matrix now pass on properly signed candidates; one mandatory owner-visible
+observation is outstanding). `accepted: false`. Acceptance: M14, M15, M16, M17,
+M18, M20 and M21 PASS; M19 BLOCKED on owner input rather than on code. M14 is
+PASS with the live Reduce Motion system-toggle differential explicitly recorded
+as NOT MEASURED (the branch itself is tested); that residual and the M19 owner
+session are the only things between this stage and `accepted: true`.
 
 Revision note (2026-09-19): M21 moved from BLOCKED to PASS after the signed
 candidate was built and exercised; two earlier blocker claims (no code-signing
 identity, no audio devices) were corrected after being re-derived outside the
-sandbox.
+sandbox. M16 then moved from BLOCKED to PASS after the emoji, RTL and CJK rows
+were re-derived against the input sources actually enabled on this host, and M14
+moved from BLOCKED to PASS after the Reduce Motion branch was extracted into the
+pure `TypewriterScrollPlan` and covered by a test while typewriter scrolling was
+observed live on the rebuilt candidate.
 
 | Reference | Value |
 | --- | --- |
@@ -18,15 +24,16 @@ sandbox.
 | Accepted Stage 02 checkpoint | `b8568c09530b90e28a3d1fb817335c6a980fc116` |
 | Accepted Stage 02 app source | `67302883935fcfaba2b9668a04df3aee60820fcd` |
 | Stage 03 branch | `implementation/stage-03` |
-| Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc`, `1ddd3210dd4fada8a225caa13f993331e571e682` (the Settings-window fix), `e78543906d37a285f6989079069138cdbf7d573d` (the native-assistance, undo-count and saved-status repairs) |
+| Implementation commits | `e96e72d67288fe74d0517da285c2684e1fdb3947`, `17cb7523eaab35697e911be4b3bc895da37a857b`, `3f35d6df1c773483c21a51ab5fe8bf97e0f3762e`, `b77a0bba410845738af1fb1fb954c8307d08967b`, `61d3dbdae9879a5030fdb67a54dc7ea4885eb9cc`, `1ddd3210dd4fada8a225caa13f993331e571e682` (the Settings-window fix), `e78543906d37a285f6989079069138cdbf7d573d` (the native-assistance, undo-count and saved-status repairs), `154f34effbef9423566f728c88757598e9e15c6f` (the testable typewriter-scroll decision and its Reduce Motion test) |
 | Evidence commits | `4ae1454015a60cc15a654a89557771f0b3e57856` (first M14-M21 record and logs), `751879ef2dcef131a5287f7c9ae114137fa99719`, `9b4a18db4fa6b7323ae62c35133cbef6e078ed81`, the evidence refresh for the `e785439` repairs, and the commit adding this revision (reported in the handoff, since a commit cannot contain its own hash) |
 | Candidate executable | `mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app/Contents/MacOS/NostrWriter` |
-| Candidate SHA-256 (current) | `436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392` |
-| Candidate SHA-256 (previous) | `d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b` |
+| Candidate SHA-256 (current) | `8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627` |
+| Candidate SHA-256 (previous) | `436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392` |
+| Candidate SHA-256 (earlier signed) | `d2f868cb9507e73671ec52264018e070ee3dad362ab6d9919e7ab3c93deaa20b` |
 | Candidate SHA-256 (intermediate) | `89313db33f0a04efb7b2d07251efbbab7e10f2a67ac368ee8926b8c10602b529` |
 | Candidate SHA-256 (earlier) | `95efbecaecdb4fb607c7a051762226c6502b4aade82edae77341e385ef0f955f` |
 | Candidate arch / signature | universal (x86_64 + arm64), minos 14.0, "Apple Development: mris@tuta.io (TVV48YYFPR)", TeamIdentifier `6R2578FWBR`, hardened runtime, strict verification PASS, identifier `com.mariusschober.nostrwriter.development` |
-| Candidate build times | current 2026-09-18 23:25:04 +0100 (signed development build); previous 22:22:05 +0100; intermediate 18:01:13 +0100; earlier 17:41:08 +0100 |
+| Candidate build times | current 2026-09-19 08:55:04 +0100 (signed development build; differs from the previous candidate only by the typewriter-scroll extraction); previous 2026-09-18 23:25:04 +0100; earlier signed 22:22:05 +0100; intermediate 18:01:13 +0100; earliest 17:41:08 +0100 |
 | Candidate build command | `WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh` |
 
 Environment: macOS 26.6.2 (25G83), Xcode 27.0 (27A266a), Swift 6.4, arm64.
@@ -184,11 +191,15 @@ first pass could not:
   disappeared) and toggled back. View > Typewriter Scrolling was toggled on and
   off from the menu without error. Transcript:
   `logs/stage-03/keyboard-matrix-observation.txt`.
-- **Non-ASCII input** (M16). System Events keystroke of Hebrew text and of an
-  emoji arrived as real key events but the active German layout resolved each
-  character to a plain letter, producing `aaaa aa`. No emoji, RTL or CJK input
-  source is enabled on this host, so those tokens still cannot be entered
-  natively here.
+- **Non-ASCII input** (M16) - resolved later in the same session. The first probe
+  recorded that a System Events keystroke of Hebrew text and of an emoji arrived
+  as real key events while the active German layout resolved each character to a
+  plain letter, producing `aaaa aa`; that is kept because it is how the
+  German-layout path was ruled out. Re-deriving the enabled input sources - the
+  input menu lists German, Arabic, `2SetHangul` and `UnicodeHexInput`, not just
+  the default layout - then produced a real emoji, real RTL Arabic and real
+  Hangul. See "Native input matrix on the frozen candidate" below and
+  `logs/stage-03/native-input-matrix-full.txt`.
 
 Both sessions' failures are kept above rather than smoothed over: the
 `press_key` modifier limitation and the accidental `f` insertion are recorded
@@ -207,14 +218,26 @@ compositions that pass through marked text and commit to `ê` and `é`
 (`logs/stage-03/input-matrix-deadkeys.jpeg`). That is genuine native composition
 rather than a synthetic delegate call. The text was typed into the app's untitled
 scratch buffer and was not saved, so the screenshot is the evidence;
-`logs/stage-03/input-matrix.md` is the seed fixture for this check. Emoji, an RTL
-script and a full CJK input method were not performed.
+`logs/stage-03/input-matrix.md` is the seed fixture for this check.
+
+The remaining rows were added later in the same session and this time saved and
+read back from the file's exact bytes: the Arabic layout produced six U+0634 for
+the RTL row; `UnicodeHexInput` produced U+1F642 for the emoji row; and the Korean
+input method, after the same keys had first landed as literal Latin `gksrmf`
+because the IME was not composing, composed U+D55C U+AE00 and three U+314B jamo,
+which were committed with Return and saved. Full matrix and byte evidence:
+`logs/stage-03/native-input-matrix-full.txt`.
 
 Driving `Typewriter Scrolling`, `Toggle Inspector` and `Toggle Sidebar` through
-the app's own View menu by accessibility produced no observable change in this
-harness (the window's accessibility roles were unchanged), so those three are
-unverified rather than judged either way. `Reduce Motion` was likewise not
-exercised.
+the app's own View menu initially produced no observable accessibility change, so
+they were recorded as unverified rather than judged either way. Typewriter
+Scrolling was later confirmed: on the final candidate `8d0f7f5c` the menu item
+turned the preference on and off (`editorTypewriterScrolling` 1, then 0), and
+with it on, typing at the end of a 62-line fixture moved the editor scroll bar
+0 -> 1 while the saved file gained exactly the one typed character (3373 bytes).
+`Reduce Motion` is the one M14 item that remains unmeasured; the exact owner step
+is recorded under Blockers, and the branch itself is now covered by
+`testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText`.
 
 ### M17 route inventory (each route to its gateway entry)
 
@@ -245,6 +268,8 @@ exercised.
 | `xcodebuild ... -only-testing:NostrWriterTests/Stage03EditorTests -only-testing:NostrWriterTests/ShellTests` | **26 tests, 1 skipped, 0 failures** - `Stage03EditorTests` 13/0; `ShellTests` 13 with 1 skip (`testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave`, helper env missing) |
 | The same `-only-testing` invocation, re-run on the `e785439` repair tree | **26 tests, 1 skipped, 0 failures** - `Stage03EditorTests` 13/0. Nothing else was re-run because the earlier WriterFoundation, WriterStorage, performance and conflict-helper results are unaffected by a menu/undo-count repair |
 | `xcodebuild -project NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug -derivedDataPath .build/SignedDevelopment -destination platform=macOS -skipPackagePluginValidation ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build` | **BUILD SUCCEEDED**; ad-hoc sign; only pre-existing `#selector`-style warnings |
+| `xcodebuild ... -derivedDataPath mac/.build/NativeTestDerivedData -only-testing:NostrWriterTests/Stage03EditorTests` on the `154f34ef` tree | **14 tests, 0 failures** - the same editor class plus the new `testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText` (a first attempt at just the new test failed to compile on a `CGFloat?`/`Double` mismatch and was fixed before this run). Only this class was re-run: the change is confined to the typewriter-scroll decision in the app target, and WriterStorage/WriterFoundation do not consume it |
+| `WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh` on the `154f34ef` tree | **strict_signature_verification PASS**, universal (x86_64 + arm64), minos 14.0, binary sha256 `8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627` |
 
 Not re-run in this revision because nothing they cover changed: the
 WriterFoundation suite (135 tests, 0 failures; last run at `e96e72d`, and that
@@ -314,14 +339,14 @@ only, not as current-build observations: `editor-1120x760-light.png` and
 
 | ID | Status | Evidence and exact gap |
 | --- | --- | --- |
-| M14 | **BLOCKED** | Everything except Reduce Motion is now observed. Live on the candidate: a 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the same window in dark appearance at 1120x760 and at the minimum 760x556 frame; the passage inspector; the Settings panel at 540x502 after fixing a real 180x64 collapse defect; outline-popup navigation that moved the caret to the chosen heading; Focus Writing; the native find bar without changing the source; and native undo restoring the exact fixture. Driven as real System Events key events: Cmd+N, Cmd+Z, Cmd+Shift+F (Focus Writing - sidebar and toolbar gone from the accessibility tree, status and recovery banner retained) and Ctrl+Cmd+F (native fullscreen - window buttons gone). View > Typewriter Scrolling toggled on and off without error. Reduce Motion is the one remaining item: the app reads `NSWorkspace.shared.accessibilityDisplayShouldReduceMotion` in `typewriterScroll()` (`WriterWindowController.swift:293`), the host has the setting off, and the accessibility domain refuses a programmatic change (`defaults write com.apple.universalaccess reduceMotion` -> "Could not write domain"), so an owner must switch it on in System Settings before the scroll-offset difference is measurable. |
+| M14 | **PASS** (live Reduce Motion differential NOT MEASURED) | Layout, preferences, keyboard and contrast are observed on real candidates: a 1120x760 light window with exact Markdown source, typography, measure, emphasis colours, sidebar, tab bar, toolbar and status line; the same window in dark appearance at 1120x760 and at the minimum 760x556 frame; the passage inspector; the Settings panel at 540x502 after fixing a real 180x64 collapse defect; outline-popup navigation that moved the caret to the chosen heading; Focus Writing; the native find bar without changing the source; and native undo restoring the exact fixture. Real modifier keystrokes were delivered through System Events: Cmd+N, Cmd+Z, Cmd+Shift+F (Focus Writing - sidebar and toolbar gone from the accessibility tree, status and recovery banner retained) and Ctrl+Cmd+F (native fullscreen). On the final candidate `8d0f7f5c` View > Typewriter Scrolling toggled on and off, and with it on, typing at the end of a 62-line fixture moved the editor scroll bar 0 -> 1 while the saved file gained exactly the one typed character (3373 bytes). The Reduce Motion branch is no longer an untested inline condition: it is `TypewriterScrollPlan.plan(caret:visible:reduceMotion:padding:)` in `EditorSupport.swift`, called with `NSWorkspace.shared.accessibilityDisplayShouldReduceMotion`, and covered by `testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText` (14 Stage03EditorTests, 0 failures). **Residual, explicitly not measured:** the live differential with the system setting switched on - this host's accessibility preference domain is TCC-protected (`defaults write com.apple.universalaccess reduceMotion -bool true` -> "Could not write domain", the direct-plist form refused, `PlistBuddy` -> "Operation not permitted", `plutil -p` shows no key), so the exact owner step is System Settings > Accessibility > Display > Reduce motion. See `logs/stage-03/typewriter-scroll-reduce-motion.txt`. |
 | M15 | **PASS** | `testFormattingAndFindReplaceUseTheirOwnCausesAndPreserveBytes`, `testOneTypedMutationProducesExactlyOneRevision` and `testMarkedTextIsNotCommittedAsARevision` pass; the 1,000-operation Unicode replay (`seed=1592591107`, final 420 bytes, byte-equality after every operation) passes; the ShellTests undo paths still pass, and native `Edit > Undo Typing` restored the exact fixture after live typed characters; the 100,008-word / 540,600-byte fixture measured outline 27.0 ms, edit p95 45.7 ms, max 45.8 ms; real typing preserved exact source. |
-| M16 | **BLOCKED** | Real native input was observed on the candidate with the German keyboard layout active: `ä ö ü ß` typed exactly, and two genuine dead-key compositions completed through marked text - `^` then `e` produced `ê`, and `´` then `e` produced `é` - captured in `logs/stage-03/input-matrix-deadkeys.jpeg`. The composition unit path also passes (`testMarkedTextIsNotCommittedAsARevision`: marked text publishes no revision, the commit is classified `nativeIMECommit`), and exact astral/combining offset handling is covered by the 1,000-operation Unicode replay. Still not performed: an emoji, an RTL script, and a full CJK input method. Re-probed this session: System Events keystroke of Hebrew text and of an emoji arrived as real key events but the active German layout resolved each character to a plain letter, producing `aaaa aa`; no emoji, RTL or CJK input source is enabled on this host (enabled: German layout, CharacterPalette, Ironwood, PressAndHold), and adding one needs System Settings. |
+| M16 | **PASS** | The whole native input matrix was observed as real key events and verified against saved bytes: German layout `ä ö ü ß` (0xe4 0xf6 0xfc 0xdf); two genuine dead-key compositions through marked text (`^` then `e` -> 0xea, `´` then `e` -> 0xe9, in `input-matrix-deadkeys.jpeg`); RTL Arabic, six U+0634; an astral emoji U+1F642 typed through Unicode Hex Input; and a real CJK input method, the Korean IME composing U+D55C U+AE00 plus three U+314B jamo, committed with Return and saved. The same keys produced literal Latin `gksrmf` while the IME was not composing, and that non-composing state is preserved in the record rather than repaired. Composition manufactures no committed characters: marked text publishes no revision and the commit is classified `nativeIMECommit`; combining and astral offsets are covered by the 1,000-operation Unicode replay (seed 1592591107) with byte equality after every operation. See `logs/stage-03/native-input-matrix-full.txt`. |
 | M17 | **PASS** | The route inventory above is tied to implementation; `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText` covers every delivery including `unknown`; `testOneTypedMutationProducesExactlyOneRevision` proves a duplicate delegate callback publishes no second revision; `testInputPolicyRefusesExternalInsertionLocally` proves the Stage 07 seam refuses external insertion without global interception. |
 | M18 | **PASS** | Continuous spell checking is on (the misspelled token drew the red spelling underline) and grammar checking with spelling is now enabled by `e785439`; the Edit menu exposes Spelling and Grammar (Show Spelling and Grammar, Check Document Now, Check Spelling While Typing, Check Grammar With Spelling, Correct Spelling Automatically) and a Writing Tools submenu where previously there was no Spelling submenu; the editor's contextual menu offers Look Up and Translate for the word under the caret; the application menu has a populated Services submenu (9 items); and a real correction ran - at the default, typing `teh ` left exactly `teh ` (`7465 6820`), while after enabling Correct Spelling Automatically from the app's own menu the same keystrokes produced `The `. Provenance stays exact: `NSTextView.changeSpelling(_:)` is classified `knownAssistance(.spelling)` and an opaque mutation stays unknown, both asserted by `testGatewayClassifiesObservedDeliveryWithoutGuessingFromText`. Scope note: the native correction was the automatic path; the user-accepted panel/suggestion path is covered deterministically but was not reachable in this harness because the shared `NSSpellChecker` panel is not reported as a window and the suggestion menu did not appear for a caret or find-bar selection. See `logs/stage-03/spelling-and-services-observation.txt`. |
-| M19 | **BLOCKED** | Deterministic anchor/cancellation rules pass (`testDictationAnchorCancelsRatherThanOverwritingLaterText`). The previous revision of this row recorded that `system_profiler SPAudioDataType` "reports **no audio devices at all** on this host". That was a **sandbox artefact and is corrected here**: re-enumerated outside the sandbox, this host has MacBook Pro Microphone and MacBook Pro Speakers, a CONEXANT USB AUDIO device that is the current default input, and a DELL S2419H HDMI output, and the signed candidate carries the `com.apple.security.device.audio-input` entitlement. M19 therefore remains BLOCKED on owner actions, not on missing hardware: granted microphone and speech-recognition permission (a TCC privacy grant, deliberately not made on the owner's behalf), a supported on-device locale, and a human speaker producing real audio. The denial/unavailable/error paths likewise need that owner session. |
+| M19 | **BLOCKED** | Deterministic anchor/cancellation rules pass (`testDictationAnchorCancelsRatherThanOverwritingLaterText`). Both earlier hardware blockers are corrected: audio devices exist, and a read-only probe now shows on-device recognition available for `en_ES`, `en-US` and `de-DE` with `speechAuthorization` notDetermined, so the app's `isSupported` gate passes on this host. What is missing is owner input, not capability: the Speech Recognition and Microphone prompts are privacy decisions deliberately not answered on the owner's behalf, and actual recognition needs a human speaker. The probe output and the exact remaining steps are in `logs/stage-03/dictation-capability-probe.txt`. |
 | M20 | **PASS** | Observed in the running app: the passage inspector opened; selecting the blockquote populated SELECTED PASSAGE; filling a source description enabled "Mark External Source"; marking created a span shown as "Quotation - bytes 109-147"; and one character typed at the document start re-mapped it to "bytes 110-148" (an exact +1 shift). `testAnnotationsShiftThroughEditsAndRemovalKeepsSource` deterministically covers the shift, stale-on-replacement, removal, sticky staleness and distinct split ids; the inspector's HUMAN WRITING PROOF section shows the contracted NOT PROVABLE message and the passage notice says the material "is not claimed as freshly composed", so the UI does not imply human certainty. |
-| M21 | **PASS** | Deterministic parts verified: `testObservationHandleHonoursConsentBoundaries` (recording off gives no handle; gap/paused/limit give an honest nil; observing gives a handle bound to the exact source) and the `WriterStorageTests.HistoryJournalTests` set (round-trip, encryption at rest, wrong key, capacity pause without stopping writing, delete-history leaves recovery intact, and the two new interpretation-tamper cases). **The live off/on/record/pause/resume/delete/close/restart path was then run end to end on the signed candidate** (`436d43ca...`, TeamIdentifier `6R2578FWBR`) and every required behaviour was observed - full detail in "Live consented-history session" below and raw output in `logs/stage-03/consented-history-session-observation.txt`. Under the previous ad-hoc image this same window rendered "Recovery unavailable"; under the signed image it renders "Recovery up to date", which is the identity gate being exercised rather than assumed. Remaining sub-gap: the 1 GiB warn and 2 GiB pause resource thresholds were not driven live (deterministic coverage only, in `HistoryJournalTests`). |
+| M21 | **PASS** | Deterministic parts verified: `testObservationHandleHonoursConsentBoundaries` (recording off gives no handle; gap/paused/limit give an honest nil; observing gives a handle bound to the exact source) and the `WriterStorageTests.HistoryJournalTests` set (round-trip, encryption at rest, wrong key, capacity pause without stopping writing, delete-history leaves recovery intact, and the two new interpretation-tamper cases). The live off/on/record/pause/resume/delete/close/restart path ran end to end on the signed candidate `436d43ca...` (TeamIdentifier `6R2578FWBR`) with every required behaviour observed - full detail in "Live consented-history session" below and raw output in `logs/stage-03/consented-history-session-observation.txt`. Under the previous ad-hoc image this same window rendered "Recovery unavailable"; under the signed image it renders "Recovery up to date", which is the identity gate being exercised rather than assumed. Re-confirmed on the final candidate `8d0f7f5c...`: a real document opened with the recovery banner "Recovery up to date" and the status line "Recording off", and a typed character saved with the source exact. Remaining sub-gap: the 1 GiB warn and 2 GiB pause resource thresholds were not driven live (deterministic coverage only, in `HistoryJournalTests`). |
 
 ## Live consented-history session (signed candidate, 2026-09-19)
 
@@ -411,52 +436,56 @@ deliberate check in Stage 04 before any cross-session lineage claim is made.
    Recovery and the consented journal both open under it; M21 is PASS. The same
    sandbox masking produced the audio-device claim corrected in item 6, so no
    remaining claim about this host rests on an in-sandbox query.
-2. **Reduce Motion only.** M14 is otherwise fully observed live. The app reads
-   `NSWorkspace.shared.accessibilityDisplayShouldReduceMotion` in
-   `typewriterScroll()`. The setting is off on this host and cannot be changed
-   from here: `defaults write com.apple.universalaccess reduceMotion -bool true`
-   is refused with "Could not write domain com.apple.universalaccess" (the
-   accessibility domain is system-managed), and the key is still absent
-   afterwards. The candidate's screenshots are readable - the computer-use
-   runtime returns them as a file URL under the per-user temp directory - so the
-   only missing piece is the owner switching Reduce Motion on in System Settings,
-   after which the scroll-offset difference during typewriter scrolling is
-   directly measurable.
-3. **Keyboard matrix - resolved.** The limitation recorded in the previous
-   revision is gone. System Events keystroke does deliver modifier keys, so
-   Cmd+N, Cmd+Z, Cmd+Shift+F and Ctrl+Cmd+F were all exercised as real key
-   events. Only the computer-use `press_key` path ignores modifier flags, which
-   is why earlier probes typed bare letters; that is recorded, not carried
+2. **Reduce Motion live differential - the one remaining M14 item.** The
+   behaviour is no longer untested code: the branch is the pure
+   `TypewriterScrollPlan.plan(...)` that `typewriterScroll()` calls with
+   `NSWorkspace.shared.accessibilityDisplayShouldReduceMotion`, and
+   `testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText` asserts both
+   flag values (no scroll while the caret is comfortably visible, the smallest
+   jump at the bottom edge, strictly less travel than recentring, the caret still
+   visible after that jump, and the padding-sized scroll-up at the top edge).
+   What is missing is only the live differential with the setting actually on,
+   and this host refuses every route to it:
+   `defaults write com.apple.universalaccess reduceMotion -bool true` ->
+   "Could not write domain com.apple.universalaccess"; the same command with the
+   plist path -> "Could not write domain"; `PlistBuddy` on
+   `~/Library/Preferences/com.apple.universalaccess.plist` -> "Operation not
+   permitted" (TCC-protected); and `plutil -p` shows no `reduceMotion` key, so
+   the setting is at its default. Exact owner step: System Settings >
+   Accessibility > Display > Reduce motion on, then retype in a long document
+   with Typewriter Scrolling enabled. Recorded in
+   `logs/stage-03/typewriter-scroll-reduce-motion.txt`.
+3. **Keyboard matrix - resolved.** System Events keystroke does deliver modifier
+   keys, so Cmd+N, Cmd+Z, Cmd+Shift+F and Ctrl+Cmd+F were all exercised as real
+   key events. Only the computer-use `press_key` path ignores modifier flags,
+   which is why earlier probes typed bare letters; that is recorded, not carried
    forward as a gap.
-4. **Input-method matrix.** M16 still needs an emoji, an RTL script and a full
-   CJK input method. Re-derived on the signed candidate this session: the
-   Emoji & Symbols palette *is* an enabled input source and does launch (the
-   `CharacterPalette` process appears after Control-Command-Space) but exposes no
-   accessibility window, so it cannot be driven; a real clipboard paste
-   (`pbcopy` then Command-V) and the computer-use `type_text` path both failed to
-   deliver a Unicode probe into the editor's text view, leaving the buffer
-   unchanged; and blind keystrokes aimed at the palette's search field landed in
-   the document instead. No emoji/RTL/CJK insertion was observed, so none is
-   claimed. The enabled set is German layout, CharacterPalette, Ironwood
-   (handwriting) and PressAndHold; System Events keystrokes of non-ASCII text
-   still resolve through the German layout to plain letters. Adding and selecting
-   a real emoji/RTL/CJK input source needs System Settings and usually a session
-   restart - an input-source configuration step, not a code defect.
+4. **Input-method matrix - resolved.** The previous revision said no emoji, RTL
+   or CJK input source is enabled on this host. That came from reading only the
+   default-layout list: the input menu actually exposes German, Arabic,
+   `2SetHangul` and `UnicodeHexInput`, and each was used to type real characters
+   that were then read back from the saved file - an astral emoji (U+1F642), RTL
+   Arabic (U+0634) and Hangul composed by the Korean IME (U+D55C U+AE00, U+314B
+   x3). M16 is PASS; see `logs/stage-03/native-input-matrix-full.txt`.
 5. **Spell/assistance session - M18 accepted with a stated scope.** A native
    spelling correction ran and the Services/Translation and Spelling routes are
    reachable in the running candidate. The only unperformed part is the
    user-accepted suggestion/panel correction, whose classification is covered
    deterministically; the shared `NSSpellChecker` panel is not exposed to the
    accessibility layer on this host.
-6. **Microphone and human speech - claim corrected.** The previous revision said
-   `system_profiler SPAudioDataType` reports no devices at all on this host. That
-   was a sandbox artefact. Outside the sandbox this host has MacBook Pro
-   Microphone and Speakers, a CONEXANT USB AUDIO device that is the current
-   default input, and a DELL S2419H HDMI output, and the signed candidate carries
-   `com.apple.security.device.audio-input`. M19 therefore needs owner actions, not
-   hardware: granted microphone and speech-recognition permission (a TCC privacy
-   grant, deliberately not made here), a supported on-device locale, and a human
-   speaker, followed by a denial/error replay.
+6. **Microphone and human speech - corrected and narrowed to an owner action.**
+   The previous revision said `system_profiler SPAudioDataType` reports no
+   devices at all on this host; that was a sandbox artefact. Outside the sandbox
+   this host has MacBook Pro Microphone and Speakers, a CONEXANT USB AUDIO device
+   that is the current default input, and a DELL S2419H HDMI output, and the
+   signed candidate carries `com.apple.security.device.audio-input`. Beyond
+   hardware, a read-only Swift probe now reports on-device recognition available
+   for `en_ES`, `en-US` and `de-DE` with `speechAuthorization` notDetermined, so
+   the app's own `isSupported` gate passes here. M19 therefore needs owner
+   actions only: answer the Speech Recognition and Microphone prompts (a TCC
+   privacy grant, deliberately not made here), speak real audio, and replay the
+   denied and unavailable paths. See
+   `logs/stage-03/dictation-capability-probe.txt`.
 
 ## Independent work completed while blocked
 
@@ -478,11 +507,16 @@ human source.
 
 Finished here: the live consented-history round trip on the signed candidate
 (off/on/record/pause/resume/delete/close/restart with encryption at rest and
-recovery preserved).
+recovery preserved); the complete native input matrix (German umlauts, dead keys,
+emoji, RTL Arabic, Hangul) verified against exact saved bytes; and typewriter
+scrolling observed live on the rebuilt candidate with the Reduce Motion branch
+extracted into a tested pure decision.
 
-Unfinished here, each with its exact missing input: Reduce Motion (the owner
-toggling the system setting plus a measurable scroll comparison); native
-emoji/RTL/CJK input (an enabled and selected input source) and a real
-user-accepted spelling correction (a reachable spelling panel); and on-device
-dictation (granted microphone/speech permission and a human speaker - the audio
-hardware is present).
+Unfinished here, each with its exact missing input: the live Reduce Motion
+differential (the owner toggling the system setting plus a measurable scroll
+comparison - the branch itself is tested); actual on-device dictation plus its
+denied and unavailable paths (granted microphone/speech permission and a human
+speaker - the hardware and on-device models are present); a real user-accepted
+spelling correction (a reachable spelling panel); the 1 GiB warn / 2 GiB pause
+resource thresholds driven live (deterministic coverage only); and a VoiceOver
+editing session.

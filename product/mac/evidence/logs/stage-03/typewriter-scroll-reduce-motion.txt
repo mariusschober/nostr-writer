@@ -1,0 +1,66 @@
+Stage 03 - M14 typewriter scroll and Reduce Motion
+candidate executable sha256 8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627
+source commit 154f34effbef9423566f728c88757598e9e15c6f
+observed 2026-09-19 08:52-08:58 (Atlantic/Canary)
+
+1. Deterministic behaviour of the real decision path
+
+The Reduce Motion branch used to be inline in WriterWindowController.typewriterScroll().
+It is now the pure TypewriterScrollPlan.plan(caret:visible:reduceMotion:padding:) in
+mac/NostrWriter/Editor/EditorSupport.swift, and typewriterScroll() passes
+NSWorkspace.shared.accessibilityDisplayShouldReduceMotion into it. The scroll view is
+still the only thing that moves: the plan never touches text storage, so the exact
+source bytes and the text position are identical with the flag on or off.
+
+Command (focused, on the current sources):
+  xcodebuild -project NostrWriter.xcodeproj -scheme NostrWriter -configuration Debug \
+    -derivedDataPath .build/NativeTestDerivedData ... ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
+    test -only-testing:NostrWriterTests/Stage03EditorTests
+
+Result:
+  Test Case '-[NostrWriterTests.Stage03EditorTests testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText]' passed (0.001 seconds).
+  Executed 14 tests, with 0 failures (0 unexpected) in 5.159 seconds
+  ** TEST SUCCEEDED **
+
+The new test asserts, for the ordinary branch: recentring to the 45% target; no scroll
+inside the 8 pt dead zone; the exact centred origin. For the Reduce Motion branch: no
+scroll while the caret is comfortably visible; the smallest jump that shows a caret just
+below the bottom edge; strictly less travel than recentring; the caret still visible after
+that jump; and the padding-sized scroll-up near the top edge.
+
+2. Live behaviour on the frozen candidate (ordinary branch, Reduce Motion off on this host)
+
+Opened /private/tmp/nw-m14-scroll.md (62 lines) in the signed candidate, focused the
+markdown editor (AX id markdown-editor), and drove real input:
+
+  View > Typewriter Scrolling          -> defaults read com.mariusschober.nostrwriter.development
+                                          editorTypewriterScrolling => 1
+  Cmd+Down, then typed "Z"             -> editor scroll bar (AX scroll bar 105)
+                                          value 0 -> 1; value indicator 0 -> 1
+  status line                          -> "484 words ... Saved to tmp Recording off" before,
+                                          "485 words - Unsaved" after typing,
+                                          "485 words - Saved to tmp" after Cmd+S
+  View > Typewriter Scrolling (again)  -> editorTypewriterScrolling => 0 (restored)
+
+The scroll-bar change is the typewriter-scroll path itself running: with the caret at the
+document end and the view at the top, adding a character moved the clip view. Exact source
+was preserved: /private/tmp/nw-m14-scroll.md is 3373 bytes and ends
+"...line 60 last line ends the fixture\nZ" - one appended character and no other change.
+
+3. Not measured in this session - exact owner action
+
+The Reduce Motion differential itself was not measured because this host cannot be told to
+turn it on from a non-interactive agent:
+  defaults write com.apple.universalaccess reduceMotion -bool true
+    -> "Could not write domain com.apple.universalaccess; exiting"
+  defaults write ~/Library/Preferences/com.apple.universalaccess.plist reduceMotion -bool true
+    -> "Could not write domain ...; exiting"
+  /usr/libexec/PlistBuddy -c "Add :reduceMotion bool true" ~/Library/Preferences/com.apple.universalaccess.plist
+    -> "Error Opening Destination: ... [Operation not permitted]"  (TCC-protected file)
+  plutil -p ~/Library/Preferences/com.apple.universalaccess.plist | grep -i motion
+    -> no reduceMotion key (setting is at its default, off)
+
+Exact owner action to close the last sub-item: System Settings > Accessibility > Display >
+switch "Reduce motion" on, then retype in a long document with View > Typewriter Scrolling
+enabled and observe that the clip view jumps only far enough to keep the caret visible
+instead of recentring the line at 45% of the viewport.

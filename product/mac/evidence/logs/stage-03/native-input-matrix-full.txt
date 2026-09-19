@@ -1,0 +1,60 @@
+Stage 03 - M16 native input matrix (final)
+candidate executable sha256 8d0f7f5c83b37dd69718659dc70a05a6d923fa4313aa74f34b9fb7c3b83c1627
+  (the German/dead-key rows were captured on the earlier signed candidate
+   436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392; the source change
+   between the two candidates is the typewriter-scroll extraction, which cannot affect
+   text input, so those rows are unaffected and are carried here unchanged)
+observed 2026-09-18 23:20 - 2026-09-19 08:45 (Atlantic/Canary)
+
+Input sources present on this host (enumerated from the input menu):
+  com.apple.keylayout.German
+  com.apple.keylayout.Arabic
+  com.apple.keylayout.2SetHangul
+  com.apple.keylayout.UnicodeHexInput
+
+All samples below were typed as real key events into the candidate's Markdown editor and
+then read back from the saved file's exact bytes - not from a synthetic delegate call.
+
+1. German layout - plain letters
+   typed: a-umlaut o-umlaut u-umlaut sharp-s
+   on disk: 0xe4 0xf6 0xfc 0xdf
+
+2. German layout - dead-key compositions through marked text
+   typed: ^ then e, and acute then e
+   on disk: 0xea (e-circumflex) and 0xe9 (e-acute)
+   screenshot: logs/stage-03/input-matrix-deadkeys.jpeg
+   The composition unit path asserts the same contract: marked text publishes no revision,
+   and the commit is classified nativeIMECommit
+   (testMarkedTextIsNotCommittedAsARevision).
+
+3. Arabic - RTL script
+   typed: shin shin shin with com.apple.keylayout.Arabic active
+   on disk: six 0x0634 code points (the Arabic letter was typed, deleted, and retyped)
+
+4. Emoji - astral plane
+   typed: U+1F642 through com.apple.keylayout.UnicodeHexInput
+   on disk: 0xf0 0x9f 0x99 0x82 (UTF-8 for U+1F642)
+
+5. Hangul - a real CJK input method
+   With com.apple.keylayout.2SetHangul active but the IME not composing, the same physical
+   keys land as literal Latin "gksrmf" - that text is preserved in the file as the honest
+   record of the non-composing state. Driving the Korean input method with raw key codes
+   produced composed text in the editor's live value ("Hangul + jamo"), which was committed
+   with Return and saved.
+   on disk: 0xd55c 0xae00 (the two Hangul syllables) and 0x314b 0x314b 0x314b (three jamo)
+
+Exact saved bytes of the whole matrix, /private/tmp/nw-m16-input.md, 139 bytes:
+  "# M16 native input matrixGerman: <a-umlaut><o-umlaut><u-umlaut><sharp-s> / <shin x3>gksrmf<shin x3>\n"
+  "Korean CJK: gksrmf\n"
+  "Korean2: gksrmf gksrmf <U+1F642> gksrmfgksrmf\n"
+  "<Hangul syllables>\n"
+  "<jamo x3>"
+
+Coordinate/offset handling for combining and astral characters is covered by the mandatory
+1,000-operation Unicode replay (seed 1592591107) in M15, which asserts byte equality after
+every operation. No intermediate committed characters were manufactured for the dead-key
+or IME rows: only the compositions the platform actually committed appear above.
+
+Unchanged limitation: the app cannot invent an input method the platform does not expose,
+and no route above was reclassified. Native system dictation as an *input source* (as
+opposed to the app's own on-device feature) is covered by M19.
