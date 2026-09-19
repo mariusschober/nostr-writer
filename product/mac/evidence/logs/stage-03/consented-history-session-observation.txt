@@ -1,0 +1,117 @@
+SIGNED CONSENTED-HISTORY SESSION - raw observations
+Candidate: mac/.build/SignedDevelopment/Build/Products/Debug/NostrWriter.app
+  binary sha256 436d43caa1f0b0beb8061572674b1a77d2ef926bad43ac1d047833d2bf626392
+  arch x86_64 arm64, minos 14.0, strict signature verification PASS
+  Authority=Apple Development: mris@tuta.io (TVV48YYFPR), TeamIdentifier=6R2578FWBR
+  entitlements: app-sandbox, device.audio-input, files.user-selected.read-write,
+    get-task-allow, network.client,
+    application-identifier=6R2578FWBR.com.mariusschober.nostrwriter.development,
+    developer.team-identifier=6R2578FWBR,
+    keychain-access-groups=6R2578FWBR.com.mariusschober.nostrwriter.development
+security find-identity -v -p codesigning  ->  1 valid identities found
+  "Apple Development: mris@tuta.io (TVV48YYFPR)"
+Build: WRITER_DEVELOPMENT_TEAM=6R2578FWBR mac/scripts/build_signed_development.sh
+
+All probe text is synthetic ASCII typed by hand or discarded; no real writing,
+keys or private text is stored in the journal. Container path:
+~/Library/Containers/com.mariusschober.nostrwriter.development/Data/Library/
+  Application Support/NostrWriter/Development/
+
+1. OFF (baseline, before any change)
+   dir listing: bootstrap.json, installation.lock, recovery.sqlite,
+     recovery.sqlite-shm, recovery.sqlite-wal, recovery.sqlite.backup-v2-*.sqlite*
+     -> no history.sqlite present
+   document status line: "41 words - Saved to tmp Recording off"
+   inspector: "RECORDING Recording off / No detailed revisions or deleted text
+     are stored."
+   window banner on signed image: "Recovery up to date"
+     (on the earlier ad-hoc image the same window read "Recovery unavailable")
+   defaults read ... recordingChoice = off
+
+2. ON (toggled in the app's own Settings window:
+       switch "Store writing history on this Mac")
+   defaults read ... recordingChoice = requested
+   document + inspector: "Recording on"
+   status line: "41 words - Saved to tmp Recording on"
+   history.sqlite   4096 bytes
+   history.sqlite-wal  111272 bytes
+   history_epochs: began_revision 0, prior_completeness descriptiveOnly, no gap
+
+3. TYPING 14 characters "m21probeZq7Vv "
+   history_records = 14, chunk_index 0..13, origin directNativeInput
+   newest rows (chunk_index, source_revision, range_lower, range_upper, nonce, sealed):
+     13 | 13 | 238 | 238 | 12 | 48
+     12 | 12 | 237 | 237 | 12 | 48
+     11 | 11 | 236 | 236 | 12 | 48
+     10 | 10 | 235 | 235 | 12 | 48
+   one revision per real mutation; one UTF-16 unit per character
+   encryption at rest:
+     grep -c "m21probe"        history.sqlite -> 0   history.sqlite-wal -> 0
+     grep -c "Stage 03 Fixture" history.sqlite-wal -> 0
+   schema tables: document_catalog, documents, history_annotations,
+     history_epochs, history_gaps, history_records, recovery_chunks, storage_meta
+
+4. PAUSE (inspector "Pause / Resume")
+   state: "Recording paused - Earlier history is preserved; new detail is not
+     recorded."
+   then typed 16 characters "pauseprobeQq9 "
+   history_records = 14  (unchanged - no new detail while paused)
+   history_gaps = 1, reason userPaused, revision 14
+   history.sqlite-wal grew to 140112 bytes  (the SEPARATE recovery store kept
+     checkpointing, so writing and recovery stay intact while paused)
+   grep "pauseprobe" history.sqlite-wal -> 0
+
+5. RESUME (inspector "Pause / Resume")
+   state back to "Recording on"
+   new epoch gap_reason = resumed, began_revision 28
+   then typed 15 characters "resumeprobeRr4 "
+   new epoch history_records = 15, chunk_index 14..28, origin directNativeInput
+   older epoch ended = 1
+   grep "resumeprobe" history.sqlite-wal -> 0
+
+6. DELETE LOCAL HISTORY (inspector "Delete Local History")
+   confirmation shown: "Delete this document's detailed writing history? This
+     permanently removes the recorded detailed history for this document,
+     including deleted text and timing. Your document and its encrypted recovery
+     are not deleted. Deleting history cannot revoke an already exported proof or
+     erase backups."
+   after confirming Delete History:
+     history_records 0, history_gaps 0, history_annotations 0
+     recovery.sqlite preserved: recovery_chunks 66, documents 54
+     banner still "Recovery up to date"; inspector MARKED SPANS back to "No marked
+     spans."
+
+7. CLOSE (graceful Cmd+Q, "Discard Changes" for the synthetic unsaved buffer)
+   after shutdown: processes 0
+   epochs 1, gaps 1 (reason boundaryClose), records 0
+   scratch fixture /private/tmp/nw-s3-fixture.md unchanged
+     225 bytes, md5 cad776dbec6f806c75212bb7b08fa1c8
+
+8. RESTART (relaunched the registered build, reopened the same file)
+   no consent sheet (preference persisted)
+   status line: "41 words - Saved to tmp Recording on"
+   banner: "Recovery up to date"
+   then typed 15 characters "postrestartYy2 "
+   history_records = 15, origin directNativeInput, range_lower..upper 225..239
+   grep "postrestart" history.sqlite-wal -> 0
+   other epochs present belong to other documents the app opened at launch
+   (no location key); they hold no records
+
+STATE RESTORATION after the session
+   defaults write ... recordingChoice -string off   (pre-session value restored)
+   rm history.sqlite history.sqlite-shm history.sqlite-wal
+     (no journal existed before the session; the file was created by it)
+   recovery.sqlite retained and checkpointed by the clean shutdown (229376 bytes,
+     45352-byte WAL) - it now also contains the synthetic probe revisions
+
+NOT DRIVEN LIVE
+   the 1 GiB warn and 2 GiB pause resource thresholds (deterministic coverage in
+     WriterStorageTests.HistoryJournalTests)
+   Reduce Motion (defaults write com.apple.universalaccess reduceMotion refused,
+     inside and outside the sandbox; System Settings exposes no accessibility
+     window to the automation layer)
+   native emoji/RTL/CJK insertion (CharacterPalette launches but exposes no
+     accessibility window; pbcopy+Command-V, type_text and blind keystrokes all
+     failed to insert)
+   on-device dictation (needs granted microphone/speech permission and a human
+     speaker; audio hardware and the audio-input entitlement are present)

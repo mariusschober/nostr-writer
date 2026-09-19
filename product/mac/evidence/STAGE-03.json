@@ -386,7 +386,8 @@
         "restart: consent persisted with no re-prompt, recovery reopened, and new typing recorded again",
         "close: graceful quit appended a boundaryClose gap and ended the epoch"
       ],
-      "remaining_sub_gap": "the 1 GiB warn and 2 GiB pause resource thresholds were not driven live (deterministic coverage only)"
+      "remaining_sub_gap": "the 1 GiB warn and 2 GiB pause resource thresholds were not driven live (deterministic coverage only)",
+      "raw_log": "product/mac/evidence/logs/stage-03/consented-history-session-observation.txt"
     }
   ],
   "protocol_and_history": {
