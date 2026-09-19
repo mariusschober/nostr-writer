@@ -243,7 +243,7 @@
     },
     "voiceover_editor_session": {
       "status": "NOT MEASURED",
-      "reason": "not attempted in this session"
+      "reason": "Still not attempted, now with the reason and the exact owner step recorded. VoiceOver is not enabled on this host and switching it on is a system-wide accessibility change that immediately starts speaking and remaps keyboard behaviour on the machine in use. The accessibility contract the app exposes was inventoried instead - see native_accessibility_contract_and_os_input_capabilities. VoiceOver is a Stage 08 criterion (M53); the Stage 03 plan lists it in the real-Mac exercise batch."
     },
     "stage03_editor_native_final_candidate": {
       "status": "PASS",
@@ -268,6 +268,14 @@
       "skipped": 1,
       "ran": "2026-09-19 09:19 +0100",
       "detail": "-only-testing:NostrWriterTests/Stage03EditorTests -only-testing:NostrWriterTests/ShellTests on the 154f34ef tree: Executed 27 tests, with 1 test skipped and 0 failures (Stage03EditorTests 14/0, ShellTests 13 with 1 skip). The skip is the pre-existing testExternalChangesPreserveBothSourcesAndRejectUnreviewedSave, which needs the NW_COORDINATED_WRITER helper environment; that path is separately covered by the recorded conflict-regression run with the helper."
+    },
+    "native_accessibility_contract_and_os_input_capabilities": {
+      "status": "PASS",
+      "detail": "Read from the live accessibility tree of the signed candidate (inspector open): every interactive element exposes a role plus a description, label or identifier - the editor as a text entry area described 'Markdown editor' with id markdown-editor, the sidebar search with a Help string and placeholder, six toolbar controls with descriptions (Toggle Sidebar, Headings, Formatting, Dictate On This Mac, Focus, Toggle Inspector), a labelled status line, labelled window buttons and nine native menus; the inspector exposes RECORDING, Pause / Resume, Delete Local History, DICTATION Off, Dictate On This Mac, SELECTED PASSAGE, Category, Source description, Optional URL, the 'not claimed as freshly composed' notice, a disabled Mark External Source and the MARKED SPANS / HUMAN WRITING PROOF text carrying the contracted NOT PROVABLE message. Recorded honestly: the MARKED SPANS heading, its empty-state sentence and the proof message share one combined text node, so a screen reader announces them as a single string; that is a Stage 08 granularity observation, not a Stage 03 defect and not a substitute for a VoiceOver session.",
+      "artifact": "product/mac/evidence/logs/stage-03/accessibility-and-os-input-capability.txt",
+      "voiceover": "NOT MEASURED - VoiceOver is not enabled (voiceOverOnOffKey = 0; only the 'VoiceOver Quickstart' onboarding window is running). Enabling it is a system-wide accessibility change with immediate audible and keyboard effects, so it was left to the owner. M53 (Stage 08) is the criterion that owns VoiceOver.",
+      "system_dictation": "AVAILABLE, NOT EXERCISED - AppleDictationAutoEnable = 1, \"Dictation Enabled\" = 1 and DictationIM is loaded (PID 1668). Invoking it would capture live microphone audio, so it was not triggered; the app-side half of the native-vs-on-device distinction is covered deterministically.",
+      "candidate": "53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390"
     }
   },
   "repair_at_61d3dbd": [
@@ -481,9 +489,10 @@
     "unfinished_here": [
       "Live Reduce Motion differential (owner switches the system setting on; the branch itself is tested)",
       "Actual on-device dictation recognition and a UI replay of its denied/unavailable paths (owner grants microphone/speech and speaks)",
+      "A VoiceOver editing session (owner enables VoiceOver; the app's exposed accessibility contract is inventoried)",
+      "System dictation insertion, to confirm an OS-provided insertion is not recorded as physical typing (owner speaks; audio capture)",
       "A real user-accepted spelling correction through the shared panel (the automatic path and the deterministic classification are covered)",
-      "Resource-threshold driving for the 1 GiB warn / 2 GiB pause states (deterministic coverage only; the app uses HistoryCapacity.standard and there is no supported override, so driving it live would mean writing ~2 GiB of ciphertext for a test)",
-      "VoiceOver editing session"
+      "Resource-threshold driving for the 1 GiB warn / 2 GiB pause states (deterministic coverage only; the app uses HistoryCapacity.standard with no supported override, so driving it live would mean writing roughly 2 GiB of ciphertext for a test)"
     ],
     "completed_here": [
       "live consented-history round trip on the signed candidate: off/on/record/pause/resume/delete/close/restart, encrypted at rest, recovery preserved",
@@ -491,6 +500,6 @@
       "typewriter scrolling observed live with exact saved source, and the Reduce Motion branch made testable and tested",
       "dictation gate ordering, refused-grant states and late-callback rejection made testable and tested"
     ],
-    "fixtures": "product/mac/evidence/logs/stage-03/ - editor-fixture.md, spell-fixture.md, input-matrix.md, native-input-matrix-full.txt, typewriter-scroll-reduce-motion.txt, dictation-capability-probe.txt, dictation-session-observation.txt, services-menu-observation.txt, spelling-and-services-observation.txt, keyboard-matrix-observation.txt"
+    "fixtures": "product/mac/evidence/logs/stage-03/ - editor-fixture.md, spell-fixture.md, input-matrix.md, native-input-matrix-full.txt, typewriter-scroll-reduce-motion.txt, dictation-capability-probe.txt, dictation-session-observation.txt, accessibility-and-os-input-capability.txt, services-menu-observation.txt, spelling-and-services-observation.txt, keyboard-matrix-observation.txt"
   }
 }

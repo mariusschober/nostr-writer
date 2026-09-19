@@ -541,6 +541,30 @@ deliberate check in Stage 04 before any cross-session lineage claim is made.
    deliberately **not** clicked in this session, because clicking is what raises
    the two prompts. See
    `logs/stage-03/dictation-session-observation.txt`.
+7. **VoiceOver and system dictation - capability recorded, sessions left to the
+   owner.** The accessibility contract the app actually exposes was inventoried
+   from the live tree instead of hypothesised: the editor is a settable text entry
+   area described "Markdown editor" with `ID: markdown-editor`; the sidebar search
+   carries a Help string and placeholder; all six toolbar controls carry
+   descriptions ("Toggle Sidebar", "Headings", "Formatting", "Dictate On This
+   Mac", "Focus", "Toggle Inspector"); the status line, window buttons and nine
+   native menus are labelled; and the inspector exposes RECORDING, Pause / Resume,
+   Delete Local History, DICTATION Off, SELECTED PASSAGE, Category, Source
+   description, Optional URL, the "not claimed as freshly composed" notice, a
+   disabled Mark External Source and the MARKED SPANS / HUMAN WRITING PROOF text
+   with the contracted NOT PROVABLE message. Recorded honestly: the MARKED SPANS
+   heading, its empty-state sentence and the proof message share one combined text
+   node, so a screen reader announces them as a single string - a Stage 08
+   granularity observation, not a Stage 03 defect. VoiceOver is **not enabled**
+   here (`voiceOverOnOffKey = 0`; only the "VoiceOver Quickstart" onboarding window
+   is running), and switching it on is a system-wide accessibility change with
+   immediate audible and keyboard effects, so it was left to the owner; M53 at
+   Stage 08 is the criterion that owns VoiceOver. System dictation **is** available
+   on this host (`AppleDictationAutoEnable = 1`, `"Dictation Enabled" = 1`,
+   `DictationIM` loaded) but invoking it would capture live microphone audio, so it
+   was not triggered; the app-side half of the native-versus-on-device distinction
+   is covered deterministically. See
+   `logs/stage-03/accessibility-and-os-input-capability.txt`.
 
 ## Independent work completed while blocked
 
@@ -573,9 +597,13 @@ differential (the owner toggling the system setting plus a measurable scroll
 comparison - the branch itself is tested); actual on-device dictation plus its
 denied and unavailable paths replayed from the UI (granted microphone/speech
 permission and a human speaker - the hardware and on-device models are present,
-and those same states are asserted deterministically); a real user-accepted
-spelling correction (a reachable spelling panel); the 1 GiB warn / 2 GiB pause
-resource thresholds driven live (deterministic coverage only: the app uses
-`HistoryCapacity.standard` with no supported override, so driving it live would
-mean writing roughly 2 GiB of ciphertext for a test); and a VoiceOver editing
-session.
+and those same states are asserted deterministically); a VoiceOver editing
+session (the owner enabling VoiceOver - the app's exposed accessibility contract
+is inventoried in `logs/stage-03/accessibility-and-os-input-capability.txt`, and
+M53 at Stage 08 owns the VoiceOver criterion); system dictation insertion to
+confirm an OS-provided insertion is not recorded as physical typing (the owner
+speaking - `DictationIM` is loaded here but invoking it captures live audio); a
+real user-accepted spelling correction (a reachable spelling panel); and the
+1 GiB warn / 2 GiB pause resource thresholds driven live (deterministic coverage
+only: the app uses `HistoryCapacity.standard` with no supported override, so
+driving it live would mean writing roughly 2 GiB of ciphertext for a test).

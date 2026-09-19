@@ -1,0 +1,105 @@
+Stage 03 - accessibility contract and OS input capabilities
+candidate executable sha256 53813d4134258e62b107b23ed5471c08b1507380bad2903ca228d785625ac390
+source commit d8745dcfabdcea5c9a07ea669bf91b62da5306fa
+observed 2026-09-19 09:33-09:38 (Atlantic/Canary)
+
+WHY THIS RECORD
+PLAN-03 requires the real-Mac exercise to cover "US/German layouts, dead keys, at
+least one IME, VoiceOver editing, spell correction, system dictation, Services and
+Writing Tools availability" and to "note actual OS capabilities and unavailable
+paths". German, dead keys, an IME, spell correction and Services were observed
+earlier this stage (see the sibling logs). This file records the accessibility
+contract the app actually exposes and the two OS capabilities that remain, so the
+unavailable paths are named rather than assumed.
+
+1. ACCESSIBILITY CONTRACT AS EXPOSED BY THE RUNNING APP
+
+Read from the live accessibility tree of the signed candidate (inspector open,
+empty Untitled document). Every interactive element exposes a role and a
+description, label or identifier:
+
+  editor            text entry area (settable)  Description: Markdown editor, ID: markdown-editor
+  sidebar search    text field (settable)      Help: "Search recent filenames and current locally
+                                                stored text. Private writing history is not
+                                                searched.", Placeholder: Search documents
+  status line       text                       Help: "Recovery up to date, Value: 0 words ·
+                                                Unsaved  Recording off"
+  toolbar           button                     Description: Toggle Sidebar
+                    menu button                Description: Headings
+                    menu button                Description: Formatting
+                    button                     Description: Dictate On This Mac
+                    button                     Description: Focus
+                    button                     Description: Toggle Inspector
+  window buttons    close / full screen / minimize, each with Help text
+  menus             Nostr Writer, File, Edit, Format, View, Focus, Passage, Window, Help
+
+  inspector         text     RECORDING  Recording off
+                             "No detailed revisions or deleted text are stored."
+                    button   Pause / Resume
+                    button   Delete Local History
+                    text     DICTATION  Off
+                    button   Dictate On This Mac
+                    text     SELECTED PASSAGE  "Select text to mark an external source."
+                    pop up   Category (Value: Quotation)
+                    field    Source description
+                    field    Optional URL
+                    text     "This material is not claimed as freshly composed."
+                    button   Mark External Source  (disabled with no selection)
+                    text     MARKED SPANS  "No marked spans. HUMAN WRITING PROOF
+                             NOT PROVABLE - no approved Mac capture profile and model
+                             are installed. This is not a judgment about who wrote
+                             your text."
+
+Honest scope note, recorded rather than repaired: the MARKED SPANS heading, the
+empty-state sentence and the HUMAN WRITING PROOF message are one combined text
+element (tree index 119), so a screen reader announces them as a single string
+rather than as a labelled group with the proof notice as its own node. Nothing is
+hidden or mislabelled, and no state is conveyed by colour alone; this is a
+granularity observation for the Stage 08 accessibility matrix, not a Stage 03
+defect claim and not a substitute for a real VoiceOver session.
+
+2. VOICEOVER - NOT MEASURED, and why
+
+  pgrep -fl VoiceOver        -> only "VoiceOver Quickstart" (PID 33156, started
+                                Thu Sep 17 22:33:41 2026), which is the onboarding
+                                window, not the screen reader
+  defaults read com.apple.universalaccess
+                             -> voiceOverOnOffKey = 0
+
+So VoiceOver is not enabled on this host. Enabling it is a system-wide
+accessibility change that immediately starts speaking and remaps keyboard
+behaviour on the machine the owner is currently working on, so it was not
+switched on unilaterally. The accessibility inventory in section 1 is the
+VoiceOver-relevant contract evidence that can be gathered without that change.
+Exact owner action: turn VoiceOver on (Cmd+F5 or System Settings > Accessibility >
+VoiceOver) and write, navigate the outline, open the inspector and mark a passage.
+The Stage 08 criterion M53 ("All U01-U15 screens pass real Mac visual, keyboard,
+VoiceOver, dark/light/contrast/motion/input QA") is the row that owns VoiceOver,
+and it is a later stage.
+
+3. SYSTEM DICTATION - available on this host, not exercised (audio capture)
+
+  defaults read com.apple.HIToolbox AppleDictationAutoEnable   -> 1
+  defaults read com.apple.assistant.support "Dictation Enabled" -> 1
+  pgrep -fl DictationIM
+    -> /System/Library/Input Methods/DictationIM.app/Contents/MacOS/DictationIM
+       (PID 1668, started Fri Sep 18 14:21:48 2026)
+
+The OS-level dictation input path is therefore enabled and loaded on this host.
+The Stage 03 plan requires keeping it distinct from the app's own on-device
+feature: "An OS-provided insertion does not prove how the OS processed audio."
+Invoking it would capture live microphone audio, so it was not triggered. The
+app-side half of that distinction is covered deterministically: an unexplained
+insertion is classified `unknown` and an unexplained programmatic change is a
+capture gap rather than physical typing
+(Stage03EditorTests.testGatewayClassifiesObservedDeliveryWithoutGuessingFromText),
+and the app's own dictation never asks for server-side recognition
+(`request.requiresOnDeviceRecognition = true`).
+Exact owner action: invoke system dictation in the editor and confirm the inserted
+text is recorded as an unexplained/assisted insertion rather than physical typing.
+
+4. SUMMARY OF WHAT REMAINS FOR THE OS-LEVEL INPUT EXERCISE
+  - VoiceOver editing session (owner enables VoiceOver)
+  - system dictation insertion (owner speaks; microphone audio capture)
+  - the app's own on-device dictation (owner answers the Speech Recognition and
+    Microphone prompts and speaks) - see dictation-session-observation.txt
