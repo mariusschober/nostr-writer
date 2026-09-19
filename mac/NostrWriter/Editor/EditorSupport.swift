@@ -1,6 +1,36 @@
 import AppKit
 import WriterFoundation
 
+/// Pure decision for one typewriter-scroll step.
+///
+/// Splitting the decision from the scroll view makes the Reduce Motion branch
+/// verifiable without a system accessibility toggle: the plan depends only on
+/// the caret rectangle, the visible rectangle, the font padding and the
+/// system's Reduce Motion flag. It never touches text storage, so the exact
+/// source bytes and the text position are identical either way — only the
+/// amount of on-screen motion differs.
+struct TypewriterScrollPlan: Equatable {
+    /// New clip-view origin, or `nil` when the caret is already well placed.
+    let origin: NSPoint?
+
+    static func plan(caret: NSRect, visible: NSRect, reduceMotion: Bool, padding: CGFloat) -> TypewriterScrollPlan {
+        if reduceMotion {
+            // Keep the caret visible with the smallest jump rather than
+            // continuously recentering the page.
+            if caret.minY < visible.minY + padding * 0.5 {
+                return TypewriterScrollPlan(origin: NSPoint(x: visible.minX, y: max(0, caret.minY - padding)))
+            }
+            if caret.maxY > visible.maxY - padding * 0.5 {
+                return TypewriterScrollPlan(origin: NSPoint(x: visible.minX, y: caret.maxY - visible.height + padding))
+            }
+            return TypewriterScrollPlan(origin: nil)
+        }
+        let delta = caret.origin.y - (visible.minY + visible.height * 0.45)
+        guard abs(delta) > 8 else { return TypewriterScrollPlan(origin: nil) }
+        return TypewriterScrollPlan(origin: NSPoint(x: visible.origin.x, y: max(0, visible.minY + delta)))
+    }
+}
+
 /// Syntax emphasis and focus presentation for the live editor.
 ///
 /// Everything here is *presentation only*. It uses TextKit 2 rendering

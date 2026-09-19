@@ -145,6 +145,44 @@ final class Stage03EditorTests: XCTestCase {
         XCTAssertEqual(anchor.plan(for: "hello", liveText: "ab" as NSString), .cancel)
     }
 
+    // MARK: - M14: typewriter scroll honours Reduce Motion
+
+    func testTypewriterScrollPlanHonoursReduceMotionWithoutMovingText() throws {
+        let visible = NSRect(x: 0, y: 0, width: 600, height: 400)
+        let padding: CGFloat = 20
+
+        // Caret comfortably inside the viewport: ordinary mode still recentres
+        // to the 45% target, Reduce Motion leaves the page exactly where it is.
+        let inside = NSRect(x: 0, y: 200, width: 2, height: 20)
+        let centredInside = try XCTUnwrap(
+            TypewriterScrollPlan.plan(caret: inside, visible: visible, reduceMotion: false, padding: padding).origin)
+        XCTAssertEqual(centredInside.y, 200 - 400 * 0.45, accuracy: 0.001)
+        XCTAssertNil(TypewriterScrollPlan.plan(caret: inside, visible: visible, reduceMotion: true, padding: padding).origin)
+
+        // A small drift inside the dead zone is not worth a scroll either way.
+        let deadZone = NSRect(x: 0, y: 185, width: 2, height: 20)
+        XCTAssertNil(TypewriterScrollPlan.plan(caret: deadZone, visible: visible, reduceMotion: false, padding: padding).origin)
+
+        // Caret just below the bottom edge: Reduce Motion scrolls the smallest
+        // amount that shows the caret, ordinary mode centres the line.
+        let below = NSRect(x: 0, y: 405, width: 2, height: 20)
+        let reduced = try XCTUnwrap(
+            TypewriterScrollPlan.plan(caret: below, visible: visible, reduceMotion: true, padding: padding).origin)
+        let centred = try XCTUnwrap(
+            TypewriterScrollPlan.plan(caret: below, visible: visible, reduceMotion: false, padding: padding).origin)
+        XCTAssertEqual(reduced.y, below.maxY - visible.height + padding, accuracy: 0.001)
+        XCTAssertEqual(centred.y, below.minY - visible.height * 0.45, accuracy: 0.001)
+        XCTAssertLessThan(reduced.y, centred.y, "Reduce Motion must travel less than recentring")
+        XCTAssertLessThanOrEqual(below.maxY, reduced.y + visible.height, "the caret must still be visible")
+
+        // Caret near the top edge scrolls up by the font padding, not to zero.
+        let scrolled = NSRect(x: 0, y: 100, width: 600, height: 400)
+        let nearTop = NSRect(x: 0, y: 102, width: 2, height: 20)
+        let topUp = try XCTUnwrap(
+            TypewriterScrollPlan.plan(caret: nearTop, visible: scrolled, reduceMotion: true, padding: padding).origin)
+        XCTAssertEqual(topUp.y, 82, accuracy: 0.001)
+    }
+
     // MARK: - Stage 07 input-policy seam (no global interception)
 
     func testInputPolicyRefusesExternalInsertionLocally() throws {

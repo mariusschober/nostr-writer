@@ -290,21 +290,12 @@ final class WriterWindowController: NSWindowController, NSToolbarDelegate, NSTex
         // Reduce Motion: keep the caret visible with the smallest jump instead
         // of continuously recentering the page. The text position is identical;
         // only the amount of on-screen motion changes.
-        if NSWorkspace.shared.accessibilityDisplayShouldReduceMotion {
-            let padding = editor.font?.boundingRectForFont.height ?? 20
-            if viewRect.minY < visible.minY + padding * 0.5 {
-                scroll.contentView.scroll(to: NSPoint(x: visible.minX, y: max(0, viewRect.minY - padding)))
-                scroll.reflectScrolledClipView(scroll.contentView)
-            } else if viewRect.maxY > visible.maxY - padding * 0.5 {
-                scroll.contentView.scroll(to: NSPoint(x: visible.minX, y: viewRect.maxY - visible.height + padding))
-                scroll.reflectScrolledClipView(scroll.contentView)
-            }
-            return
-        }
-        let delta = viewRect.origin.y - (visible.minY + visible.height * 0.45)
-        guard abs(delta) > 8 else { return }
-        var origin = visible.origin
-        origin.y = max(0, visible.minY + delta)
+        let plan = TypewriterScrollPlan.plan(
+            caret: viewRect,
+            visible: visible,
+            reduceMotion: NSWorkspace.shared.accessibilityDisplayShouldReduceMotion,
+            padding: editor.font?.boundingRectForFont.height ?? 20)
+        guard let origin = plan.origin else { return }
         scroll.contentView.scroll(to: origin)
         scroll.reflectScrolledClipView(scroll.contentView)
     }
