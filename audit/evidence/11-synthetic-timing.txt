@@ -9,7 +9,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
       "policy_pin_hex": "b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
       "verifier": "node protocol/v0/tools/verify_attested.mjs"
     },
-    "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-hynfmy06/proof.hwp --document /tmp/hwp-audit-hynfmy06/document.txt --policy /tmp/hwp-audit-hynfmy06/policy.cbor --policy-pin b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
+    "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-j8d116i9/proof.hwp --document /tmp/hwp-audit-j8d116i9/document.txt --policy /tmp/hwp-audit-j8d116i9/policy.cbor --policy-pin b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
     "exit_code": 2,
     "result": {
       "author": "none",

@@ -11,7 +11,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
           "policy_pin_hex": "9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
           "verifier": "node protocol/v0/tools/verify_attested.mjs"
         },
-        "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-8qzh0kx3/proof.hwp --document /tmp/hwp-audit-8qzh0kx3/document.txt --policy /tmp/hwp-audit-8qzh0kx3/policy.cbor --policy-pin 9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
+        "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-8nu5gjyd/proof.hwp --document /tmp/hwp-audit-8nu5gjyd/document.txt --policy /tmp/hwp-audit-8nu5gjyd/policy.cbor --policy-pin 9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
         "exit_code": 2,
         "result": {
           "author": "none",
@@ -176,7 +176,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
           "policy_pin_hex": "9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
           "verifier": "node protocol/v0/tools/verify_attested.mjs"
         },
-        "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-7d8lue_s/proof.hwp --document /tmp/hwp-audit-7d8lue_s/document.txt --policy /tmp/hwp-audit-7d8lue_s/policy.cbor --policy-pin 9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
+        "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-uhzq2re8/proof.hwp --document /tmp/hwp-audit-uhzq2re8/document.txt --policy /tmp/hwp-audit-uhzq2re8/policy.cbor --policy-pin 9c014da69366bf64c60ce4283bd45b414c9056c8d76515055eebb45e236408c4",
         "exit_code": 2,
         "result": {
           "author": "none",

@@ -1,0 +1,400 @@
+$ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 .venv-hwp/bin/python audit/attacks/run_all.py
+{
+  "all_attack_scripts_exited_zero": true,
+  "attacks": [
+    {
+      "evidence": "audit/evidence/10-replay.txt",
+      "exit_code": 0,
+      "id": "10-replay",
+      "parsed": true,
+      "script": "audit/attacks/attack_01_replay.py",
+      "verdicts": [
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "cases[0].javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "cases[0].python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "cases[0].python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "cases[1].javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "cases[1].python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "cases[1].python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        }
+      ]
+    },
+    {
+      "evidence": "audit/evidence/11-synthetic-timing.txt",
+      "exit_code": 0,
+      "id": "11-synthetic-timing",
+      "parsed": true,
+      "script": "audit/attacks/attack_02_synthetic_timing.py",
+      "verdicts": [
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        }
+      ]
+    },
+    {
+      "evidence": "audit/evidence/12-retype-ai.txt",
+      "exit_code": 0,
+      "id": "12-retype-ai",
+      "parsed": true,
+      "script": "audit/attacks/attack_03_retype_ai.py",
+      "verdicts": [
+        {
+          "issuance_rejected": "Reject: hwp-not-qualifying",
+          "path": "paste_control"
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "typed.javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "typed.python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "typed.python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        }
+      ]
+    },
+    {
+      "evidence": "audit/evidence/13-autotyper.txt",
+      "exit_code": 0,
+      "id": "13-autotyper",
+      "parsed": true,
+      "script": "audit/attacks/attack_04_autotyper.py",
+      "verdicts": [
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        }
+      ]
+    },
+    {
+      "evidence": "audit/evidence/14-modified-client.txt",
+      "exit_code": 0,
+      "id": "14-modified-client",
+      "parsed": true,
+      "script": "audit/attacks/attack_05_modified_client.py",
+      "verdicts": [
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        }
+      ]
+    },
+    {
+      "evidence": "audit/evidence/15-splice.txt",
+      "exit_code": 0,
+      "id": "15-splice",
+      "parsed": true,
+      "script": "audit/attacks/attack_06_splice.py",
+      "verdicts": [
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "forged_fresh_relabel.javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "forged_fresh_relabel.python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "forged_fresh_relabel.python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "issuance_rejected": "Reject: hwp-not-qualifying",
+          "path": "fresh_copy_control"
+        },
+        {
+          "claim": "wording-origin",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "inherited_control.javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "wording-origin",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "inherited_control.python[0].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": "wording-origin",
+          "execution_checked": "recomputed",
+          "outcome": "NOT PROVABLE",
+          "path": "inherited_control.python[1].result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        }
+      ]
+    },
+    {
+      "evidence": "audit/evidence/16-self-issued-production.txt",
+      "exit_code": 0,
+      "id": "16-self-issued-production",
+      "parsed": true,
+      "script": "audit/attacks/attack_07_self_issued_production.py",
+      "verdicts": [
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "HUMAN-WRITTEN",
+          "path": "attacker_policy.javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "VALID-HWP",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "HUMAN-WRITTEN",
+          "path": "attacker_policy.python_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "VALID-HWP",
+          "test_conformance": false
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "recomputed",
+          "outcome": "HUMAN-WRITTEN",
+          "path": "attacker_policy.python_recomputed.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "VALID-HWP",
+          "test_conformance": false
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "control_same_proof_conformance_policy.javascript_attested.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": null
+        },
+        {
+          "claim": "fresh-composition",
+          "execution_checked": "attestation",
+          "outcome": "NOT PROVABLE",
+          "path": "control_same_proof_conformance_policy.python.result",
+          "reason": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true
+        },
+        {
+          "claim": null,
+          "execution_checked": null,
+          "outcome": "NOT PROVABLE",
+          "path": "control_same_proof_wrong_independent_pin.javascript_attested.result",
+          "reason": "external-policy-pin",
+          "scope": null,
+          "status": "NO-VALID-HWP",
+          "test_conformance": null
+        },
+        {
+          "claim": null,
+          "execution_checked": null,
+          "outcome": "NOT PROVABLE",
+          "path": "control_same_proof_wrong_independent_pin.python.result",
+          "reason": "external-policy-pin",
+          "scope": null,
+          "status": "NO-VALID-HWP",
+          "test_conformance": null
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "frozen_after": {
+    "clean": true,
+    "diff_stat": "",
+    "status_porcelain": ""
+  },
+  "frozen_before": {
+    "clean": true,
+    "diff_stat": "",
+    "status_porcelain": ""
+  },
+  "frozen_untouched": true
+}
+[exit code: 0]

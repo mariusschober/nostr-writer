@@ -1,0 +1,25 @@
+$ date -u
+Sun Nov  8 11:07:15 UTC 2026
+$ git rev-parse HEAD
+cdd972e5d3c2101aadc7fb47fe1ec11a93acc17a
+$ git branch --show-current
+hwp-adversarial-audit
+$ uname -a
+Linux agents-vps 7.0.0-1013-oracle #13~24.04.1-Ubuntu SMP PREEMPT Fri Sep 25 09:43:58 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+$ python3 --version
+Python 3.12.3
+$ .venv-hwp/bin/python --version
+Python 3.12.3
+$ .venv-hwp/bin/python -c "import cryptography,numpy,scipy,jsonschema,asn1crypto; ..."
+python 3.12.3
+cryptography 46.0.4
+numpy 2.3.5
+scipy 1.17.0
+jsonschema 4.26.0
+asn1crypto 1.5.1
+$ node --version
+v24.22.2
+$ openssl version
+OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+$ git status --porcelain=v1 -- protocol/v0
+[end]

@@ -7,7 +7,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
         "policy_pin_hex": "55b730e35a0cba76fab9e28087fb31534ec781fa89477bdd756e4e6ad08cef3b",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-wq3kb8vr/proof.hwp --document /tmp/hwp-audit-wq3kb8vr/document.txt --policy /tmp/hwp-audit-wq3kb8vr/policy.cbor --policy-pin 55b730e35a0cba76fab9e28087fb31534ec781fa89477bdd756e4e6ad08cef3b",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-tis9de5p/proof.hwp --document /tmp/hwp-audit-tis9de5p/document.txt --policy /tmp/hwp-audit-tis9de5p/policy.cbor --policy-pin 55b730e35a0cba76fab9e28087fb31534ec781fa89477bdd756e4e6ad08cef3b",
       "exit_code": 0,
       "result": {
         "author": "none",
@@ -137,7 +137,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
         "policy_pin_hex": "2411140eb480499b9212298e75ca0dd4cb699274c9f05056026940881c52c643",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-jlivzfb1/proof.hwp --document /tmp/hwp-audit-jlivzfb1/document.txt --policy /tmp/hwp-audit-jlivzfb1/policy.cbor --policy-pin 2411140eb480499b9212298e75ca0dd4cb699274c9f05056026940881c52c643",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-2ooinmej/proof.hwp --document /tmp/hwp-audit-2ooinmej/document.txt --policy /tmp/hwp-audit-2ooinmej/policy.cbor --policy-pin 2411140eb480499b9212298e75ca0dd4cb699274c9f05056026940881c52c643",
       "exit_code": 2,
       "result": {
         "author": "none",
@@ -216,7 +216,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
         "policy_pin_hex": "0000000000000000000000000000000000000000000000000000000000000000",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-pndds_41/proof.hwp --document /tmp/hwp-audit-pndds_41/document.txt --policy /tmp/hwp-audit-pndds_41/policy.cbor --policy-pin 0000000000000000000000000000000000000000000000000000000000000000",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-aw9pmdv2/proof.hwp --document /tmp/hwp-audit-aw9pmdv2/document.txt --policy /tmp/hwp-audit-aw9pmdv2/policy.cbor --policy-pin 0000000000000000000000000000000000000000000000000000000000000000",
       "exit_code": 1,
       "result": {
         "authorship_inference": null,

@@ -1,0 +1,457 @@
+# Exact excerpts cited by audit/THREAT-MODEL.md and audit/REPORT.md
+# Generated with line-numbered sed on the frozen tree; no file was modified.
+
+$ nl -ba protocol/v0/README.md | sed -n '11,15p'
+    11	The only production outcome labels are HUMAN-WRITTEN and NOT PROVABLE. Absence or failure never means AI-generated. Whole-document, selected contribution, fresh composition and inherited wording-origin are explicitly distinct. The public proof binds exact text, scope, captured records, model/release, result and optional key association. It does not reveal mental causation, prove personhood or eliminate the need to trust admitted capture/evaluation and empirical approval.
+    12	
+    13	All supplied positive examples are synthetic. They return **TEST-ONLY / NOT PROVABLE**, even when the internal algorithm and signatures satisfy the conformance fixture. A production policy rejects their conformance releases and fixture capture profiles. Scientific experiments must measure conditional candidate decisions, not count that public safeguard as perfect detection.
+    14	
+    15	Private history can remain local in attested mode. Disclosed mode and voluntary full audit run the real algorithm on complete authenticated openings. Neither can establish that a dishonest admitted source's initially fabricated observations happened in reality. One regression deliberately preserves that distinction: a lying admitted evaluator's pasted-history assertion passes attestation but fails recomputation.
+
+$ nl -ba protocol/v0/README.md | sed -n '40,50p'
+    40	`hwp0/protocol.py` is the complete public verifier and guarded issuance entry point. `bridge.py` implements the actual algorithm binding. `core.py` implements the strictly profiled CBOR/COSE/Merkle mechanism; its lower-level mechanics class is not an alternative v0 public verifier. `algorithm/` contains replay, all179 fixed-point features, model fitting/inference, lineage and statistical evaluation. `disclosure.py` implements the bounded private transport. `rfc3161.py` provides the stated timestamp validation subset.
+    41	
+    42	`vectors/interchange.json` contains exact-byte object pools, public expectations, private conformance records and a computation/commitment ladder. Private fixture keys and salts are intentionally public. `vectors/results.json` records actual execution counts and limitations. `baseline/` retains the audited component documents and reproduced counterexamples. Original repository versions are not overwritten.
+    43	
+    44	Not implemented or claimed: a trusted native sensor path; empirically trained/admitted human-writing model; ZK proof suite; production identity/capture authorities; live revocation; a complete RFC4998 renewal engine; Nostr/C2PA/OTS adapters; a universal defence against behavioural imitation; or indefinite cryptographic security. Those are not silently filled with placeholders or stronger labels.
+    45	
+    46	## Freeze and publication
+    47	
+    48	`FREEZE.json` inventories every shipped source, document, schema and test/vector file, excluding itself and its checksum. The protocol-definition digest pins normative interpretation; the program manifest pins the portable reference computation. A repository tag is a locator, not a substitute for these identities. Verifiers must not run the maintainer manifest-rebuilder to make changed code appear valid.
+    49	
+    50	The repository-publication status for this execution is recorded in [PUBLICATION.md](PUBLICATION.md). A locally frozen package must not be called remotely published until the actual repository commit and tag have been verified.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '15,30p'
+    15	## 2. What is asserted
+    16	
+    17	The target is an *observed composition process*: wording produced through qualifying human writing rather than imported wording, mechanical transcription, automation, replay or staged imitation. Independent composition after AI-informed research is permitted. The observations do not directly reveal thought. No signature makes an ambiguous mental cause observable.
+    18	
+    19	The two HWP outcomes are **HUMAN-WRITTEN** and **NOT PROVABLE**. NOT PROVABLE includes insufficient observations, unsupported input paths, failed binding, rejected empirical profiles, non-admission, missing evidence and unavailable trust. It is never an assertion that the document is AI-generated, fraudulent, plagiarized or not human.
+    20	
+    21	A positive result must identify one of two claims:
+    22	
+    23	- `fresh-composition`: every selected scalar is a newly created, qualifying origin in the target record. Internal or cross-record copying cannot count as new composition.
+    24	- `wording-origin`: every selected scalar has qualifying wording ancestry. Internal duplicate occurrences may retain that ancestry; externally inherited ranges additionally require the exact source proof and actual captured lineage. This does not certify human authorship of the current assembly, new argument structure, originality or fresh work by its assembler.
+    25	
+    26	The default objective is fresh composition. The second claim exists to prevent a false inference when proven wording is reused; it is not an alternative way to label copying fresh composition. Claim kind is release-bound, capture-precommitted and signed. A consumer must not omit it from a positive interpretation.
+    27	
+    28	Whole-document and selected-range claims are distinct. Excluded quotations remain bound as part of the exact document but are not certified. A selected-range claim cannot silently become a whole-document claim. Character-level origin bookkeeping is not character-level certainty about cognition: behavioural evidence is contextual, evaluated over fixed neighbourhoods.
+    29	
+    30	A statement does not assert absence of AI influence, accuracy of the content, ownership, legal authorship, personhood, a physical typist's identity, a creation date, thinking duration or protection against every possible adversary.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '32,49p'
+    32	## 3. Conditional guarantee and trust inputs
+    33	
+    34	A production positive result requires:
+    35	
+    36	```
+    37	external policy admits the exact protocol, release and authorities
+    38	AND exact document, scope, target and provenance bindings hold
+    39	AND required capture and evaluator signatures verify
+    40	AND the required evaluation mode succeeds
+    41	AND every selected contribution qualifies under the pinned computation
+    42	AND no mandatory condition was downgraded or omitted.
+    43	```
+    44	
+    45	In attested mode, the fourth and fifth conditions are *asserted by the admitted evaluators*. In disclosed mode the verifier also recomputes them. Both modes rely on admitted capture sources for the truth and completeness of observations, and on independent release approval for the empirical interpretation. Neither mode proves that the source did not fabricate data before committing it.
+    46	
+    47	Assuming collision/second-preimage resistance, signature unforgeability, correct implementations and honest role fulfilment, modification or substitution of the bound objects is detectable. That is distinct from the statistical hypothesis that the observed process distinguishes composition from an attack. The error terms are not independent; cryptographic, capture, evaluator, model and scope failures must not be multiplied to invent a tiny overall error probability.
+    48	
+    49	The relying party supplies exact policy bytes and their independently trusted SHA-256 pin. A pin read from the same untrusted bundle is not an independent trust decision. Two verifiers given the same complete evidence, protocol definition, policy, mode and installed interpretation must agree on the outcome; different independently selected trust policies may legitimately disagree. Policy disagreement is not an encoding ambiguity.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '100,120p'
+   100	## 6. Capturing and committing an observation record
+   101	
+   102	One capture represents exactly one complete normalized HWP record. It starts empty. Prior text must enter through explicit imports/copies; no initially visible text is silently called typed. The required keyboard/tap/IME/gesture observations and authoritative transactions are fixed by `docs/ALGORITHM.md` and the telemetry schema. Native raw events, actual decoder deliveries and mutations have a single contiguous total `seq` order. Timestamps are monotonic and quantized to the declared actual resolution; a tie cannot authorize a future cause. Source labels require capture justification, not writer declarations.
+   103	
+   104	Before input acquisition, the capture source signs start, committing the exact planned release, input profile and adapter. The 32-byte session ID and nonce are freshly and independently generated. The author, when present, signs participation referencing that start before input is treated as attributed. All source records planned for external copy are declared in start.parents in capture-digest order. A parent proof, when supplied, must target that exact parent capture. V0 requires predeclared imports; it does not invent an earlier declaration when a new source is selected later. A new session/version can declare newly available parents.
+   105	
+   106	The committed sequence is: one header; all actual observation/transaction wrappers in their original combined order; one terminal. Header/end wrappers do not consume HWP `seq`. Their exact schema, conversion and dependency reconstruction are defined in `docs/BINDING.md`. A serializer cannot manufacture missing raw observations, delivery fields, times or start participation to migrate a legacy record.
+   107	
+   108	For event i, generate an independent secret random 32-byte salt s_i. Salts must not repeat within the capture. Let E_i be its canonical CBOR bytes and S the SHA-256 digest of the exact signed capture-start object:
+   109	
+   110	```
+   111	leaf_i = SHA256(0x00 || CBOR(["HWP/0:event", S, i, s_i, E_i]))
+   112	node   = SHA256(0x01 || left32 || right32)
+   113	empty  = SHA256(empty_bytes)
+   114	```
+   115	
+   116	The tree splits at the largest power of two strictly less than its leaf count, as in RFC 9162. Every commitment is paired with its count. Inclusion and consistency paths use that tree's recursive order; path exhaustion is mandatory. The empty-prefix consistency case authenticates only the empty prior root, not a history. Complete verification requires exactly the committed events and salt/index sequence, not a selection of favourable openings.
+   117	
+   118	On finalization the source atomically freezes the actual observed record and signs capture-end with complete=true, start, count, root, participation and exact final UTF-8 document Ref. A gap or incomplete state must not be silently completed. Mutations after finalization require a new capture. Its root is not a proof that this collector was honest before signing. The final document hash in a source capture may reveal a guessed prior text; v0 does not promise hiding of those final hashes.
+   119	
+   120	Only one finalized end per `(capture signing key, session ID)` is conformant. Conflicting ends encountered in one verification graph cause failure. Offline verification cannot discover undisclosed forks or abandoned sessions elsewhere. Fresh IDs and nonces bind records; they are not proof of physical input, trusted wall time or one attempt per person.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '122,140p'
+   122	## 7. Scope and provenance
+   123	
+   124	The document is exact UTF-8 bytes with media type text/plain or text/markdown. The protocol binds source bytes, not a renderer's interpretation, PDF export, Markdown preview, layout, title in a separate metadata field or another content object. Such objects need their own future binding profiles.
+   125	
+   126	Scope ranges cover the entire document, consecutively and without overlap or gaps. Offsets are half-open byte intervals on Unicode scalar boundaries. A range's origin is exactly:
+   127	
+   128	```
+   129	["observed", [capture_ref,...]]
+   130	["inherited", parent_proof_ref, parent_start_byte, parent_end_byte]
+   131	["excluded", nonempty_source_description]
+   132	```
+   133	
+   134	Adjacent observed/excluded ranges with equal origins must merge. Adjacent inherited ranges merge when the parent proof is identical and source intervals are contiguous. The partition is therefore maximal for the supplied origin assignment. Selection may be chosen after writing, but cannot alter the fixed algorithm neighbourhoods or remove unfavourable evidence from their computation. The empirical endpoint counts any falsely admitted scalar anywhere, not only full-document successes, so favourable scope selection is part of the tested rule.
+   135	
+   136	For observed ranges, the bridge checks the exact union of required record dependencies and that every underlying origin root was born in the target. Under fresh-composition each occurrence must itself be a new target root. Internal duplication is only eligible under wording-origin and does not create fresh effort. The subject on every required observed capture equals statement.author, including null. The target's subject must always equal statement.author, including inherited-only documents.
+   137	
+   138	For inherited ranges, the parent proof must verify under the same relying policy; its certified bytes must cover and exactly match the claimed interval. The parent must be a predeclared captured source, and the actual target atom roots must equal those of that source slice. Identical wording from another unrelated record is insufficient. The exact target and its transitive copy dependencies are included—no missing parents, unrelated supplementary records, cycles or duplicate record IDs. The target's assessment may re-evaluate the source under the target release as an additional condition; this does not revise the original parent assessment.
+   139	
+   140	At least one selected scalar must be non-whitespace according to the fixed SPACE set shared by algorithm and proof. Unicode U+2028/U+2029 are whitespace. A whole-document proof has no exclusions and every scalar qualifies. A selected-ranges proof has at least one exclusion and every nonexcluded scalar qualifies. Merely attaching a verified parent cannot certify the new assembler's composition.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '142,154p'
+   142	## 8. Evaluation and positive issuance
+   143	
+   144	The bridge opens and validates each committed record; checks end.document; reconstructs exact dependencies; sorts records deterministically; and executes the exact algorithm/model/threshold/scope with independently admitted capture context. It never accepts an author's feature vector, lineage summary, model identity or precomputed verdict as its computation.
+   145	
+   146	The detailed private lineage is the canonical output specified in `docs/OUTPUT.md`. With separately generated secret random salt s_L:
+   147	
+   148	`lineage = SHA256(CBOR(["HWP/0:lineage", s_L, exact_private_lineage_bytes]))`.
+   149	
+   150	Compute this before constructing the final statement; it does not include a reference to that statement. The proof graph is acyclic: planned release and parents → signed start → committed events/end → computed scope and private lineage → statement → evaluator/author signatures → proof → optional archival timestamp. A lineage-salt disclosure refers to the completed statement but is not part of the committed lineage, avoiding recursion.
+   151	
+   152	The evaluator signs only the exact statement for which the recomputed whole/selected HWP result is HUMAN-WRITTEN, and only after all scope/ancestry checks. `issue_appraisal` performs this normal creation path. Low-level possession of an issuer seed can sign lies; no API guard prevents its holder from bypassing software. This trust limitation is explicitly tested. A failed or unsupported assessment receives no positive appraisal and no Human Writing Proof.
+   153	
+   154	Every appraisal signer is authorized by the external policy, unique within the quorum and different from all capture keys. The policy defines the required quorum. The author key is also separate from capture and evaluator keys. No claim of organizational independence follows merely from using different keys. Required endorsements cannot be stripped without verification failure.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '156,172p'
+   156	## 9. Verification modes and public outcomes
+   157	
+   158	A conforming verifier first enforces input/canonicalization limits, resolves the exact external policy and installed definition, verifies all referenced bytes and release/dossier/profile bindings, authenticates capture plans/ends and scope dependencies, checks evaluator/author roles, and applies the required mode. It checks the separately supplied exact document rather than accepting a document label or mutable URI.
+   159	
+   160	`attested-v1` independently verifies the authenticated positive evaluation statements without opening the private history. Its execution assurance is explicitly `attestation`. `disclosed-v1` additionally requires complete openings and lineage salts and runs the installed v0 bridge. All recomputed bindings must equal the signed statement, including target capture, document, scope, release, captures and lineage. A verifier may request full recomputation of an attested proof as a stronger voluntary audit; the proof identity remains unchanged. Partial disclosure cannot satisfy either full audit or disclosed mode.
+   161	
+   162	The Python R verifier supports both modes. The independent JavaScript V verifier supports public attested verification and rejects a proof requiring disclosed mode; it must not silently treat it as attested. Unregistered ZK modes, mock receipts, missing models, unavailable source evidence or a missing required authority cause NOT PROVABLE.
+   163	
+   164	Public outcome projection is fixed:
+   165	
+   166	| Condition | status | outcome |
+   167	|---|---|---|
+   168	| All required checks pass under a production policy admitting empirical releases and evaluated capture | VALID-HWP | HUMAN-WRITTEN |
+   169	| Checks pass under a conformance-only policy | TEST-ONLY | NOT PROVABLE |
+   170	| Any required check fails or is unsupported | NO-VALID-HWP | NOT PROVABLE |
+   171	
+   172	A TEST-ONLY result has `result:null`; its diagnostics may identify a conditional internal positive but cannot be displayed as real human-writing certification. No production policy admitting an existing release is shipped. The exact proof, document, release, claim, selected ranges, policy pin and execution mode accompany a positive interpretation. Diagnostic reason strings are not negative authorship claims and need not be identical across languages; outcome and successful semantic fields must be identical for equal inputs and supported modes.
+
+$ nl -ba protocol/v0/SPECIFICATION.md | sed -n '202,210p'
+   202	## 12. Release approval, falsification and version preservation
+   203	
+   204	The empirical approval contract is fixed in `docs/ALGORITHM.md` and the incorporated dataset protocol: complete preregistered attempts, adverse handling of ambiguity, independent-block accounting, per-path/language/claim cells, eight attack families at budgets1 and100, six genuine-writing conditions, finite prespecified threshold selection, exact binomial eligibility and new held-out evaluation. Targets are conditional on those sampling assumptions. They are not universal adversarial soundness, an individual's probability of truth or protection against unlimited retries.
+   205	
+   206	A curator must review that evidence and the actual native capture/evaluator boundary before admitting an empirical release. Adding six documents named “report” is not scientific approval. The separately trusted policy is the explicit admission decision; the dossier fixes what it purports to approve. No machine-readable self-approval field in a submitted bundle is authoritative.
+   207	
+   208	Researchers can falsify binding invariants, replay/normalization correctness, cross-language agreement, the capture assumptions, the feature representation, supported-domain generalization, the tested false-scalar risk, or genuine-writing coverage. Exact feature collisions and observational-equivalence arguments are retained, not hidden behind a signature. A zero-eligible-threshold result is a legitimate outcome of the standard's empirical process.
+   209	
+   210	New empirical weights/thresholds/dossiers create new content-addressed releases under unchanged v0 semantics. They must be planned in new capture starts; a prior statement is not edited to adopt them. Changes to observation contracts, input modes, feature rules, origin interpretation, required evidence, wire algorithms or computation require a new protocol definition/version. Old records, results and proofs retain their original meaning. The freeze inventory identifies the delivered implementation/specification/vector package independently of its repository hosting or tag name.
+
+$ nl -ba protocol/v0/docs/THREAT-MODEL.md | sed -n '9,13p'
+     9	Adversaries may know every feature, threshold and implementation; generate or adapt simulated histories; physically type or transcribe; relay model output; use a second screen or memory; inject or automate events; transplant valid source proofs; choose scopes; submit malformed encodings; reuse observations; change policies; try many times; steal keys; or control an evaluator/capture source. Explicitly separate attacks *within* a release's promised trusted boundary from compromise of an authority on which the verifier relies. The latter can invalidate the conditional claim without breaking a hash or signature.
+    10	
+    11	Core primitive assumptions are collision/second-preimage resistance and signature unforgeability for the required lifetime, correct parsing/equality checks, and correct installed verifier execution. Capture assumptions are truthful observed source labels, complete in-document delivery/mutation capture, faithful clock/order, actual independent native delivery attribution, non-generated admitted motor decoding, prospective release commitment and single finalization. Evaluator assumptions are correct execution and truthful appraisals under the exact release. Curator assumptions are honest empirical/profile review and externally selected trust inputs. Distinct keys do not prove these parties are independent.
+    12	
+    13	The end-to-end accepted proposition is conditional on those assumptions and on the release's measured operating domain. A proof establishes who asserted what about which exact evidence and result. It does not convert unmeasured hypotheses into cryptographic theorems.
+
+$ nl -ba protocol/v0/docs/THREAT-MODEL.md | sed -n '17,35p'
+    17	| Attack | Enforced rule or counterexample | Remaining boundary |
+    18	|---|---|---|
+    19	| Document substitution or newline/Unicode normalization | Exact signed Ref and separately supplied document equality; no normalization | Rendering/format exports are unclaimed |
+    20	| Scope shrinking, gap, split scalar, all-excluded proof | Complete maximal UTF-8 partition and nonvacuity; underlying scores unchanged | Choosing a subset is allowed only with explicit selected-range semantics and tested false-scalar endpoint |
+    21	| Favourable target chosen among equal final texts | Exact signed target_capture and signed capture-end.document | No inference of identity from a matching text |
+    22	| Alternative model/threshold after observing process | Target capture-start commits the exact release; all artifact/dossier bindings checked | A dishonest collector can lie about prospective timing; no wall-clock guarantee |
+    23	| Fabrication of delivery fields or timestamps | Actual native observations required; strict total order and one-use causality; source appraisal | Echoing a supplied payload into both sides is not native observation; a dishonest admitted source can fabricate a structurally valid history |
+    24	| Retrospective event insertion, reorder, truncation after commitment | Start/index/salt-bound ordered Merkle root, exact finalized count and full openings | A collector that signs invented data before commitment can defeat this premise |
+    25	| Reusing valid history as a new session | Leaves bind exact signed start; unique session declaration and precommitted plan | Re-verifying the same old proof is valid. Hidden duplicate real-time capture or undisclosed forks require source integrity/external comparison |
+    26	| Copying a valid paragraph and claiming fresh composition | Occurrence/root test; wording-origin must be explicit | Wording ancestry does not certify new assembly logic |
+    27	| Same bytes from a different parent proof | Actual source capture and root equality plus literal certified parent coverage | Hidden sources of newly typed wording remain a behavioural inference |
+    28	| Self-approved record/model/fixture | Policy pin supplied independently; exact profile/release refs; conformance stage cannot qualify under production | A relying party deliberately trusting dishonest curators still has a dishonest trust premise |
+    29	| Approval or disclosure-mode downgrade | Exact signed mode, all required signatures and policy gates; no ZK/mock fallback | A separately issued, differently signed attested statement is a different proof and claims a different execution assurance |
+    30	| Author attached retrospectively | Target subject signed at start, participation and final endorsement required | Key association is not physical-person identity or nontransferable proof of who typed |
+    31	| Forged statistics through omitted attempts | Frozen complete ledgers, campaign max, adverse ambiguity, independent-block checks | Actual task labels and independence cannot be established by ledger identifiers alone |
+    32	| Many adaptively optimized attempts | Required B=1/B=100 campaign evaluation, full-budget accounting | No unconditional bound for unlimited retries, shared adaptive state or distribution shift |
+    33	| Flooding refs, deeply nested data, hidden invalid tree branches | Common size/depth/count limits, strict canonical parse, all model branches validated, no automatic network/code | Finite limits are not a benchmark of worst-case operational cost |
+    34	| Company disappearance | Complete public object/source closure, pinned semantics, explicit archival evidence inventory | No hash retrieves data that all custodians lost |
+    35	| Later key compromise or obsolete algorithms | Current/as-of policy separation, optional timestamp and timely evidence renewal | Offline files do not reveal future revocations; late renewal cannot restore lost historical assurance |
+
+$ nl -ba protocol/v0/docs/THREAT-MODEL.md | sed -n '37,55p'
+    37	## Guarantees that do follow
+    38	
+    39	**Exact binding.** If the selected digest and signature schemes remain secure and the verifier is correct, altering an authenticated document, scope, release, start, end, root/count, parent reference, lineage commitment or required endorsement without a corresponding authorized new assertion is rejected.
+    40	
+    41	**No favourable neighbourhood choice.** Scope selection never changes the algorithm's evidence units. A positive whole-document result implies every required scalar satisfies the same pinned process decision; global averages cannot override an unsupported span. This does not prove the cognitive cause of a short insertion hidden in a supported neighbourhood.
+    42	
+    43	**Positive-only public meaning.** Neither absent proof, invalid proof, test-only proof nor non-admission produces an AI-written label. There is no negative result type to sign as HWP.
+    44	
+    45	**Deterministic compatibility.** Given identical supported observations, exact exported model/release, scope, policy and optional disclosures, conforming implementations have the same defined computation and output semantics. Cross-language fixtures test the public verifier and binding primitives. They are not empirical accuracy estimates or a proof that every implementation is bug-free.
+    46	
+    47	**Historical isolation.** New weights or evidence do not mutate an old statement's meaning. Changing the interpretation requires a new definition and new statement; a newer policy may refuse an older proof without rewriting its original bytes.
+    48	
+    49	## Guarantees that do not follow
+    50	
+    51	For genuine observation distribution P and attack distribution Q, any acceptance region A obeys `Q(A) >= P(A)-TV(P,Q)`. With identical admissible observations, deterministic or randomized classification cannot recover a different hidden cause. With a deterministic feature map F, `TV(F#P,F#Q) <= TV(P,Q)`; a collision in the current feature representation cannot be resolved by deeper trees on those same features.
+    52	
+    53	The exact meaningful-text feature collision remains in the test suite. A conformance fixture with a deliberately lying admitted evaluator can produce a cryptographically valid attested assertion over a pasted trace; disclosed recomputation rejects it. This regression must remain visible. “Fixing” it by claiming that signature verification proves evaluator honesty would be a security regression, not an improvement. Disclosed recomputation still cannot distinguish a fabricated but admitted trace that passes the actual detector from the same trace honestly observed.
+    54	
+    55	Likewise, local timing regularity does not identify mechanical input, revisions do not prove reasoning, and a challenge response would not retrospectively authenticate all earlier wording. No camera, audio, unrelated computer activity, or secret liveness challenge is implicitly required by this version.
+
+$ nl -ba protocol/v0/docs/THREAT-MODEL.md | sed -n '57,63p'
+    57	## Empirical tests that can disqualify a release
+    58	
+    59	Run paired human composition and human transcription under controlled source/device/skill conditions, including genuine AI-informed composition and memorized source text. Add timing-matched and topology-matched staged histories; meaningful revision simulations; tiny mixed-origin insertions at every boundary; exact feature collisions; held-out languages and device decoders; legitimate fluent and interrupted writers; source/controller injection; malicious appraisals; parameter/policy swaps; withheld attempts and many-query campaigns.
+    60	
+    61	Measure complete-document coverage and any-false-scalar campaign admission with prespecified independent blocks. Keep ambiguity and operational failures visible. Test the actual advertised capture boundary rather than granting the attacker laboratory admission and reporting that as a hardware attack result. A fixed-distribution confidence bound is not a deployment posterior probability; prevalence and adversarial distribution shifts matter. A false-certification target that leaves no useful coverage must be reported as such.
+    62	
+    63	The normative wire/replay bridge can be frozen and falsified now. Behavioural separability, actual native capture integrity, real-world privacy/latency, and useful risk/coverage remain unmeasured. This package grants no empirical release approval.
+
+$ nl -ba protocol/v0/docs/AUDIT.md | sed -n '27,39p'
+    27	## What is fixed versus assumed
+    28	
+    29	Fixed: deterministic serialization, signature domains, object shapes, exact document and scope binding, prospective target release, explicit source dependencies, total-order replay input, actual algorithm invocation, stable output commitment, authority separation, test/production projection, resource contracts, parent root matching, malformed-input failure and repeatable vectors.
+    30	
+    31	Conditional: actual event acquisition; truth of device/synthetic origin; absence of hidden decoder generation; honesty of capture/evaluation and approval authorities; the quality and validity of empirical studies; deployment distribution; sufficient independent samples; cryptographic security during the relevant lifetime; archival availability.
+    32	
+    33	Unmeasured: real composition/transcription discrimination, accuracy against white-box imitation, admitted native keyboard/touch/IME paths, accessibility coverage, end-to-end privacy and performance, useful risk/coverage under repeated attempts, real-world keys/authority operations, ZK generation and renewable decades-long archival practice. No synthetic test count estimates these quantities.
+    34	
+    35	## Deliberate scope decisions
+    36	
+    37	The v0 observation alphabet captures event classes, timing, native deliveries, authoritative text operations and ancestry. It does not record physical key identity, touch coordinates, gaze, thought or a trusted inventory of external sources. Such information cannot be reconstructed from its commitments or assumed available to the features. Richer capture/representation work requires a new precisely defined profile/algorithm version.
+    38	
+    39	The current179-feature model is frozen as an executable baseline interpretation, not as an optimal cognitive detector. Future empirically trained weights can change under new releases; genuinely different features or observations require a new version. No default empirical model is guessed. Certification remains unavailable until a real release has earned independent admission under the specified study contract.
+
+$ nl -ba protocol/v0/docs/ALGORITHM.md | sed -n '21,27p'
+    21	## Deterministic reconstruction
+    22	
+    23	Initial text is empty. Every inserted scalar has `record:transaction:offset` identity. Direct, causally bound device-input insertion creates a new candidate root—not an already accepted human label. Paste, generated, unknown and assisted-spelling replacements remain unsupported. Deletion retains ancestry; move preserves IDs; copy creates a new occurrence referencing original roots; undo/redo restore original checked history. Small spelling edits cannot grant origin inheritance. This prevents known source ancestry from being erased by history manipulation, but does not prove a writer's mental source was novel.
+    24	
+    25	The only supported raw profiles are keyboard, touch-tap, IME and gesture. IME motor bases and decoder deliveries must be actual observations. A platform exposing only a committed string cannot fabricate key/touch events or classify generated completions as motor decoding. New accessibility or dictation profiles require separate observable definitions and empirical admission. Unsupported does not mean nonhuman.
+    26	
+    27	Native offsets are converted to Unicode scalar indices before normalized replay; final scope uses UTF-8 byte intervals. No Unicode normalization or equivalence class is permitted. Runs split on interrupted observation, more than120seconds, input-profile change, position displacement greater than256scalars, and transitions into/out of external sources. Source replay uses only earlier same-record exact32-scalar exposure shingles and propagates through real ancestry, not unrelated future bundle text.
+
+$ nl -ba protocol/v0/docs/ALGORITHM.md | sed -n '43,54p'
+    43	## Empirical release contract
+    44	
+    45	The fixed risk endpoint is **any falsely admitted scalar anywhere in an attack campaign**, including a short inserted or transcribed fragment in otherwise genuine text. The campaign aggregates the maximum across all registered attempts; a genuine-writing block aggregates the minimum complete-document result across all required tasks. Windows from one writer are not independent subjects. Scope selection is included in the endpoint; selecting a favourable subset cannot evade a false-scalar failure.
+    46	
+    47	For every proposed path/language/claim domain, required attack families are human_transcription, scripted_input, replay, staged_revision, adaptive_simulation, mixed_origin, lineage_laundering and capture_fabrication, each at B=1 andB=100 complete attempts. Genuine cells separately cover unaided, AI-informed, fluent-expert, revision-heavy, interrupted and second-language writing. Trace-level simulation and end-to-end native-capture attacks must be reported separately. A lab fixture's assumed admission is not a test of actual source authenticity.
+    48	
+    49	A complete preregistered ledger accounts for slots, attempts, blocks, dependency links, conditions and outcomes. Scientific measurements use conditional candidate decisions from the actual algorithm and admitted experimental boundary, not the public TEST-ONLY projection: counting every conformance object as a rejected attack would manufacture perfect accuracy by construction. For full binding tests, conditional TEST-ONLY success is an admission for the experiment, while never being a real issued HWP. Pending/missing/crashed tasks cannot be counted as rejected attacks. Ambiguous annotations count adversely for risk eligibility and cannot create genuine-coverage successes. Splits preserve writer/source/prompt/campaign dependencies before feature extraction. Known cross-phase reuse is rejected; actual independence remains a study-design obligation, not a fact proven by IDs.
+    50	
+    51	At most32 threshold candidates are fixed using development data before calibration. The unchanged exact rational binomial tests control target risk ε=.001, coverage c=.50 and δ=.05 across every required cell and all candidate thresholds, allocating δ/2 to risk andδ/2 to coverage families. The lowest eligible threshold is selected only after every cell passes. No eligible threshold means no release. An independent fixed-threshold final evaluation is required. Two separate95% stage statements are not automatically a joint95% claim; repeat testing requires explicit lifetime accounting or new independent evidence.
+    52	
+    53	The dossier's reports must allow reviewers to reproduce those calculations and inspect sampling, ambiguity, native-capture tests and complete accounting. Report hashes and approval signatures do not establish the ground truth or independence assumptions. The external curator must approve the exact model, threshold, claim, input paths, report set and threat interpretation. The current distribution contains no such production approval.
+    54	
+
+$ nl -ba protocol/v0/docs/ALGORITHM.md | sed -n '55,67p'
+    55	## Falsifiable limitations retained
+    56	
+    57	Implementation tests are not human observations; use the executed results file for their exact scope and counts. No human participant sessions or trained real-world detector are supplied. The 179-feature map admits demonstrated exact collisions under changed meaningful wording. More complex trees cannot recover discarded information. Those collision families and adaptive staged revision remain mandatory challenges to any empirical release.
+    58	
+    59	For genuine and attack observation distributions P and Q and acceptance region A,
+    60	
+    61	`Q(A) >= P(A) − TV(P,Q)`.
+    62	
+    63	If a permitted adversary can reproduce exactly an accepted observation, no observer-only nonvacuous rule can distinguish its different hidden cause. This does not establish that every evaluated sensor can be cloned; it fixes what a release cannot claim under a specified input power. Model/risk improvement is a scientific task with new data and versions, not stronger cryptographic wording.
+    64	
+    65	## Prospective study and empirical-release staging
+    66	
+    67	The final operating point is fixed in a conformance candidate before its held-out protocol trials. Trial endpoints count candidate admissions even though public conformance outputs are deliberately NOT PROVABLE; otherwise the production guard would create a meaningless zero-error study. After the trials, the empirical dossier references that earlier candidate and the actual reports. The empirical and candidate releases must have identical operational artifacts, claim, capture profiles and protocol. The normative candidate-equality rules are in SPECIFICATION.md. Production requires a new capture start naming the subsequently approved empirical release; past trial captures cannot be upgraded by changing a label. This separates study chronology from archival package hashes without weakening precommitment.
+
+$ nl -ba protocol/v0/docs/BINDING.md | sed -n '64,68p'
+    64	## 6. Explicit boundaries
+    65	
+    66	Attested public verification cannot inspect hidden source-to-parent root equality. It checks the exact assertion by admitted evaluators. Full disclosed recomputation checks the relation itself. Neither independently verifies the physical truth of a dishonest capture source's initially fabricated observations. Both require proper empirical release admission for a real positive result.
+    67	
+    68	V0 does not admit opaque parent import without the source histories required by this algorithm. Source proofs and private record histories may be shared voluntarily with an evaluator; they need not be published in attested mode. A future private recursive-execution or ZK parent profile must define a new compatible computation rather than silently replacing this requirement with a hash.
+
+$ nl -ba protocol/v0/docs/CONFORMANCE.md | sed -n '5,13p'
+     5	**P — producer/evaluator.** Produces canonical v0 observations, commitments and positive appraisals from actual `hwp-a/v0` execution; validates scope/target/lineage; refuses negative or incomplete results. This class does not by itself establish authority to observe or certify. A native capture implementation additionally needs evaluated admission for its claimed path. The supplied fixture builder is a test generator, not a native recorder.
+     6	
+     7	**V — public attestation verifier.** Implements the complete canonical-object, signature, role, authority, definition/release, prospective capture-plan, exact final document, dependency graph, scope, parent proof and author checks for attested-v1. It must explicitly reject a statement requiring disclosed-v1 when it does not implement R; it may not downgrade it to public attestation. The supplied independently written JavaScript verifier implements V.
+     8	
+     9	**R — recomputing verifier.** Implements V and complete private disclosure opening, canonical record reconstruction, actual behavioural replay/features/model/support/aggregation, exact source-root mapping, private lineage output and statement equality. It supports mandatory disclosed-v1 and voluntary full audit of attested-v1. The supplied Python verifier implements R with a closed installed bridge, not a generic caller callback.
+    10	
+    11	**T — supplemental timestamp verifier.** Checks RFC3161 token binding under separately selected authorities, policy OIDs, validation time and optional nonce. It must report unassessed revocation and must not turn a timestamp into a human-composition or exact writing-time assertion. It is not a substitute for V or R. The supplied Python/OpenSSL adapter implements the stated subset.
+    12	
+    13	Every class must preserve the claim kind, selected/whole distinction, test-only projection, no-negative-authorship semantics, immutable release interpretation and resource limits. A producer or verifier cannot authorize itself by shipping a policy beside a bundle. Independent applications can supply different externally selected policies; conformance compares equal policy inputs, not globally uniform trust decisions.
+
+$ nl -ba protocol/v0/docs/CONFORMANCE.md | sed -n '15,25p'
+    15	## Normative test material
+    16	
+    17	`vectors/interchange.json` is the deterministic, public-keyed interchange set. Its object pool maps SHA-256 hex to exact bytes encoded as hex. Each case references a proof bundle, exact document, external synthetic policy, private ABI disclosure and expected semantic projection. Expected public and R outcomes are recorded separately. Class-V cases requiring disclosed mode explicitly expect rejection for lack of required recomputation.
+    18	
+    19	The ladder contains exact signed capture refs, count/root, selected salted leaf openings and inclusion paths, a complete normalized record, exact private lineage bytes and expected computed statement bindings. It allows an independent implementation to locate the first disagreement: wire decoding → captured event root → normalized record → algorithm output → lineage commitment → statement/appraisal. All salts and private keys are intentionally public test material. They must not be used for live signing.
+    20	
+    21	`vectors/algorithm-feature-vector.json` provides the complete179-feature integer output for the inherited baseline fixture. `docs/FEATURE_NAMES.json` supplies the normative order. The algorithm and integration tests cover exact replay, Unicode, input profiles, causal attribution, origin history, source chronology, scope, model validation/fitting/export, domain/support, complete trial accounting, statistical eligibility and feature collision. Timestamp tests use temporary local synthetic CA/TSA keys; they are not public notarizations.
+    22	
+    23	Independent test comparison must include malformed/noncanonical CBOR, every rejected unknown field and mode, wrong refs/size, wrong document/newline/normalization, duplicate/quorum/role keys, stripped author association, target confusion, changed prospective release, parent substitution, partial disclosure, reordered/changed openings, salt mismatch and the authorized-lying-attestor boundary. A parser accepting generic CBOR tag18 with a non-COSE value is not itself wrong; signature validation must reject that value. Syntax conformance and semantic object conformance are separate.
+    24	
+    25	Successful V/R results must agree on exact document/proof/release identities, claim, selected intervals, optional author association and test-vs-production projection. Attestation and recomputation must report their different execution basis. Failure reason wording and UI presentation are not conformance identities. No writing interface is specified here.
+
+$ nl -ba protocol/v0/docs/OUTPUT.md | sed -n '46,58p'
+    46	## Public verification projection
+    47	
+    48	The public normative outcome is HUMAN-WRITTEN or NOT PROVABLE. A conforming successful production result additionally communicates exact protocol, claim, whole/selected scope, selected intervals, document Ref, proof Ref, release Ref, trust-policy digest, execution mode and optional author association. Its `execution_checked` is `attestation` or `recomputed` and cannot be omitted in a description that would imply the latter. Policy status_as_of is a declared assessment reference, not a trusted timestamp. Timestamp evidence is separately assessed.
+    49	
+    50	The reference's successful result map includes `status`, `outcome`, `result`, `claim`, `scope`, `ranges`, `proof`, `document`, `release`, `mode`, `policy_sha256`, `policy_status_as_of`, `author`, `timestamp:"not-assessed"`, `execution_checked`, `test_conformance`, `protocol`, `authorship_inference:null`. A TEST-ONLY result sets outcome NOT PROVABLE, result null and test_conformance true. Failure sets status NO-VALID-HWP, outcome NOT PROVABLE, protocol hwp/0, a diagnostic reason and authorship_inference null. No missing proof is called AI-written.
+    51	
+    52	Independent implementations must agree on the outcome and successful semantic content, not necessarily wording of rejection reasons or formatting of optional diagnostics. Ref bytes in diagnostic JSON use lowercase hex; this JSON is not the signed format. The JavaScript class-V reference returns a smaller successful diagnostic map and the same normative semantic fields. Its inability to execute disclosed mode is explicit non-support, never a weaker positive.
+    53	
+    54	## Installed interfaces
+    55	
+    56	`protocol.verify(bundle_bytes, exact_document_bytes, policy_bytes, policy_pin, disclosures=None, recompute=False)` performs the full public checks. It has no arbitrary-runner argument. `disclosure.pack/unpack` supplies the portable private bundle representation. `protocol.evaluate_statement` recomputes an issuance proposal from complete authenticated openings. `protocol.issue_appraisal` repeats that evaluation and returns a positive signature only after exact result equality and signer authorization. Low-level signing primitives are not an alternate protocol issuance path.
+    57	
+    58	The executable CLI is `python -m hwp0 proof.hwp document.txt --policy selected.cbor --policy-pin HEX [--disclosure private.hwp] [--recompute]`. Exit0 is a production positive, exit2 is conformance-only, exit1 is no valid proof. No conformance example exits0. The JavaScript V CLI similarly distinguishes TEST-ONLY and refuses mandatory recomputation.
+
+$ nl -ba algorithm/v0_3/SPECIFICATION.md | sed -n '15,38p'
+    15	## 2. Algorithm inputs and trust boundary
+    16	
+    17	`verify(bundle, model, threshold, context, excluded, claim_kind)` is the certification entry point. `score` computes the same threshold-independent evidence path for diagnostics and experiments. `decide` is an internal formatting/aggregation helper; calling it on invented scores is not verification.
+    18	
+    19	The bundle contains exact version, topologically ordered records and target record ID. Each record contains `id`, `language`, `resolution_us`, `paths`, `observations`, `transactions` and `final_text`. All initial text starts empty. A previously written draft enters through explicit copy/paste transactions; its provenance is never inferred from a filename or initial text string. Cross-record copying references an earlier record in the bundle. Native collaboration and arbitrary concurrent merges are not admitted in this version; they require a future profile, not an invented serial history.
+    20	
+    21	`TrustedInputs` is an independently supplied relying-party/laboratory argument. It identifies admissible and fresh record IDs, exact immutable record snapshots, allowed domains, the exact approved model snapshot, threshold and claim. No telemetry field may supply or override it. Exact snapshots are ordinary canonical-JSON equality checks, not a capture-authentication mechanism. IDs and Boolean approval flags alone are insufficient. Scoring takes immutable local copies before parsing to avoid caller mutation during a calculation.
+    22	
+    23	For positive certification, every required record must be both admissible and fresh, and equal the independently selected record snapshot. The model must match the externally selected exact snapshot and approved threshold and have purpose `validated-release`. The purpose string alone grants nothing. This package grants no such external approval.
+    24	
+    25	An accepted capture path must justify complete in-document observations, actual resolution, source labels, ordering, delivery semantics, native cause-to-mutation attribution, absence of unobserved text mutation and permitted transformations. A key-down, a protected key, a browser trust bit, the absence of visible paste, or valid JSON is not sufficient. If these assumptions cannot be justified for a platform, its output is NOT PROVABLE. This requirement is a boundary contract, not work on a cryptographic system.
+    26	
+    27	## 3. Normalized observation contract
+    28	
+    29	[TELEMETRY.md](TELEMETRY.md) and `telemetry.schema.json` define syntax; `replay.py` supplies cross-field/state validation that JSON Schema cannot express. Each raw observation has its own contiguous `i`, a shared total-order `seq`, quantized monotonic `t` in microseconds, `kind`, unique episode `token`, observed `source` and `profile`. Source is `device`, `synthetic` or `unknown`; it is an observed capture classification, not a writer declaration. A native `delivery` additionally carries an `effect` object.
+    30	
+    31	Transactions have their own contiguous `i`, a total-order `seq`, `t`, `op`, `profile`, one-use `causes` and a one-use `delivery` reference, plus operation fields. Across raw observations and transactions, `seq` is exactly 0 through N−1. Each stream preserves this order, and timestamps are nondecreasing in total order. Ties therefore never allow future events to cause earlier mutations.
+    32	
+    33	A delivery is an independently observed normalized native command/text update. Its `effect` must equal the transaction excluding `i,t,seq,delivery`, including cause references and operation-specific fields. Every referenced cause precedes the delivery; the delivery precedes the transaction. Every delivery must be consumed exactly once. No collector may manufacture this observation simply by copying the author's mutation payload. Delivery binding and an admissible decoder path are necessary to distinguish a recorded key episode from arbitrary supplied text.
+    34	
+    35	Delivery-to-transaction delay is at most 250,000 microseconds. Direct raw cause-to-transaction delay has the same bound. Cause and transaction profiles agree. Required input starts, updates, repeats, IME commits and gesture completions occur while focused and unsuspended. Physical releases may complete after focus loss. Direct causes cannot cross an interruption. A capture gap disqualifies the affected record and its dependent contribution; losing focus alone is a segmentation event, not evidence of nonhuman writing.
+    36	
+    37	Keyboard, touchscreen tap, IME and gesture paths remain separate. Exact `(profile, path, language, view)` model domains prevent acceptance by a different decoder that happens to use the same profile name. Autocomplete, prediction, rewrite and assisted spelling insertions are not direct candidate wording. Dictation and unsupported accessibility paths yield unsupported evidence, not an accusation. New compatible accessibility support requires its own observable contract and validation.
+    38	
+
+$ nl -ba algorithm/v0_3/SPECIFICATION.md | sed -n '39,59p'
+    39	## 4. Replay and provenance
+    40	
+    41	The canonical document is its exact Unicode scalar sequence with exact UTF-8 encoding. No normalization, newline conversion, trimming, case folding or rendering equivalence occurs. Native UTF-16 offsets must be converted by the collector. Normalized transaction positions are scalar indices; published scope offsets are byte offsets on scalar boundaries. Grapheme clusters may contain several scalars; the collector records the actual native edit without pretending one scalar equals one visible character.
+    42	
+    43	For each inserted scalar create `record:transaction:offset`. A direct, properly bound device-origin insertion creates a candidate atom whose sole root is itself. Other inserted text creates unsupported/external atoms with no candidate roots. Candidate is not yet HUMAN-WRITTEN. All origins, deletions and historical alternatives remain available to replay and analysis.
+    44	
+    45	- `splice`: the exact deleted string must match the live prestate. Replace the range with fresh atoms. A newly typed replacement is assessed as a new episode, never by edit-distance inheritance. Synthetic/unknown direct causes downgrade new text to unknown. Automated deletion of existing text marks the record's control process inadmissible.
+    46	- `copy`: allocate new live IDs and preserve root ancestry and required records. It creates no new composition effort. Under fresh-composition its copied occurrences are NOT PROVABLE; under wording-origin their original supported roots can carry through.
+    47	- `move`: preserve the moved atom IDs. Destination indices refer to the buffer after removing the source range. This is a relocation, not a new creation episode.
+    48	- `undo`/`redo`: require the exact top-of-stack original transaction ID and expected live subrange. Restore original atoms and ancestry. A new mutation clears redo. Undoing an import cannot turn it into typing.
+    49	- `navigate`: records selection/caret movement; it creates no text. Navigation is context for later changes, not direct evidence of composition.
+    50	
+    51	Synthetic or unknown-source copy/move/undo/redo/navigation makes the control process inadmissible. Direct candidate insertions remain new candidates even when informed by earlier external ideas: there is no semantic contamination rule. However, all new wording from an assisted replacement, including the old bounded-spelling category, remains unsupported. The earlier edit-distance exception is removed because `100→900` and many factual or negation changes are small edits.
+    52	
+    53	Origins retain their required record dependencies. A root's original home record supplies its creation/revision neighbourhood; moving or importing words cannot choose a more favourable history. All live IDs must be unique. Final replay must exactly reconstruct `final_text`. Invalid histories return NOT PROVABLE.
+    54	
+    55	## 5. Observed-source veto
+    56	
+    57	For each record, index exact 32-scalar shingles from earlier externally inserted strings in that record, recording first exposure transaction. A final matching shingle is vetoed only when every contributing root was newly created in that same record after that exposure. The veto propagates to imported descendants of those roots.
+    58	
+    59	This is a conservative, explicit source-reuse rule, not a plagiarism claim. Shared stock phrases can produce non-admission. Shorter, modified, memorized, off-device or unobserved source material is not ruled out. Text from an unrelated/future record cannot retroactively establish that an earlier author saw it. No bundle-global clock or reading history is invented. The 32-scalar threshold is an engineering constant whose coverage cost must be measured, not a theoretically sufficient composition threshold.
+
+$ nl -ba algorithm/v0_3/SPECIFICATION.md | sed -n '61,73p'
+    61	## 6. Runs, evidence units and adequacy
+    62	
+    63	Runs split at an interruption, a gap exceeding 120 seconds, input-profile changes, displacement greater than 256 scalars, or transition into/out of an external-text source. See `barrier` in `replay_document` for exact transitions. Tiny discontinuous episodes are not enlarged by a favourable requested scope.
+    64	
+    65	Three local views use fixed windows of width/stride `(64,32)` and `(256,128)`, including an end-aligned final window. A shorter nonempty run yields its entire range, but must still pass adequacy. Views are:
+    66	
+    67	1. **birth**: all candidate roots in each creation run, including later deleted candidates;
+    68	2. **layout**: distinct surviving home roots in their final contiguous run order;
+    69	3. **retained**: those same surviving groups sorted by creation transaction and insertion offset.
+    70	
+    71	A fourth **global** unit contains all surviving home roots for each input profile. All required units are constructed before thresholding and independently of requested exclusions. Repeated copies do not manufacture unique roots. Root scores are the minimum of all units containing the root. A surviving root without every required view is unsupported. This is a deliberate conservative intersection, not independent-vote aggregation.
+    72	
+    73	Every unit needs at least 64 distinct roots. It also needs at least 16 connected production deliveries for keyboard/tap or 4 for IME/gesture. Each transaction contributes at most one delivery. Transactions sharing the same physical episode token are unioned; held-key repeats and multiple modifiers cannot manufacture independent evidence. These are **production components**, not statistically independent cognitive observations. A 64-root window is not proof that its cognitive origin is identifiable. Short additions and fragmented runs can legitimately remain NOT PROVABLE.
+
+$ nl -ba algorithm/v0_3/SPECIFICATION.md | sed -n '91,97p'
+    91	## 8. Verdict calculation
+    92	
+    93	For each final scalar, first require all origin/capture dependencies, supported complete root neighbourhoods, no observed-source veto and the appropriate fresh-composition/wording-origin gate. Unsupported values are `SCORE_FLOOR = −10^9`. Otherwise take the minimum root margin. The threshold must be an integer strictly greater than SCORE_FLOOR. A scalar passes when its value is **greater than or equal to** the threshold and certification is enabled by the exact externally selected release.
+    94	
+    95	Whole-document HUMAN-WRITTEN requires every scalar to pass, nonempty non-whitespace content and no exclusions. No length-weighted average is permitted. Exclusions form ordered, non-overlapping, nonempty UTF-8 ranges with source descriptions; they change scope but never neighbourhoods or underlying origin. Contribution HUMAN-WRITTEN requires every nonexcluded scalar to pass and at least one nonexcluded non-whitespace scalar. Whole-document verdict remains NOT PROVABLE when exclusions exist.
+    96	
+    97	The output partitions the complete text into maximal adjacent ranges with equal verdict, reason, origin, original record set and exclusion state. Each range is contextual support for wording at that position, not an independently calibrated one-character cognition test. Invalid input, bad scope, unsupported evidence or absent approval returns NOT PROVABLE. A malformed release/label must abort study eligibility rather than be disguised as a successful attack rejection.
+
+$ nl -ba algorithm/v0_3/SPECIFICATION.md | sed -n '99,111p'
+    99	## 9. Risk, coverage and study eligibility
+   100	
+   101	Use the exact full pipeline and same claim in evaluation. For a nonqualifying attempt the score is the maximum accepted-candidate score among falsely attributed scalars; a single false scalar is a failure. For an attack block take the maximum over every preregistered attempt. For a genuine-writing block take the minimum complete-document score over all required tasks. Invalid complete traces are retained as structural rejections. Missing, crashed, pending or unrecorded trials are incomplete, not automatic negative outcomes.
+   102	
+   103	A frozen ledger enumerates all slots, blocks, attempt indices, dependency links, sampling contracts, phase and claim. Attempt indices must exactly cover 0..B−1. IDs and known dependency links cannot create two nominally independent blocks in the same cell. All slots need exactly one result. Record completeness cannot establish that the sampling assumptions or annotations are true.
+   104	
+   105	Required release cells are path/language-specific: eight attack families (`calibration.FAMILIES`) at B=1 and B=100; and separate unaided, AI-informed, fluent-expert, revision-heavy, interrupted and second-language genuine-writing cells. `run_release` checks the case condition against its required cell. Native assistive input domains require additional evaluated paths; performance is not inferred from other modes.
+   106	
+   107	Freeze up to 32 candidate thresholds using development data before calibration. Under independent identically distributed blocks for each fixed cell, evaluate a target false-certification probability ε=0.001 and genuine block coverage c=0.50 with δ=0.05. Allocate δ/2 across attack cells×candidate thresholds and δ/2 across human cells×candidate thresholds. Use exact rational binomial lower-tail tests at ε for attack failures and at 1−c for human failures. Every cell must pass. Choose the lowest eligible threshold. No eligible threshold means no release.
+   108	
+   109	Final evaluation uses new, independently selected blocks and one frozen threshold. `phase_separation` checks declared cross-phase overlap; it cannot prove actual independence. Reusing a final test after tuning is prohibited. Two separately reported 95% stage statements are not automatically a joint 95% statement; the final held-out fixed-threshold statement can stand alone, or an explicit lifetime error allocation is required. No statistical routine grants external approval.
+   110	
+   111	The guarantees concern repeated blocks from the declared attack-generating distribution and budget. Unlimited adaptive imitation, coordinated learning across nominal blocks and distribution shift are not covered. Confidence in a risk bound is not the probability that a particular certificate is true. Detailed proofs and counterexamples appear in THEORY.md.
+
+$ nl -ba algorithm/v0_3/SPECIFICATION.md | sed -n '113,119p'
+   113	## 10. Limits, reproducibility and versioning
+   114	
+   115	The reference bounds records (32), observations and transactions per record (500,000 each), live text (200,000 scalars), corpus atoms (1,000,000), retained history IDs (5,000,000), evidence edges (5,000,000), indexed external scalars (1,000,000) and related-analysis edge visits (50,000,000). Canonical serialized input is capped at 100,000,000 characters and model at 20,000,000. Excess returns NOT PROVABLE; it must not select a weaker computation. Collectors must stream-enforce limits before materializing attacker-sized data. These are logical caps, not a claimed constant-time or production memory benchmark.
+   116	
+   117	A native implementation may optimize data structures only while preserving specified order, values and verdicts. No speculative parallel reduction may change integer results. Fixed-point replay/inference/eligibility is deterministic. Floating-point fitting is reproducible only in the recorded environment; hardware/backend variation may yield different exports. The exported model itself is authoritative. Test-vector equality, model snapshot equality and version pinning prevent silent substitution.
+   118	
+   119	New datasets can produce new model releases using the same semantics, with new exact model snapshots and calibration evidence. Feature extraction, segmentation, assistance rules, threshold comparators, telemetry, inference algorithms and claim semantics are interpretation-bearing and versioned. Older assessments must retain the exact earlier computation and scope; new verdicts do not retroactively rewrite their meaning. No evidence of later discoveries is fabricated into a historical record.
+
+$ nl -ba algorithm/v0_3/AUDIT.md | sed -n '5,7p'
+     5	Positive reproductions below use an explicitly permissive conditional fixture model. They demonstrate implementation/claim errors independent of classifier quality, not achieved attacks on a trained human-writing model.
+     6	
+     7	| Finding | Why it matters | Disposition and regression |
+
+$ nl -ba algorithm/v0_3/AUDIT.md | sed -n '26,39p'
+    26	| Meaningful text substitutions leave all 179 features identical | Representation omits information; deeper fitting cannot recover it | Exact collision regression retained, mandatory attack evaluation, no claim of an optimal semantic detector. **Not solved by current feature family** |
+    27	| Passing a valid record was conflated with observing real composition | A perfect parser cannot authenticate a fabricated record or hidden mental cause | Explicit capture boundary and equivalence theorem. **No universal observer-only guarantee** |
+    28	
+    29	## Reproduced old counterexamples
+    30	
+    31	`artifacts/v02-counterexamples.json` records the actual old conditional outputs: numeric spelling and model substitution returned HUMAN-WRITTEN, a later unrelated source flipped a genuine-shaped target to NOT PROVABLE, and a repeat outside focus passed old structural replay. Sixteen corresponding feature units remained identical under an alphabet substitution. The new tests additionally preserve a collision using ordinary meaningful word replacements.
+    32	
+    33	The old-generation reproduction script is archived alongside its outputs and requires the original 0.2.0 source directory. New regressions build 0.3 synthetic records directly; they do not invent missing observations for real 0.2 captures.
+    34	
+    35	## Decisions not justified as empirical facts
+    36	
+    37	The 64-root minimum, 16/4 production components, 32-scalar source veto, 120-second run boundary, 250-ms cause bound, four heads, 32 shallow trees, 0.1% target, 50% coverage target and B=100 campaign remain explicit engineering/release choices. They were not estimated from human data. Every choice has deterministic semantics so an experiment can reject it. There is no hidden "human score" whose calibration is deferred to intuition.
+    38	
+    39	An automatic spelling exemption, nominal model IDs, incomplete attempts and future source exposure were resolvable errors and have been removed. Behavioural separability, actual independent capture, realistic campaign sampling and label ambiguity cannot be repaired by assertion. The revision preserves those uncertainties and prevents their absence from being treated as successful verification.
+
+$ nl -ba algorithm/v0_3/TELEMETRY.md | sed -n '5,13p'
+     5	Capture only events belonging to the document session. Do not require global keystroke surveillance, screens, audio, cameras or private research history. Such additional signals are not part of this algorithm. A native collector must independently justify source attribution and mutation completeness; the record itself cannot do so.
+     6	
+     7	There are three logically distinct observations: motor/command events; the decoder's actual native text/edit delivery; and the resulting authoritative text mutation. Their normalized record is not a claim that all operating systems expose those three layers to ordinary applications. An input path that exposes only committed strings cannot invent motor events, and a web application cannot treat its own dispatch flags as protected physical origin.
+     8	
+     9	All time values are monotonic microseconds within one record, with declared actual resolution from 1 to 10,000 microseconds. They are integers, multiples of resolution, nondecreasing across the shared total sequence. No cross-record wall-clock or trusted duration is inferred. The timestamps' real-world authenticity belongs to the admitted path.
+    10	
+    11	## Top-level and record fields
+    12	
+    13	The exact top-level keys are `version`, `documents`, `target`. Version must be `hwp-a/0.3`. Records are topologically ordered, at most 32. The target must exist. A record has exactly:
+
+$ nl -ba algorithm/v0_3/TELEMETRY.md | sed -n '27,35p'
+    27	## Observation fields and state machine
+    28	
+    29	Every observation has exactly `i,t,seq,kind,token,source,profile`, plus the conditional fields below. `i` is its zero-based observation index. `seq` is its index in the combined observation/transaction order, not a timestamp. Source is device/synthetic/unknown. Profile is keyboard/touch-tap/ime/gesture. Tokens uniquely identify starts of episodes of the same kind and cannot be reused.
+    30	
+    31	Starts are press, touch_down, ime_start and gesture_start. Corresponding ends are release, touch_up, ime_commit and gesture_end. Updates are touch_move, ime_update and gesture_update. Other kinds are repeat, command, focus_out, focus_in, suspend, resume, gap and delivery. Each end/update references an active matching token, profile and source. Repeats require an active keyboard press. The record closes all started input episodes; incomplete final episodes are NOT PROVABLE, not silently padded with synthetic release times.
+    32	
+    33	Only one IME composition episode may be active at a time in this profile. An `ime_commit` has a nonempty unique `basis` list of earlier press/touch_down observation indices from that composition episode, with matching source/profile. Basis events precede commit strictly by `seq`, even if timestamps tie. Basis use is consumed once. This requires actual instrumentable IME support; an opaque commit from a third-party decoder does not qualify by declaration.
+    34	
+    35	A `delivery` has an additional `effect` object and no basis. Effect is the exact normalized operation and cause references that the native edit delivery independently supplies. It excludes transaction-only keys `i,t,seq,delivery`. Delivery source/profile are separately observed and checked. Commands that change selection or restore history also require a delivery. Every delivery must have exactly one corresponding transaction; dropped or extra deliveries invalidate completeness.
+
+$ nl -ba algorithm/v0_3/TELEMETRY.md | sed -n '58,63p'
+    58	
+    59	## Failures and privacy
+    60	
+    61	Malformed syntax, duplicate JSON keys, nonfinite numbers, bool-as-int values, surrogate code points, missing deliveries, changed input sources, excessive resource use or impossible state transitions fail closed. A capture gap makes the affected record inadmissible. `NOT PROVABLE` is not a diagnosis of why a person wrote as they did.
+    62	
+    63	Deleted wording, timings, corrections and input patterns can be sensitive and identifying. The reference runs locally and makes no network calls. Publishing a verdict does not require publishing this private telemetry. This algorithm-only revision does not specify a privacy proof or a signing protocol.
+
+$ grep -n "test_attestor_lie_is_not_cryptographically_discoverable" protocol/v0/tests/test_protocol.py
+155:    def test_attestor_lie_is_not_cryptographically_discoverable(self):
