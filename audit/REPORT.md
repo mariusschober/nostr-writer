@@ -164,7 +164,12 @@ HWP v0 can honestly certify:
 > the committed capture trace; the proof binds the document, scope, release, trace, lineage
 > and result, and the required signatures verify.**
 
-That is a conditional, policy-relative statement about a captured trace. It is not any of
+Execution assurance is mode-dependent: `disclosed-v1` (or `recompute=True`) actually runs
+the bridge and reports `execution_checked: recomputed`; `attested-v1` reports
+`execution_checked: attestation` and relies on the admitted evaluator's signed assertion
+(`protocol/v0/SPECIFICATION.md` §9; `protocol/v0/docs/OUTPUT.md` lines 46–58). The claim
+above is a recomputed claim in disclosed mode and an admitted-evaluator claim in attested
+mode. It is a conditional, policy-relative statement about a captured trace. It is not any of
 the following:
 
 - **“Authored by a human.”** No. The protocol explicitly does not assert mental causation,
