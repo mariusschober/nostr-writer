@@ -1,0 +1,446 @@
+$ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work/nostr-writer/.venv-hwp/bin/python /home/agent/work/nostr-writer/audit/attacks/attack_06_splice.py
+{
+  "attack": "splicing segments from several sessions",
+  "description": "Two synthetic sessions supply two paragraphs. A child record first represents the union as copy transactions with inherited ranges. A second, modified client re-emits the identical final bytes as direct typed events in one new record.",
+  "expected_in_principle": "Partial. A represented copy is visible: fresh-composition must reject it and wording-origin may carry literal ancestry (SPECIFICATION.md section 7; ALGORITHM.md 'Deterministic reconstruction'; BINDING.md section 4). A typed relabel has no copy edge and is the modified-client case, which the verifier cannot distinguish.",
+  "forged_fresh_relabel": {
+    "claim": "fresh-composition",
+    "computed_internal_result": "HUMAN-WRITTEN",
+    "javascript_attested": {
+      "call": {
+        "policy_pin_hex": "24fff3ef61596acd7e9973ca9ff6bba23f270de43f2f525580694305afff254d",
+        "verifier": "node protocol/v0/tools/verify_attested.mjs"
+      },
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-quq8jgg1/proof.hwp --document /tmp/hwp-audit-quq8jgg1/document.txt --policy /tmp/hwp-audit-quq8jgg1/policy.cbor --policy-pin 24fff3ef61596acd7e9973ca9ff6bba23f270de43f2f525580694305afff254d",
+      "exit_code": 2,
+      "result": {
+        "author": "none",
+        "claim": "fresh-composition",
+        "document": "e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3",
+        "execution_checked": "attestation",
+        "outcome": "NOT PROVABLE",
+        "proof": "72a4c9a3ae4e7174178aaeacae65133da753198d192aeb129e5d6c915a3be658",
+        "ranges": [
+          [
+            0,
+            429
+          ]
+        ],
+        "release": "09cf60e5e15ebf3fb5125d7eff271190005a51b39eeb541d36101949dce3cf62",
+        "scope": "whole-document",
+        "status": "TEST-ONLY"
+      },
+      "stderr_verbatim": "",
+      "stdout_verbatim": "{\n  \"status\": \"TEST-ONLY\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"claim\": \"fresh-composition\",\n  \"scope\": \"whole-document\",\n  \"ranges\": [\n    [\n      0,\n      429\n    ]\n  ],\n  \"author\": \"none\",\n  \"document\": \"e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3\",\n  \"proof\": \"72a4c9a3ae4e7174178aaeacae65133da753198d192aeb129e5d6c915a3be658\",\n  \"release\": \"09cf60e5e15ebf3fb5125d7eff271190005a51b39eeb541d36101949dce3cf62\",\n  \"execution_checked\": \"attestation\"\n}\n"
+    },
+    "python": [
+      {
+        "call": {
+          "policy_pin_hex": "24fff3ef61596acd7e9973ca9ff6bba23f270de43f2f525580694305afff254d",
+          "recompute": false,
+          "verifier": "python protocol/v0 hwp0.protocol.verify"
+        },
+        "result": {
+          "author": "none",
+          "authorship_inference": null,
+          "claim": "fresh-composition",
+          "document": {
+            "sha256": {
+              "$bytes_hex": "e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3"
+            },
+            "size": 429
+          },
+          "execution_checked": "attestation",
+          "mode": "attested-v1",
+          "outcome": "NOT PROVABLE",
+          "policy_sha256": {
+            "$bytes_hex": "24fff3ef61596acd7e9973ca9ff6bba23f270de43f2f525580694305afff254d"
+          },
+          "policy_status_as_of": null,
+          "proof": {
+            "sha256": {
+              "$bytes_hex": "72a4c9a3ae4e7174178aaeacae65133da753198d192aeb129e5d6c915a3be658"
+            },
+            "size": 149
+          },
+          "protocol": "hwp/0",
+          "ranges": [
+            [
+              0,
+              429
+            ]
+          ],
+          "release": {
+            "sha256": {
+              "$bytes_hex": "09cf60e5e15ebf3fb5125d7eff271190005a51b39eeb541d36101949dce3cf62"
+            },
+            "size": 659
+          },
+          "result": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true,
+          "timestamp": "not-assessed"
+        },
+        "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 429]], 'proof': {'size': 149, 'sha256': b'r\\xa4\\xc9\\xa3\\xaeNqt\\x17\\x8a\\xae\\xac\\xaee\\x13=\\xa7S\\x19\\x8d\\x19*\\xeb\\x12\\x9e]l\\x91Z;\\xe6X'}, 'document': {'size': 429, 'sha256': b\"\\xe9\\x88N\\xb0K\\xb2\\x0f\\xb0\\xc1\\x8a\\xf7O\\xf77pmwS\\xf3\\\\kT\\xb5'\\n\\x19\\xa9\\x00P~V\\xd3\"}, 'release': {'size': 659, 'sha256': b\"\\t\\xcf`\\xe5\\xe1^\\xbf?\\xb5\\x12]~\\xff'\\x11\\x90\\x00ZQ\\xb3\\x9e\\xebT\\x1d6\\x10\\x19I\\xdc\\xe3\\xcfb\"}, 'mode': 'attested-v1', 'policy_sha256': b\"$\\xff\\xf3\\xefaYj\\xcd~\\x99s\\xca\\x9f\\xf6\\xbb\\xa2?'\\r\\xe4?/RU\\x80iC\\x05\\xaf\\xff%M\", 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'attestation', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+      },
+      {
+        "call": {
+          "policy_pin_hex": "24fff3ef61596acd7e9973ca9ff6bba23f270de43f2f525580694305afff254d",
+          "recompute": true,
+          "verifier": "python protocol/v0 hwp0.protocol.verify"
+        },
+        "result": {
+          "author": "none",
+          "authorship_inference": null,
+          "claim": "fresh-composition",
+          "document": {
+            "sha256": {
+              "$bytes_hex": "e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3"
+            },
+            "size": 429
+          },
+          "execution_checked": "recomputed",
+          "mode": "attested-v1",
+          "outcome": "NOT PROVABLE",
+          "policy_sha256": {
+            "$bytes_hex": "24fff3ef61596acd7e9973ca9ff6bba23f270de43f2f525580694305afff254d"
+          },
+          "policy_status_as_of": null,
+          "proof": {
+            "sha256": {
+              "$bytes_hex": "72a4c9a3ae4e7174178aaeacae65133da753198d192aeb129e5d6c915a3be658"
+            },
+            "size": 149
+          },
+          "protocol": "hwp/0",
+          "ranges": [
+            [
+              0,
+              429
+            ]
+          ],
+          "release": {
+            "sha256": {
+              "$bytes_hex": "09cf60e5e15ebf3fb5125d7eff271190005a51b39eeb541d36101949dce3cf62"
+            },
+            "size": 659
+          },
+          "result": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true,
+          "timestamp": "not-assessed"
+        },
+        "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 429]], 'proof': {'size': 149, 'sha256': b'r\\xa4\\xc9\\xa3\\xaeNqt\\x17\\x8a\\xae\\xac\\xaee\\x13=\\xa7S\\x19\\x8d\\x19*\\xeb\\x12\\x9e]l\\x91Z;\\xe6X'}, 'document': {'size': 429, 'sha256': b\"\\xe9\\x88N\\xb0K\\xb2\\x0f\\xb0\\xc1\\x8a\\xf7O\\xf77pmwS\\xf3\\\\kT\\xb5'\\n\\x19\\xa9\\x00P~V\\xd3\"}, 'release': {'size': 659, 'sha256': b\"\\t\\xcf`\\xe5\\xe1^\\xbf?\\xb5\\x12]~\\xff'\\x11\\x90\\x00ZQ\\xb3\\x9e\\xebT\\x1d6\\x10\\x19I\\xdc\\xe3\\xcfb\"}, 'mode': 'attested-v1', 'policy_sha256': b\"$\\xff\\xf3\\xefaYj\\xcd~\\x99s\\xca\\x9f\\xf6\\xbb\\xa2?'\\r\\xe4?/RU\\x80iC\\x05\\xaf\\xff%M\", 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'recomputed', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+      }
+    ],
+    "trace": {
+      "final_text_chars": 429,
+      "final_text_utf8_bytes": 429,
+      "first_t_us": 308000,
+      "fixed_transaction_cadence": false,
+      "last_t_us": 122576000,
+      "observation_kinds": [
+        "delivery",
+        "press",
+        "release"
+      ],
+      "observations": 1287,
+      "profiles": [
+        "keyboard"
+      ],
+      "record_id": "forged-child",
+      "sources": [
+        "device"
+      ],
+      "transaction_gap_distinct": 263,
+      "transaction_gap_max_us": 479000,
+      "transaction_gap_min_us": 91000,
+      "transaction_ops": [
+        "splice"
+      ],
+      "transaction_sources": [
+        "direct"
+      ],
+      "transactions": 429
+    }
+  },
+  "fresh_copy_control": {
+    "case": "copied-segments-claimed-fresh-control",
+    "issuance_rejected": "Reject: hwp-not-qualifying",
+    "javascript_attested": null,
+    "python": [],
+    "trace": {
+      "final_text_chars": 429,
+      "final_text_utf8_bytes": 429,
+      "first_t_us": 250000,
+      "fixed_transaction_cadence": true,
+      "last_t_us": 440000,
+      "observation_kinds": [
+        "command",
+        "delivery"
+      ],
+      "observations": 4,
+      "profiles": [
+        "keyboard"
+      ],
+      "record_id": "child",
+      "sources": [
+        "device"
+      ],
+      "transaction_gap_distinct": 1,
+      "transaction_gap_max_us": 190000,
+      "transaction_gap_min_us": 190000,
+      "transaction_ops": [
+        "copy"
+      ],
+      "transaction_sources": [],
+      "transactions": 2
+    }
+  },
+  "inherited_control": {
+    "claim": "wording-origin",
+    "computed_internal_result": "HUMAN-WRITTEN",
+    "javascript_attested": {
+      "call": {
+        "policy_pin_hex": "dfe1bdff3a72e25fd90d65ee846347188b189e4a7cdb439c2b6ba89f233bc05f",
+        "verifier": "node protocol/v0/tools/verify_attested.mjs"
+      },
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-bmjr1lnp/proof.hwp --document /tmp/hwp-audit-bmjr1lnp/document.txt --policy /tmp/hwp-audit-bmjr1lnp/policy.cbor --policy-pin dfe1bdff3a72e25fd90d65ee846347188b189e4a7cdb439c2b6ba89f233bc05f",
+      "exit_code": 2,
+      "result": {
+        "author": "none",
+        "claim": "wording-origin",
+        "document": "e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3",
+        "execution_checked": "attestation",
+        "outcome": "NOT PROVABLE",
+        "proof": "2e2e97bcb99c948ec05a5eb7648869cab8c58b15d1fc448b9990f1ca620538fe",
+        "ranges": [
+          [
+            0,
+            156
+          ],
+          [
+            156,
+            429
+          ]
+        ],
+        "release": "e6c7a7bf286a1622fd819d77bab809f1701085992fa7fdcdd03ef7629aa94b06",
+        "scope": "whole-document",
+        "status": "TEST-ONLY"
+      },
+      "stderr_verbatim": "",
+      "stdout_verbatim": "{\n  \"status\": \"TEST-ONLY\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"claim\": \"wording-origin\",\n  \"scope\": \"whole-document\",\n  \"ranges\": [\n    [\n      0,\n      156\n    ],\n    [\n      156,\n      429\n    ]\n  ],\n  \"author\": \"none\",\n  \"document\": \"e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3\",\n  \"proof\": \"2e2e97bcb99c948ec05a5eb7648869cab8c58b15d1fc448b9990f1ca620538fe\",\n  \"release\": \"e6c7a7bf286a1622fd819d77bab809f1701085992fa7fdcdd03ef7629aa94b06\",\n  \"execution_checked\": \"attestation\"\n}\n"
+    },
+    "python": [
+      {
+        "call": {
+          "policy_pin_hex": "dfe1bdff3a72e25fd90d65ee846347188b189e4a7cdb439c2b6ba89f233bc05f",
+          "recompute": false,
+          "verifier": "python protocol/v0 hwp0.protocol.verify"
+        },
+        "result": {
+          "author": "none",
+          "authorship_inference": null,
+          "claim": "wording-origin",
+          "document": {
+            "sha256": {
+              "$bytes_hex": "e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3"
+            },
+            "size": 429
+          },
+          "execution_checked": "attestation",
+          "mode": "attested-v1",
+          "outcome": "NOT PROVABLE",
+          "policy_sha256": {
+            "$bytes_hex": "dfe1bdff3a72e25fd90d65ee846347188b189e4a7cdb439c2b6ba89f233bc05f"
+          },
+          "policy_status_as_of": null,
+          "proof": {
+            "sha256": {
+              "$bytes_hex": "2e2e97bcb99c948ec05a5eb7648869cab8c58b15d1fc448b9990f1ca620538fe"
+            },
+            "size": 149
+          },
+          "protocol": "hwp/0",
+          "ranges": [
+            [
+              0,
+              156
+            ],
+            [
+              156,
+              429
+            ]
+          ],
+          "release": {
+            "sha256": {
+              "$bytes_hex": "e6c7a7bf286a1622fd819d77bab809f1701085992fa7fdcdd03ef7629aa94b06"
+            },
+            "size": 656
+          },
+          "result": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true,
+          "timestamp": "not-assessed"
+        },
+        "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'wording-origin', 'scope': 'whole-document', 'ranges': [[0, 156], [156, 429]], 'proof': {'size': 149, 'sha256': b'..\\x97\\xbc\\xb9\\x9c\\x94\\x8e\\xc0Z^\\xb7d\\x88i\\xca\\xb8\\xc5\\x8b\\x15\\xd1\\xfcD\\x8b\\x99\\x90\\xf1\\xcab\\x058\\xfe'}, 'document': {'size': 429, 'sha256': b\"\\xe9\\x88N\\xb0K\\xb2\\x0f\\xb0\\xc1\\x8a\\xf7O\\xf77pmwS\\xf3\\\\kT\\xb5'\\n\\x19\\xa9\\x00P~V\\xd3\"}, 'release': {'size': 656, 'sha256': b'\\xe6\\xc7\\xa7\\xbf(j\\x16\"\\xfd\\x81\\x9dw\\xba\\xb8\\t\\xf1p\\x10\\x85\\x99/\\xa7\\xfd\\xcd\\xd0>\\xf7b\\x9a\\xa9K\\x06'}, 'mode': 'attested-v1', 'policy_sha256': b'\\xdf\\xe1\\xbd\\xff:r\\xe2_\\xd9\\re\\xee\\x84cG\\x18\\x8b\\x18\\x9eJ|\\xdbC\\x9c+k\\xa8\\x9f#;\\xc0_', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'attestation', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+      },
+      {
+        "call": {
+          "policy_pin_hex": "dfe1bdff3a72e25fd90d65ee846347188b189e4a7cdb439c2b6ba89f233bc05f",
+          "recompute": true,
+          "verifier": "python protocol/v0 hwp0.protocol.verify"
+        },
+        "result": {
+          "author": "none",
+          "authorship_inference": null,
+          "claim": "wording-origin",
+          "document": {
+            "sha256": {
+              "$bytes_hex": "e9884eb04bb20fb0c18af74ff737706d7753f35c6b54b5270a19a900507e56d3"
+            },
+            "size": 429
+          },
+          "execution_checked": "recomputed",
+          "mode": "attested-v1",
+          "outcome": "NOT PROVABLE",
+          "policy_sha256": {
+            "$bytes_hex": "dfe1bdff3a72e25fd90d65ee846347188b189e4a7cdb439c2b6ba89f233bc05f"
+          },
+          "policy_status_as_of": null,
+          "proof": {
+            "sha256": {
+              "$bytes_hex": "2e2e97bcb99c948ec05a5eb7648869cab8c58b15d1fc448b9990f1ca620538fe"
+            },
+            "size": 149
+          },
+          "protocol": "hwp/0",
+          "ranges": [
+            [
+              0,
+              156
+            ],
+            [
+              156,
+              429
+            ]
+          ],
+          "release": {
+            "sha256": {
+              "$bytes_hex": "e6c7a7bf286a1622fd819d77bab809f1701085992fa7fdcdd03ef7629aa94b06"
+            },
+            "size": 656
+          },
+          "result": null,
+          "scope": "whole-document",
+          "status": "TEST-ONLY",
+          "test_conformance": true,
+          "timestamp": "not-assessed"
+        },
+        "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'wording-origin', 'scope': 'whole-document', 'ranges': [[0, 156], [156, 429]], 'proof': {'size': 149, 'sha256': b'..\\x97\\xbc\\xb9\\x9c\\x94\\x8e\\xc0Z^\\xb7d\\x88i\\xca\\xb8\\xc5\\x8b\\x15\\xd1\\xfcD\\x8b\\x99\\x90\\xf1\\xcab\\x058\\xfe'}, 'document': {'size': 429, 'sha256': b\"\\xe9\\x88N\\xb0K\\xb2\\x0f\\xb0\\xc1\\x8a\\xf7O\\xf77pmwS\\xf3\\\\kT\\xb5'\\n\\x19\\xa9\\x00P~V\\xd3\"}, 'release': {'size': 656, 'sha256': b'\\xe6\\xc7\\xa7\\xbf(j\\x16\"\\xfd\\x81\\x9dw\\xba\\xb8\\t\\xf1p\\x10\\x85\\x99/\\xa7\\xfd\\xcd\\xd0>\\xf7b\\x9a\\xa9K\\x06'}, 'mode': 'attested-v1', 'policy_sha256': b'\\xdf\\xe1\\xbd\\xff:r\\xe2_\\xd9\\re\\xee\\x84cG\\x18\\x8b\\x18\\x9eJ|\\xdbC\\x9c+k\\xa8\\x9f#;\\xc0_', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'recomputed', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+      }
+    ],
+    "trace": {
+      "final_text_chars": 429,
+      "final_text_utf8_bytes": 429,
+      "first_t_us": 250000,
+      "fixed_transaction_cadence": true,
+      "last_t_us": 440000,
+      "observation_kinds": [
+        "command",
+        "delivery"
+      ],
+      "observations": 4,
+      "profiles": [
+        "keyboard"
+      ],
+      "record_id": "child",
+      "sources": [
+        "device"
+      ],
+      "transaction_gap_distinct": 1,
+      "transaction_gap_max_us": 190000,
+      "transaction_gap_min_us": 190000,
+      "transaction_ops": [
+        "copy"
+      ],
+      "transaction_sources": [],
+      "transactions": 2
+    }
+  },
+  "notes": "The inherited and forged proofs cover the same final document. The inherited one is limited to wording-origin; the forged one is internally certified as fresh composition because it carries no copy transaction.",
+  "same_final_document": true,
+  "sessions": {
+    "a": {
+      "document_hex": "412077726974657220636f6e736964657273206120636c61696d2c206368616e6765732074686520776f7264696e672c20616e6420666f6c6c6f77732074686520636f6e73657175656e636573207468726f7567682061206c6f6e67657220617267756d656e742e20546869732073796e74686574696320666978747572652070726f766573206e6f2068756d616e20617574686f72736869702e20",
+      "record": {
+        "final_text_chars": 156,
+        "final_text_utf8_bytes": 156,
+        "first_t_us": 244000,
+        "fixed_transaction_cadence": false,
+        "last_t_us": 43949000,
+        "observation_kinds": [
+          "delivery",
+          "press",
+          "release"
+        ],
+        "observations": 468,
+        "profiles": [
+          "keyboard"
+        ],
+        "record_id": "a",
+        "sources": [
+          "device"
+        ],
+        "transaction_gap_distinct": 130,
+        "transaction_gap_max_us": 476000,
+        "transaction_gap_min_us": 91000,
+        "transaction_ops": [
+          "splice"
+        ],
+        "transaction_sources": [
+          "direct"
+        ],
+        "transactions": 156
+      }
+    },
+    "b": {
+      "document_hex": "41207365636f6e6420696e646570656e64656e742073657373696f6e207265636f726473206120646966666572656e74207061726167726170682c20646966666572656e7420776f72647320616e64206120646966666572656e742072687974686d2e20497420657869737473206f6e6c7920617320612073796e74686574696320666978747572652e205468652061756469742061736b732077686574686572207468652070726f746f636f6c2063616e2074656c6c20746861742074686573652062797465732063616d652066726f6d20616e6f746865722073657373696f6e207768656e2061206d6f64696669656420636c69656e742072652d656d697473207468656d2061732074797065642e",
+      "record": {
+        "final_text_chars": 273,
+        "final_text_utf8_bytes": 273,
+        "first_t_us": 231000,
+        "fixed_transaction_cadence": false,
+        "last_t_us": 76086000,
+        "observation_kinds": [
+          "delivery",
+          "press",
+          "release"
+        ],
+        "observations": 819,
+        "profiles": [
+          "keyboard"
+        ],
+        "record_id": "b",
+        "sources": [
+          "device"
+        ],
+        "transaction_gap_distinct": 194,
+        "transaction_gap_max_us": 477000,
+        "transaction_gap_min_us": 92000,
+        "transaction_ops": [
+          "splice"
+        ],
+        "transaction_sources": [
+          "direct"
+        ],
+        "transactions": 273
+      }
+    }
+  }
+}
+--- stderr ---
+[exit code: 0]

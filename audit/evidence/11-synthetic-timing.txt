@@ -1,0 +1,192 @@
+$ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work/nostr-writer/.venv-hwp/bin/python /home/agent/work/nostr-writer/audit/attacks/attack_02_synthetic_timing.py
+{
+  "attack": "synthetic keystroke timing generated to mimic humans",
+  "computed_internal_result": "HUMAN-WRITTEN",
+  "description": "A program inserts every character with a variable delay schedule and three sentence-like pauses. The client records ordinary device sources and native deliveries.",
+  "expected_in_principle": "No protocol guarantee of detection. Timing is only an input feature; the verifier has no independent clock. An observer-only rule cannot distinguish an attack whose observation distribution equals the genuine distribution (ALGORITHM.md 'Falsifiable limitations retained'; THREAT-MODEL.md 'Guarantees that do not follow').",
+  "javascript_attested": {
+    "call": {
+      "policy_pin_hex": "b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
+      "verifier": "node protocol/v0/tools/verify_attested.mjs"
+    },
+    "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-hynfmy06/proof.hwp --document /tmp/hwp-audit-hynfmy06/document.txt --policy /tmp/hwp-audit-hynfmy06/policy.cbor --policy-pin b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
+    "exit_code": 2,
+    "result": {
+      "author": "none",
+      "claim": "fresh-composition",
+      "document": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1",
+      "execution_checked": "attestation",
+      "outcome": "NOT PROVABLE",
+      "proof": "62d1e21bb2e40aba88706bf2cc6532a48e25b158896e97e2425eb90515a331e1",
+      "ranges": [
+        [
+          0,
+          312
+        ]
+      ],
+      "release": "632a8ce9652762ff63870933e2287db338c889e00bfca45eeaa99c83183697e2",
+      "scope": "whole-document",
+      "status": "TEST-ONLY"
+    },
+    "stderr_verbatim": "",
+    "stdout_verbatim": "{\n  \"status\": \"TEST-ONLY\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"claim\": \"fresh-composition\",\n  \"scope\": \"whole-document\",\n  \"ranges\": [\n    [\n      0,\n      312\n    ]\n  ],\n  \"author\": \"none\",\n  \"document\": \"49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1\",\n  \"proof\": \"62d1e21bb2e40aba88706bf2cc6532a48e25b158896e97e2425eb90515a331e1\",\n  \"release\": \"632a8ce9652762ff63870933e2287db338c889e00bfca45eeaa99c83183697e2\",\n  \"execution_checked\": \"attestation\"\n}\n"
+  },
+  "notes": "The permissive conformance model accepts the trace. A trained model might separate this particular schedule, but no production model is shipped and no universal timing detector is claimed.",
+  "python": [
+    {
+      "call": {
+        "policy_pin_hex": "b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
+        "recompute": false,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "author": "none",
+        "authorship_inference": null,
+        "claim": "fresh-composition",
+        "document": {
+          "sha256": {
+            "$bytes_hex": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1"
+          },
+          "size": 312
+        },
+        "execution_checked": "attestation",
+        "mode": "attested-v1",
+        "outcome": "NOT PROVABLE",
+        "policy_sha256": {
+          "$bytes_hex": "b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e"
+        },
+        "policy_status_as_of": null,
+        "proof": {
+          "sha256": {
+            "$bytes_hex": "62d1e21bb2e40aba88706bf2cc6532a48e25b158896e97e2425eb90515a331e1"
+          },
+          "size": 149
+        },
+        "protocol": "hwp/0",
+        "ranges": [
+          [
+            0,
+            312
+          ]
+        ],
+        "release": {
+          "sha256": {
+            "$bytes_hex": "632a8ce9652762ff63870933e2287db338c889e00bfca45eeaa99c83183697e2"
+          },
+          "size": 659
+        },
+        "result": null,
+        "scope": "whole-document",
+        "status": "TEST-ONLY",
+        "test_conformance": true,
+        "timestamp": "not-assessed"
+      },
+      "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 312]], 'proof': {'size': 149, 'sha256': b'b\\xd1\\xe2\\x1b\\xb2\\xe4\\n\\xba\\x88pk\\xf2\\xcce2\\xa4\\x8e%\\xb1X\\x89n\\x97\\xe2B^\\xb9\\x05\\x15\\xa31\\xe1'}, 'document': {'size': 312, 'sha256': b'I\\xbd\\t\\x9c\\xf8\\xafj\\x98\\xb9\\xaa\\xbf\\x05\\x16E\\x7fs\\x80\\xdf*\\xb5+\\xc8\\x93\\xe6}\\x10[C\\x95I\\x83\\xf1'}, 'release': {'size': 659, 'sha256': b\"c*\\x8c\\xe9e'b\\xffc\\x87\\t3\\xe2(}\\xb38\\xc8\\x89\\xe0\\x0b\\xfc\\xa4^\\xea\\xa9\\x9c\\x83\\x186\\x97\\xe2\"}, 'mode': 'attested-v1', 'policy_sha256': b'\\xb1\\xf9K\\x94;\\x07[qe\\xa6\\xe8\\x8a|y\\xc5\\xdc\\x9b^\\xbdG?\\xe6\\xe9\\xefQ+PnS\\xb7K~', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'attestation', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+    },
+    {
+      "call": {
+        "policy_pin_hex": "b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e",
+        "recompute": true,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "author": "none",
+        "authorship_inference": null,
+        "claim": "fresh-composition",
+        "document": {
+          "sha256": {
+            "$bytes_hex": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1"
+          },
+          "size": 312
+        },
+        "execution_checked": "recomputed",
+        "mode": "attested-v1",
+        "outcome": "NOT PROVABLE",
+        "policy_sha256": {
+          "$bytes_hex": "b1f94b943b075b7165a6e88a7c79c5dc9b5ebd473fe6e9ef512b506e53b74b7e"
+        },
+        "policy_status_as_of": null,
+        "proof": {
+          "sha256": {
+            "$bytes_hex": "62d1e21bb2e40aba88706bf2cc6532a48e25b158896e97e2425eb90515a331e1"
+          },
+          "size": 149
+        },
+        "protocol": "hwp/0",
+        "ranges": [
+          [
+            0,
+            312
+          ]
+        ],
+        "release": {
+          "sha256": {
+            "$bytes_hex": "632a8ce9652762ff63870933e2287db338c889e00bfca45eeaa99c83183697e2"
+          },
+          "size": 659
+        },
+        "result": null,
+        "scope": "whole-document",
+        "status": "TEST-ONLY",
+        "test_conformance": true,
+        "timestamp": "not-assessed"
+      },
+      "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 312]], 'proof': {'size': 149, 'sha256': b'b\\xd1\\xe2\\x1b\\xb2\\xe4\\n\\xba\\x88pk\\xf2\\xcce2\\xa4\\x8e%\\xb1X\\x89n\\x97\\xe2B^\\xb9\\x05\\x15\\xa31\\xe1'}, 'document': {'size': 312, 'sha256': b'I\\xbd\\t\\x9c\\xf8\\xafj\\x98\\xb9\\xaa\\xbf\\x05\\x16E\\x7fs\\x80\\xdf*\\xb5+\\xc8\\x93\\xe6}\\x10[C\\x95I\\x83\\xf1'}, 'release': {'size': 659, 'sha256': b\"c*\\x8c\\xe9e'b\\xffc\\x87\\t3\\xe2(}\\xb38\\xc8\\x89\\xe0\\x0b\\xfc\\xa4^\\xea\\xa9\\x9c\\x83\\x186\\x97\\xe2\"}, 'mode': 'attested-v1', 'policy_sha256': b'\\xb1\\xf9K\\x94;\\x07[qe\\xa6\\xe8\\x8a|y\\xc5\\xdc\\x9b^\\xbdG?\\xe6\\xe9\\xefQ+PnS\\xb7K~', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'recomputed', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+    }
+  ],
+  "trace": {
+    "final_text_chars": 312,
+    "final_text_utf8_bytes": 312,
+    "first_t_us": 220000,
+    "fixed_transaction_cadence": false,
+    "last_t_us": 61810000,
+    "observation_kinds": [
+      "delivery",
+      "press",
+      "release"
+    ],
+    "observations": 936,
+    "profiles": [
+      "keyboard"
+    ],
+    "record_id": "synthetic-timing",
+    "schedule": {
+      "delays_ms": [
+        120,
+        95,
+        210,
+        80,
+        300,
+        140,
+        90,
+        250,
+        110,
+        180,
+        70,
+        230
+      ],
+      "human_observation": false,
+      "kind": "hand-written variable delays with pauses",
+      "pauses_us": {
+        "120": 900000,
+        "220": 1500000,
+        "40": 1200000
+      }
+    },
+    "sources": [
+      "device"
+    ],
+    "transaction_gap_distinct": 15,
+    "transaction_gap_max_us": 1830000,
+    "transaction_gap_min_us": 100000,
+    "transaction_ops": [
+      "splice"
+    ],
+    "transaction_sources": [
+      "direct"
+    ],
+    "transactions": 312
+  }
+}
+--- stderr ---
+[exit code: 0]

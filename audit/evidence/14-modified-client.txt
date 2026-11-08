@@ -1,0 +1,174 @@
+$ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work/nostr-writer/.venv-hwp/bin/python /home/agent/work/nostr-writer/audit/attacks/attack_05_modified_client.py
+{
+  "attack": "modified client fabricates capture data",
+  "computed_internal_result": "HUMAN-WRITTEN",
+  "description": "A modified capture client invents a complete, structurally valid history consistent with a chosen final document, signs the start and end with the admitted capture key, and has the admitted evaluator sign the statement.",
+  "expected_in_principle": "Not detectable by the reference verifier. Signatures authenticate the key, not the client's honesty. A dishonest admitted source can fabricate a structurally valid history (SPECIFICATION.md sections 3, 6, 8; BINDING.md section 6; AUDIT.md 'What is fixed versus assumed'; THREAT-MODEL.md row 'Fabrication of delivery fields or timestamps').",
+  "javascript_attested": {
+    "call": {
+      "policy_pin_hex": "0fe57528399f7d3ba5212cba6327211d9d5e22f76281efb370cad18b2a6e3a20",
+      "verifier": "node protocol/v0/tools/verify_attested.mjs"
+    },
+    "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-hu7dneiw/proof.hwp --document /tmp/hwp-audit-hu7dneiw/document.txt --policy /tmp/hwp-audit-hu7dneiw/policy.cbor --policy-pin 0fe57528399f7d3ba5212cba6327211d9d5e22f76281efb370cad18b2a6e3a20",
+    "exit_code": 2,
+    "result": {
+      "author": "none",
+      "claim": "fresh-composition",
+      "document": "1a630d5342f4bd9ee7517c43d0bdb124c7d067bc564b086584bb1e93024a655a",
+      "execution_checked": "attestation",
+      "outcome": "NOT PROVABLE",
+      "proof": "d2e50107fc2fee6fcfa111b4125ef4a666dbb20d0b22eeb314ad37f4bc979d61",
+      "ranges": [
+        [
+          0,
+          308
+        ]
+      ],
+      "release": "4f1dcc66f6d195ec6372f70478300c02ce6993d05278d290392b289cff797b79",
+      "scope": "whole-document",
+      "status": "TEST-ONLY"
+    },
+    "stderr_verbatim": "",
+    "stdout_verbatim": "{\n  \"status\": \"TEST-ONLY\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"claim\": \"fresh-composition\",\n  \"scope\": \"whole-document\",\n  \"ranges\": [\n    [\n      0,\n      308\n    ]\n  ],\n  \"author\": \"none\",\n  \"document\": \"1a630d5342f4bd9ee7517c43d0bdb124c7d067bc564b086584bb1e93024a655a\",\n  \"proof\": \"d2e50107fc2fee6fcfa111b4125ef4a666dbb20d0b22eeb314ad37f4bc979d61\",\n  \"release\": \"4f1dcc66f6d195ec6372f70478300c02ce6993d05278d290392b289cff797b79\",\n  \"execution_checked\": \"attestation\"\n}\n"
+  },
+  "notes": "Unlike the frozen paste-based lying-attestor regression, this trace fabricates device events that the real bridge replays and accepts. Disclosed recomputation therefore passes too: it checks consistency, not physical occurrence.",
+  "python": [
+    {
+      "call": {
+        "policy_pin_hex": "0fe57528399f7d3ba5212cba6327211d9d5e22f76281efb370cad18b2a6e3a20",
+        "recompute": false,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "author": "none",
+        "authorship_inference": null,
+        "claim": "fresh-composition",
+        "document": {
+          "sha256": {
+            "$bytes_hex": "1a630d5342f4bd9ee7517c43d0bdb124c7d067bc564b086584bb1e93024a655a"
+          },
+          "size": 308
+        },
+        "execution_checked": "attestation",
+        "mode": "attested-v1",
+        "outcome": "NOT PROVABLE",
+        "policy_sha256": {
+          "$bytes_hex": "0fe57528399f7d3ba5212cba6327211d9d5e22f76281efb370cad18b2a6e3a20"
+        },
+        "policy_status_as_of": null,
+        "proof": {
+          "sha256": {
+            "$bytes_hex": "d2e50107fc2fee6fcfa111b4125ef4a666dbb20d0b22eeb314ad37f4bc979d61"
+          },
+          "size": 149
+        },
+        "protocol": "hwp/0",
+        "ranges": [
+          [
+            0,
+            308
+          ]
+        ],
+        "release": {
+          "sha256": {
+            "$bytes_hex": "4f1dcc66f6d195ec6372f70478300c02ce6993d05278d290392b289cff797b79"
+          },
+          "size": 659
+        },
+        "result": null,
+        "scope": "whole-document",
+        "status": "TEST-ONLY",
+        "test_conformance": true,
+        "timestamp": "not-assessed"
+      },
+      "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 308]], 'proof': {'size': 149, 'sha256': b'\\xd2\\xe5\\x01\\x07\\xfc/\\xeeo\\xcf\\xa1\\x11\\xb4\\x12^\\xf4\\xa6f\\xdb\\xb2\\r\\x0b\"\\xee\\xb3\\x14\\xad7\\xf4\\xbc\\x97\\x9da'}, 'document': {'size': 308, 'sha256': b'\\x1ac\\rSB\\xf4\\xbd\\x9e\\xe7Q|C\\xd0\\xbd\\xb1$\\xc7\\xd0g\\xbcVK\\x08e\\x84\\xbb\\x1e\\x93\\x02JeZ'}, 'release': {'size': 659, 'sha256': b'O\\x1d\\xccf\\xf6\\xd1\\x95\\xeccr\\xf7\\x04x0\\x0c\\x02\\xcei\\x93\\xd0Rx\\xd2\\x909+(\\x9c\\xffy{y'}, 'mode': 'attested-v1', 'policy_sha256': b'\\x0f\\xe5u(9\\x9f};\\xa5!,\\xbac\\'!\\x1d\\x9d^\"\\xf7b\\x81\\xef\\xb3p\\xca\\xd1\\x8b*n: ', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'attestation', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+    },
+    {
+      "call": {
+        "policy_pin_hex": "0fe57528399f7d3ba5212cba6327211d9d5e22f76281efb370cad18b2a6e3a20",
+        "recompute": true,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "author": "none",
+        "authorship_inference": null,
+        "claim": "fresh-composition",
+        "document": {
+          "sha256": {
+            "$bytes_hex": "1a630d5342f4bd9ee7517c43d0bdb124c7d067bc564b086584bb1e93024a655a"
+          },
+          "size": 308
+        },
+        "execution_checked": "recomputed",
+        "mode": "attested-v1",
+        "outcome": "NOT PROVABLE",
+        "policy_sha256": {
+          "$bytes_hex": "0fe57528399f7d3ba5212cba6327211d9d5e22f76281efb370cad18b2a6e3a20"
+        },
+        "policy_status_as_of": null,
+        "proof": {
+          "sha256": {
+            "$bytes_hex": "d2e50107fc2fee6fcfa111b4125ef4a666dbb20d0b22eeb314ad37f4bc979d61"
+          },
+          "size": 149
+        },
+        "protocol": "hwp/0",
+        "ranges": [
+          [
+            0,
+            308
+          ]
+        ],
+        "release": {
+          "sha256": {
+            "$bytes_hex": "4f1dcc66f6d195ec6372f70478300c02ce6993d05278d290392b289cff797b79"
+          },
+          "size": 659
+        },
+        "result": null,
+        "scope": "whole-document",
+        "status": "TEST-ONLY",
+        "test_conformance": true,
+        "timestamp": "not-assessed"
+      },
+      "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 308]], 'proof': {'size': 149, 'sha256': b'\\xd2\\xe5\\x01\\x07\\xfc/\\xeeo\\xcf\\xa1\\x11\\xb4\\x12^\\xf4\\xa6f\\xdb\\xb2\\r\\x0b\"\\xee\\xb3\\x14\\xad7\\xf4\\xbc\\x97\\x9da'}, 'document': {'size': 308, 'sha256': b'\\x1ac\\rSB\\xf4\\xbd\\x9e\\xe7Q|C\\xd0\\xbd\\xb1$\\xc7\\xd0g\\xbcVK\\x08e\\x84\\xbb\\x1e\\x93\\x02JeZ'}, 'release': {'size': 659, 'sha256': b'O\\x1d\\xccf\\xf6\\xd1\\x95\\xeccr\\xf7\\x04x0\\x0c\\x02\\xcei\\x93\\xd0Rx\\xd2\\x909+(\\x9c\\xffy{y'}, 'mode': 'attested-v1', 'policy_sha256': b'\\x0f\\xe5u(9\\x9f};\\xa5!,\\xbac\\'!\\x1d\\x9d^\"\\xf7b\\x81\\xef\\xb3p\\xca\\xd1\\x8b*n: ', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'recomputed', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+    }
+  ],
+  "trace": {
+    "construction": {
+      "events_synthesized": true,
+      "final_text_chosen_before_events": true,
+      "physical_session_observed": false
+    },
+    "final_text_chars": 308,
+    "final_text_utf8_bytes": 308,
+    "first_t_us": 427000,
+    "fixed_transaction_cadence": false,
+    "last_t_us": 87058000,
+    "observation_kinds": [
+      "delivery",
+      "press",
+      "release"
+    ],
+    "observations": 924,
+    "profiles": [
+      "keyboard"
+    ],
+    "record_id": "modified-client",
+    "sources": [
+      "device"
+    ],
+    "transaction_gap_distinct": 214,
+    "transaction_gap_max_us": 478000,
+    "transaction_gap_min_us": 92000,
+    "transaction_ops": [
+      "splice"
+    ],
+    "transaction_sources": [
+      "direct"
+    ],
+    "transactions": 308
+  }
+}
+--- stderr ---
+[exit code: 0]

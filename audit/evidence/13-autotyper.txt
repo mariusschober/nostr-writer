@@ -1,0 +1,175 @@
+$ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work/nostr-writer/.venv-hwp/bin/python /home/agent/work/nostr-writer/audit/attacks/attack_04_autotyper.py
+{
+  "attack": "autotyper or HID device driven by software",
+  "computed_internal_result": "HUMAN-WRITTEN",
+  "description": "A program emits a fixed 31-32 ms keystroke cadence for every character. The client records press/release observations, native deliveries and mutations, labels the source 'device', and signs the capture. No hand touches the device.",
+  "expected_in_principle": "No, if the device is observation-equivalent to a keyboard. HWP v0 has no hardware provenance; source labels are capture classifications, not writer declarations, and faithful-device-origin/native-delivery-binding are assumptions (SPECIFICATION.md sections 3, 5, 6; algorithm/v0_3/TELEMETRY.md; THREAT-MODEL.md row 'Fabrication of delivery fields or timestamps').",
+  "javascript_attested": {
+    "call": {
+      "policy_pin_hex": "9695a07c167261f13cf95d439fb0cfec6b6287fe2e31bacc68dd0f0576bec1f1",
+      "verifier": "node protocol/v0/tools/verify_attested.mjs"
+    },
+    "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-unleptku/proof.hwp --document /tmp/hwp-audit-unleptku/document.txt --policy /tmp/hwp-audit-unleptku/policy.cbor --policy-pin 9695a07c167261f13cf95d439fb0cfec6b6287fe2e31bacc68dd0f0576bec1f1",
+    "exit_code": 2,
+    "result": {
+      "author": "none",
+      "claim": "fresh-composition",
+      "document": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1",
+      "execution_checked": "attestation",
+      "outcome": "NOT PROVABLE",
+      "proof": "7d6067123a2cb5fa005a0e2746147242b0fb32a7b63bd4c1346af6925fdfd71f",
+      "ranges": [
+        [
+          0,
+          312
+        ]
+      ],
+      "release": "9cf6c054f21293db455a737c7780f15f7f081a122222cee42a70098fcad2c803",
+      "scope": "whole-document",
+      "status": "TEST-ONLY"
+    },
+    "stderr_verbatim": "",
+    "stdout_verbatim": "{\n  \"status\": \"TEST-ONLY\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"claim\": \"fresh-composition\",\n  \"scope\": \"whole-document\",\n  \"ranges\": [\n    [\n      0,\n      312\n    ]\n  ],\n  \"author\": \"none\",\n  \"document\": \"49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1\",\n  \"proof\": \"7d6067123a2cb5fa005a0e2746147242b0fb32a7b63bd4c1346af6925fdfd71f\",\n  \"release\": \"9cf6c054f21293db455a737c7780f15f7f081a122222cee42a70098fcad2c803\",\n  \"execution_checked\": \"attestation\"\n}\n"
+  },
+  "notes": "A trained timing model might flag this fixed cadence. That is an empirical detector question, not a protocol guarantee. The frozen fixture model accepts it, and no production model is shipped.",
+  "python": [
+    {
+      "call": {
+        "policy_pin_hex": "9695a07c167261f13cf95d439fb0cfec6b6287fe2e31bacc68dd0f0576bec1f1",
+        "recompute": false,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "author": "none",
+        "authorship_inference": null,
+        "claim": "fresh-composition",
+        "document": {
+          "sha256": {
+            "$bytes_hex": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1"
+          },
+          "size": 312
+        },
+        "execution_checked": "attestation",
+        "mode": "attested-v1",
+        "outcome": "NOT PROVABLE",
+        "policy_sha256": {
+          "$bytes_hex": "9695a07c167261f13cf95d439fb0cfec6b6287fe2e31bacc68dd0f0576bec1f1"
+        },
+        "policy_status_as_of": null,
+        "proof": {
+          "sha256": {
+            "$bytes_hex": "7d6067123a2cb5fa005a0e2746147242b0fb32a7b63bd4c1346af6925fdfd71f"
+          },
+          "size": 149
+        },
+        "protocol": "hwp/0",
+        "ranges": [
+          [
+            0,
+            312
+          ]
+        ],
+        "release": {
+          "sha256": {
+            "$bytes_hex": "9cf6c054f21293db455a737c7780f15f7f081a122222cee42a70098fcad2c803"
+          },
+          "size": 659
+        },
+        "result": null,
+        "scope": "whole-document",
+        "status": "TEST-ONLY",
+        "test_conformance": true,
+        "timestamp": "not-assessed"
+      },
+      "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 312]], 'proof': {'size': 149, 'sha256': b\"}`g\\x12:,\\xb5\\xfa\\x00Z\\x0e'F\\x14rB\\xb0\\xfb2\\xa7\\xb6;\\xd4\\xc14j\\xf6\\x92_\\xdf\\xd7\\x1f\"}, 'document': {'size': 312, 'sha256': b'I\\xbd\\t\\x9c\\xf8\\xafj\\x98\\xb9\\xaa\\xbf\\x05\\x16E\\x7fs\\x80\\xdf*\\xb5+\\xc8\\x93\\xe6}\\x10[C\\x95I\\x83\\xf1'}, 'release': {'size': 659, 'sha256': b'\\x9c\\xf6\\xc0T\\xf2\\x12\\x93\\xdbEZs|w\\x80\\xf1_\\x7f\\x08\\x1a\\x12\"\"\\xce\\xe4*p\\t\\x8f\\xca\\xd2\\xc8\\x03'}, 'mode': 'attested-v1', 'policy_sha256': b'\\x96\\x95\\xa0|\\x16ra\\xf1<\\xf9]C\\x9f\\xb0\\xcf\\xeckb\\x87\\xfe.1\\xba\\xcch\\xdd\\x0f\\x05v\\xbe\\xc1\\xf1', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'attestation', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+    },
+    {
+      "call": {
+        "policy_pin_hex": "9695a07c167261f13cf95d439fb0cfec6b6287fe2e31bacc68dd0f0576bec1f1",
+        "recompute": true,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "author": "none",
+        "authorship_inference": null,
+        "claim": "fresh-composition",
+        "document": {
+          "sha256": {
+            "$bytes_hex": "49bd099cf8af6a98b9aabf0516457f7380df2ab52bc893e67d105b43954983f1"
+          },
+          "size": 312
+        },
+        "execution_checked": "recomputed",
+        "mode": "attested-v1",
+        "outcome": "NOT PROVABLE",
+        "policy_sha256": {
+          "$bytes_hex": "9695a07c167261f13cf95d439fb0cfec6b6287fe2e31bacc68dd0f0576bec1f1"
+        },
+        "policy_status_as_of": null,
+        "proof": {
+          "sha256": {
+            "$bytes_hex": "7d6067123a2cb5fa005a0e2746147242b0fb32a7b63bd4c1346af6925fdfd71f"
+          },
+          "size": 149
+        },
+        "protocol": "hwp/0",
+        "ranges": [
+          [
+            0,
+            312
+          ]
+        ],
+        "release": {
+          "sha256": {
+            "$bytes_hex": "9cf6c054f21293db455a737c7780f15f7f081a122222cee42a70098fcad2c803"
+          },
+          "size": 659
+        },
+        "result": null,
+        "scope": "whole-document",
+        "status": "TEST-ONLY",
+        "test_conformance": true,
+        "timestamp": "not-assessed"
+      },
+      "verbatim_repr": "{'status': 'TEST-ONLY', 'result': None, 'claim': 'fresh-composition', 'scope': 'whole-document', 'ranges': [[0, 312]], 'proof': {'size': 149, 'sha256': b\"}`g\\x12:,\\xb5\\xfa\\x00Z\\x0e'F\\x14rB\\xb0\\xfb2\\xa7\\xb6;\\xd4\\xc14j\\xf6\\x92_\\xdf\\xd7\\x1f\"}, 'document': {'size': 312, 'sha256': b'I\\xbd\\t\\x9c\\xf8\\xafj\\x98\\xb9\\xaa\\xbf\\x05\\x16E\\x7fs\\x80\\xdf*\\xb5+\\xc8\\x93\\xe6}\\x10[C\\x95I\\x83\\xf1'}, 'release': {'size': 659, 'sha256': b'\\x9c\\xf6\\xc0T\\xf2\\x12\\x93\\xdbEZs|w\\x80\\xf1_\\x7f\\x08\\x1a\\x12\"\"\\xce\\xe4*p\\t\\x8f\\xca\\xd2\\xc8\\x03'}, 'mode': 'attested-v1', 'policy_sha256': b'\\x96\\x95\\xa0|\\x16ra\\xf1<\\xf9]C\\x9f\\xb0\\xcf\\xeckb\\x87\\xfe.1\\xba\\xcch\\xdd\\x0f\\x05v\\xbe\\xc1\\xf1', 'policy_status_as_of': None, 'author': 'none', 'timestamp': 'not-assessed', 'execution_checked': 'recomputed', 'outcome': 'NOT PROVABLE', 'test_conformance': True, 'protocol': 'hwp/0', 'authorship_inference': None}"
+    }
+  ],
+  "trace": {
+    "final_text_chars": 312,
+    "final_text_utf8_bytes": 312,
+    "first_t_us": 102000,
+    "fixed_transaction_cadence": true,
+    "last_t_us": 10084000,
+    "observation_kinds": [
+      "delivery",
+      "press",
+      "release"
+    ],
+    "observations": 936,
+    "profiles": [
+      "keyboard"
+    ],
+    "record_id": "autotyper",
+    "schedule": {
+      "device_label_seen_by_client": "device",
+      "effective_inter_key_us": 32000,
+      "human_observation": false,
+      "kind": "fixed 2 ms request delay; keyboard press/release adds 30 ms dwell"
+    },
+    "sources": [
+      "device"
+    ],
+    "transaction_gap_distinct": 1,
+    "transaction_gap_max_us": 32000,
+    "transaction_gap_min_us": 32000,
+    "transaction_ops": [
+      "splice"
+    ],
+    "transaction_sources": [
+      "direct"
+    ],
+    "transactions": 312
+  }
+}
+--- stderr ---
+[exit code: 0]
