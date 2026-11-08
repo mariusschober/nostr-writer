@@ -334,4 +334,6 @@ above are captured verbatim in [`05-protocol-citations.txt`](evidence/05-protoco
 | [`15-splice.txt`](evidence/15-splice.txt) | Inherited splice, fresh-copy control, typed relabel |
 | [`16-self-issued-production.txt`](evidence/16-self-issued-production.txt) | Attacker production policy, conformance-policy control, wrong-pin control |
 | [`17-run-all.txt`](evidence/17-run-all.txt) | Full attack-run log and frozen-tree check |
+| [`18-report-link-check.txt`](evidence/18-report-link-check.txt) | Markdown link and evidence-path check for the audit docs (0 broken) |
+| [`19-check-preparation-after.txt`](evidence/19-check-preparation-after.txt) | Preparation check re-run after the audit additions (PASS) |
 | [`attack-summary.json`](evidence/attack-summary.json) | Machine-readable summary of every collected verdict |
