@@ -30,6 +30,21 @@ def main():
     conformance_pin = c.digest(conformance_bytes)
 
     wrong_pin = bytes(32)
+
+    # Controls that model an independently pinned honest policy: either the
+    # fabricated release is not admitted, or the attacker's capture key is not.
+    honest_release_policy = c.decode(forged["policy_bytes"])
+    honest_release_policy["releases"] = []
+    honest_release_policy["label"] = "Honest policy that does not admit the fabricated release"
+    honest_release_bytes = c.encode(honest_release_policy)
+    honest_release_pin = c.digest(honest_release_bytes)
+
+    honest_capture_policy = c.decode(forged["policy_bytes"])
+    honest_capture_policy["capture_authorities"] = []
+    honest_capture_policy["label"] = "Honest policy that does not admit the attacker capture key"
+    honest_capture_bytes = c.encode(honest_capture_policy)
+    honest_capture_pin = c.digest(honest_capture_bytes)
+
     facts = trace_facts(forged["record"])
     facts["construction"] = {
         "empirical_report_contents": "arbitrary synthetic bytes; no study",
@@ -71,6 +86,22 @@ def main():
             "control_same_proof_wrong_independent_pin": {
                 "python": py_verify(forged, policy_pin=wrong_pin),
                 "javascript_attested": js_verify(forged, policy_pin=wrong_pin),
+            },
+            "control_honest_policy_release_not_admitted": {
+                "python": py_verify(
+                    forged, policy_bytes=honest_release_bytes, policy_pin=honest_release_pin
+                ),
+                "javascript_attested": js_verify(
+                    forged, policy_bytes=honest_release_bytes, policy_pin=honest_release_pin
+                ),
+            },
+            "control_honest_policy_capture_key_not_admitted": {
+                "python": py_verify(
+                    forged, policy_bytes=honest_capture_bytes, policy_pin=honest_capture_pin
+                ),
+                "javascript_attested": js_verify(
+                    forged, policy_bytes=honest_capture_bytes, policy_pin=honest_capture_pin
+                ),
             },
             "notes": (
                 "The attacker-policy run is the literal HUMAN-WRITTEN result. It is "

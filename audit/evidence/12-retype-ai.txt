@@ -52,7 +52,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
         "policy_pin_hex": "a4436ffeb171598def203b020cf90f9bdbb5197e8517eb055edcfea86e62fce3",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-qcgy1iq3/proof.hwp --document /tmp/hwp-audit-qcgy1iq3/document.txt --policy /tmp/hwp-audit-qcgy1iq3/policy.cbor --policy-pin a4436ffeb171598def203b020cf90f9bdbb5197e8517eb055edcfea86e62fce3",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-8zxig_im/proof.hwp --document /tmp/hwp-audit-8zxig_im/document.txt --policy /tmp/hwp-audit-8zxig_im/policy.cbor --policy-pin a4436ffeb171598def203b020cf90f9bdbb5197e8517eb055edcfea86e62fce3",
       "exit_code": 2,
       "result": {
         "author": "none",

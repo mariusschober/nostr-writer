@@ -7,7 +7,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
         "policy_pin_hex": "55b730e35a0cba76fab9e28087fb31534ec781fa89477bdd756e4e6ad08cef3b",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-tis9de5p/proof.hwp --document /tmp/hwp-audit-tis9de5p/document.txt --policy /tmp/hwp-audit-tis9de5p/policy.cbor --policy-pin 55b730e35a0cba76fab9e28087fb31534ec781fa89477bdd756e4e6ad08cef3b",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-svdhhfpj/proof.hwp --document /tmp/hwp-audit-svdhhfpj/document.txt --policy /tmp/hwp-audit-svdhhfpj/policy.cbor --policy-pin 55b730e35a0cba76fab9e28087fb31534ec781fa89477bdd756e4e6ad08cef3b",
       "exit_code": 0,
       "result": {
         "author": "none",
@@ -131,13 +131,79 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
     }
   },
   "computed_internal_result": "HUMAN-WRITTEN",
+  "control_honest_policy_capture_key_not_admitted": {
+    "javascript_attested": {
+      "call": {
+        "policy_pin_hex": "a3a82b3d3f7a7a6cf668a4b90ba5643f6b2817f3be4d6282f59130b7781187fb",
+        "verifier": "node protocol/v0/tools/verify_attested.mjs"
+      },
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-sib7mms7/proof.hwp --document /tmp/hwp-audit-sib7mms7/document.txt --policy /tmp/hwp-audit-sib7mms7/policy.cbor --policy-pin a3a82b3d3f7a7a6cf668a4b90ba5643f6b2817f3be4d6282f59130b7781187fb",
+      "exit_code": 1,
+      "result": {
+        "authorship_inference": null,
+        "outcome": "NOT PROVABLE",
+        "reason": "invalid",
+        "status": "NO-VALID-HWP"
+      },
+      "stderr_verbatim": "",
+      "stdout_verbatim": "{\n  \"status\": \"NO-VALID-HWP\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"reason\": \"invalid\",\n  \"authorship_inference\": null\n}\n"
+    },
+    "python": {
+      "call": {
+        "policy_pin_hex": "a3a82b3d3f7a7a6cf668a4b90ba5643f6b2817f3be4d6282f59130b7781187fb",
+        "recompute": false,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "authorship_inference": null,
+        "outcome": "NOT PROVABLE",
+        "protocol": "hwp/0",
+        "reason": "capture-authority",
+        "status": "NO-VALID-HWP"
+      },
+      "verbatim_repr": "{'protocol': 'hwp/0', 'status': 'NO-VALID-HWP', 'outcome': 'NOT PROVABLE', 'reason': 'capture-authority', 'authorship_inference': None}"
+    }
+  },
+  "control_honest_policy_release_not_admitted": {
+    "javascript_attested": {
+      "call": {
+        "policy_pin_hex": "574879433cafc299d464afab07d33908ef95e65b32f4efe2dab8d2dfbae66539",
+        "verifier": "node protocol/v0/tools/verify_attested.mjs"
+      },
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-h_sijrfp/proof.hwp --document /tmp/hwp-audit-h_sijrfp/document.txt --policy /tmp/hwp-audit-h_sijrfp/policy.cbor --policy-pin 574879433cafc299d464afab07d33908ef95e65b32f4efe2dab8d2dfbae66539",
+      "exit_code": 1,
+      "result": {
+        "authorship_inference": null,
+        "outcome": "NOT PROVABLE",
+        "reason": "invalid",
+        "status": "NO-VALID-HWP"
+      },
+      "stderr_verbatim": "",
+      "stdout_verbatim": "{\n  \"status\": \"NO-VALID-HWP\",\n  \"outcome\": \"NOT PROVABLE\",\n  \"reason\": \"invalid\",\n  \"authorship_inference\": null\n}\n"
+    },
+    "python": {
+      "call": {
+        "policy_pin_hex": "574879433cafc299d464afab07d33908ef95e65b32f4efe2dab8d2dfbae66539",
+        "recompute": false,
+        "verifier": "python protocol/v0 hwp0.protocol.verify"
+      },
+      "result": {
+        "authorship_inference": null,
+        "outcome": "NOT PROVABLE",
+        "protocol": "hwp/0",
+        "reason": "release-not-authorized",
+        "status": "NO-VALID-HWP"
+      },
+      "verbatim_repr": "{'protocol': 'hwp/0', 'status': 'NO-VALID-HWP', 'outcome': 'NOT PROVABLE', 'reason': 'release-not-authorized', 'authorship_inference': None}"
+    }
+  },
   "control_same_proof_conformance_policy": {
     "javascript_attested": {
       "call": {
         "policy_pin_hex": "2411140eb480499b9212298e75ca0dd4cb699274c9f05056026940881c52c643",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-2ooinmej/proof.hwp --document /tmp/hwp-audit-2ooinmej/document.txt --policy /tmp/hwp-audit-2ooinmej/policy.cbor --policy-pin 2411140eb480499b9212298e75ca0dd4cb699274c9f05056026940881c52c643",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-p9f6yd1d/proof.hwp --document /tmp/hwp-audit-p9f6yd1d/document.txt --policy /tmp/hwp-audit-p9f6yd1d/policy.cbor --policy-pin 2411140eb480499b9212298e75ca0dd4cb699274c9f05056026940881c52c643",
       "exit_code": 2,
       "result": {
         "author": "none",
@@ -216,7 +282,7 @@ $ cd /home/agent/work/nostr-writer && PYTHONDONTWRITEBYTECODE=1 /home/agent/work
         "policy_pin_hex": "0000000000000000000000000000000000000000000000000000000000000000",
         "verifier": "node protocol/v0/tools/verify_attested.mjs"
       },
-      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-aw9pmdv2/proof.hwp --document /tmp/hwp-audit-aw9pmdv2/document.txt --policy /tmp/hwp-audit-aw9pmdv2/policy.cbor --policy-pin 0000000000000000000000000000000000000000000000000000000000000000",
+      "command": "node /home/agent/work/nostr-writer/protocol/v0/tools/verify_attested.mjs /tmp/hwp-audit-9u_nemzz/proof.hwp --document /tmp/hwp-audit-9u_nemzz/document.txt --policy /tmp/hwp-audit-9u_nemzz/policy.cbor --policy-pin 0000000000000000000000000000000000000000000000000000000000000000",
       "exit_code": 1,
       "result": {
         "authorship_inference": null,

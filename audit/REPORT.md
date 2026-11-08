@@ -71,6 +71,8 @@ The internal result is recorded as `computed_internal_result` in each evidence f
 | 9 | Self-issued production policy over a fabricated empirical release | **No** — the policy pin is the trust anchor; the verifier cannot establish its provenance | `HUMAN-WRITTEN` | **`VALID-HWP / HUMAN-WRITTEN`** (attested and recomputed) | **`VALID-HWP / HUMAN-WRITTEN`** | [`16-self-issued-production.txt`](evidence/16-self-issued-production.txt) |
 | 9a | Control: identical proof under a conformance-purpose policy | N/A | `HUMAN-WRITTEN` | `TEST-ONLY / NOT PROVABLE` | `TEST-ONLY / NOT PROVABLE` | [`16-self-issued-production.txt`](evidence/16-self-issued-production.txt) |
 | 9b | Control: identical proof, independently wrong pin | N/A | N/A | `NO-VALID-HWP / NOT PROVABLE` (`external-policy-pin`) | `NO-VALID-HWP / NOT PROVABLE` (`external-policy-pin`) | [`16-self-issued-production.txt`](evidence/16-self-issued-production.txt) |
+| 9c | Control: honest policy, fabricated release not admitted | N/A | N/A | `NO-VALID-HWP / NOT PROVABLE` (`release-not-authorized`) | `NO-VALID-HWP / NOT PROVABLE` (`invalid`) | [`16-self-issued-production.txt`](evidence/16-self-issued-production.txt) |
+| 9d | Control: honest policy, attacker capture key not admitted | N/A | N/A | `NO-VALID-HWP / NOT PROVABLE` (`capture-authority`) | `NO-VALID-HWP / NOT PROVABLE` (`invalid`) | [`16-self-issued-production.txt`](evidence/16-self-issued-production.txt) |
 
 ### 3.1 What each row actually demonstrates
 
@@ -239,9 +241,12 @@ record/model/fixture” row says: “A relying party deliberately trusting disho
 still has a dishonest trust premise” (`protocol/v0/docs/THREAT-MODEL.md`).
 
 Against a relying party who independently pins an honest production policy that admits only
-curator-approved releases and keys, the fabricated release fails at `release-not-authorized`
-or `capture-authority`. The attack succeeds only when the verifier is configured to trust
-the attacker's policy. That is why the result is evidence about **what a policy-relative
+curator-approved releases and keys, the fabricated proof fails at `release-not-authorized`
+(when the release is not admitted) or `capture-authority` (when the attacker's capture key
+is not admitted). Both controls are in
+[`16-self-issued-production.txt`](evidence/16-self-issued-production.txt); the JavaScript V
+verifier returns the same `NO-VALID-HWP` status with its generic `invalid` reason. The attack
+succeeds only when the verifier is configured to trust the attacker's policy. That is why the result is evidence about **what a policy-relative
 label means**, not evidence that HWP's cryptography is broken.
 
 ## 7. Reproduction

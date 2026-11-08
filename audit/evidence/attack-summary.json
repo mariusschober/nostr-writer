@@ -341,6 +341,46 @@
           "test_conformance": false
         },
         {
+          "claim": null,
+          "execution_checked": null,
+          "outcome": "NOT PROVABLE",
+          "path": "control_honest_policy_capture_key_not_admitted.javascript_attested.result",
+          "reason": "invalid",
+          "scope": null,
+          "status": "NO-VALID-HWP",
+          "test_conformance": null
+        },
+        {
+          "claim": null,
+          "execution_checked": null,
+          "outcome": "NOT PROVABLE",
+          "path": "control_honest_policy_capture_key_not_admitted.python.result",
+          "reason": "capture-authority",
+          "scope": null,
+          "status": "NO-VALID-HWP",
+          "test_conformance": null
+        },
+        {
+          "claim": null,
+          "execution_checked": null,
+          "outcome": "NOT PROVABLE",
+          "path": "control_honest_policy_release_not_admitted.javascript_attested.result",
+          "reason": "invalid",
+          "scope": null,
+          "status": "NO-VALID-HWP",
+          "test_conformance": null
+        },
+        {
+          "claim": null,
+          "execution_checked": null,
+          "outcome": "NOT PROVABLE",
+          "path": "control_honest_policy_release_not_admitted.python.result",
+          "reason": "release-not-authorized",
+          "scope": null,
+          "status": "NO-VALID-HWP",
+          "test_conformance": null
+        },
+        {
           "claim": "fresh-composition",
           "execution_checked": "attestation",
           "outcome": "NOT PROVABLE",
