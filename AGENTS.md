@@ -4,11 +4,11 @@ Read IMPLEMENTATION.md, RECONCILIATION.md, product/mac/RECOVERY-NOTES.md and the
 
 ## Authorities
 
-- product/mac/ contains the product contract. Execute PLAN 01 then 02–08 with predecessor evidence.
+- product/mac/ contains the product contract. Read IMPLEMENTATION.md and the stage ledgers before resuming. Stages 01–02 are accepted; Stage 03 remains blocked. Execute subsequent plans only with accepted predecessor evidence.
 - protocol/v0/ is the immutable joined HWP authority: preserve all 69 files byte-for-byte, including historical results and publication notes. Never rebuild manifests to hide mismatches. New semantics require a new version.
 - A1, algorithm/v0_2, algorithm/v0_3 and proof/hwp-c-1 are historical references; do not mix their import paths or substitute their callbacks for joined v0.
 - history/ preserves evidence, not current instructions. Never silently rewrite originals.
-- WriterFoundation source/tests are missing. Stage 01 creates them from contracts; the historical 47-test claim cannot be applied to new code. Keep all 60 acceptance requirements.
+- WriterFoundation source/tests were implemented in Stage 01; the original recovered source was missing. The historical 47-test claim cannot be applied to the new code. Keep all 60 acceptance requirements.
 
 ## Execution and evidence
 

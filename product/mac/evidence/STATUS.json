@@ -1,134 +1,134 @@
 {
-  "date": "2026-09-17",
+  "date": "2026-09-30",
   "scope": "application-implementation",
-  "status": "NOT STARTED",
-  "note": "Recovery/reference checks do not accept any application stage. No native app exists in this checkout.",
+  "status": "BLOCKED",
+  "note": "Summary refreshed from committed stage ledgers at 51d0ab6cd3ae67d4504f06d16a935aa50de7b851. Stages 01\u201302 are accepted; Stage 03 is unaccepted with M19 BLOCKED on owner dictation. No checks or native observations were rerun by this summary refresh. Stages 04\u201308 remain NOT MEASURED.",
   "criteria": [
     {
       "id": "M01",
       "stage": "01",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-01.json#M01"
     },
     {
       "id": "M02",
       "stage": "01",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-01.json#M02"
     },
     {
       "id": "M03",
       "stage": "01",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-01.json#M03"
     },
     {
       "id": "M04",
       "stage": "01",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-01.json#M04"
     },
     {
       "id": "M05",
       "stage": "01",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-01.json#M05"
     },
     {
       "id": "M06",
       "stage": "01",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-01.json#M06"
     },
     {
       "id": "M07",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M07"
     },
     {
       "id": "M08",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M08"
     },
     {
       "id": "M09",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M09"
     },
     {
       "id": "M10",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M10"
     },
     {
       "id": "M11",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M11"
     },
     {
       "id": "M12",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M12"
     },
     {
       "id": "M13",
       "stage": "02",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-02.json#M13"
     },
     {
       "id": "M14",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M14"
     },
     {
       "id": "M15",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M15"
     },
     {
       "id": "M16",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M16"
     },
     {
       "id": "M17",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M17"
     },
     {
       "id": "M18",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M18"
     },
     {
       "id": "M19",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "BLOCKED",
+      "evidence": "STAGE-03.json#M19"
     },
     {
       "id": "M20",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M20"
     },
     {
       "id": "M21",
       "stage": "03",
-      "status": "NOT MEASURED",
-      "evidence": null
+      "status": "PASS",
+      "evidence": "STAGE-03.json#M21"
     },
     {
       "id": "M22",
@@ -363,6 +363,27 @@
       "stage": "08",
       "status": "NOT MEASURED",
       "evidence": null
+    }
+  ],
+  "summary_source_commit": "51d0ab6cd3ae67d4504f06d16a935aa50de7b851",
+  "stages": [
+    {
+      "stage": "01",
+      "status": "PASS",
+      "accepted": true,
+      "evidence": "STAGE-01.json"
+    },
+    {
+      "stage": "02",
+      "status": "PASS",
+      "accepted": true,
+      "evidence": "STAGE-02.json"
+    },
+    {
+      "stage": "03",
+      "status": "BLOCKED",
+      "accepted": false,
+      "evidence": "STAGE-03.json"
     }
   ]
 }

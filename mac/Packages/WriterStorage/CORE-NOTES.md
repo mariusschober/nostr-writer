@@ -1,7 +1,10 @@
-# WriterStorage source-recovery core
+# WriterStorage source-recovery core — preparation notes
 
-Preparatory code on the local, unmerged `preparation/native-cores` branch.
-This is not accepted Stage 02 and is not wired into the app. Initial implementation
+These notes describe the original preparation branch and its checks. That core was
+subsequently integrated into the app in accepted Stage 02; Stage 03 added the consented
+history journal. Use [Stage 02](../../../product/mac/evidence/STAGE-02.md) and
+[Stage 03](../../../product/mac/evidence/STAGE-03.md) for later implementation evidence.
+The preparation checks below are not stage acceptance. Initial implementation
 was delegated to DeepSeek V4.1 Flash in an isolated temporary package; Astra reviewed
 and corrected the architecture, recovery races, backup safety and bounded retention.
 

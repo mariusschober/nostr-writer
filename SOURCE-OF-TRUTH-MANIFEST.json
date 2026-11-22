@@ -15,21 +15,21 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2598,
-      "sha256": "b48fbd32f1d02d6250c66093c47abc79560f5f6af32f279fc03548a09a6305e5",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 2751,
+      "sha256": "3816ddfca282d9c14021881edd4397859ab6367e1f5cf25c40d1ef97cd309e12",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "IMPLEMENTATION.md",
-      "bytes": 2083,
-      "sha256": "31b4d3c619d43a5b58df2f7a1d9dd9257b551d8e373579832b97a54d61081306",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 2575,
+      "sha256": "fd1641e8a38ac8e44ea12d57c0145f22bce5eae2d1eca4081477bf049a21a151",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "README.md",
-      "bytes": 2793,
-      "sha256": "244e055d18a175624af5bcaddb3f1300ac9f2aafe1ca513a4eaf504df499b041",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 3246,
+      "sha256": "365eab2ea6a2ffc1ead5c238b4e64278d7e63cc73d862e307a2b8c9c110a8684",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "RECONCILIATION.md",
@@ -579,9 +579,9 @@
     },
     {
       "path": "docs/VERIFICATION.md",
-      "bytes": 3045,
-      "sha256": "d5caab41811772880d8163dfbd1fe9828698e3e14aa2b5a6693f208bfe333fc8",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 3154,
+      "sha256": "735d96b060805194a5d265bbb906f7f000f28176ebdc1c77220236d498a46b61",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "docs/recovery/HWP-RECOVERY-REPORT.md",
@@ -597,9 +597,9 @@
     },
     {
       "path": "docs/recovery/MISSING-ARTIFACTS.md",
-      "bytes": 1725,
-      "sha256": "d56a76649c5e0d0c5826770891e83cb444ac1af4f47d96e4d4930b8604124482",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 2141,
+      "sha256": "41122a41a2870e9e72c485cca9e50cd511db8cf5dbef977b2512c01548887315",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "docs/recovery/RESULTS.json",
@@ -1113,15 +1113,15 @@
     },
     {
       "path": "mac/Packages/WriterFoundation/README.md",
-      "bytes": 982,
-      "sha256": "dbdb293536c2e50b5e536c500c628833d808cdec275d05aeb155a420ed25bb0d",
-      "provenance": "Recovery-adjusted attachment; exact original retained: Chat 6/README(5).md"
+      "bytes": 1056,
+      "sha256": "148a32f532a5f747ba397d3d6d38846185e1af6deb207c3847ddd1518a6c749d",
+      "provenance": "Recovery-adjusted attachment; exact original retained: Chat 6/README(5).md; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "mac/README.md",
-      "bytes": 305,
-      "sha256": "936673bdca4a3328868c720f41f2ef25f38e971c1abfabc5394e18e204d458de",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 721,
+      "sha256": "985832ddc147b0d126c23a3a61a81bbce68f9c18f81fea972be7a7c6ffb2cd80",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "product/mac/ARCHITECTURE.md",
@@ -1155,9 +1155,9 @@
     },
     {
       "path": "product/mac/INPUTS.md",
-      "bytes": 1804,
-      "sha256": "74cacd974dddb757cea5cf274c827971968efbd8e4d2b9db3b4b2d17eb962c37",
-      "provenance": "Recovery-adjusted attachment; exact original retained: Chat 6/INPUTS.md"
+      "bytes": 1889,
+      "sha256": "f234c2bdd0b20e03a6fa8d828d3875535aa27054e03f72583bcc8472de928e12",
+      "provenance": "Recovery-adjusted attachment; exact original retained: Chat 6/INPUTS.md; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "product/mac/MVP-COMPLETE.md",
@@ -1191,15 +1191,15 @@
     },
     {
       "path": "product/mac/README.md",
-      "bytes": 4911,
-      "sha256": "09db4723e4608e656b3c9d9b7ed91536dba4096f041f67fe68e20b403525c85a",
-      "provenance": "Recovery-adjusted attachment; exact original retained: Chat 6/README(4).md"
+      "bytes": 5004,
+      "sha256": "ae5a64cb54158ff78c93f74f7477c619978c98293d511a6186b81e31c42340bd",
+      "provenance": "Recovery-adjusted attachment; exact original retained: Chat 6/README(4).md; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "product/mac/RECOVERY-NOTES.md",
-      "bytes": 1859,
-      "sha256": "667d77087f8860c22675ab465d781b6308ff9d097f91151a9c4d4c57723350a8",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 2192,
+      "sha256": "e7f6240f43664703a5ebaf5f8068960b67cb9951fcbeb7b85d0d102ba7cd505b",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "product/mac/REPOSITORY-AUDIT.md",
@@ -1239,15 +1239,15 @@
     },
     {
       "path": "product/mac/evidence/README.md",
-      "bytes": 526,
-      "sha256": "1f6254c1a4cfab35dd5d65de44fe9b575262870b152daf72f15b3aa514c86c06",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 817,
+      "sha256": "1be3777b2ffa4fde74394c9eee1bfc8355a33f3c65c674a6ee7a8121944221ed",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "product/mac/evidence/STATUS.json",
-      "bytes": 6710,
-      "sha256": "7da8607a30e8b73e660be701d1bd9c46c471da98de41115bfdd0a7d2b88f2cc7",
-      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17"
+      "bytes": 7487,
+      "sha256": "dc1c0dfe6260f8772d95c9604b7c40dbe7738d8fa44936d12d027e658d90fef8",
+      "provenance": "Recovery-authored documentation, index, tooling or status; 2026-09-17; active guidance refreshed during authorized cleanup, 2026-09-30; original recovery history unchanged"
     },
     {
       "path": "product/mac/plans/PLAN-01-FOUNDATION.md",

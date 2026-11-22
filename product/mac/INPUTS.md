@@ -23,4 +23,4 @@ Continue with docs/VERIFICATION.md. Python/Node are development oracles, not rel
 
 Pinned NostrShot Package.swift was retrieved and confirms P256K/swift-secp256k1 0.23.2 and KeyboardShortcuts 3.0.1. Original recorded revisions are e70a10e036a55fffea31568f0af92d69b6d449cd and 49c3fc04ea827f816df67843bfcc57286b47ff06; Stage 01 checks Package.resolved before adoption. Verify and lock other named dependencies then.
 
-Foundation source/tests are missing. Read RECOVERY-NOTES.md and implement in Stage 01; historical preparation passes are not new implementation evidence.
+The original Foundation source/tests were missing at recovery. Stage 01 implemented a new package from the contracts; use its stage evidence rather than the historical preparation test claims. Current continuation is in IMPLEMENTATION.md.

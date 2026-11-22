@@ -1,12 +1,14 @@
 # Nostr Writer
 
-A native Mac writing application with optional Nostr publishing and experimental Human Writing Protocol (HWP) integration. **Application implementation has not started.** This repository contains the recovered research, executable reference protocols, and Mac implementation contract.
+A native Mac writing application in development, with exact source preservation, local document recovery, a Markdown editor and consented local writing history. Nostr publishing and native Human Writing Protocol (HWP) integration are later stages.
+
+The recorded stage ledgers accept Stages 01 and 02. **Stage 03 remains blocked and unaccepted**, with real on-device dictation still awaiting owner input. See [current implementation status](IMPLEMENTATION.md) and [Stage 03 evidence](product/mac/evidence/STAGE-03.md). This is not a completed or released app.
 
 ## Start here
 
 1. Read [AGENTS.md](AGENTS.md) and [IMPLEMENTATION.md](IMPLEMENTATION.md).
-2. Read the [Mac handoff](product/mac/README.md) and its recovery notice.
-3. Execute [Stage 01](product/mac/plans/PLAN-01-FOUNDATION.md) using [START 01](product/mac/starts/START-01.md), then the remaining stages in order.
+2. Open the [Mac workspace](mac/README.md) and [development guide](mac/DEVELOPMENT.md).
+3. Use the [product contract and stage sequence](product/mac/README.md) with the [recorded acceptance status](product/mac/evidence/STATUS.json). Finish the outstanding Stage 03 observations before Stage 04.
 
 A clone contains the full 69-file frozen protocol, including its 16 MB interoperability vector. No ChatGPT attachment or materialization job is required.
 
@@ -21,7 +23,8 @@ These are read-only standard-library checks. See [test instructions](docs/VERIFI
 
 | Path | Meaning |
 |---|---|
-| [product/mac](product/mac/README.md) | Product/UX/architecture, eight plans and starts, 60 mandatory criteria |
+| [mac](mac/README.md) | Native Xcode app, Swift packages, tests and build scripts |
+| [product/mac](product/mac/README.md) | Product contracts, eight plans and starts, 60 mandatory criteria and stage evidence |
 | [protocol/v0](protocol/v0/README.md) | **Authoritative joined HWP v0.0.0**, immutable original distribution |
 | [algorithm/v0_3](algorithm/v0_3/README.md) | Complete HWP-A 0.3 baseline and adversarial audit |
 | [algorithm/v0_2](algorithm/v0_2/README.md) | Earlier HWP-A 0.2, isolated from other versions |
@@ -31,7 +34,7 @@ These are read-only standard-library checks. See [test instructions](docs/VERIFI
 | [history/astra-pro](history/astra-pro/README.md) | All supplied replies, exact files/ZIPs, mappings and hashes |
 | [RECONCILIATION.md](RECONCILIATION.md) | Published/missing/recovered status and remaining gaps |
 
-Original WriterFoundation source/tests were **not supplied or recoverable from the committed corrupt transport**. Stage 01 implements these contracts. The archived 47-pass Swift claim is not evidence for code in this checkout. [Gap register](docs/recovery/MISSING-ARTIFACTS.md).
+Original WriterFoundation source/tests were **not supplied or recoverable from the committed corrupt transport**. Stage 01 implemented a new package from the contracts; its evidence is separate from the archived 47-pass claim. [Recovery gap register](docs/recovery/MISSING-ARTIFACTS.md).
 
 ## Claim boundaries
 

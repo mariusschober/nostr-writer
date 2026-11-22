@@ -1,6 +1,8 @@
 # Missing-artifact register
 
-All supplied files are recovered. These claimed/referenced artifacts were absent:
+All supplied files are recovered. This register records what was absent at the 17 September 2026 recovery, not current implementation status. WriterFoundation and the native document/editor app were subsequently implemented; their evidence is in the [stage ledgers](../../product/mac/evidence/README.md). The missing original source and historical test claims remain distinct from that new code.
+
+These claimed/referenced artifacts were absent at recovery:
 
 | Artifact | Disposition | Owner |
 |---|---|---|
@@ -13,4 +15,4 @@ All supplied files are recovered. These claimed/referenced artifacts were absent
 | Full original chats/tool traces | Only six reply sections supplied | Preserve compilation, do not invent omitted context |
 | Unreachable upload objects | No supplied blob IDs for missing Swift code; incomplete inventory hashes are not source bytes | Do not claim orphaned-object recovery |
 
-No gap permits weakening acceptance, changing the freeze or inventing a test pass. Native app, provider, export, distribution and empirical validation remain future work rather than missing historical evidence.
+No gap permits weakening acceptance, changing the freeze or inventing a test pass. Later implementation cannot recover lost original evidence. Export, distribution and empirical validation remain governed by their own outstanding stages and approvals.

@@ -1,19 +1,26 @@
 # Current implementation handoff
 
-Recovery date: 17 September 2026. Ready for **Stage 01 implementation**, not a claim that a Mac app or empirical certification system exists.
+Updated 30 September 2026 from the committed stage ledgers at `51d0ab6cd3ae67d4504f06d16a935aa50de7b851`. This update summarizes recorded evidence; it does not add a new app acceptance result.
 
-The complete frozen joined protocol and earlier packages are in Git. Product/UX/storage/HWP/export/Nostr/focus/security contracts, eight plans/starts, interfaces and all 60 mandatory criteria are recovered. Every supplied file and all six supplied reply sections are preserved with provenance.
+| Stage | Recorded state | Evidence |
+|---|---|---|
+| 01 — Foundation | Accepted; M01–M06 PASS | [Stage 01](product/mac/evidence/STAGE-01.md) |
+| 02 — Documents | Accepted; M07–M13 PASS | [Stage 02](product/mac/evidence/STAGE-02.md) |
+| 03 — Editor | BLOCKED, unaccepted; M14–M18/M20–M21 PASS, M19 BLOCKED | [Stage 03](product/mac/evidence/STAGE-03.md) |
+| 04–08 | Not implemented or accepted | [Stage sequence](product/mac/README.md) |
 
-## Next task
+## Resume point
 
-Use [START 01](product/mac/starts/START-01.md) to execute [PLAN 01](product/mac/plans/PLAN-01-FOUNDATION.md). Verify repository inputs, create the native document-app foundation and implement missing WriterFoundation helpers from recovered contracts. This is new implementation; neither the original source nor its 47-test suite survived. Do not chase ChatGPT links or recreate the missing transport: all frozen HWP files are directly committed.
+Finish the outstanding Stage 03 owner observations against a rebuilt, identified candidate. M19 requires the owner to answer the app's microphone and speech-recognition prompts and supply real spoken audio. The [Stage 03 ledger](product/mac/evidence/STAGE-03.json) also records residual native observations; preserve those limitations. Stage 04 requires accepted Stage 03 evidence.
 
-Recovery host: macOS 26.6.2 (25G83), Xcode 26.6 (17F113), Swift 6.3.3, arm64. These are environment facts, not build evidence. The historical handoff selects Xcode 27/Swift 6.4; Stage 01 must resolve and record a supported toolchain. Recovery did not upgrade Xcode.
+The 30 September cleanup removed generated builds, dependency checkouts, local Python environment and Xcode user state from the project. The recorded candidate hashes and observations remain historical evidence; rebuild before further device verification. No signing identity, user document, private app store or Keychain item was changed.
 
-## Acceptance
+The native app, WriterFoundation and WriterStorage source/tests exist under [mac](mac/README.md). Use the consolidated [development guide](mac/DEVELOPMENT.md). Do not repeat completed Stage 01 work because an archived recovery document says the original Foundation source was missing.
 
-Keep [M01–M60](product/mac/contracts/acceptance.json) unchanged. [Current status](product/mac/evidence/STATUS.json) marks all application criteria NOT MEASURED pending actual stage evidence. Recovery conformance tests do not validate AppKit, providers, Word/Pages, focus restrictions or notarization.
+## Authorities and checks
 
-Sequence: Foundation → Documents → Editor → HWP → Export → Nostr → Focus → Release. App implementation may proceed while empirical HWP work remains unapproved; an agent cannot manufacture approval to finish it.
+Keep [M01–M60](product/mac/contracts/acceptance.json) unchanged. [STATUS.json](product/mac/evidence/STATUS.json) summarizes the stage ledgers; the individual reports retain the source commits, checks, observations and blockers.
 
-Read [RECOVERY-NOTES](product/mac/RECOVERY-NOTES.md) for input corrections, missing Foundation code, historical evidence labels and replacement bibliography. Stage 05 creates the missing export fixture. New preparation checks verify recovery; they are not the lost ten-test suite. [Full gap register](docs/recovery/MISSING-ARTIFACTS.md).
+Read [RECOVERY-NOTES](product/mac/RECOVERY-NOTES.md) and [RECONCILIATION.md](RECONCILIATION.md) for historical input corrections and provenance. The complete 69-file joined HWP protocol is directly committed and immutable; production approvals remain empty. Recovery checks do not accept an application stage.
+
+Run `python3 tools/check_preparation.py` and `python3 tools/bootstrap_protocol.py` for repository integrity. [Verification instructions](docs/VERIFICATION.md) describe additional checks when relevant to the assigned work. Cleanup does not authorize resuming implementation or publishing anything.

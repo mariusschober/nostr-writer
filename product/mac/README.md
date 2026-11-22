@@ -2,9 +2,9 @@
 
 > Recovered historical preparation; read the [current recovery notice](RECOVERY-NOTES.md) before relying on source availability or test claims.
 
-Prepared 2026-09-16. This directory is the product contract and coding-agent execution sequence, not a completed Mac application. The frozen Human Writing Protocol is an upstream constraint, not a claim of scientific validation.
+Contracts prepared 2026-09-16; entry guidance updated 2026-09-30. This directory defines the product and stage sequence. The [stage ledgers](evidence/README.md) record accepted Stages 01–02 and blocked, unaccepted Stage 03. The app is not complete. The frozen Human Writing Protocol is an upstream constraint, not a claim of scientific validation.
 
-**Start with PLAN 01, then execute 02–08 in order.** Each stage owns implementation and verification, not another round of planning. Give a coding agent its matching file in `starts/`; all detailed instructions are in `plans/`. Do not run adjacent stages against the same mutable branch in parallel. Independent tests or assets may be delegated within a stage under its owner.
+**Resume from [IMPLEMENTATION.md](../../IMPLEMENTATION.md), not from a completed predecessor plan.** Keep the sequence 01–08 and require accepted predecessor evidence. The plans and short starts below retain their contracts for each assigned stage. Do not run adjacent stages against the same mutable branch in parallel. Independent work may be delegated within a stage under its owner.
 
 | Stage | Complete implementation outcome | Detailed prompt | Short launch prompt |
 |---|---|---|---|
@@ -27,7 +27,7 @@ There is one definition: every mandatory row in `contracts/acceptance.json` pass
 
 User product requirements govern the product; frozen HWP governs HWP meaning. This handoff resolves their interaction without weakening either. A PLAN cannot silently supersede HWP. If an implementation reveals a genuine normative contradiction, keep writing/data safe, reject the affected proof, record a narrowly scoped protocol defect and do not regenerate a freeze to hide it. Routine technical work is resolved by the stage owner; do not convert a stage into a request for product redesign.
 
-The approved source pins, frozen digest and hydration procedure are in `INPUTS.md`. Never mistake the legacy `algorithm/` or `proof/hwp-c-1/` directory for the joined v0 authority. `mac/Packages/WriterFoundation` currently describes missing app-contract kernels to implement in Stage 01. The original source/tests were not recovered; these kernels are not an HWP implementation, capture attestation or Mac UI.
+The approved source pins, frozen digest and verification procedure are in `INPUTS.md`. Never mistake the legacy `algorithm/` or `proof/hwp-c-1/` directory for the joined v0 authority. WriterFoundation was implemented in Stage 01 from recovered contracts because the original source/tests were unavailable. Its helpers are not an HWP implementation or capture attestation.
 
 ## Agent finish protocol
 

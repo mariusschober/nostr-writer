@@ -51,4 +51,4 @@ The legacy A0.3/C1 report generators and experiments/foundation_checks.py write 
 
 ## Evidence boundaries
 
-[Recovery results](recovery/VERIFICATION.md) list current execution and environment limitations. Archived RESULTS/PREPARATION record earlier runs only. No native app, Swift package, cloud provider, Word/Pages, signing or notarization acceptance was measured. Stage owners produce their own evidence under product/mac/evidence without inheriting these passes.
+[Recovery results](recovery/VERIFICATION.md) record the 17 September recovery checks and environment limitations. Archived RESULTS/PREPARATION record earlier runs only. Later native app, package, provider and development-signing observations belong to the [stage ledgers](../product/mac/evidence/README.md). Stages 01–02 are recorded as accepted; Stage 03 remains blocked. Recovery results do not establish export, release, notarization or empirical HWP acceptance.
